@@ -548,6 +548,55 @@ main{counter-reset:planche}
   text-transform:uppercase;font-weight:600}
 @media print{.chantier{display:none!important}}
 
+/* ---------- fiche pratique : la mission résumée, lisible sur tout écran ---------- */
+.fiche{margin:2.2rem 0 0;border-top:1px solid var(--vert)}
+.fiche>div{display:grid;grid-template-columns:minmax(8rem,13rem) 1fr;gap:.4rem 2rem;
+  padding:.9rem 0;border-bottom:1px solid var(--rule-fine)}
+.fiche dt{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gris);padding-top:.25rem}
+.fiche dd{margin:0;font-size:.97rem;color:var(--encre)}
+@media (max-width:640px){.fiche>div{grid-template-columns:1fr;gap:.2rem}}
+
+/* ---------- volet : bandeau à tiroir, révélé au clic (details natif) ---------- */
+.volet{border-bottom:0;padding:0}
+.volet>summary{display:block;cursor:pointer;list-style:none;position:relative}
+.volet>summary::-webkit-details-marker{display:none}
+.volet>summary::after{content:none}
+.volet>summary h2{margin-bottom:0}
+.volet__ouvrir{display:inline-block;margin-top:1.1rem;font-size:0;
+  border-bottom:1px solid var(--rule-or);padding-bottom:.25rem}
+.volet__ouvrir::before{content:"Déplier +";font-size:.64rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--or);font-family:var(--sans);font-weight:600}
+.volet[open] .volet__ouvrir::before{content:"Replier –"}
+.volet>summary:hover .volet__ouvrir::before{color:var(--vert)}
+.band--dark .volet>summary:hover .volet__ouvrir::before{color:var(--or-clair)}
+.volet__corps{margin-top:2.1rem}
+/* neutralise le style « réponse de FAQ » hérité de details p sur les volets */
+.volet__corps>p{font-size:inherit;color:inherit;margin-top:0}
+.volet__corps .humain p{font-size:inherit;color:inherit;margin-top:0}
+
+/* ---------- menu tiroir : navigation complète sur téléphone et tablette ---------- */
+.menu{display:none}
+.menu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;
+  gap:.55rem;color:var(--creme);font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:500;
+  border:1px solid rgba(247,244,236,.42);padding:.62rem 1.05rem}
+.menu>summary::-webkit-details-marker{display:none}
+.menu>summary::after{content:"≡";font-size:1.1rem;line-height:1}
+.menu[open]>summary::after{content:"×"}
+.menu__list{position:absolute;left:0;right:0;top:100%;z-index:60;
+  background:var(--vert-profond);border-top:1px solid var(--rule-or);
+  border-bottom:2px solid var(--or);display:grid;
+  padding:.6rem var(--gut) 1.2rem;max-height:calc(100vh - 8rem);overflow:auto}
+.menu__list a{color:var(--creme);text-decoration:none;padding:.9rem 0;font-size:.98rem;
+  border-bottom:1px solid rgba(247,244,236,.12)}
+.menu__list a:last-child{border-bottom:0}
+.menu__list a b{color:var(--or-clair);font-family:var(--mono);font-weight:500;
+  font-size:.82em;letter-spacing:.08em}
+@media (max-width:980px){.menu{display:block}}
+@media (max-width:640px){.masthead .nav{display:none}}
+@media print{.menu{display:none!important}}
+
 /* décalage d'ancre : les liens #section ne passent plus sous l'en-tête collant */
 :target,[id]{scroll-margin-top:5.5rem}
 

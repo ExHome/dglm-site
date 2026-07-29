@@ -130,7 +130,20 @@ SILO = ""            # site dédié : les prestations sont à la racine
 SILO_NOM = None
 
 NAV = "".join(
-    f'<a href="{SILO}/{s["slug"]}/">{s["sigle"]}</a>' for s in SERVICES)
+    f'<a href="{SILO}/{s["slug"]}/" title="{s["nom_court"]}">{s["sigle"]}</a>' for s in SERVICES)
+
+# Menu tiroir : navigation complète, lisible par un néophyte (sigle + intitulé
+# en clair), disponible sur tous les formats — téléphone, tablette, ordinateur.
+MENU = ('<a href="/">Accueil</a>'
+        + "".join(f'<a href="{SILO}/{s["slug"]}/"><b>{s["sigle"]}</b> — {s["nom_court"]}</a>'
+                  for s in SERVICES)
+        + '<a href="/diagnostics-copropriete/">Les diagnostics de copropriété</a>'
+        + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
+        + '<a href="/questions/">Questions fréquentes</a>'
+        + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
+        + '<a href="/equipe/">Notre équipe</a>'
+        + '<a href="/devis/">Demander un devis</a>'
+        + '<a href="/particuliers/">Particuliers — vente &amp; location</a>')
 
 
 OG = {"reperage-amiante-avant-travaux": "raat", "reperage-amiante-avant-demolition": "raad",
@@ -183,7 +196,9 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <a href="/diagnostics-copropriete/">Diagnostics copro</a>
 <a href="{SILO}/simulateur-obligations-copropriete/">Simulateur</a>
 <a href="/questions/">Questions</a>
-<a class="btn" href="/devis/">Demander un devis</a></nav></div></header>
+<a class="btn" href="/devis/">Demander un devis</a></nav>
+<details class="menu"><summary aria-label="Ouvrir le menu">Menu</summary>
+<nav class="menu__list" aria-label="Menu complet">{MENU}</nav></details></div></header>
 <div class="chantier" role="status"><div class="wrap"><span>Site en construction</span>
 — le contenu s'enrichit chaque jour, certaines rubriques sont encore en cours de rédaction.</div></div>
 <main id="contenu" tabindex="-1">"""
@@ -235,10 +250,31 @@ def cta(titre="Un chantier à cadrer ? Parlons-en aujourd'hui.",
         texte="Décrivez votre opération : nous vous rappelons dans la journée et vous "
               "adressons un devis chiffré sous deux heures ouvrées."):
     return f"""<section class="cta"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Demander un devis ouvrées</p>
+<p class="eyebrow eyebrow--pale">Demander un devis</p>
 <h2>{esc(titre)}</h2><p>{esc(texte)}</p>
 <div class="actions"><a class="btn btn--light" href="tel:{E['tel_raw']}">Appeler le {E['tel']}</a>
 <a class="btn btn--light" href="/devis/">Demander un devis</a></div></div></section>"""
+
+
+def volet(eyebrow, h2, corps, ouvert=False, pale=False, dark=False):
+    """Bandeau à tiroir : un titre visible, un contenu révélé au clic.
+    Progressive disclosure sans une ligne de JavaScript (<details> natif)."""
+    cls = "band" + (" band--pale" if pale else "") + (" band--dark" if dark else "")
+    o = " open" if ouvert else ""
+    eb = "eyebrow eyebrow--pale" if dark else "eyebrow"
+    return (f'<section class="{cls}"><div class="wrap">'
+            f'<details class="volet"{o}><summary>'
+            f'<span class="{eb}">{eyebrow}</span><h2>{h2}</h2>'
+            f'<span class="volet__ouvrir" aria-hidden="true">Déplier</span></summary>'
+            f'<div class="volet__corps">{corps}</div></details></div></section>')
+
+
+def fiche_html(fiche):
+    """Fiche pratique : la mission résumée en un tableau lisible en 30 secondes."""
+    if not fiche:
+        return ""
+    lignes = "".join(f"<div><dt>{esc(t)}</dt><dd>{esc(d)}</dd></div>" for t, d in fiche)
+    return f'<dl class="fiche">{lignes}</dl>'
 
 
 # ------------------------------------------------------------------ accueil
@@ -270,10 +306,9 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <h2>Quatre missions, une même exigence de précision.</h2>
 <div class="grid grid--2" style="margin-top:1.8rem">{cards}</div></div></section>
 
-<section class="band band--pale"><div class="wrap">
-<p class="eyebrow">Échéancier réglementaire</p>
-<h2>Le plan pluriannuel de travaux s'applique désormais à l'ensemble du parc.</h2>
-<p class="narrow">Issue de la loi Climat et Résilience, l'obligation est entrée en vigueur par
+{volet("Échéancier réglementaire",
+       "Le plan pluriannuel de travaux s'applique désormais à l'ensemble du parc.",
+       f'''<p class="narrow">Issue de la loi Climat et Résilience, l'obligation est entrée en vigueur par
 paliers successifs, déterminés par le nombre de lots. Le déploiement est aujourd'hui
 achevé : toute copropriété d'habitation de plus de quinze ans y est soumise.</p>
 <div class="frise">
@@ -282,13 +317,10 @@ achevé : toute copropriété d'habitation de plus de quinze ans y est soumise.<
 <div><b>1<sup>er</sup> janvier 2025</b><span>Copropriétés de 50 lots et moins</span></div>
 <div><b>Aujourd'hui</b><span>Toutes concernées au-delà de 15 ans d'ancienneté</span></div>
 </div>
-<p style="margin-top:1.8rem"><a class="btn" href="{SILO}/simulateur-obligations-copropriete/">Établir ma situation en six questions</a></p>
-</div></section>
-
-<section class="band"><div class="wrap">
-<p class="eyebrow">Interlocuteurs</p>
-<h2>Une méthode adaptée à chaque interlocuteur.</h2>
-<div class="grid grid--3" style="margin-top:1.8rem">
+<p style="margin-top:1.8rem"><a class="btn" href="{SILO}/simulateur-obligations-copropriete/">Établir ma situation en six questions</a></p>''',
+       pale=True)}
+{volet("Interlocuteurs", "Une méthode adaptée à chaque interlocuteur.",
+       f'''<div class="grid grid--3">
 <a class="card card--link" href="{SILO}/syndics-de-copropriete/"><h3>Syndics de copropriété</h3>
 <p>DTG, plan pluriannuel de travaux et repérage avant travaux sur parties communes,
 présentés en assemblée générale.</p><span class="more">Voir →</span></a>
@@ -298,22 +330,16 @@ marchés de travaux.</p><span class="more">Voir →</span></a>
 <a class="card card--link" href="{SILO}/entreprises-de-travaux/"><h3>Entreprises de travaux</h3>
 <p>Repérage avant travaux et avant démolition en amont de vos interventions, avec
 quantitatifs exploitables en chiffrage.</p><span class="more">Voir →</span></a>
-</div></div></section>
-
-<section class="band band--dark"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Couverture</p>
-<h2>De Bordeaux centre à la presqu'île d'Ambès</h2>
-<p class="narrow" style="color:rgba(248,245,238,.82)">Le parc bâti de la métropole n'a rien d'homogène. Une échoppe des Chartrons, une
+</div>''')}
+{volet("Couverture", "De Bordeaux centre à la presqu'île d'Ambès",
+       f'''<p class="narrow" style="color:rgba(248,245,238,.82)">Le parc bâti de la métropole n'a rien d'homogène. Une échoppe des Chartrons, une
 barre de Génicart et un hangar de Blanquefort n'appellent ni les mêmes sondages, ni le
 même plan de repérage, ni la même lecture.</p>
 <ul class="mesh">{"".join(f'<li><a href="{SILO}/{SERVICES[0]["slug"]}/{c["slug"]}/">{esc(c["nom"])}</a></li>' for c in COMMUNES)}</ul>
-<p style="margin-top:1.6rem"><a href="{SILO}/zones-d-intervention/">Toutes les zones d'intervention →</a></p>
-</div></section>
-
-<section class="band band--pale"><div class="wrap humain">
-<div>
-<p class="eyebrow">La maison</p>
-<h2>Une maison à taille humaine.</h2>
+<p style="margin-top:1.6rem"><a href="{SILO}/zones-d-intervention/">Toutes les zones d'intervention →</a></p>''',
+       dark=True)}
+{volet("La maison", "Une maison à taille humaine.",
+       f'''<div class="humain"><div>
 <p>DGLM Expertises a été fondée en 2020 par Aude de Gentile et Thibault Le Moine.
 Structure familiale et indépendante, elle le demeure par choix : celui de connaître les
 immeubles dont on nous confie la charge, et les personnes qui nous les confient.</p>
@@ -325,7 +351,8 @@ Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à v
 <p><a class="btn btn--ghost" href="/equipe/">Faire connaissance</a></p>
 </div>
 <ul class="trombine">{"".join(f'<li><picture><source srcset="/assets/equipe/{m["photo"]}.webp" type="image/webp"><img src="/assets/equipe/{m["photo"]}.png" alt="{esc(m["nom"])}" width="76" height="76" loading="lazy" decoding="async"></picture></li>' for m in EQUIPE)}</ul>
-</div></section>
+</div>''',
+       pale=True)}
 {cta()}"""
 
     shell(path="/", title="RAAT, RAAD, DTG, PPPT à Bordeaux — DGLM Expertises",
@@ -465,9 +492,7 @@ def page_service(s):
         for o in SERVICES if o["slug"] != s["slug"])
     mesh = "".join(f'<li><a href="{p}{c["slug"]}/">{esc(s["sigle"])} {esc(c["nom"])}</a></li>'
                    for c in COMMUNES)
-    schema_bloc = (f'<section class="band"><div class="wrap">'
-                   f'<p class="eyebrow">Repère visuel</p>'
-                   f'<h2>Comprendre en un schéma</h2>{schema}</div></section>'
+    schema_bloc = (volet("Repère visuel", "Comprendre en un schéma", schema, pale=True)
                    if schema else "")
 
     body = f"""{crumb_html(trail)}
@@ -478,31 +503,29 @@ def page_service(s):
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
 <a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
-<section class="band"><div class="wrap prose">
-<p style="font-size:1.12rem">{esc(s['intro'])}</p>
-<h2>Ce que dit la réglementation</h2>
-<dl class="legal">{cadre}</dl>
-<h2>Comment nous menons la mission</h2>
-<ol class="steps">{etapes}</ol>
-</div></div></section>
+<section class="band"><div class="wrap">
+<p class="eyebrow">La fiche pratique</p>
+<h2>L'essentiel en trente secondes</h2>
+<div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(s['intro'])}</p></div>
+{fiche_html(s.get('fiche'))}
+</div></section>
+{volet("Réglementation", "Ce que dit la réglementation",
+       f'<dl class="legal">{cadre}</dl>', pale=True)}
+{volet("Notre méthode", "Comment nous menons la mission",
+       f'<ol class="steps">{etapes}</ol>')}
 {schema_bloc}
-<section class="band band--pale"><div class="wrap">
+<section class="band"><div class="wrap">
 <p class="eyebrow">Questions fréquentes</p>
 <h2>{esc(s['sigle'])} : ce qu'on nous demande le plus souvent</h2>
 <div style="margin-top:1.5rem;max-width:74ch">{faq}</div></div></section>
-
-<section class="band"><div class="wrap">
-<p class="eyebrow">Par commune</p>
-<h2>{esc(s['nom_court'])} dans votre commune</h2>
-<p class="narrow">Le parc bâti change de nature d'une commune à l'autre. Chaque page
+{volet("Par commune", f"{esc(s['nom_court'])} dans votre commune",
+       f'''<p class="narrow">Le parc bâti change de nature d'une commune à l'autre. Chaque page
 détaille les typologies rencontrées localement et les points d'attention qui en découlent.</p>
 <ul class="mesh">{mesh}</ul>
-<p class="mesh--plain" style="margin-top:1.5rem">Également : {esc(", ".join(ZONE_ELARGIE))}.</p>
-</div></section>
-
-<section class="band band--pale"><div class="wrap">
-<p class="eyebrow">Nos autres missions</p><h2>Prestations liées</h2>
-<div class="grid grid--3" style="margin-top:1.6rem">{autres}</div></div></section>
+<p class="mesh--plain" style="margin-top:1.5rem">Également : {esc(", ".join(ZONE_ELARGIE))}.</p>''',
+       pale=True)}
+{volet("Nos autres missions", "Prestations liées",
+       f'<div class="grid grid--3">{autres}</div>')}
 {cta()}"""
 
     shell(path=p,
@@ -1152,18 +1175,17 @@ def page_hub_contenus(contenus):
         items = groupes.get(i)
         if not items:
             continue
-        pale = " band--pale" if shown % 2 else ""
         cartes = "".join(carte(c) for c in items)
-        sections += (f'<section class="band{pale}"><div class="wrap">'
-                     f'<p class="eyebrow">{esc(nom)} · {len(items)}</p><h2>{esc(sub)}</h2>'
-                     f'<div class="grid grid--2" style="margin-top:1.8rem">{cartes}</div></div></section>')
+        sections += volet(f"{esc(nom)} · {len(items)}", esc(sub),
+                          f'<div class="grid grid--2">{cartes}</div>',
+                          ouvert=(shown == 0), pale=bool(shown % 2))
         shown += 1
     reste = groupes.get(len(CATS))
     if reste:
         cartes = "".join(carte(c) for c in reste)
-        sections += (f'<section class="band"><div class="wrap">'
-                     f'<p class="eyebrow">Autres réponses</p><h2>Autres questions fréquentes</h2>'
-                     f'<div class="grid grid--2" style="margin-top:1.8rem">{cartes}</div></div></section>')
+        sections += volet(f"Autres réponses · {len(reste)}", "Autres questions fréquentes",
+                          f'<div class="grid grid--2">{cartes}</div>',
+                          pale=bool(shown % 2))
 
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
@@ -1352,7 +1374,7 @@ quartier de {esc(vnom)} pour lui-même.</p></div></section>
 <section class="band"><div class="wrap">
 <div class="grid grid--3">{cards}</div></div></section>
 {cta()}"""
-    shell(path=p, title=f"Diagnostics de copropriété à {vnom}, quartier par quartier",
+    shell(path=p, title=f"Diagnostics copropriété à {vnom}, par quartier",
           desc=desc_courte(f"Repérage amiante, DTG et plan pluriannuel de travaux dans les "
                            f"quartiers de {vnom} : "
                            + ", ".join(q["nom"] for q in quartiers[:5]) + "."),
@@ -1510,7 +1532,7 @@ juridique. Pour une situation précise, faites-la confirmer.</p>
 {cta()}"""
 
     shell(path=p,
-          title="Référentiel des normes des diagnostics immobiliers — DGLM Expertises",
+          title="Normes des diagnostics immobiliers — DGLM Expertises",
           desc=desc_courte("Norme AFNOR, arrêté et article de code applicables à chaque "
                            "diagnostic : NF X 46-020, NF C16-600, NF P45-500, NF P03-201, "
                            "NF X 46-030."),

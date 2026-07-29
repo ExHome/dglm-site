@@ -71,6 +71,16 @@ SERVICES = [
              "48 heures après réception des résultats d'analyse."),
         ],
         cible="maîtres d'ouvrage, syndics, bailleurs et entreprises générales",
+        fiche=[
+            ("Pour qui", "Maître d'ouvrage, syndic, bailleur ou propriétaire : "
+                         "celui qui commande les travaux."),
+            ("Quand", "Avant tous travaux dans un bâtiment dont le permis de "
+                      "construire est antérieur au 1er juillet 1997."),
+            ("Sur site", "Intervention généralement sous 72 heures."),
+            ("Rapport", "Remis sous 48 heures après les résultats d'analyse."),
+            ("Analyses", "Laboratoire accrédité COFRAC."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
+        ],
     ),
     dict(
         slug="reperage-amiante-avant-demolition",
@@ -130,6 +140,17 @@ SERVICES = [
              "il couvre les besoins d'un repérage avant travaux sur les mêmes zones."),
         ],
         cible="maîtres d'ouvrage, aménageurs, bailleurs sociaux et entreprises de démolition",
+        fiche=[
+            ("Pour qui", "Maître d'ouvrage, aménageur, bailleur social ou "
+                         "entreprise de démolition."),
+            ("Quand", "Avant la démolition totale ou partielle d'un bâtiment "
+                      "d'avant le 1er juillet 1997."),
+            ("Particularité", "Repérage exhaustif avec sondages destructifs : "
+                              "le bâtiment doit être libéré, réseaux consignés."),
+            ("Rapport", "Localisation, nature et quantités estimées par matériau."),
+            ("Analyses", "Laboratoire accrédité COFRAC."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
+        ],
     ),
     dict(
         slug="diagnostic-technique-global",
@@ -189,6 +210,17 @@ SERVICES = [
              "qui reste souveraine sur le vote des travaux et leur financement."),
         ],
         cible="syndics de copropriété, conseils syndicaux et bailleurs",
+        fiche=[
+            ("Pour qui", "Syndics, conseils syndicaux, bailleurs."),
+            ("Quand", "Mise en copropriété d'un immeuble de plus de 10 ans, "
+                      "procédure d'insalubrité, ou sur vote de l'assemblée générale."),
+            ("Durée", "Trois à six semaines, dont une à trois journées sur site."),
+            ("Livrable", "Rapport chiffré et hiérarchisé, présenté en assemblée "
+                         "générale."),
+            ("Bon à savoir", "Un DTG complet peut tenir lieu de plan pluriannuel "
+                             "de travaux : une mission au lieu de deux."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
+        ],
     ),
     dict(
         slug="plan-pluriannuel-de-travaux",
@@ -252,6 +284,17 @@ SERVICES = [
              "les travaux à engager et sur leurs modalités de financement."),
         ],
         cible="syndics de copropriété, conseils syndicaux et administrateurs de biens",
+        fiche=[
+            ("Pour qui", "Syndics, conseils syndicaux, administrateurs de biens."),
+            ("Quand", "Copropriété à destination totale ou partielle d'habitation "
+                      "de plus de 15 ans."),
+            ("Horizon", "Travaux programmés sur 10 ans ; plan actualisé tous les "
+                        "10 ans."),
+            ("Livrable", "Travaux hiérarchisés, chiffrage et échéancier, présentés "
+                         "en assemblée générale."),
+            ("Bon à savoir", "Le plan dimensionne la cotisation au fonds de travaux."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
+        ],
     ),
 ]
 

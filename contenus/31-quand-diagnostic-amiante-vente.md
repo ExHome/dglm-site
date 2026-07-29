@@ -1,10 +1,10 @@
 ---
 titre: Quand un diagnostic amiante est-il exigé pour vendre ?
 question: Quand le diagnostic amiante est-il obligatoire pour vendre un logement ?
-meta: L'état d'amiante est exigé à la vente pour tout bien dont le permis de construire est antérieur au 1er juillet 1997. Ce qu'il couvre, et pourquoi il ne dispense pas d'un repérage avant travaux.
+meta: L’état d’amiante est exigé à la vente pour tout bien d’avant juillet 1997. Ce qu’il couvre, et pourquoi il ne remplace pas un repérage avant travaux.
 publication: 2026-07-28
 tags: amiante | vente | obligations
-liens: /questions/diagnostics-obligatoires-vente/ | /questions/reperage-amiante-remplacement-fenetres/
+liens: /questions/diagnostics-obligatoires-vente/ | /questions/raat-remplacement-fenetres/
 sources: Code de la santé publique, articles R.1334-15 et R.1334-29-4 et suivants | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025
 ---
 
