@@ -1114,21 +1114,63 @@ def strip_tags(h):
 def page_hub_contenus(contenus):
     p = "/questions/"
     trail = [("Accueil", "/"), ("Questions fréquentes", p)]
-    cards = "".join(
-        f'<a class="card card--link" href="/questions/{c["slug"]}/">'
-        f'<span class="sigle">{esc(" · ".join(c["tags"][:2]))}</span>'
-        f'<h3>{esc(c["titre"])}</h3><p>{esc(c["meta"][:150])}</p>'
-        f'<span class="more">Lire →</span></a>' for c in contenus)
+    # Sous-catégories : chaque thème dans son propre bandeau (fin du fouillis).
+    CATS = [
+        ("Amiante", "Repérages avant travaux et démolition, DTA, listes A/B/C",
+         {"raat", "raad", "amiante", "dta", "dapp"}),
+        ("Copropriété, DTG & PPPT", "Diagnostic global, plan de travaux, gouvernance",
+         {"dtg", "pppt", "fonds de travaux", "syndic", "assemblée générale",
+          "carnet d'entretien", "petite copropriété", "copropriété"}),
+        ("Performance énergétique", "DPE, audit énergétique, passoires thermiques",
+         {"dpe", "énergie", "audit énergétique", "passoire thermique", "décence"}),
+        ("Vente & location", "Obligations, durées de validité, surfaces",
+         {"vente", "location", "ddt", "loi carrez", "loi boutin", "surface",
+          "meublé", "bailleur", "validité"}),
+        ("Plomb, gaz & risques", "CREP, termites, gaz, électricité, ERP, PEMD",
+         {"plomb", "crep", "gaz", "électricité", "termites", "parasitaire", "erp",
+          "incendie", "débroussaillement", "pemd", "déchets", "santé", "sécurité"}),
+        ("Repères & définitions", "Le vocabulaire du diagnostic, en clair",
+         {"glossaire", "définitions", "pédagogie"}),
+    ]
+
+    def carte(c):
+        return (f'<a class="card card--link" href="/questions/{c["slug"]}/">'
+                f'<span class="sigle">{esc(" · ".join(c["tags"][:2]))}</span>'
+                f'<h3>{esc(c["titre"])}</h3><p>{esc(c["meta"][:150])}</p>'
+                f'<span class="more">Lire →</span></a>')
+
+    groupes = {}
+    for c in contenus:
+        tset = {t.strip().lower() for t in c.get("tags", [])}
+        idx = next((i for i, (_, _, k) in enumerate(CATS) if tset & k), len(CATS))
+        groupes.setdefault(idx, []).append(c)
+
+    sections, shown = "", 0
+    for i, (nom, sub, _) in enumerate(CATS):
+        items = groupes.get(i)
+        if not items:
+            continue
+        pale = " band--pale" if shown % 2 else ""
+        cartes = "".join(carte(c) for c in items)
+        sections += (f'<section class="band{pale}"><div class="wrap">'
+                     f'<p class="eyebrow">{esc(nom)} · {len(items)}</p><h2>{esc(sub)}</h2>'
+                     f'<div class="grid grid--2" style="margin-top:1.8rem">{cartes}</div></div></section>')
+        shown += 1
+    reste = groupes.get(len(CATS))
+    if reste:
+        cartes = "".join(carte(c) for c in reste)
+        sections += (f'<section class="band"><div class="wrap">'
+                     f'<p class="eyebrow">Autres réponses</p><h2>Autres questions fréquentes</h2>'
+                     f'<div class="grid grid--2" style="margin-top:1.8rem">{cartes}</div></div></section>')
+
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
-<p class="eyebrow eyebrow--pale">{len(contenus)} réponses publiées</p>
+<p class="eyebrow eyebrow--pale">{len(contenus)} réponses · classées par thème</p>
 <h1>Ce que l'on nous demande</h1>
 <p class="lede">Chaque réponse est rédigée par les diagnostiqueurs qui conduisent les missions,
-datée, et revue à chaque évolution réglementaire. Quand nous n'avons pas de réponse assurée, nous préférons ne pas écrire la page.</p></div></section>
-<section class="band"><div class="wrap">
-<div class="grid grid--2">{cards}</div>
-<p class="maj">Dernière publication le {contenus[0]['date'].strftime('%d/%m/%Y') if contenus else '—'}</p>
-</div></section>
+datée, et revue à chaque évolution réglementaire. Quand nous n'avons pas de réponse assurée,
+nous préférons ne pas écrire la page.</p></div></section>
+{sections}
 {cta()}"""
     shell(path=p, title="Questions fréquentes sur les diagnostics de copropriété",
           desc=desc_courte("Réponses documentées sur le repérage amiante avant travaux, le "
