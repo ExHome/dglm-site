@@ -1,0 +1,242 @@
+[
+ {
+  "date": "2026-07-28",
+  "pages": 251,
+  "indexables": 250,
+  "mots_moyen": 698,
+  "mots_total": 174561,
+  "poids_moyen_ko": 16.8,
+  "poids_max_ko": 42.1,
+  "profondeur_max": 2,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 251,
+  "indexables": 250,
+  "mots_moyen": 698,
+  "mots_total": 174561,
+  "poids_moyen_ko": 16.8,
+  "poids_max_ko": 42.1,
+  "profondeur_max": 2,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 264,
+  "indexables": 262,
+  "mots_moyen": 692,
+  "mots_total": 181281,
+  "poids_moyen_ko": 17.1,
+  "poids_max_ko": 42.6,
+  "profondeur_max": 2,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 264,
+  "indexables": 262,
+  "mots_moyen": 692,
+  "mots_total": 181281,
+  "poids_moyen_ko": 17.1,
+  "poids_max_ko": 42.6,
+  "profondeur_max": 2,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 264,
+  "indexables": 262,
+  "mots_moyen": 692,
+  "mots_total": 181281,
+  "poids_moyen_ko": 17.1,
+  "poids_max_ko": 42.6,
+  "profondeur_max": 2,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 264,
+  "indexables": 262,
+  "mots_moyen": 689,
+  "mots_total": 180424,
+  "poids_moyen_ko": 17.2,
+  "poids_max_ko": 42.7,
+  "profondeur_max": 2,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 265,
+  "indexables": 263,
+  "mots_moyen": 689,
+  "mots_total": 181079,
+  "poids_moyen_ko": 17.2,
+  "poids_max_ko": 42.7,
+  "profondeur_max": 2,
+  "orphelines": [
+   "/contact/"
+  ],
+  "profondes": [],
+  "inatteignables": [
+   "/contact/"
+  ],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 265,
+  "indexables": 263,
+  "mots_moyen": 689,
+  "mots_total": 181079,
+  "poids_moyen_ko": 17.2,
+  "poids_max_ko": 42.7,
+  "profondeur_max": 2,
+  "orphelines": [
+   "/contact/"
+  ],
+  "profondes": [],
+  "inatteignables": [
+   "/contact/"
+  ],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 265,
+  "indexables": 263,
+  "mots_moyen": 689,
+  "mots_total": 181079,
+  "poids_moyen_ko": 17.2,
+  "poids_max_ko": 42.7,
+  "profondeur_max": 2,
+  "orphelines": [
+   "/contact/"
+  ],
+  "profondes": [],
+  "inatteignables": [
+   "/contact/"
+  ],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 265,
+  "indexables": 263,
+  "mots_moyen": 689,
+  "mots_total": 181079,
+  "poids_moyen_ko": 17.2,
+  "poids_max_ko": 42.7,
+  "profondeur_max": 2,
+  "orphelines": [
+   "/contact/"
+  ],
+  "profondes": [],
+  "inatteignables": [
+   "/contact/"
+  ],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 266,
+  "indexables": 264,
+  "mots_moyen": 693,
+  "mots_total": 183030,
+  "poids_moyen_ko": 17.3,
+  "poids_max_ko": 42.7,
+  "profondeur_max": 2,
+  "orphelines": [
+   "/contact/"
+  ],
+  "profondes": [],
+  "inatteignables": [
+   "/contact/"
+  ],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-28",
+  "pages": 266,
+  "indexables": 264,
+  "mots_moyen": 693,
+  "mots_total": 183030,
+  "poids_moyen_ko": 17.3,
+  "poids_max_ko": 42.7,
+  "profondeur_max": 2,
+  "orphelines": [
+   "/contact/"
+  ],
+  "profondes": [],
+  "inatteignables": [
+   "/contact/"
+  ],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ }
+]

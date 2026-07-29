@@ -1,0 +1,81 @@
+# Régénération et déploiement automatiques.
+# Le site se reconstruit à chaque modification ET tous les matins :
+# les dates réglementaires, les « X ans de retard », le lastmod du sitemap et
+# la mention de mise à jour se recalculent seuls. Aucune page ne vieillit.
+name: Build, audit et déploiement
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 5 * * *"  # tous les jours 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Générer le site
+        run: python3 build.py
+
+      - name: Audit SEO — bloquant
+        run: python3 audit_seo.py
+
+      # Compare l'état du site à la dernière référence enregistrée.
+      # Bloque le déploiement si un indicateur régresse : pages disparues,
+      # contenu qui s'allège, poids qui grimpe, pages devenues orphelines.
+      - name: Veille SEO — détection de régression
+        run: python3 veille_seo.py
+
+      # Interroge les fiches Service Public surveillées et signale toute
+      # évolution de leur date « Vérifié le ». Non bloquant : un changement
+      # de date appelle une relecture humaine, pas un arrêt du déploiement.
+      - name: Veille réglementaire — Service Public
+        continue-on-error: true
+        run: python3 veille_reglementaire.py
+
+      - name: Enregistrer la nouvelle référence
+        run: |
+          git config user.name  "veille-seo"
+          git config user.email "veille@dglmexpertises.fr"
+          git add .seo-history.json
+          git diff --staged --quiet || git commit -m "veille SEO $(date +%F)"
+          git push || true
+
+      - name: Ping des moteurs (IndexNow, en masse)
+        continue-on-error: true
+        run: |
+          KEY="${{ secrets.INDEXNOW_KEY }}"
+          if [ -z "$KEY" ]; then echo "Pas de clé IndexNow — étape ignorée."; exit 0; fi
+          URLS=$(grep -oP '(?<=<loc>)[^<]+' site/sitemap.xml | head -1000)
+          LIST=$(printf '"%s",' $URLS | sed 's/,$//')
+          curl -s -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            --data "{\"host\":\"www.dglmexpertises.fr\",\"key\":\"$KEY\",\"keyLocation\":\"https://www.dglmexpertises.fr/${KEY}.txt\",\"urlList\":[$LIST]}" \
+            -o /dev/null -w "IndexNow: HTTP %{http_code}\n" || true
+
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site }
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
