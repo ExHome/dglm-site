@@ -181,15 +181,8 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow"):
 width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <nav class="nav" aria-label="Navigation principale">{NAV}
 <a href="/diagnostics-copropriete/">Diagnostics copro</a>
-<a href="/bordeaux/">Bordeaux</a>
-<a href="/merignac/">Mérignac</a>
-<a href="/pessac/">Pessac</a>
-<a class="btn" href="/devis/">Devis</a>
-<a href="/questions/">Questions</a>
-<a href="/referentiel-des-normes/">Normes</a>
-<a href="/equipe/">Équipe</a>
 <a href="{SILO}/simulateur-obligations-copropriete/">Simulateur</a>
-<a href="{SILO}/zones-d-intervention/">Zones</a>
+<a href="/questions/">Questions</a>
 <a class="btn" href="/devis/">Demander un devis</a></nav></div></header>
 <main id="contenu" tabindex="-1">"""
     foot = f"""</main>
