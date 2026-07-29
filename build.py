@@ -184,6 +184,8 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <a href="{SILO}/simulateur-obligations-copropriete/">Simulateur</a>
 <a href="/questions/">Questions</a>
 <a class="btn" href="/devis/">Demander un devis</a></nav></div></header>
+<div class="chantier" role="status"><div class="wrap"><span>Site en construction</span>
+— le contenu s'enrichit chaque jour, certaines rubriques sont encore en cours de rédaction.</div></div>
 <main id="contenu" tabindex="-1">"""
     foot = f"""</main>
 <footer class="footer"><div class="wrap">

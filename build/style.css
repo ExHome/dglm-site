@@ -541,6 +541,13 @@ main{counter-reset:planche}
 /* sélection de texte aux teintes de la marque */
 ::selection{background:var(--or-pale);color:var(--vert-profond)}
 
+/* bandeau provisoire : site en construction */
+.chantier{background:var(--or-pale);color:var(--vert-profond);font-size:.85rem;
+  padding-block:.55rem;border-bottom:1px solid var(--rule-or)}
+.chantier span{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:600}
+@media print{.chantier{display:none!important}}
+
 /* décalage d'ancre : les liens #section ne passent plus sous l'en-tête collant */
 :target,[id]{scroll-margin-top:5.5rem}
 
