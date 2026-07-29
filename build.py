@@ -1678,6 +1678,8 @@ def main():
     page_404()
     sitemap()
     ecrire_llms(contenus)
+    # Domaine personnalisé GitHub Pages : réécrit à chaque build pour ne pas être perdu.
+    open(os.path.join(OUT, "CNAME"), "w", encoding="utf-8").write("www.dglmexpertises.fr\n")
     # Fichier-clé IndexNow (déposé à la racine si le secret est fourni en CI),
     # nécessaire pour la soumission en masse des URLs aux moteurs.
     _cle = os.environ.get("INDEXNOW_KEY", "").strip()
