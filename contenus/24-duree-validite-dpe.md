@@ -2,7 +2,7 @@
 titre: Combien de temps un DPE est-il valable ?
 question: Quelle est la durée de validité d'un DPE ?
 meta: Un DPE est valable dix ans, sauf travaux modifiant la performance du logement. Les DPE anciens d'avant la réforme de 2021 ne sont, eux, plus valables.
-publication: 2026-10-16
+publication: 2026-07-25
 tags: DPE | validité | énergie
 liens: /questions/qu-est-ce-que-le-dpe/ | /questions/duree-validite-diagnostics/
 sources: Code de la construction et de l'habitation, article D.126-19 | Service Public — Diagnostic de performance énergétique (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096 | ADEME — Diagnostic de performance énergétique

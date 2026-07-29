@@ -2,7 +2,7 @@
 titre: Faut-il un diagnostic électricité pour vendre ou louer ?
 question: Le diagnostic électricité est-il obligatoire pour vendre ou louer ?
 meta: Le diagnostic électricité est obligatoire quand l'installation a plus de 15 ans. Valable 3 ans en vente, 6 ans en location. Un diagnostic de sécurité, pas de confort.
-publication: 2026-11-10
+publication: 2026-07-27
 tags: électricité | sécurité | obligations
 liens: /questions/diagnostic-gaz-obligatoire/ | /questions/duree-validite-diagnostics/
 sources: Code de la construction et de l'habitation, articles L.134-7 et suivants | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025

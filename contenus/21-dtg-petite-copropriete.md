@@ -2,7 +2,7 @@
 titre: Le DTG est-il obligatoire pour une petite copropriété ?
 question: Une petite copropriété doit-elle réaliser un diagnostic technique global ?
 meta: Le DTG ne dépend pas du nombre de lots : il est obligatoire dans des cas précis, quelle que soit la taille. Mais une petite copropriété reste concernée par le plan pluriannuel de travaux.
-publication: 2026-10-01
+publication: 2026-07-24
 tags: DTG | PPPT | petite copropriété
 liens: /diagnostic-technique-global/ | /plan-pluriannuel-de-travaux/
 sources: Code de la construction et de l'habitation, articles L.731-1 à L.731-5 | Loi n°65-557 du 10 juillet 1965, article 14-2

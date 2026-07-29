@@ -2,7 +2,7 @@
 titre: Qui paie le repérage amiante avant travaux en copropriété ?
 question: Qui paie le repérage amiante avant travaux dans une copropriété ?
 meta: Parties communes, parties privatives, travaux d'intérêt collectif : qui commande et qui finance le repérage amiante avant travaux en copropriété.
-publication: 2026-08-03
+publication: 2026-07-18
 tags: RAAT | copropriété | syndic
 liens: /reperage-amiante-avant-travaux/ | /amiante-parties-privatives/
 sources: Code du travail, article R.4412-97 | Loi n°65-557 du 10 juillet 1965 fixant le statut de la copropriété

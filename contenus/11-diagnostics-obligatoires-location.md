@@ -2,7 +2,7 @@
 titre: Quels diagnostics sont obligatoires pour louer un logement ?
 question: Quels diagnostics faut-il fournir au locataire ?
 meta: Le dossier de diagnostic technique remis au locataire, les trois cas où le DPE n'est pas exigé, et le statut particulier de l'amiante en location.
-publication: 2026-08-14
+publication: 2026-07-20
 tags: location | DDT | bailleur
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/duree-validite-diagnostics/
 sources: Service Public — Diagnostics immobiliers fournis par le bailleur (F33463)~https://www.service-public.gouv.fr/particuliers/vosdroits/F33463~20 février 2026 | Loi n°89-462 du 6 juillet 1989, article 3-3~https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000043978254

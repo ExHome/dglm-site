@@ -2,7 +2,7 @@
 titre: Combien de temps chaque diagnostic immobilier reste-t-il valable ?
 question: Quelle est la durée de validité des diagnostics immobiliers ?
 meta: Durées de validité des diagnostics immobiliers, et les trois cas où un diagnostic devient caduc avant son terme.
-publication: 2026-08-17
+publication: 2026-07-20
 tags: validité | DDT | vente
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/dta-ancien-encore-valable/
 sources: Service Public — Diagnostics immobiliers en cas de vente (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025

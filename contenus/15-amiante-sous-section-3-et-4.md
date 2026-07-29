@@ -2,7 +2,7 @@
 titre: Amiante : quelle différence entre sous-section 3 et sous-section 4 ?
 question: Quelle différence entre les travaux amiante en sous-section 3 et en sous-section 4 ?
 meta: La sous-section 3 couvre le retrait et l'encapsulage d'amiante, la sous-section 4 les interventions sur matériaux amiantés. Ce qui les sépare, et pourquoi ça change tout au chantier.
-publication: 2026-08-31
+publication: 2026-07-21
 tags: amiante | travaux | réglementation
 liens: /reperage-amiante-avant-travaux/ | /reperage-amiante-avant-demolition/
 sources: Code du travail, articles R.4412-94 à R.4412-148 (prévention du risque amiante) | Arrêté du 8 avril 2013 relatif aux règles techniques de prévention

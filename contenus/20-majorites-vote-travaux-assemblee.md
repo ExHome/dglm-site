@@ -2,7 +2,7 @@
 titre: Quelle majorité pour voter des travaux en assemblée générale ?
 question: À quelle majorité se votent les travaux en copropriété ?
 meta: Entretien à la majorité de l'article 24, amélioration et économies d'énergie à l'article 25, actes lourds à l'article 26. Comment savoir avant l'assemblée quelle majorité s'applique.
-publication: 2026-09-26
+publication: 2026-07-23
 tags: copropriété | assemblée générale | travaux
 liens: /plan-pluriannuel-de-travaux/ | /diagnostic-technique-global/
 sources: Loi n°65-557 du 10 juillet 1965, articles 24, 25, 25-1 et 26

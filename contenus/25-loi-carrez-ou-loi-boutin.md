@@ -2,7 +2,7 @@
 titre: Loi Carrez ou loi Boutin : quelle différence ?
 question: Quelle différence entre la loi Carrez et la loi Boutin ?
 meta: La loi Carrez mesure la surface privative pour la vente d'un lot de copropriété, la loi Boutin la surface habitable pour la location. Deux calculs différents.
-publication: 2026-10-21
+publication: 2026-07-25
 tags: loi Carrez | loi Boutin | surface
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/diagnostics-obligatoires-location/
 sources: Loi n°65-557 du 10 juillet 1965, article 46 (loi Carrez) | Code de la construction et de l'habitation, article R.156-1 (surface habitable, loi Boutin) | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025

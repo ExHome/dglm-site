@@ -2,7 +2,7 @@
 titre: Que risque une copropriété qui n'a pas de plan pluriannuel de travaux ?
 question: Que risque une copropriété sans plan pluriannuel de travaux ?
 meta: Absence de PPPT en copropriété : il n'y a pas d'amende automatique, mais quatre conséquences concrètes que les conseils syndicaux découvrent trop tard.
-publication: 2026-08-10
+publication: 2026-07-19
 tags: PPPT | syndic | obligations
 liens: /plan-pluriannuel-de-travaux/ | /simulateur-obligations-copropriete/
 sources: Loi n°65-557 du 10 juillet 1965, article 14-2 | Loi n°2021-1104 du 22 août 2021 portant lutte contre le dérèglement climatique | Service Public — Plan pluriannuel de travaux en copropriété (F36760)~https://www.service-public.gouv.fr/particuliers/vosdroits/F36760

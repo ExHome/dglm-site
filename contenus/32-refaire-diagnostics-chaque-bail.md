@@ -2,7 +2,7 @@
 titre: Faut-il refaire les diagnostics à chaque nouveau bail ?
 question: Doit-on refaire les diagnostics immobiliers à chaque changement de locataire ?
 meta: Non : on ne refait que les diagnostics dont la validité a expiré, ou si des travaux ont modifié le logement. Le point sur les durées en location.
-publication: 2026-11-25
+publication: 2026-07-28
 tags: location | validité | bailleur
 liens: /questions/diagnostics-obligatoires-location/ | /questions/duree-validite-diagnostics/
 sources: Service Public — Diagnostics fournis par le bailleur (F33463)~https://www.service-public.gouv.fr/particuliers/vosdroits/F33463~20 février 2026

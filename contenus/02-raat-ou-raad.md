@@ -2,7 +2,7 @@
 titre: RAAT ou RAAD : quel repérage amiante pour quel chantier ?
 question: Quelle différence entre repérage amiante avant travaux et avant démolition ?
 meta: RAAT ou RAAD : la différence tient au périmètre et au caractère exhaustif du repérage, pas au volume du chantier. Comment choisir sans se tromper.
-publication: 2026-07-25
+publication: 2026-07-16
 tags: RAAT | RAAD | démolition
 liens: /reperage-amiante-avant-travaux/ | /reperage-amiante-avant-demolition/
 sources: Code du travail, article R.4412-97 | Code de la santé publique, article R.1334-19 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations

@@ -2,7 +2,7 @@
 titre: Glossaire du diagnostic immobilier : sigles expliqués
 question: Que veulent dire les sigles du diagnostic immobilier (DTG, PPPT, RAAT, DPE, CREP) ?
 meta: DTG, PPPT, RAAT, RAAD, DTA, DAPP, PEMD, DPE, CREP, ERP, COFRAC… Tous les sigles du diagnostic immobilier expliqués en langage simple, sans jargon.
-publication: 2026-08-01
+publication: 2026-07-16
 tags: glossaire | définitions | pédagogie
 liens: /diagnostic-technique-global/ | /reperage-amiante-avant-travaux/
 sources: Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Code de la santé publique | Code du travail | Code de la construction et de l'habitation

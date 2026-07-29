@@ -2,7 +2,7 @@
 titre: Qu'est-ce que l'état des risques (ERP) ?
 question: Qu'est-ce que l'état des risques et pollutions (ERP) et quand est-il obligatoire ?
 meta: L'ERP informe l'acquéreur ou le locataire des risques naturels, miniers, technologiques, sismiques et radon d'un bien. Obligatoire en zone concernée, valable 6 mois.
-publication: 2026-10-26
+publication: 2026-07-26
 tags: ERP | état des risques | obligations
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/diagnostics-obligatoires-location/
 sources: Code de l'environnement, article L.125-5 | Service Public — État des risques (F12239)~https://www.service-public.gouv.fr/particuliers/vosdroits/F12239 | Géorisques — information des acquéreurs et locataires~https://www.georisques.gouv.fr/information-des-acquereurs-et-locataires

@@ -2,7 +2,7 @@
 titre: Qu'est-ce qu'une passoire thermique ?
 question: Qu'est-ce qu'une passoire thermique et que dit la loi pour la location ?
 meta: Une passoire thermique est un logement classé F ou G au DPE. La loi Climat en interdit progressivement la location : G en 2025, F en 2028, E en 2034.
-publication: 2026-11-30
+publication: 2026-07-29
 tags: passoire thermique | DPE | location
 liens: /questions/qu-est-ce-que-le-dpe/ | /questions/diagnostics-obligatoires-location/
 sources: Loi n°2021-1104 du 22 août 2021 (Climat et résilience) | Service Public — Diagnostic de performance énergétique (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096

@@ -2,7 +2,7 @@
 titre: DTG ou PPPT : que faut-il voter en assemblée générale ?
 question: Faut-il voter un DTG ou un PPPT en assemblée générale ?
 meta: DTG et PPPT ne répondent pas à la même question et ne se votent pas dans les mêmes conditions. Comment présenter le choix au conseil syndical.
-publication: 2026-07-27
+publication: 2026-07-17
 tags: DTG | PPPT | assemblée générale
 liens: /diagnostic-technique-global/ | /plan-pluriannuel-de-travaux/ | /simulateur-obligations-copropriete/
 sources: Code de la construction et de l'habitation, articles L.731-1 à L.731-5 | Loi n°65-557 du 10 juillet 1965, article 14-2 | ANIL — Diagnostic technique global de la copropriété~https://www.anil.org/aj-copropriete-diagnostic-technique-global/

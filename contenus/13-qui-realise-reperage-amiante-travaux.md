@@ -2,7 +2,7 @@
 titre: Qui peut réaliser un repérage amiante avant travaux ?
 question: Qui a le droit de réaliser un repérage amiante avant travaux ?
 meta: Un opérateur certifié amiante « avec mention », indépendant de l'entreprise de travaux. Ce que le donneur d'ordre doit vérifier avant de commander.
-publication: 2026-08-19
+publication: 2026-07-21
 tags: RAAT | amiante | certification
 liens: /reperage-amiante-avant-travaux/ | /questions/qui-paie-reperage-copropriete/
 sources: Code du travail, article R.4412-97 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations

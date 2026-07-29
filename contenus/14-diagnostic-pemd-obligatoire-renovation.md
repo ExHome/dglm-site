@@ -2,7 +2,7 @@
 titre: Le diagnostic PEMD est-il obligatoire pour une rénovation ?
 question: Faut-il un diagnostic PEMD avant une rénovation significative ?
 meta: Le diagnostic PEMD est obligatoire avant démolition et avant rénovation significative au-delà de 1 000 m² ou en présence de substances dangereuses. Ce qu'il faut anticiper.
-publication: 2026-08-26
+publication: 2026-07-21
 tags: PEMD | démolition | déchets
 liens: /diagnostic-pemd/ | /reperage-amiante-avant-demolition/
 sources: Code de la construction et de l'habitation, articles L.126-34 et R.126-8 | Loi n°2020-105 du 10 février 2020 relative à la lutte contre le gaspillage et à l'économie circulaire

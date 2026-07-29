@@ -2,7 +2,7 @@
 titre: Quels diagnostics sont obligatoires pour vendre un logement ?
 question: Quels diagnostics faut-il pour vendre un logement ?
 meta: La liste officielle des diagnostics du dossier de diagnostic technique en vente, maison et appartement, avec la condition qui déclenche chacun d'eux.
-publication: 2026-08-12
+publication: 2026-07-19
 tags: vente | DDT | obligations
 liens: /questions/diagnostics-obligatoires-location/ | /questions/duree-validite-diagnostics/
 sources: Service Public — Diagnostics immobiliers en cas de vente (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Code de la construction et de l'habitation, article L271-4~https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041586781/ | Loi n°65-557 du 10 juillet 1965, article 46 (loi Carrez)~https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006472158/2009-11-16

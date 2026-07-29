@@ -2,7 +2,7 @@
 titre: Fonds de travaux : comment se calcule-t-il réellement ?
 question: Comment se calcule le fonds de travaux d'une copropriété ?
 meta: Le fonds de travaux se dimensionne par référence au plan pluriannuel, pas au forfait. Comment le calculer pour qu'il couvre réellement les travaux à venir.
-publication: 2026-08-07
+publication: 2026-07-19
 tags: fonds de travaux | PPPT | copropriété
 liens: /plan-pluriannuel-de-travaux/ | /diagnostic-technique-global/
 sources: Loi n°65-557 du 10 juillet 1965, article 14-2 (fonds de travaux) | Service Public — Plan pluriannuel de travaux en copropriété (F36760)~https://www.service-public.gouv.fr/particuliers/vosdroits/F36760
