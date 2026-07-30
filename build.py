@@ -16,7 +16,7 @@ from data.contenus import charger as charger_contenus, en_attente, md_vers_html,
 from data.quartiers import QUARTIERS_BORDEAUX, QUARTIERS_PAR_VILLE
 from data.normes import NORMES, CONSULTE_LE
 from data.schemas_svg import rendre as rendre_schema
-from data.illustrations import SKYLINE, PICTOS, ECHOPPE, ANIM_MISSION
+from data.illustrations import SKYLINE, PICTOS, ECHOPPE, ANIM_MISSION, ANIM_PPPT
 
 COMMUNES = METROPOLE + GIRONDE_ELARGIE + LANDES
 SLUG_TO_NOM = {c["slug"]: c["nom"] for c in COMMUNES}
@@ -586,6 +586,9 @@ def page_service(s):
     p = f"{SILO}/{s['slug']}/"
     trail = [("Accueil", "/"), (s["nom"], p)]
     schema = rendre_schema(SCHEMA_SERVICE.get(s["slug"], ""))
+    # Le PPPT a droit à la version animée de son cycle — narrable, sonorisable.
+    if s["slug"] == "plan-pluriannuel-de-travaux":
+        schema = ANIM_PPPT
     cadre = "".join(f"<dt>{esc(t)}</dt><dd>{esc(d)}</dd>" for t, d in s["cadre"])
     etapes = "".join(f"<li><h3>{esc(t)}</h3><p>{esc(d)}</p></li>" for t, d in s["etapes"])
     faq = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"

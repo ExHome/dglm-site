@@ -149,3 +149,35 @@ ANIM_MISSION = ('<figure class="animex"><svg viewBox="0 0 800 300" role="img" ar
     + f'<g fill="{_AX_G}"><circle cx="370" cy="278" r="4"/><circle cx="390" cy="278" r="4"/>'
     + f'<circle cx="410" cy="278" r="4"/><circle cx="430" cy="278" r="4"/></g>'
     '</svg></figure>')
+
+
+# ---------------------------------------------------------------- PPPT animé
+_PP_ICONES = [
+    f'<g fill="none" stroke="{_AX_OR}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
+    f'<path d="M362,180 L362,100 L410,100 L410,180"/><path d="M354,100 L386,78 L418,100"/>'
+    f'<rect x="376" y="118" width="12" height="14"/><rect x="376" y="148" width="12" height="14"/>'
+    f'<path d="M424,150 L434,162 L452,132"/></g>',
+    f'<g fill="none" stroke="{_AX_OR}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
+    f'<rect x="360" y="92" width="80" height="88" rx="3"/><line x1="360" y1="116" x2="440" y2="116"/>'
+    f'<line x1="376" y1="84" x2="376" y2="100"/><line x1="424" y1="84" x2="424" y2="100"/>'
+    f'<text x="400" y="160" text-anchor="middle" font-size="26" font-weight="700" fill="{_AX_V}" stroke="none">10</text></g>',
+    f'<g fill="none" stroke="{_AX_OR}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
+    f'<rect x="362" y="120" width="76" height="60" rx="3"/><line x1="382" y1="120" x2="400" y2="96"/>'
+    f'<rect x="392" y="86" width="20" height="14"/><line x1="374" y1="150" x2="426" y2="150"/></g>',
+    f'<g fill="none" stroke="{_AX_OR}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
+    f'<line x1="368" y1="184" x2="452" y2="184"/><line x1="380" y1="184" x2="380" y2="108"/>'
+    f'<line x1="352" y1="118" x2="428" y2="98"/><line x1="420" y1="100" x2="420" y2="128"/>'
+    f'<path d="M410,128 L430,128 L420,142 Z"/><circle cx="444" cy="164" r="12"/>'
+    f'<text x="444" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="{_AX_V}" stroke="none">€</text></g>',
+]
+
+ANIM_PPPT = ('<figure class="animex"><svg viewBox="0 0 800 300" role="img" aria-labelledby="axp">'
+    '<title id="axp">Le plan pluriannuel de travaux en quatre temps : diagnostic, programme sur dix ans, '
+    'vote en assemblée générale, travaux et fonds de travaux — remis à jour tous les dix ans</title>'
+    '<rect width="800" height="300" fill="#FFFFFF"/>'
+    + _ax_temps("ax", "01", _PP_ICONES[0], "Le diagnostic", "L\u2019état réel du bâti, poste par poste.")
+    + _ax_temps("ax ax2", "02", _PP_ICONES[1], "Le programme sur dix ans", "Travaux hiérarchisés, chiffrés, échéancés.")
+    + _ax_temps("ax ax3", "03", _PP_ICONES[2], "Le vote en assemblée", "Budget et calendrier décidés ensemble.")
+    + _ax_temps("ax ax4", "04", _PP_ICONES[3], "Les travaux et le fonds", "Exécution échelonnée, épargne calibrée.")
+    + f'<text x="400" y="284" text-anchor="middle" font-size="12.5" fill="{_AX_G}">Et l\u2019on remet le plan à jour tous les dix ans.</text>'
+    '</svg></figure>')
