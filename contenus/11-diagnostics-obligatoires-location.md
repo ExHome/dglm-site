@@ -27,6 +27,8 @@ Six documents, contre onze en vente. Mais deux subtilités échappent régulièr
 
 ## Le cas de l'amiante
 
+Deux repères pour situer votre logement : l'obligation ne concerne que les immeubles dont le permis de construire est antérieur au 1er juillet 1997, et pour un appartement en immeuble collectif, le document en cause est le [diagnostic amiante des parties privatives — le DAPP](/amiante-parties-privatives/), tenu à disposition du locataire plutôt qu'annexé au bail.
+
 C'est le point le plus mal compris. Le diagnostic amiante **fait partie du dossier de diagnostic technique**, mais il n'a **pas à être annexé au bail**. Le bailleur doit simplement le tenir à la disposition du locataire, sur demande.
 
 L'obligation existe donc bien : c'est sa forme qui diffère.

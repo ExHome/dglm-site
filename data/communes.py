@@ -87,7 +87,9 @@ COMMUNES = [
         enjeu="La reconversion de bâti industriel place le RAAD au premier plan : "
               "couvertures et bardages en fibres-ciment, dalles semi-rigides, flocages "
               "résiduels. Sur les échoppes, le couple plomb-amiante conditionne le "
-              "budget réel des opérations de rénovation.",
+              "budget réel des opérations de rénovation. Sur une maison d'avant 1949, "
+              "un constat plomb avant travaux se couple au repérage amiante en une "
+              "seule visite : mentionnez-le dans votre demande.",
         voisins=["bordeaux", "talence", "villenave-d-ornon", "floirac"],
     ),
     dict(

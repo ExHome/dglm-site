@@ -29,3 +29,7 @@ Majorité des **membres** du syndicat représentant au moins **deux tiers des vo
 ## Le réflexe qui fait passer un vote
 
 Présenter le bon fondement de majorité, un montant chiffré et une échéance claire. Un conseil syndical qui arrive avec des devis comparables et la majorité applicable identifiée obtient sa décision — là où un dossier flou la fait reporter. En cas de doute sur la majorité applicable à votre projet, faites-la confirmer avant la convocation.
+
+## Et le vote du PPPT lui-même ?
+
+L'adoption du projet de plan pluriannuel de travaux se décide à la majorité des voix exprimées. Point souvent mal compris en séance : voter le plan n'est ni voter des travaux, ni engager une dépense — chaque chantier reviendra devant l'assemblée avec ses devis, à la majorité propre à sa nature. [Notre guide dédié au vote du PPPT](/questions/voter-pppt-assemblee/) détaille ce que ce vote engage, et ce qu'il n'engage pas.

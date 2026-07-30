@@ -399,14 +399,15 @@ def page_home(dernier=None):
 <h1>L'expertise du bâti, au service des copropriétés et des maîtres d'ouvrage.</h1>
 <p class="lede">Quatre missions techniques déterminent le démarrage d'un chantier et le budget
 décennal d'une copropriété : le repérage amiante avant travaux, le repérage avant
-démolition, le diagnostic technique global et le plan pluriannuel de travaux. Ce sont les seules que nous exerçons.</p>
+démolition, le diagnostic technique global et le plan pluriannuel de travaux — au sein
+de neuf missions collectives, du DPE collectif à l'assainissement.</p>
 <div class="actions">
 <a class="btn btn--light" href="{SILO}/simulateur-obligations-copropriete/">Évaluer ma copropriété</a>
 <a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div>
 <dl class="refbar">
 <div><dt>Spécialité</dt><dd>Copropriété, travaux et démolition</dd></div>
 <div><dt>Périmètre</dt><dd>Bordeaux Métropole en priorité — Gironde et Landes sur mission</dd></div>
-<div><dt>Intervention</dt><dd>Visite sous 72 heures, rapport sous 48 heures</dd></div>
+<div><dt>Intervention</dt><dd>Repérages amiante : visite sous 72 h, rapport sous 48 h</dd></div>
 <div><dt>Analyses</dt><dd>Laboratoire accrédité COFRAC</dd></div>
 </dl></div>{SKYLINE}</section>
 
@@ -416,6 +417,7 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <a href="{SILO}/bailleurs-et-maitres-d-ouvrage/">Je suis bailleur ou maître d'ouvrage</a>
 <a href="{SILO}/entreprises-de-travaux/">Je suis une entreprise de travaux</a>
 <a href="{SILO}/reperage-amiante-avant-travaux/">Je suis un particulier qui fait des travaux</a>
+<a href="/particuliers/">Je vends ou je loue mon logement</a>
 </div></section>
 
 <section class="band"><div class="wrap">
@@ -654,8 +656,8 @@ def page_service(s):
         schema = ANIM_PPPT
     cadre = "".join(f"<dt>{esc(t)}</dt><dd>{esc(d)}</dd>" for t, d in s["cadre"])
     etapes = "".join(f"<li><h3>{esc(t)}</h3><p>{esc(d)}</p></li>" for t, d in s["etapes"])
-    faq = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
-                  for q, a in s["faq"])
+    faq = "".join(f"<details{' open' if _i == 0 else ''}><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
+                  for _i, (q, a) in enumerate(s["faq"]))
     autres = "".join(
         f'<a class="card card--link" href="{SILO}/{o["slug"]}/"><span class="sigle">{o["sigle"]}</span>'
         f'<h3>{esc(o["nom"])}</h3><p>{esc(o["accroche"])}</p></a>'
@@ -687,7 +689,7 @@ def page_service(s):
 </div></section>
 {carnets_band(s['slug'])}
 {volet("Réglementation", "Ce que dit la réglementation",
-       f'<dl class="legal">{cadre}</dl>', pale=True, ancre="reglementation")}
+       f'<dl class="legal">{cadre}</dl>', pale=True, ancre="reglementation", ouvert=True)}
 {volet("Notre méthode", "Comment nous menons la mission",
        f'<ol class="steps">{etapes}</ol>', ancre="methode")}
 {schema_bloc}
@@ -1014,7 +1016,10 @@ def page_audience(a):
 <h1>{esc(a['h1'])}</h1><p class="lede">{esc(a['lede'])}</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
 <a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
-<section class="band"><div class="wrap prose">{corps}</div></section>
+<section class="band"><div class="wrap prose">
+{f'<p class="enclair" style="margin-top:0"><span>Vous louez votre propre logement ?</span>Les diagnostics de location d&#x27;un particulier relèvent de notre <a href="/particuliers/">site dédié</a> — ici, nous parlons patrimoine et campagnes de repérage.</p>' if a['slug'] == 'bailleurs-et-maitres-d-ouvrage' else ''}
+{f'<p class="enclair" style="margin-top:0"><span>DPE collectif : où en est votre portefeuille ?</span>Toutes les copropriétés d&#x27;habitation au permis antérieur à 2013 sont concernées depuis le 1er janvier 2026 — notre <a href="/dpe-collectif-copropriete/">fiche DPE collectif</a> et le <a href="{SILO}/simulateur-obligations-copropriete/">simulateur</a> font le point immeuble par immeuble.</p>' if a['slug'] == 'syndics-de-copropriete' else ''}
+{corps}</div></section>
 <section class="band band--pale"><div class="wrap"><p class="eyebrow">Prestations</p>
 <h2>Nos quatre missions</h2>
 <div class="grid grid--2" style="margin-top:1.6rem">{cards}</div></div></section>{cta()}"""
@@ -1112,8 +1117,8 @@ def page_diag_pro(d):
                          ancre="schema")
                    if schema else "")
     cadre = "".join(f"<dt>{esc(t)}</dt><dd>{esc(x)}</dd>" for t, x in d["cadre"])
-    faq = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
-                  for q, a in d["faq"])
+    faq = "".join(f"<details{' open' if _i == 0 else ''}><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
+                  for _i, (q, a) in enumerate(d["faq"]))
     autres = "".join(
         f'<a class="card card--link" href="/{o["slug"]}/"><span class="sigle">{esc(o["sigle"])}</span>'
         f'<h3>{esc(o["nom"])}</h3><p>{esc(o["accroche"])}</p></a>'
@@ -1498,6 +1503,9 @@ Tout reste dans votre navigateur, rien n'est transmis.</p></div></section>
 <section class="band"><div class="wrap">
 <label class="field" style="max-width:34rem"><span>Votre recherche</span>
 <input type="search" id="q" placeholder="dtg, amiante, Mérignac, fonds de travaux…" autofocus autocomplete="off"></label>
+<noscript><p class="enclair"><span>Sans JavaScript</span>La recherche instantanée est
+indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques</a> et
+<a href="/questions/glossaire-diagnostic-immobilier/">le lexique</a>.</p></noscript>
 <div id="rep" style="margin-top:2rem"></div>
 <div class="grid grid--2" id="res" style="margin-top:2rem"></div>
 </div></section>"""
@@ -1744,8 +1752,26 @@ def page_contenu(c, voisins):
                    f'<ul class="mesh">{chips}</ul></nav>')
     # Un article peut embarquer un schéma : champ « schema: » du frontmatter.
     schema_art = rendre_schema(c.get("schema", ""))
-    liens = "".join(f'<li><a href="{u}">{esc(u.strip("/").replace("-", " ").capitalize())}</a></li>'
-                    for u in c["liens"])
+    VL = {"vente", "location", "ddt", "loi carrez", "loi boutin", "surface",
+          "meublé", "bailleur", "validité"}
+    est_vl = bool({x.strip().lower() for x in c.get("tags", [])} & VL)
+    cta_bloc = (f'''<section class="cta"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Pour passer à l'action</p>
+<h2>Ces diagnostics relèvent d'un autre cadre.</h2>
+<p>Vente ou location d'un logement : notre site dédié aux particuliers les réalise —
+même maison, même exigence.</p>
+<div class="actions"><a class="btn btn--light" href="/particuliers/">{esc(E['site_a_ancre'])} →</a></div>
+</div></section>''' if est_vl else cta())
+    TITRES = {f"/questions/{o['slug']}/": o["titre"] for o in voisins}
+    TITRES.update({f"{SILO}/{s['slug']}/": s["nom"] for s in SERVICES})
+    TITRES.update({f"/{d['slug']}/": d["nom"] for d in DIAGS_PRO})
+    TITRES.update({"/questions/": "Tous les guides pratiques",
+                   "/le-tableau-des-diagnostics/": "Le tableau des diagnostics",
+                   f"{SILO}/simulateur-obligations-copropriete/": "Le simulateur d'obligations",
+                   "/equipe/": "Notre équipe"})
+    liens = "".join(
+        f'<li><a href="{u}">{esc(TITRES.get(u, u.strip("/").replace("-", " ").capitalize()))}</a></li>'
+        for u in c["liens"])
     autres = "".join(
         f'<a class="card card--link" href="/questions/{o["slug"]}/"><h3>{esc(o["titre"])}</h3>'
         f'<span class="more">Lire →</span></a>' for o in voisins[:3])
@@ -1766,7 +1792,7 @@ rédigé par l'équipe technique de {E['nom']}</p>
 <p class="eyebrow">Dans le même champ</p><h2>Autres réponses</h2>
 <div class="grid grid--3" style="margin-top:1.5rem">{autres}</div>
 <ul class="mesh" style="margin-top:1.5rem">{tags}</ul></div></section>
-{cta()}"""
+{cta_bloc}"""
 
     schema = jsonld(
         org_schema(), breadcrumb(trail),
@@ -1858,7 +1884,7 @@ def page_hub_contenus(contenus):
                     f'<div class="card-picto">{RUBRIQUE_PICTOS.get(nom, "")}</div>')
         rubcards += (f'<a class="card card--link card--photo" href="/questions/rubriques/{rslug}/">'
                      f'{vignette}'
-                     f'<span class="sigle">Rubrique {shown:02d} · {len(items)} guides</span>'
+                     f'<span class="sigle">Rubrique {shown:02d} · {len(items)} guide{"s" if len(items) > 1 else ""}</span>'
                      f'<h3>{esc(nom)}</h3><p>{esc(sub)}</p>'
                      f'<span class="more">Ouvrir la rubrique →</span></a>')
         rubpages.append((shown, nom, rslug, sub, anti, items, img, iw, ih))
@@ -1897,7 +1923,7 @@ def page_hub_contenus(contenus):
                        f'<div class="grid grid--2" style="margin-top:1.8rem">{tf}</div></div></section>')
         rbody = f"""{crumb_html(rtrail)}
 <section class="hero hero--page"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Rubrique {num:02d} — {len(items)} guides</p>
+<p class="eyebrow eyebrow--pale">Rubrique {num:02d} — {len(items)} guide{"s" if len(items) > 1 else ""}</p>
 <div class="rub-titre">{picto}<h1>{esc(nom)} : les guides</h1></div>
 <p class="lede">{esc(sub)}.</p></div></section>
 <section class="band"><div class="wrap">
@@ -2445,7 +2471,7 @@ site dédié aux particuliers.</p>
 <p><a class="btn" href="{E['site_a_url']}">Continuer vers le site particuliers →</a></p>
 <p class="mesh--plain" style="margin-top:1.4rem">Redirection automatique en cours…</p>
 </div></section>
-<script>window.location.replace("{E['site_a_url']}");</script>"""
+<script>setTimeout(function(){{window.location.href="{E['site_a_url']}"}},4000);</script>"""
     shell(path=p,
           title="Particuliers, vente et location — DGLM Expertises",
           desc="Vous êtes un particulier ? Accédez à notre site dédié aux diagnostics de "

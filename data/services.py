@@ -284,19 +284,23 @@ SERVICES = [
              "peut tenir lieu de projet de plan pluriannuel de travaux. Nous vérifions ce "
              "point avant de vous proposer une mission."),
             ("Le plan doit-il être voté ?",
-             "Le projet est présenté à l'assemblée générale, qui se prononce ensuite sur "
-             "les travaux à engager et sur leurs modalités de financement."),
+             "Le projet est présenté à l'assemblée générale, qui l'adopte à la majorité "
+             "des voix exprimées. Point clé pour les copropriétaires : voter le plan "
+             "n'est ni voter des travaux, ni engager une dépense immédiate — chaque "
+             "chantier fera l'objet de son propre vote, le moment venu."),
         ],
         cible="syndics de copropriété, conseils syndicaux et administrateurs de biens",
         fiche=[
-            ("Pour qui", "Syndics, conseils syndicaux, administrateurs de biens."),
+            ("Pour qui", "Syndics, conseils syndicaux, administrateurs de biens — et "
+                         "copropriétaires appelés à le voter en assemblée."),
             ("Quand", "Copropriété à destination totale ou partielle d'habitation "
                       "de plus de 15 ans."),
             ("Horizon", "Travaux programmés sur 10 ans ; plan actualisé tous les "
                         "10 ans."),
             ("Livrable", "Travaux hiérarchisés, chiffrage et échéancier, présentés "
                          "en assemblée générale."),
-            ("Bon à savoir", "Le plan dimensionne la cotisation au fonds de travaux."),
+            ("Bon à savoir", "Le plan détermine combien la copropriété met de côté chaque "
+                             "année : c'est lui qui calibre le fonds de travaux."),
             ("Devis", "Chiffré, sous 2 heures ouvrées."),
         ],
     ),
