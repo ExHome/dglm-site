@@ -758,3 +758,9 @@ details[open]>p{animation:deplie .3s ease}
 /* en francais courant : la vulgarisation en tete de fiche */
 .enclair{font-family:var(--display);font-style:italic;font-size:clamp(1.12rem,2vw,1.35rem);line-height:1.55;color:var(--vert);max-width:56ch;margin:1.6rem 0 .4rem;border-left:2px solid var(--or);padding-left:1.3rem}
 .enclair span{display:block;font-family:var(--sans);font-style:normal;font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:.55rem}
+
+/* accessibilite : contrastes et affordances (audit Lighthouse) */
+.card .sigle{color:var(--encre-2)}
+.card--link .more{color:var(--vert)}
+.footer .foot-titre{font-family:var(--display);color:var(--or-clair);font-size:.95rem;margin:0 0 .75rem;font-weight:600}
+.footer .legalline a{text-decoration:underline}

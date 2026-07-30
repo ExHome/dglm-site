@@ -163,7 +163,7 @@ def og_pour(path):
     return OG.get(path.strip("/").split("/")[0], "default")
 
 
-def shell(*, path, title, desc, body, schema="", robots="index,follow"):
+def shell(*, path, title, desc, body, schema="", robots="index,follow", head_extra=""):
     canon = DOM + path
     head = f"""<!doctype html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -189,6 +189,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow"):
 <meta name="geo.region" content="FR-33"><meta name="geo.placename" content="Bordeaux">
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/style.css">
+{head_extra}
 {schema}
 {jsonld(page_schema(canon, title))}
 </head><body>
@@ -215,22 +216,22 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <footer class="footer"><div class="wrap">
 <img class="mark" src="/assets/logo-dglm-blanc.png" alt="" width="164" height="52" loading="lazy">
 <div class="grid grid--4">
-<div><h4>Prestations</h4><ul>{"".join(f'<li><a href="{SILO}/{s["slug"]}/">{s["nom"]}</a></li>' for s in SERVICES)}</ul></div>
-<div><h4>Vous êtes</h4><ul>
+<div><p class="foot-titre">Prestations</p><ul>{"".join(f'<li><a href="{SILO}/{s["slug"]}/">{s["nom"]}</a></li>' for s in SERVICES)}</ul></div>
+<div><p class="foot-titre">Vous êtes</p><ul>
 <li><a href="{SILO}/syndics-de-copropriete/">Syndic de copropriété</a></li>
 <li><a href="{SILO}/bailleurs-et-maitres-d-ouvrage/">Bailleur ou maître d'ouvrage</a></li>
 <li><a href="{SILO}/entreprises-de-travaux/">Entreprise de travaux</a></li></ul></div>
-<div><h4>Diagnostics copro</h4><ul>
+<div><p class="foot-titre">Diagnostics copro</p><ul>
 <li><a href="/diagnostics-copropriete/">Les neuf missions collectives</a></li>
 <li><a href="/dossier-technique-amiante/">Dossier technique amiante</a></li>
 <li><a href="/dpe-collectif-copropriete/">DPE collectif</a></li>
 <li><a href="/diagnostic-pemd/">Diagnostic PEMD</a></li></ul></div>
-<div><h4>Zones</h4><ul>
+<div><p class="foot-titre">Zones</p><ul>
 <li><a href="{SILO}/zones-d-intervention/">56 communes, Gironde et Landes</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/bordeaux/">Bordeaux</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/merignac/">Mérignac</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/pessac/">Pessac</a></li></ul></div>
-<div><h4>Contact</h4><ul>
+<div><p class="foot-titre">Contact</p><ul>
 <li><a href="tel:{E['tel_raw']}">{E['tel']}</a></li>
 <li><a href="mailto:{E['email']}">{E['email']}</a></li>
 <li><a href="/equipe/">Notre équipe certifiée</a></li>
@@ -450,6 +451,7 @@ Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à v
 {cta()}"""
 
     shell(path="/", title="RAAT, RAAD, DTG, PPPT à Bordeaux — DGLM Expertises",
+          head_extra='<link rel="preload" as="image" href="/assets/photos/hero-immeuble.jpg">',
           desc="Repérage amiante avant travaux et avant démolition, diagnostic technique "
                "global, plan pluriannuel de travaux. Bordeaux Métropole, devis sous 2 h.",
           body=body,
