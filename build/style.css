@@ -665,3 +665,6 @@ details[open]>p{animation:deplie .3s ease}
   .schema{border:1px solid #999}
   .footer .legalline{color:#555!important}
 }
+
+.photo__lecon{font-size:.9rem;color:var(--encre-2);margin:.7rem 0 0;max-width:60ch}
+.photo__lecon b{color:var(--vert)}

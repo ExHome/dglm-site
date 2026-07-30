@@ -330,11 +330,19 @@ se joue vraiment.</p>
 <figure class="photo"><img src="/assets/photos/terrain-conduits.jpg"
 alt="Conduits en fibres-ciment repérés en toiture lors d'une mission amiante"
 loading="lazy" decoding="async" width="960" height="1280">
-<figcaption>Conduits en fibres-ciment repérés en toiture — mission amiante</figcaption></figure>
+<figcaption>Toiture — conduits en fibres-ciment</figcaption>
+<p class="photo__lecon"><b>Ce qu'on voit :</b> des conduits en ciment gris posés avant 1997.
+<b>Pourquoi on s'y arrête :</b> à l'époque, ce ciment était souvent armé d'amiante. Tant
+qu'on n'y touche pas, il ne libère rien — mais avant des travaux, on prélève et on fait
+analyser en laboratoire. C'est exactement ça, un repérage.</p></figure>
 <figure class="photo"><img src="/assets/photos/terrain-combles.jpg"
 alt="Inspection de combles à la lampe lors d'un repérage"
 loading="lazy" decoding="async" width="960" height="1280">
-<figcaption>Sous les toits — le repérage va là où personne ne regarde</figcaption></figure>
+<figcaption>Combles — l'envers du décor</figcaption>
+<p class="photo__lecon"><b>Ce qu'on voit :</b> un comble où personne n'est monté depuis des
+années. <b>Pourquoi on y va :</b> c'est là que se logent flocages, calorifugeages et
+désordres de charpente. Un diagnostic sérieux ne se fait pas depuis le palier :
+il va voir.</p></figure>
 </div></div></section>
 
 {volet("Échéancier réglementaire",
