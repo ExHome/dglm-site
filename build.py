@@ -353,6 +353,13 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <div><dt>Analyses</dt><dd>Laboratoire accrédité COFRAC</dd></div>
 </dl></div>{SKYLINE}</section>
 
+<section class="parcours"><div class="wrap">
+<span class="parcours__label">À chacun son parcours</span>
+<a href="{SILO}/syndics-de-copropriete/">Je suis syndic ou conseil syndical</a>
+<a href="{SILO}/bailleurs-et-maitres-d-ouvrage/">Je suis bailleur ou maître d'ouvrage</a>
+<a href="{SILO}/entreprises-de-travaux/">Je suis une entreprise de travaux</a>
+</div></section>
+
 <section class="band"><div class="wrap">
 <p class="eyebrow">Quatre missions</p>
 <h2>Quatre missions, une même exigence de précision.</h2>
