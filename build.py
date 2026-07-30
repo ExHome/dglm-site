@@ -197,7 +197,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <div class="topbar"><div class="wrap">
 <span>Diagnostiqueurs certifiés · Copropriété &amp; travaux · Bordeaux Métropole</span>
 <a class="topbar__avis" href="{E['google_avis']}" rel="noopener">★ 4,9/5 — avis Google</a>
-<a href="/particuliers/">Vous êtes un particulier ? Vente &amp; location →</a>
+<a href="/particuliers/">Particulier pour une vente ou une location ? →</a>
 <a href="tel:{E['tel_raw']}">{E['tel']}</a></div></div>
 <header class="masthead"><div class="wrap">
 <a class="brand" href="/"><img src="/assets/logo-dglm-blanc.png" alt="DGLM Expertises"
@@ -367,6 +367,7 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <a href="{SILO}/syndics-de-copropriete/">Je suis syndic ou conseil syndical</a>
 <a href="{SILO}/bailleurs-et-maitres-d-ouvrage/">Je suis bailleur ou maître d'ouvrage</a>
 <a href="{SILO}/entreprises-de-travaux/">Je suis une entreprise de travaux</a>
+<a href="{SILO}/reperage-amiante-avant-travaux/">Je suis un particulier qui fait des travaux</a>
 </div></section>
 
 <section class="band"><div class="wrap">
@@ -625,6 +626,7 @@ def page_service(s):
 {f'<p class="enclair"><span>En français courant</span>{esc(s["clair"])}</p>' if s.get("clair") else ""}
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(s['intro'])}</p></div>
 {fiche_html(s.get('fiche'))}
+{'<p class="enclair" style="margin-top:1.6rem"><span>Vous êtes un particulier ?</span>Pour des travaux dans votre propre maison ou votre appartement, vous êtes exactement au bon endroit : ce repérage vaut pour tout donneur d\'ordre — y compris vous.</p>' if s['sigle'] in ('RAAT', 'RAAD') else ''}
 </div></section>
 {carnets_band(s['slug'])}
 {volet("Réglementation", "Ce que dit la réglementation",
