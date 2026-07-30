@@ -138,6 +138,7 @@ MENU = ('<a href="/">Accueil</a>'
         + "".join(f'<a href="{SILO}/{s["slug"]}/"><b>{s["sigle"]}</b> — {s["nom_court"]}</a>'
                   for s in SERVICES)
         + '<a href="/diagnostics-copropriete/">Les diagnostics de copropriété</a>'
+        + '<a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>'
         + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
         + '<a href="/questions/">Questions fréquentes</a>'
         + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
@@ -194,6 +195,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow"):
 width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <nav class="nav" aria-label="Navigation principale">{NAV}
 <a href="/diagnostics-copropriete/">Diagnostics copro</a>
+<a href="/le-tableau-des-diagnostics/">Le tableau</a>
 <a href="{SILO}/simulateur-obligations-copropriete/">Simulateur</a>
 <a href="/questions/">Questions</a>
 <a class="btn" href="/devis/">Demander un devis</a></nav>
@@ -933,9 +935,7 @@ def page_diag_pro(d):
     p = f"/{d['slug']}/"
     trail = [("Accueil", "/"), (d["nom"], p)]
     schema = rendre_schema(SCHEMA_DIAG.get(d["slug"], ""))
-    schema_bloc = (f'<section class="band"><div class="wrap">'
-                   f'<p class="eyebrow">Repère visuel</p>'
-                   f'<h2>Comprendre en un schéma</h2>{schema}</div></section>'
+    schema_bloc = (volet("Repère visuel", "Comprendre en un schéma", schema)
                    if schema else "")
     cadre = "".join(f"<dt>{esc(t)}</dt><dd>{esc(x)}</dd>" for t, x in d["cadre"])
     faq = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
@@ -958,29 +958,28 @@ def page_diag_pro(d):
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
 <a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
-<section class="band"><div class="wrap prose">
-<p style="font-size:1.12rem">{esc(d['intro'])}</p>
-<h2>Ce que dit la réglementation</h2>
-<dl class="legal">{cadre}</dl>
-<h2>Une pratique distincte du diagnostic de transaction</h2>
+<section class="band"><div class="wrap">
+<p class="eyebrow">La fiche pratique</p>
+<h2>L'essentiel en trente secondes</h2>
+<div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(d['intro'])}</p></div>
+{fiche_html(d.get('fiche'))}
+</div></section>
+{volet("Réglementation", "Ce que dit la réglementation",
+       f'''<dl class="legal">{cadre}</dl>
+<h3 style="margin-top:2.2rem;color:var(--vert)">Une pratique distincte du diagnostic de transaction</h3>
 <p>Un diagnostic de vente se rend en vingt-quatre heures sur un logement vacant. Une
 mission collective se conduit sur un immeuble habité, au rythme d'un conseil syndical
 et d'un calendrier d'assemblée. Ce sont deux métiers ; nous exerçons le second.</p>
 <p>Nos rapports sont conçus pour être présentés en assemblée générale et annexés à un
-marché de travaux, non pour être classés dans un dossier de compromis.</p>
-</div></section>
+marché de travaux, non pour être classés dans un dossier de compromis.</p>''',
+       pale=True)}
 {schema_bloc}
 <section class="band band--pale"><div class="wrap">
 <p class="eyebrow">Questions fréquentes</p><h2>Les questions les plus fréquentes</h2>
 <div style="margin-top:1.5rem;max-width:74ch">{faq}</div></div></section>
-
-<section class="band"><div class="wrap">
-<p class="eyebrow">Missions liées</p><h2>Missions généralement associées</h2>
-<div class="grid grid--3" style="margin-top:1.6rem">{autres}</div></div></section>
-
-<section class="band band--dark"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Périmètre</p>
-<h2>Où nous intervenons</h2>{groupes}</div></section>
+{volet("Missions liées", "Missions généralement associées",
+       f'<div class="grid grid--3">{autres}</div>')}
+{volet("Périmètre", "Où nous intervenons", groupes, dark=True)}
 {cta()}"""
 
     shell(path=p, title=titre(f"{d['nom']} — Bordeaux, Gironde, Landes",
@@ -995,6 +994,95 @@ marché de travaux, non pour être classés dans un dossier de compromis.</p>
                          "description": d["intro"]}))
     URLS.append((p, "0.85", "monthly"))
 
+
+
+def page_tableau():
+    """La page-bible : chaque mission et diagnostic de copropriété en un tableau."""
+    p = "/le-tableau-des-diagnostics/"
+    trail = [("Accueil", "/"), ("Le tableau des diagnostics", p)]
+    LIGNES = [
+        ("RAAT", "Repérage amiante avant travaux", "Le donneur d'ordre : syndic, maître d'ouvrage, bailleur",
+         "Avant tous travaux, bâti d'avant juillet 1997", "Rapport sous 48 h après analyses COFRAC",
+         f"{SILO}/reperage-amiante-avant-travaux/"),
+        ("RAAD", "Repérage amiante avant démolition", "Le maître d'ouvrage",
+         "Avant démolition totale ou partielle, bâti d'avant juillet 1997",
+         "Exhaustif, sondages destructifs, bâtiment libéré",
+         f"{SILO}/reperage-amiante-avant-demolition/"),
+        ("DTG", "Diagnostic technique global", "Le syndic, sur vote ou obligation",
+         "Mise en copropriété d'un immeuble de plus de 10 ans, insalubrité, ou vote en AG",
+         "Un DTG complet peut tenir lieu de PPPT",
+         f"{SILO}/diagnostic-technique-global/"),
+        ("PPPT", "Plan pluriannuel de travaux", "Le syndic",
+         "Copropriété d'habitation de plus de 15 ans",
+         "Établi pour 10 ans, actualisé tous les 10 ans",
+         f"{SILO}/plan-pluriannuel-de-travaux/"),
+        ("DTA", "Dossier technique amiante", "Le syndic",
+         "Parties communes, permis d'avant juillet 1997",
+         "À tenir à jour à chaque travaux",
+         "/dossier-technique-amiante/"),
+        ("DAPP", "Amiante des parties privatives", "Chaque propriétaire de lot",
+         "Logements en collectif d'avant juillet 1997",
+         "Liste A seule — ne remplace pas un repérage avant travaux",
+         "/amiante-parties-privatives/"),
+        ("PEMD", "Produits, équipements, matériaux, déchets", "Le maître d'ouvrage",
+         "Démolition ou rénovation significative : plus de 1 000 m² ou substances dangereuses",
+         "Récolement à transmettre après travaux",
+         "/diagnostic-pemd/"),
+        ("DPE collectif", "DPE de l'immeuble entier", "Le syndic",
+         "Copropriété d'habitation, permis antérieur à 2013 — toutes depuis le 1er janvier 2026",
+         "Validité 10 ans",
+         "/dpe-collectif-copropriete/"),
+        ("Audit énergétique", "Scénarios de rénovation chiffrés", "L'assemblée générale (démarche volontaire)",
+         "En préparation d'une rénovation",
+         "Conditionne l'accès à plusieurs aides",
+         "/audit-energetique-copropriete/"),
+        ("CREP communes", "Constat plomb des parties communes", "Le syndicat des copropriétaires",
+         "Immeubles d'habitation d'avant 1949",
+         "Définitif si absence de plomb ou revêtements sains",
+         "/crep-parties-communes/"),
+        ("État parasitaire", "Termites, mérule, xylophages", "Maître d'ouvrage ou acquéreur",
+         "Avant travaux ou acquisition, bâti ancien — Gironde et Landes en zone termites",
+         "Expertise contractuelle, au-delà du seul contrôle termites",
+         "/etat-parasitaire-avant-travaux/"),
+        ("Gaz & électricité collectifs", "Contrôle des installations communes", "Le syndic — auprès d'un organisme agréé",
+         "Au titre de l'entretien de l'immeuble et du dossier assureur",
+         "Réalisé par un organisme de contrôle agréé, pas par un diagnostiqueur : nous vous orientons",
+         "/installations-collectives-gaz-electricite/"),
+        ("Assainissement", "Conformité du raccordement", "Le syndicat et chaque copropriétaire",
+         "Avant la mise en demeure de la collectivité",
+         "À inscrire au plan pluriannuel plutôt qu'à subir en urgence",
+         "/conformite-assainissement-copropriete/"),
+    ]
+    rangs = "".join(
+        f'<tr><td data-l="Mission"><a href="{u}"><b>{esc(s)}</b></a><span>{esc(n)}</span></td>'
+        f'<td data-l="Qui le commande">{esc(q)}</td>'
+        f'<td data-l="Quand">{esc(qd)}</td>'
+        f'<td data-l="Le point clé">{esc(pc)}</td></tr>'
+        for s, n, q, qd, pc, u in LIGNES)
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">{len(LIGNES)} missions et diagnostics · mis à jour {MAJ}</p>
+<h1>Tous les diagnostics de copropriété, en un tableau.</h1>
+<p class="lede">Qui commande quoi, quand, et le point qui change tout — la page à mettre en
+favori et à partager en conseil syndical. Chaque ligne renvoie vers la fiche complète.</p></div></section>
+<section class="band"><div class="wrap">
+<table class="tabmaitre">
+<thead><tr><th>Mission</th><th>Qui le commande</th><th>Quand</th><th>Le point clé</th></tr></thead>
+<tbody>{rangs}</tbody></table>
+<p class="maj">Vérifié au {MAJ} — mis à jour automatiquement à chaque évolution réglementaire</p>
+<p style="margin-top:1.6rem">Vente et location d'un logement : ces diagnostics relèvent d'un autre
+cadre — nos <a href="/questions/">réponses détaillées</a> les couvrent, et notre site
+<a href="/particuliers/">dédié aux particuliers</a> les réalise.</p>
+</div></section>
+{cta()}"""
+    shell(path=p, title="Le tableau des diagnostics de copropriété — DGLM Expertises",
+          desc=desc_courte("Chaque mission et diagnostic de copropriété en un tableau : qui le "
+                           "commande, quand, validité et point clé. Vérifié et mis à jour."),
+          body=body,
+          schema=jsonld(org_schema(), breadcrumb(trail),
+                        {"@type": "Table", "about": "Diagnostics de copropriété",
+                         "name": "Le tableau des diagnostics de copropriété"}))
+    URLS.append((p, "0.9", "weekly"))
 
 
 def page_hub_diags():
@@ -1019,6 +1107,7 @@ versions collectives des diagnostics, pour syndics, bailleurs et maîtres d'ouvr
 <p class="narrow">Le diagnostic de transaction répond à une échéance : un délai court, un bien le
 plus souvent vacant, un décideur unique. La mission collective suppose un conseil
 syndical, un calendrier d'assemblée, un budget voté et des occupants sur place. Nous n'exerçons que la seconde.</p>
+<p style="margin-top:1.4rem"><a class="btn btn--ghost" href="/le-tableau-des-diagnostics/">Tout voir en un tableau</a></p>
 <div class="grid grid--3" style="margin-top:2rem">{cards}</div></div></section>
 {cta()}"""
     shell(path=p, title="Diagnostics de copropriété : DTA, DPE collectif, PEMD, plomb",
@@ -1095,10 +1184,40 @@ par l'analyse.</p>
 # Une page = une question réelle, réponse directe dès le premier paragraphe.
 # C'est le format que citent les moteurs IA : ils reprennent la phrase qui
 # répond, pas le paragraphe d'introduction.
+def _slug_ancre(t):
+    import re as _re, unicodedata as _u
+    t = _u.normalize("NFD", t).encode("ascii", "ignore").decode()
+    return _re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")[:60] or "section"
+
+
+def sommaire_article(corps):
+    """Ancre chaque h2 et rend un sommaire cliquable (navigation au clic).
+    Retourne (corps_avec_ancres, html_du_sommaire)."""
+    import re as _re
+    titres = _re.findall(r"<h2>(.*?)</h2>", corps)
+    if len(titres) < 3:
+        return corps, ""
+    vus, items = set(), []
+    def _remp(m):
+        t = m.group(1)
+        a = _slug_ancre(strip_tags(t))
+        while a in vus:
+            a += "-b"
+        vus.add(a)
+        items.append((a, t))
+        return f'<h2 id="{a}">{t}</h2>'
+    corps = _re.sub(r"<h2>(.*?)</h2>", _remp, corps)
+    liens = "".join(f'<li><a href="#{a}">{t}</a></li>' for a, t in items)
+    som = (f'<nav class="sommaire-art" aria-label="Sommaire">'
+           f'<p class="eyebrow">Dans cette page</p><ol>{liens}</ol></nav>')
+    return corps, som
+
+
 def page_contenu(c, voisins):
     p = f"/questions/{c['slug']}/"
     trail = [("Accueil", "/"), ("Questions fréquentes", "/questions/"), (c["titre"], p)]
     corps = md_vers_html(c["corps"])
+    corps, som = sommaire_article(corps)
     liens = "".join(f'<li><a href="{u}">{esc(u.strip("/").replace("-", " ").capitalize())}</a></li>'
                     for u in c["liens"])
     autres = "".join(
@@ -1110,7 +1229,7 @@ def page_contenu(c, voisins):
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">Question fréquente</p>
 <h1>{esc(c['titre'])}</h1></div></section>
-<article class="band"><div class="wrap prose">{corps}
+<article class="band"><div class="wrap prose">{som}{corps}
 <p class="maj">Publié le {c['date'].strftime('%d/%m/%Y')} · vérifié au {MAJ} ·
 rédigé par l'équipe technique de {E['nom']}</p>
 <h2>Pour approfondir</h2><ul>{liens}</ul>
@@ -1718,6 +1837,7 @@ def main():
     page_home()
     page_simulateur()
     page_hub_diags()
+    page_tableau()
     for d in DIAGS_PRO:
         page_diag_pro(d)
     for s in SERVICES:

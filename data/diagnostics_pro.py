@@ -55,6 +55,15 @@ DIAGS_PRO = [
              "des matériaux y est périmée. Une réévaluation périodique est attendue, et "
              "indispensable dès qu'un doute existe."),
         ],
+        fiche=[
+            ("Pour qui", "Le syndic, pour le compte du syndicat des copropriétaires."),
+            ("Quel bâtiment", "Parties communes des immeubles collectifs dont le permis "
+                              "est antérieur au 1er juillet 1997."),
+            ("Périmètre", "Matériaux des listes A et B, avec état de conservation."),
+            ("À tenir à jour", "À chaque travaux modifiant l'état des matériaux."),
+            ("À remettre", "Fiche récapitulative aux occupants et aux entreprises."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
+        ],
     ),
     dict(
         slug="amiante-parties-privatives",
@@ -91,6 +100,14 @@ DIAGS_PRO = [
             ("Le DAPP est-il à remettre au locataire ?",
              "Le constat doit être tenu à disposition des occupants et des personnes "
              "appelées à intervenir dans le logement."),
+        ],
+        fiche=[
+            ("Pour qui", "Chaque propriétaire de lot — bailleurs sociaux et privés en tête."),
+            ("Quel bâtiment", "Logements en immeuble collectif d'avant juillet 1997."),
+            ("Périmètre", "Liste A seule : flocages, calorifugeages, faux-plafonds."),
+            ("À savoir", "Ne remplace jamais un repérage avant travaux."),
+            ("Parc locatif", "Mission conduite en campagne organisée, logement par logement."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
         ],
     ),
     dict(
@@ -131,6 +148,15 @@ DIAGS_PRO = [
              "Le maître d'ouvrage. Il doit le faire réaliser avant le dépôt de la demande "
              "d'autorisation ou, à défaut, avant l'acceptation des devis de travaux."),
         ],
+        fiche=[
+            ("Pour qui", "Le maître d'ouvrage de l'opération."),
+            ("Quand", "Avant démolition ou rénovation significative."),
+            ("Seuils", "Plus de 1 000 m², ou activité ayant employé ou stocké des "
+                       "substances dangereuses."),
+            ("Livrable", "Inventaire, quantités estimées, filières de réemploi."),
+            ("Après travaux", "Formulaire de récolement à transmettre."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
+        ],
     ),
     dict(
         slug="dpe-collectif-copropriete",
@@ -166,6 +192,15 @@ DIAGS_PRO = [
             ("Faut-il un vote en assemblée générale ?",
              "L'obligation s'impose ; l'assemblée se prononce sur les modalités de "
              "réalisation et le prestataire retenu."),
+        ],
+        fiche=[
+            ("Pour qui", "Copropriétés d'habitation dont le permis est antérieur à 2013."),
+            ("Calendrier", "Toutes les tailles de copropriétés concernées depuis le "
+                           "1er janvier 2026."),
+            ("Porte sur", "L'immeuble entier, pas les lots individuels."),
+            ("Validité", "Dix ans, sauf travaux modifiant la performance."),
+            ("À savoir", "Nourrit directement le plan pluriannuel de travaux."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
         ],
     ),
     dict(
@@ -211,6 +246,14 @@ DIAGS_PRO = [
              "reste le meilleur outil pour décider des travaux et monter un plan de "
              "financement. Notre simulateur d'obligations vous donne une première réponse."),
         ],
+        fiche=[
+            ("Statut", "Démarche volontaire — l'obligation, c'est le DPE collectif."),
+            ("Pour qui", "Copropriétés qui préparent une rénovation."),
+            ("Livrable", "Scénarios de travaux hiérarchisés et chiffrés, gains attendus."),
+            ("Financement", "Conditionne l'accès à plusieurs aides à la rénovation."),
+            ("À savoir", "S'intègre directement à l'échéancier du plan pluriannuel."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
+        ],
     ),
     dict(
         slug="crep-parties-communes",
@@ -248,6 +291,14 @@ DIAGS_PRO = [
             ("Faut-il un CREP avant une réfection de cage d'escalier ?",
              "Sur un immeuble antérieur à 1949, oui : c'est la condition d'une "
              "organisation de chantier conforme."),
+        ],
+        fiche=[
+            ("Pour qui", "Le syndicat des copropriétaires."),
+            ("Quel bâtiment", "Immeubles d'habitation construits avant le 1er janvier 1949."),
+            ("Méthode", "Mesures par appareil à fluorescence X, unité par unité."),
+            ("Validité", "Définitive si absence de plomb ou revêtements non dégradés."),
+            ("Enjeu", "Responsabilité lourde du syndicat en cas d'intoxication."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
         ],
     ),
     dict(
@@ -287,6 +338,15 @@ DIAGS_PRO = [
             ("Quand le commander ?",
              "Avant la signature d'une acquisition d'immeuble, ou avant l'établissement "
              "d'un plan pluriannuel de travaux sur un bâti ancien."),
+        ],
+        fiche=[
+            ("Nature", "Mission d'expertise contractuelle — pas un diagnostic de "
+                       "transaction."),
+            ("Quand", "Avant travaux, avant acquisition, ou sur désordre constaté."),
+            ("Couvre", "Termites, mérule, capricornes, vrillettes — et les bois de "
+                       "structure."),
+            ("Territoire", "Gironde et Landes, en zone termites délimitée par arrêté."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
         ],
     ),
     dict(
@@ -334,6 +394,15 @@ DIAGS_PRO = [
              "Le syndic, auprès d'un organisme de contrôle agréé, sur décision du conseil "
              "syndical ou de l'assemblée générale."),
         ],
+        fiche=[
+            ("Qui le réalise", "Un organisme de contrôle agréé — pas un diagnostiqueur "
+                               "immobilier."),
+            ("Notre rôle", "Vous orienter vers qui de droit, puis intégrer les "
+                           "conclusions au DTG et au plan pluriannuel."),
+            ("Qui le commande", "Le syndic, sur décision du conseil syndical ou de "
+                                "l'assemblée générale."),
+            ("Enjeu", "Obligation d'entretien de l'immeuble, dossier assureur."),
+        ],
     ),
     dict(
         slug="conformite-assainissement-copropriete",
@@ -368,6 +437,16 @@ DIAGS_PRO = [
             ("Peut-on l'intégrer au plan pluriannuel de travaux ?",
              "Oui, et c'est recommandé : les reprises de réseau sont coûteuses et se "
              "programment mal en urgence."),
+        ],
+        fiche=[
+            ("Pour qui", "Le syndicat pour les parties communes, chaque copropriétaire "
+                         "pour ses installations privatives."),
+            ("Porte sur", "Raccordement au réseau public, séparation eaux usées et "
+                          "pluviales, état des branchements."),
+            ("Enjeu", "Mise en demeure à délai court, majoration possible de la "
+                      "redevance."),
+            ("À savoir", "À inscrire au plan pluriannuel plutôt qu'à subir en urgence."),
+            ("Devis", "Chiffré, sous 2 heures ouvrées."),
         ],
     ),
 ]

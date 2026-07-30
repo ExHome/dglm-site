@@ -600,6 +600,45 @@ main{counter-reset:planche}
 /* décalage d'ancre : les liens #section ne passent plus sous l'en-tête collant */
 :target,[id]{scroll-margin-top:5.5rem}
 
+/* ---------- tableau maître : la bible en une page ---------- */
+.tabmaitre{width:100%;border-collapse:collapse;margin-top:.6rem}
+.tabmaitre th{text-align:left;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gris);font-weight:600;padding:.7rem .9rem .7rem 0;border-bottom:2px solid var(--vert)}
+.tabmaitre td{vertical-align:top;font-size:.92rem;padding:.95rem .9rem .95rem 0;
+  border-bottom:1px solid var(--rule-fine)}
+.tabmaitre td a{text-decoration:none;color:var(--vert)}
+.tabmaitre td a:hover b{color:var(--or)}
+.tabmaitre td b{font-family:var(--display);font-size:1.02rem}
+.tabmaitre td span{display:block;font-size:.8rem;color:var(--gris);margin-top:.15rem}
+@media (max-width:760px){
+  .tabmaitre thead{display:none}
+  .tabmaitre,.tabmaitre tbody,.tabmaitre tr,.tabmaitre td{display:block;width:100%}
+  .tabmaitre tr{border-top:2px solid var(--vert);padding:.6rem 0 .9rem;margin-top:1.2rem}
+  .tabmaitre td{border-bottom:0;padding:.35rem 0}
+  .tabmaitre td::before{content:attr(data-l);display:block;font-size:.62rem;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-bottom:.15rem}
+}
+
+/* ---------- sommaire d'article : navigation au clic ---------- */
+.sommaire-art{border:1px solid var(--rule);border-left:3px solid var(--or);
+  padding:1.1rem 1.3rem;margin:0 0 2.2rem;background:var(--blanc)}
+.sommaire-art .eyebrow{margin-bottom:.6rem}
+.sommaire-art ol{margin:0;padding-left:1.15rem;columns:2 16rem;column-gap:2rem}
+.sommaire-art li{font-size:.92rem;padding:.22rem 0;break-inside:avoid}
+.sommaire-art a{color:var(--encre-2);text-decoration:none;border-bottom:1px solid var(--rule)}
+.sommaire-art a:hover{color:var(--vert);border-bottom-color:var(--vert)}
+
+/* ---------- topbar allégée sur téléphone ---------- */
+@media (max-width:640px){.topbar span{display:none}}
+
+/* ---------- transitions douces des tiroirs ---------- */
+.volet__corps{animation:deplie .3s ease}
+details[open]>p{animation:deplie .3s ease}
+.menu__list{animation:deplie .22s ease}
+@keyframes deplie{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .volet__corps,.menu__list,details[open]>p{animation:none}}
+
 /* impression : dossier net pour l'assemblée générale, sans chrome ni aplats sombres */
 @media print{
   .topbar,.masthead,.skip,.nav,.cta,.crumb,.mesh,.actions{display:none!important}
