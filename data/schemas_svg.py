@@ -206,12 +206,195 @@ def dtg_vs_pppt():
         c, "0 0 800 440", "800/440")
 
 
+# ---------------------------------------------------------------- 6. DTA vs DAPP
+def dta_vs_dapp():
+    def carte(x, titre, qui, quoi, coul):
+        return (f'<rect x="{x}" y="84" width="340" height="210" fill="#fff"/>'
+                f'<rect x="{x}" y="84" width="340" height="5" fill="{coul}"/>'
+                f'<text x="{x+24}" y="130" font-size="26" font-weight="700" fill="{coul}">{titre}</text>'
+                + _multi(x + 24, 168, qui, 15, V, "600")
+                + _multi(x + 24, 226, quoi, 14, GRIS, interligne=24))
+    c = f'''<rect width="800" height="400" fill="{CREME}"/>
+<text x="30" y="48" font-size="20" font-weight="600" fill="{V}">Amiante : qui est responsable de quoi ?</text>
+{carte(30, "DTA", "Le syndic|pour les parties communes", "Listes A et B|Tenu à jour, fiche remise|aux occupants et entreprises", V)}
+{carte(430, "DAPP", "Chaque propriétaire|pour son logement", "Liste A seulement|Flocages, calorifugeages,|faux-plafonds", OR)}
+<text x="30" y="342" font-size="15" font-weight="600" fill="{V}">Deux documents, deux responsables — et aucun ne remplace le repérage avant travaux.</text>
+<text x="30" y="368" font-size="13.5" fill="{GRIS}">Avant un chantier, le repérage avant travaux reste obligatoire dans les deux cas.</text>'''
+    return _envelope(
+        "DTA ou DAPP : qui est responsable de quoi",
+        "Deux cartes. Le dossier technique amiante relève du syndic pour les parties "
+        "communes : listes A et B, tenu à jour, fiche remise aux occupants et aux "
+        "entreprises. Le diagnostic amiante des parties privatives relève de chaque "
+        "propriétaire pour son logement : liste A seulement — flocages, calorifugeages, "
+        "faux-plafonds. Aucun des deux ne remplace le repérage avant travaux.",
+        c, "0 0 800 400", "800/400")
+
+
+# ---------------------------------------------------------------- 7. calendrier DPE collectif
+def calendrier_dpe():
+    jalons = [("1er janvier 2024", "Plus de 200 lots"),
+              ("1er janvier 2025", "De 51 à 200 lots"),
+              ("1er janvier 2026", "50 lots et moins"),
+              ("Aujourd'hui", "Toutes concernées")]
+    blocs = f'<line x1="70" y1="120" x2="70" y2="384" stroke="{OR}" stroke-width="1.6"/>'
+    for i, (d, t) in enumerate(jalons):
+        y = 120 + i * 88
+        em = (i == 3)
+        blocs += (f'<circle cx="70" cy="{y}" r="9" fill="{OR if em else V}"/>'
+                  f'<text x="104" y="{y-2}" font-size="17" font-weight="600" fill="{V}">{d}</text>'
+                  f'<text x="104" y="{y+22}" font-size="14" fill="{GRIS}">{t}</text>')
+    c = f'''<rect width="800" height="440" fill="{CREME}"/>
+<text x="30" y="48" font-size="20" font-weight="600" fill="{V}">DPE collectif : le calendrier est arrivé à son terme</text>
+<text x="30" y="76" font-size="14" fill="{GRIS}">Copropriétés d'habitation dont le permis de construire est antérieur à 2013.</text>
+{blocs}
+<text x="430" y="200" font-size="15" font-weight="600" fill="{V}">Validité : dix ans,</text>
+<text x="430" y="224" font-size="14" fill="{GRIS}">sauf travaux modifiant la performance.</text>
+<text x="430" y="266" font-size="15" font-weight="600" fill="{V}">Il porte sur l'immeuble entier,</text>
+<text x="430" y="290" font-size="14" fill="{GRIS}">pas sur les lots individuels.</text>'''
+    return _envelope(
+        "Le calendrier du DPE collectif de copropriété",
+        "Frise en quatre jalons. Premier janvier 2024 : copropriétés de plus de 200 "
+        "lots. Premier janvier 2025 : de 51 à 200 lots. Premier janvier 2026 : 50 lots "
+        "et moins. Aujourd'hui, toutes les copropriétés d'habitation dont le permis est "
+        "antérieur à 2013 sont concernées. Validité de dix ans, sauf travaux modifiant "
+        "la performance ; il porte sur l'immeuble entier, pas sur les lots.",
+        c, "0 0 800 440", "800/440")
+
+
+# ---------------------------------------------------------------- 8. DPE vs audit
+def dpe_vs_audit():
+    def carte(x, titre, verbe, quoi, coul):
+        return (f'<rect x="{x}" y="84" width="340" height="200" fill="#fff"/>'
+                f'<rect x="{x}" y="84" width="340" height="5" fill="{coul}"/>'
+                + _multi(x + 24, 128, titre, 21, coul, "700")
+                + f'<text x="{x+24}" y="182" font-size="16" font-style="italic" fill="{V}">{verbe}</text>'
+                + _multi(x + 24, 216, quoi, 14, GRIS, interligne=24))
+    c = f'''<rect width="800" height="392" fill="{CREME}"/>
+<text x="30" y="48" font-size="20" font-weight="600" fill="{V}">DPE collectif ou audit énergétique ?</text>
+{carte(30, "DPE collectif", "Il constate.", "L'étiquette de l'immeuble|C'est l'obligation légale", V)}
+{carte(430, "Audit énergétique", "Il décide.", "Scénarios de travaux chiffrés|Volontaire — ouvre les aides", OR)}
+<text x="30" y="334" font-size="15" font-weight="600" fill="{V}">Le premier vous classe, le second vous fait avancer.</text>
+<text x="30" y="360" font-size="13.5" fill="{GRIS}">L'audit alimente directement le plan pluriannuel de travaux.</text>'''
+    return _envelope(
+        "DPE collectif ou audit énergétique : constater ou décider",
+        "Deux cartes. Le DPE collectif constate : c'est l'étiquette énergétique de "
+        "l'immeuble entier, et l'obligation légale. L'audit énergétique décide : "
+        "scénarios de travaux chiffrés, démarche volontaire qui ouvre l'accès aux aides "
+        "et alimente directement le plan pluriannuel de travaux.",
+        c, "0 0 800 392", "800/392")
+
+
+# ---------------------------------------------------------------- 9. CREP avant 1949
+def crep_1949():
+    def etape(x, n, titre, sub):
+        return (f'<circle cx="{x}" cy="140" r="17" fill="{V}"/>'
+                f'<text x="{x}" y="146" text-anchor="middle" font-size="14" font-weight="700" fill="{ORC}">{n}</text>'
+                + _multi(x - 90, 190, titre, 15.5, V, "600", interligne=22)
+                + _multi(x - 90, 240, sub, 13, GRIS, interligne=20))
+    c = f'''<rect width="800" height="380" fill="{CREME}"/>
+<text x="30" y="48" font-size="20" font-weight="600" fill="{V}">Plomb des parties communes : trois questions</text>
+<line x1="130" y1="140" x2="670" y2="140" stroke="{OR}" stroke-width="1.6"/>
+{etape(130, 1, "L'immeuble date|d'avant 1949 ?", "Peintures au plomb|possibles")}
+{etape(400, 2, "On mesure,|sans rien casser", "Appareil à fluorescence X,|unité par unité")}
+{etape(670, 3, "On classe|l'état des peintures", "Dégradé = protection|obligatoire avant travaux")}
+<text x="30" y="352" font-size="14" fill="{GRIS}">Un constat sans plomb, ou avec revêtements en bon état, n'a pas à être renouvelé.</text>'''
+    return _envelope(
+        "Le constat plomb des parties communes en trois questions",
+        "Trois étapes. Un : l'immeuble date-t-il d'avant 1949 ? Les peintures au plomb "
+        "y sont possibles. Deux : on mesure sans rien casser, à l'appareil à "
+        "fluorescence X, unité par unité. Trois : on classe l'état des peintures — un "
+        "revêtement dégradé impose des protections avant travaux. Un constat sans plomb "
+        "ou avec revêtements en bon état n'a pas à être renouvelé.",
+        c, "0 0 800 380", "800/380")
+
+
+# ---------------------------------------------------------------- 10. agents du bois
+def agents_bois():
+    def col(x, titre, sub, coul):
+        return (f'<rect x="{x}" y="90" width="230" height="170" fill="#fff"/>'
+                f'<rect x="{x}" y="90" width="230" height="5" fill="{coul}"/>'
+                + _multi(x + 20, 132, titre, 17, coul, "700")
+                + _multi(x + 20, 176, sub, 13.5, GRIS, interligne=22))
+    c = f'''<rect width="800" height="380" fill="{CREME}"/>
+<text x="30" y="48" font-size="20" font-weight="600" fill="{V}">Ce qui attaque le bois d'un immeuble</text>
+{col(30, "Termites", "Galeries invisibles|Gironde et Landes|en zone délimitée", ALERTE)}
+{col(285, "Insectes|xylophages", "Capricornes, vrillettes :|trous et sciure|dans les charpentes", OR)}
+{col(540, "Mérule et|champignons", "Humidité persistante,|bois qui se délite|en cubes", V)}
+<text x="30" y="316" font-size="15" font-weight="600" fill="{V}">L'état parasitaire les cherche tous — pas seulement les termites de la vente.</text>
+<text x="30" y="342" font-size="13.5" fill="{GRIS}">Planchers, solives et charpentes sont examinés comme éléments porteurs.</text>'''
+    return _envelope(
+        "Termites, insectes xylophages, mérule : ce qui attaque le bois",
+        "Trois colonnes. Les termites creusent des galeries invisibles — la Gironde et "
+        "les Landes sont en zone délimitée par arrêté. Les insectes xylophages, "
+        "capricornes et vrillettes, laissent trous et sciure dans les charpentes. La "
+        "mérule et les champignons lignivores prospèrent sur l'humidité persistante et "
+        "délitent le bois en cubes. L'état parasitaire recherche l'ensemble de ces "
+        "agents, au-delà du seul contrôle termites exigé à la vente.",
+        c, "0 0 800 380", "800/380")
+
+
+# ---------------------------------------------------------------- 11. qui fait quoi
+def qui_fait_quoi():
+    def ligne(y, qui, quoi):
+        return (f'<rect x="30" y="{y}" width="4" height="72" fill="{OR}"/>'
+                f'<text x="56" y="{y+28}" font-size="17" font-weight="600" fill="{V}">{qui}</text>'
+                f'<text x="56" y="{y+54}" font-size="14" fill="{GRIS}">{quoi}</text>')
+    c = f'''<rect width="800" height="420" fill="{CREME}"/>
+<text x="30" y="48" font-size="20" font-weight="600" fill="{V}">Qui contrôle quoi dans votre immeuble ?</text>
+{ligne(84, "Le diagnostiqueur certifié — c'est nous", "Amiante, plomb, DTG, PPPT, DPE collectif, état parasitaire")}
+{ligne(172, "L'organisme de contrôle agréé", "Installations collectives de gaz et d'électricité, ascenseurs")}
+{ligne(260, "Le service public d'assainissement", "Conformité du raccordement au réseau")}
+<text x="30" y="382" font-size="15" font-weight="600" fill="{V}">Ce n'est pas notre mission ? Nous vous orientons vers qui de droit.</text>
+<text x="30" y="406" font-size="13.5" fill="{GRIS}">Et nous intégrons leurs conclusions au DTG et au plan pluriannuel de travaux.</text>'''
+    return _envelope(
+        "Qui contrôle quoi : diagnostiqueur, organisme agréé, collectivité",
+        "Trois lignes. Le diagnostiqueur certifié — c'est notre métier — réalise "
+        "amiante, plomb, diagnostic technique global, plan pluriannuel, DPE collectif "
+        "et état parasitaire. L'organisme de contrôle agréé vérifie les installations "
+        "collectives de gaz et d'électricité et les ascenseurs. Le service public "
+        "d'assainissement contrôle la conformité du raccordement au réseau. Quand ce "
+        "n'est pas notre mission, nous vous orientons vers qui de droit et intégrons "
+        "leurs conclusions au DTG et au plan pluriannuel.",
+        c, "0 0 800 420", "800/420")
+
+
+# ---------------------------------------------------------------- 12. eaux séparées
+def eaux_separatif():
+    c = f'''<rect width="800" height="380" fill="{CREME}"/>
+<text x="30" y="48" font-size="20" font-weight="600" fill="{V}">Assainissement : deux eaux, deux tuyaux</text>
+<rect x="30" y="90" width="360" height="180" fill="#fff"/>
+<rect x="30" y="90" width="360" height="5" fill="{V}"/>
+<text x="54" y="132" font-size="17" font-weight="700" fill="{V}">Eaux usées</text>
+{_multi(54, 168, "Cuisines, salles d'eau, WC|→ réseau public d'assainissement", 14, GRIS, interligne=24)}
+<rect x="410" y="90" width="360" height="180" fill="#fff"/>
+<rect x="410" y="90" width="360" height="5" fill="{OR}"/>
+<text x="434" y="132" font-size="17" font-weight="700" fill="{OR}">Eaux pluviales</text>
+{_multi(434, 168, "Toitures, cours, gouttières|→ jamais dans le même tuyau", 14, GRIS, interligne=24)}
+<text x="30" y="316" font-size="15" font-weight="600" fill="{V}">Le contrôle vérifie que rien ne se mélange — et l'état des branchements.</text>
+<text x="30" y="342" font-size="13.5" fill="{GRIS}">Sur le bâti d'avant 1970, les réseaux mélangés sont la règle plus que l'exception.</text>'''
+    return _envelope(
+        "Assainissement : eaux usées et eaux pluviales, deux réseaux séparés",
+        "Deux cartes. Les eaux usées — cuisines, salles d'eau, WC — vont au réseau "
+        "public d'assainissement. Les eaux pluviales — toitures, cours, gouttières — "
+        "ne doivent jamais emprunter le même tuyau. Le contrôle de conformité vérifie "
+        "que rien ne se mélange, et l'état des branchements. Sur le bâti d'avant 1970, "
+        "les réseaux mélangés sont la règle plus que l'exception.",
+        c, "0 0 800 380", "800/380")
+
+
 SCHEMAS = {
     "arbre-reperage": arbre_reperage,
     "listes-amiante": listes_amiante,
     "coupe-immeuble": coupe_immeuble,
     "cycle-pppt": cycle_pppt,
     "dtg-vs-pppt": dtg_vs_pppt,
+    "dta-vs-dapp": dta_vs_dapp,
+    "calendrier-dpe": calendrier_dpe,
+    "dpe-vs-audit": dpe_vs_audit,
+    "crep-1949": crep_1949,
+    "agents-bois": agents_bois,
+    "qui-fait-quoi": qui_fait_quoi,
+    "eaux-separatif": eaux_separatif,
 }
 
 

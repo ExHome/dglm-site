@@ -645,6 +645,16 @@ details[open]>p{animation:deplie .3s ease}
 .card .picto{display:block;width:46px;height:46px;color:var(--or);margin-bottom:.5rem}
 .illu-echoppe{display:block;width:min(300px,72%);margin:1.8rem 0 .6rem;opacity:.9}
 
+/* ---------- schémas : les traits se dessinent au défilement ---------- */
+@supports (animation-timeline: view()) {
+  .schema svg :is(path,line){stroke-dasharray:900;stroke-dashoffset:900;
+    animation:tracer linear both;animation-timeline:view();
+    animation-range:entry 5% entry 70%}
+  @keyframes tracer{to{stroke-dashoffset:0}}
+}
+@media (prefers-reduced-motion:reduce),print{
+  .schema svg :is(path,line){animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+
 /* ---------- photos de terrain ---------- */
 .photo{margin:0}
 .photo img{width:100%;height:auto;display:block;border:1px solid var(--rule)}

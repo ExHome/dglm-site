@@ -955,8 +955,14 @@ d'un droit d'accès, de rectification et de suppression en écrivant à {E['emai
 # frontière qui empêche la collision avec le site A.
 SCHEMA_DIAG = {
     "dossier-technique-amiante": "coupe-immeuble",
-    "amiante-parties-privatives": "listes-amiante",
+    "amiante-parties-privatives": "dta-vs-dapp",
     "diagnostic-pemd": "arbre-reperage",
+    "dpe-collectif-copropriete": "calendrier-dpe",
+    "audit-energetique-copropriete": "dpe-vs-audit",
+    "crep-parties-communes": "crep-1949",
+    "etat-parasitaire-avant-travaux": "agents-bois",
+    "installations-collectives-gaz-electricite": "qui-fait-quoi",
+    "conformite-assainissement-copropriete": "eaux-separatif",
 }
 
 
