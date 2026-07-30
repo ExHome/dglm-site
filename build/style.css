@@ -645,6 +645,12 @@ details[open]>p{animation:deplie .3s ease}
 .card .picto{display:block;width:46px;height:46px;color:var(--or);margin-bottom:.5rem}
 .illu-echoppe{display:block;width:min(300px,72%);margin:1.8rem 0 .6rem;opacity:.9}
 
+/* ---------- photos de terrain ---------- */
+.photo{margin:0}
+.photo img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.photo figcaption{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gris);padding:.8rem 0;border-bottom:1px solid var(--rule-fine)}
+
 /* impression : dossier net pour l'assemblée générale, sans chrome ni aplats sombres */
 @media print{
   .topbar,.masthead,.skip,.nav,.cta,.crumb,.mesh,.actions{display:none!important}

@@ -321,6 +321,22 @@ relecture de nos rapports.</p>
 <a class="btn btn--light" href="{E['diagadvisor']}" rel="noopener">Avis certifiés DiagAdvisor</a></div>
 </div></section>
 
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Carnets de terrain</p>
+<h2>Le terrain, tel que nous le voyons.</h2>
+<p class="narrow">Pas de photos de catalogue : nos propres missions, là où le diagnostic
+se joue vraiment.</p>
+<div class="grid grid--2" style="margin-top:1.8rem">
+<figure class="photo"><img src="/assets/photos/terrain-conduits.jpg"
+alt="Conduits en fibres-ciment repérés en toiture lors d'une mission amiante"
+loading="lazy" decoding="async" width="960" height="1280">
+<figcaption>Conduits en fibres-ciment repérés en toiture — mission amiante</figcaption></figure>
+<figure class="photo"><img src="/assets/photos/terrain-combles.jpg"
+alt="Inspection de combles à la lampe lors d'un repérage"
+loading="lazy" decoding="async" width="960" height="1280">
+<figcaption>Sous les toits — le repérage va là où personne ne regarde</figcaption></figure>
+</div></div></section>
+
 {volet("Échéancier réglementaire",
        "Le plan pluriannuel de travaux s'applique désormais à l'ensemble du parc.",
        f'''<p class="narrow">Issue de la loi Climat et Résilience, l'obligation est entrée en vigueur par
