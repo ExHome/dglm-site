@@ -136,6 +136,12 @@ def crumb_html(trail):
 SILO = ""            # site dédié : les prestations sont à la racine
 SILO_NOM = None
 
+SCRIPT_VOLETS = ('<script>(function(){function o(h){try{var e=h&&document.querySelector(h);'
+                 'if(e){var d=e.querySelector("details");if(d)d.open=true}}catch(x){}}'
+                 'addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest("a");'
+                 'if(a&&a.getAttribute("href")&&a.getAttribute("href").charAt(0)==="#")o(a.getAttribute("href"))});'
+                 'o(location.hash)})()</script>')
+
 NAV = "".join(
     f'<a href="{SILO}/{s["slug"]}/" title="{s["nom_court"]}">{s["sigle"]}</a>' for s in SERVICES)
 
@@ -215,7 +221,7 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <details class="menu"><summary aria-label="Ouvrir le menu">Menu</summary>
 <nav class="menu__list" aria-label="Menu complet">{MENU}</nav></details></div></header>
 <main id="contenu" tabindex="-1">"""
-    foot = f"""</main>
+    foot = f"""{SCRIPT_VOLETS}</main>
 <footer class="footer"><div class="wrap">
 <img class="mark" src="/assets/logo-dglm-blanc.png" alt="" width="164" height="52" loading="lazy">
 <div class="grid grid--4">
@@ -272,15 +278,17 @@ def cta(titre="Un chantier à cadrer ? Parlons-en aujourd'hui.",
 
 
 def volet(eyebrow, h2, corps, ouvert=False, pale=False, dark=False, ancre=""):
-    """Bandeau de section : titre et contenu visibles — on est sur un site web,
-    la lecture se fait au défilement. (L'argument ouvert est conservé pour
-    compatibilité, il n'a plus d'effet.)"""
+    """Bandeau déroulant : titre visible, contenu replié derrière « Déplier ».
+    La hiérarchie se voit, le détail s'ouvre au clic (details natif, zéro JS)."""
     cls = "band" + (" band--pale" if pale else "") + (" band--dark" if dark else "")
     eb = "eyebrow eyebrow--pale" if dark else "eyebrow"
+    o = " open" if ouvert else ""
     aid = f' id="{ancre}"' if ancre else ""
     return (f'<section{aid} class="{cls}"><div class="wrap">'
-            f'<p class="{eb}">{eyebrow}</p><h2>{h2}</h2>'
-            f'<div class="volet__corps">{corps}</div></div></section>')
+            f'<details class="volet"{o}><summary>'
+            f'<span class="{eb}">{eyebrow}</span><h2>{h2}</h2>'
+            f'<span class="volet__ouvrir" aria-hidden="true">Déplier</span></summary>'
+            f'<div class="volet__corps">{corps}</div></details></div></section>')
 
 
 def fiche_html(fiche):
@@ -1723,7 +1731,10 @@ def page_hub_contenus(contenus):
                      f'<p class="eyebrow">Rubrique {shown:02d} — {esc(nom)} · {len(items)} guides</p>'
                      f'<h2>{esc(sub)}</h2>'
                      f'<p class="enclair"><span>L\'antisèche</span>{esc(anti)}</p>'
-                     f'<div class="grid grid--2" style="margin-top:2.2rem">{cartes}</div></div></section>')
+                     f'<details class="volet" style="margin-top:1.2rem"><summary>'
+                     f'<span class="volet__ouvrir" aria-hidden="true">Déplier les guides</span></summary>'
+                     f'<div class="volet__corps"><div class="grid grid--2">{cartes}</div></div>'
+                     f'</details></div></section>')
     reste = groupes.get(len(CATS))
     if reste:
         shown += 1
@@ -1735,7 +1746,10 @@ def page_hub_contenus(contenus):
         sections += (f'<section id="rub-x" class="band"><div class="wrap">'
                      f'<p class="eyebrow">Rubrique {shown:02d} — Autres réponses · {len(reste)}</p>'
                      f'<h2>Autres questions fréquentes</h2>'
-                     f'<div class="grid grid--2" style="margin-top:2.2rem">{cartes}</div></div></section>')
+                     f'<details class="volet" style="margin-top:1.2rem"><summary>'
+                     f'<span class="volet__ouvrir" aria-hidden="true">Déplier les guides</span></summary>'
+                     f'<div class="volet__corps"><div class="grid grid--2">{cartes}</div></div>'
+                     f'</details></div></section>')
     rubriques = (f'<section class="band"><div class="wrap">'
                  f'<p class="eyebrow">Le sommaire</p><h2>Choisissez votre rubrique.</h2>'
                  f'<div class="grid grid--3" style="margin-top:1.8rem">{rubcards}</div></div></section>')
