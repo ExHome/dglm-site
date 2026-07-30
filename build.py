@@ -323,32 +323,42 @@ def fiche_html(fiche):
 # (fichier, largeur, hauteur, légende, ce qu'on voit, pourquoi ça compte)
 CARNETS = {
     "reperage-amiante-avant-travaux": [
-        ("terrain-conduits.jpg", 960, 1280, "Toiture — conduits en fibres-ciment",
+        ("terrain-conduits.jpg", 960, 1280, "amiante", "Toiture — conduits en fibres-ciment",
          "des conduits en ciment gris posés avant 1997.",
          "à l'époque, ce ciment était souvent armé d'amiante. Tant qu'on n'y touche "
          "pas, il ne libère rien — mais avant des travaux, on prélève et on fait "
          "analyser en laboratoire. C'est exactement ça, un repérage."),
     ],
     "diagnostic-technique-global": [
-        ("terrain-solive.jpg", 1200, 568, "Plancher — solive ancienne, renfort récent",
+        ("terrain-solive.jpg", 1200, 568, "copropriete", "Plancher — solive ancienne, renfort récent",
          "une solive rongée par les insectes du bois, doublée par une pièce neuve.",
          "un plancher qui a souffert raconte l'histoire de l'immeuble. Le diagnostic "
          "technique global objective ce qui porte encore, ce qui doit être renforcé, "
          "et à quel horizon."),
     ],
     "etat-parasitaire-avant-travaux": [
-        ("terrain-merule.jpg", 481, 640, "Bois de plancher — attaque fongique",
+        ("terrain-merule.jpg", 481, 640, "risques", "Bois de plancher — attaque fongique",
          "un bois qui se délite dans un angle humide.",
          "les champignons lignivores prospèrent sur l'humidité persistante. Repérés "
          "tôt, ils se traitent ; découverts tard, ils emportent plancher et solives."),
     ],
     "reperage-amiante-avant-demolition": [
-        ("terrain-combles.jpg", 960, 1280, "Combles — l'envers du décor",
+        ("terrain-combles.jpg", 960, 1280, "amiante", "Combles — l'envers du décor",
          "un comble où personne n'est monté depuis des années.",
          "avant une démolition, aucune réserve n'est acceptable : le repérage va "
          "partout, y compris là où personne ne regarde jamais."),
     ],
+    "plan-pluriannuel-de-travaux": [
+        ("terrain-cour.jpg", 1200, 900, "copropriete", "Cour intérieure — l'immeuble tel qu'il vit",
+         "une cour d'immeuble bordelais : pierre, coursives, enduits fatigués, réseaux apparents.",
+         "c'est exactement ce qu'un plan pluriannuel regarde : ce qui tient, ce qui vieillit, "
+         "et dans quel ordre le traiter sur dix ans."),
+    ],
 }
+
+# Thème → nom de rubrique (pour relier chaque carnet à ses guides).
+THEME_RUB = {"amiante": "Amiante", "copropriete": "Copropriété, DTG & PPPT",
+             "energie": "Performance énergétique", "risques": "Plomb, gaz & risques"}
 
 
 def carnets_band(slug):
@@ -360,8 +370,10 @@ def carnets_band(slug):
         f'loading="lazy" decoding="async" width="{w}" height="{h}">'
         f'<figcaption>{esc(cap)}</figcaption>'
         f'<p class="photo__lecon"><b>Ce qu\'on voit :</b> {esc(v)} '
-        f'<b>Pourquoi ça compte :</b> {esc(p)}</p></figure>'
-        for f, w, h, cap, v, p in items)
+        f'<b>Pourquoi ça compte :</b> {esc(p)}</p>'
+        f'<p class="photo__theme"><a href="/questions/rubriques/{th}/">'
+        f'Tous nos guides « {esc(THEME_RUB.get(th, th))} » →</a></p></figure>'
+        for f, w, h, th, cap, v, p in items)
     return (f'<section id="terrain" class="band"><div class="wrap">'
             f'<p class="eyebrow">Carnets de terrain</p><h2>Vu en mission</h2>'
             f'<div class="grid grid--2" style="margin-top:1.8rem">{figs}</div></div></section>')
@@ -1869,6 +1881,20 @@ def page_hub_contenus(contenus):
         photo = (f'<figure class="photo photo--rub"><img src="/assets/photos/{img}" '
                  f'alt="{esc(nom)} — illustration" loading="lazy" decoding="async" '
                  f'width="{iw}" height="{ih}"></figure>' if img else "")
+        vus = [(mslug, e) for mslug, entries in CARNETS.items()
+               for e in entries if e[3] == rslug]
+        terrain = ""
+        if vus:
+            tf = "".join(
+                f'<figure class="photo"><img src="/assets/photos/{e[0]}" alt="{esc(e[4])}" '
+                f'loading="lazy" decoding="async" width="{e[1]}" height="{e[2]}">'
+                f'<figcaption>{esc(e[4])}</figcaption>'
+                f'<p class="photo__lecon"><b>Ce qu\'on voit :</b> {esc(e[5])} '
+                f'<b>Pourquoi ça compte :</b> {esc(e[6])}</p></figure>'
+                for mslug, e in vus[:2])
+            terrain = (f'<section class="band band--pale"><div class="wrap">'
+                       f'<p class="eyebrow">Carnets de terrain</p><h2>Vu en mission, sur ce thème</h2>'
+                       f'<div class="grid grid--2" style="margin-top:1.8rem">{tf}</div></div></section>')
         rbody = f"""{crumb_html(rtrail)}
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">Rubrique {num:02d} — {len(items)} guides</p>
@@ -1880,6 +1906,7 @@ def page_hub_contenus(contenus):
 <div class="grid grid--2" style="margin-top:2.2rem">{rcartes}</div>
 <p style="margin-top:2rem"><a class="btn btn--ghost" href="/questions/">← Toutes les rubriques</a></p>
 </div></section>
+{terrain}
 {cta()}"""
         shell(path=rp, title=f"{nom} : les guides pratiques — DGLM"[:58],
               desc=desc_courte(f"{sub}. {anti}" if anti else f"{sub}."),

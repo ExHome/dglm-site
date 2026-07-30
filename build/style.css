@@ -803,3 +803,8 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 .famille:first-of-type{margin-top:1.8rem}
 .fam-lien{margin-top:1rem}
 .fam-lien a{font-size:.85rem;color:var(--vert)}
+
+/* lien theme sous chaque carnet de terrain */
+.photo__theme{margin-top:.55rem;font-size:.8rem}
+.photo__theme a{color:var(--vert);border-bottom:1px solid var(--rule-or);text-decoration:none;padding-bottom:.15rem}
+.photo__theme a:hover{border-bottom-color:var(--vert)}
