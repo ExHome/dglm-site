@@ -419,6 +419,8 @@ relecture de nos rapports.</p>
 <p class="eyebrow eyebrow--pale">Tout le site, en un clic</p>
 <h2>Où voulez-vous aller ?</h2>
 <div class="grid grid--3" style="margin-top:1.8rem">
+<a class="card card--link" href="/recherche/"><h3>Rechercher dans le site</h3>
+<p>Un sigle, une commune, une question : réponse à la frappe.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="/le-tableau-des-diagnostics/"><h3>Le tableau des diagnostics</h3>
 <p>Treize missions : qui commande, quand, validité — en une page.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="/questions/"><h3>Les guides pratiques</h3>
@@ -1761,7 +1763,8 @@ répond en six questions.</p>
 <div class="actions" style="justify-content:center;display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.8rem">
 <a class="btn" href="/">Retour à l'accueil</a>
 <a class="btn btn--ghost" href="{SILO}/simulateur-obligations-copropriete/">Simulateur d'obligations</a>
-<a class="btn btn--ghost" href="/questions/">Guides pratiques</a></div>
+<a class="btn btn--ghost" href="/questions/">Guides pratiques</a>
+<a class="btn btn--ghost" href="/recherche/">Rechercher dans le site</a></div>
 </div></section>"""
     shell(path="/404", title="Page introuvable — DGLM Expertises",
           desc="La page demandée n'existe pas ou a été déplacée.",
