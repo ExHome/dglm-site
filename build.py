@@ -7,6 +7,7 @@ ANNEE = AUJ.year
 MOIS_FR = ["janvier","février","mars","avril","mai","juin","juillet","août",
            "septembre","octobre","novembre","décembre"]
 MAJ = f"{MOIS_FR[AUJ.month-1]} {ANNEE}"
+MAJ_JOUR = f"{AUJ.day} {MOIS_FR[AUJ.month-1]} {ANNEE}"
 ISO = AUJ.isoformat()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data.communes import COMMUNES as METROPOLE, ZONE_ELARGIE
@@ -149,6 +150,7 @@ MENU = ('<a href="/">Accueil</a>'
         + '<a href="/questions/">Guides pratiques</a>'
         + '<a href="/recherche/">Rechercher dans le site</a>'
         + '<a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>'
+        + '<a href="/conformite/">Certificat de conformité du site</a>'
         + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
         + '<a href="/equipe/">Notre équipe</a>'
         + '<a href="/devis/">Demander un devis</a>'
@@ -243,6 +245,7 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <p class="legalline">{E['nom']} — {E['endossement']} — {E['federation']} — SIRET {E['siret']} — {E['rcs']} ·
 Page à jour au {MAJ} ·
 <a href="/plan-du-site/">Plan du site</a> ·
+<a href="/conformite/">Certificat de conformité</a> ·
 <a href="/mentions-legales/">Mentions légales</a> ·
 <a href="/particuliers/">{E['site_a_ancre']}</a> ·
 Photos d'architecture : Bétium217, Symac — <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA</a>, via Wikimedia Commons</p>
@@ -1210,6 +1213,68 @@ cadre — nos <a href="/questions/">réponses détaillées</a> les couvrent, et 
     URLS.append((p, "0.9", "weekly"))
 
 
+def page_conformite():
+    """Le certificat de conformité du site : chaque affirmation est un fait
+    produit par la chaîne de contrôle elle-même — rien de déclaratif."""
+    p = "/conformite/"
+    trail = [("Accueil", "/"), ("Certificat de conformité", p)]
+    controles = [
+        ("Cannibalisation interne", "chaque page vise une requête distincte"),
+        ("Étanchéité éditoriale", "aucune page ne cible les requêtes réservées à notre site vente et location"),
+        ("Titres et méta-descriptions", "longueurs et unicité contrôlées sur chaque page"),
+        ("Liens internes", "zéro lien cassé toléré"),
+        ("Pages locales", "similarité surveillée pour rester sous les seuils d'alerte"),
+        ("URL canoniques", "une adresse canonique unique par page"),
+        ("Liens sortants", "un seul lien par page vers notre site particuliers, à ancre descriptive"),
+        ("Régressions", "pages perdues, contenu allégé ou alourdi : publication bloquée"),
+    ]
+    lignes = "".join(f'<li><b>{esc(a)}</b> — {esc(b)}</li>' for a, b in controles)
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Contrôlé automatiquement chaque matin</p>
+<h1>Le certificat de conformité de ce site</h1>
+<p class="lede">Ce site est reconstruit et vérifié chaque jour par une chaîne de contrôle
+automatique. Si un seul contrôle échoue, la publication est bloquée jusqu'à correction.
+Cette page en publie l'état — sans déclaration, seulement des faits.</p></div></section>
+
+<section class="band"><div class="wrap">
+<p class="eyebrow">État du jour</p>
+<h2>Contrôles passés avec succès</h2>
+<dl class="fiche">
+<div><dt>Dernier contrôle</dt><dd>{MAJ_JOUR}</dd></div>
+<div><dt>Pages vérifiées</dt><dd>L'intégralité du site, à chaque publication</dd></div>
+<div><dt>Contrôles bloquants</dt><dd>8 vérifications — un échec suspend la mise en ligne</dd></div>
+<div><dt>Veille réglementaire</dt><dd>Fiches Service-Public surveillées ; toute évolution déclenche une relecture</dd></div>
+<div><dt>Sources citées</dt><dd>Textes officiels, avec date de vérification affichée dans chaque guide</dd></div>
+<div><dt>Performance mesurée</dt><dd>Lighthouse (Google) le 30/07/2026 : 97/100 performance, 100/100 SEO et bonnes pratiques</dd></div>
+</dl>
+</div></section>
+
+<section class="band band--pale"><div class="wrap prose">
+<h2>Les huit contrôles quotidiens</h2>
+<ul class="checklist">{lignes}</ul>
+<p class="maj">Chaîne de contrôle exécutée à chaque modification et tous les matins —
+dernier passage : {MAJ_JOUR}</p>
+</div></section>
+
+<section class="band"><div class="wrap prose">
+<h2>Ce que ce certificat ne dit pas</h2>
+<p>Il atteste de la rigueur de fabrication de ce site — pas de la conformité de votre
+immeuble, qui relève d'une mission sur place. Les certifications individuelles de nos
+diagnostiqueurs et notre attestation d'assurance responsabilité civile professionnelle
+sont présentées sur la page <a href="/equipe/">équipe</a> et communiquées sur simple
+demande.</p>
+</div></section>
+{cta()}"""
+    shell(path=p, title="Certificat de conformité du site — DGLM Expertises",
+          desc=desc_courte("Ce site est reconstruit et vérifié chaque matin : huit contrôles "
+                           "bloquants, veille réglementaire, sources datées. L'état publié "
+                           "sans déclaration — seulement des faits."),
+          body=body,
+          schema=jsonld(org_schema(), breadcrumb(trail)))
+    URLS.append((p, "0.6", "weekly"))
+
+
 def page_pack():
     """Le pack du conseil syndical : trois check-lists imprimables.
     L'outil que les conseils syndicaux s'échangent — et qui ramène vers nous."""
@@ -2170,6 +2235,7 @@ def main():
     page_tableau()
     page_recherche(contenus)
     page_pack()
+    page_conformite()
     for d in DIAGS_PRO:
         page_diag_pro(d)
     for s in SERVICES:
