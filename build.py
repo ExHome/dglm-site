@@ -167,6 +167,7 @@ MENU = ('<a href="/">Accueil</a>'
         + '<a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>'
         + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
         + '<a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>'
+        + '<a href="/aide-au-devis/">Aide au devis : les documents à joindre</a>'
         + '<a href="/questions/">Guides pratiques</a>'
         + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
         + '<a href="/recherche/">Rechercher dans le site</a>'
@@ -2109,6 +2110,83 @@ répond en six questions.</p>
 
 
 # ------------------------------------------------------------------ demande de devis
+def page_aide_devis():
+    """Les documents à joindre à une demande de devis, mission par mission.
+    Imprimable : le client coche, réunit, et joint tout à son e-mail."""
+    p = "/aide-au-devis/"
+    trail = [("Accueil", "/"), ("Aide au devis", p)]
+    BLOCS = [
+        ("Pour toute demande", [
+            "L'adresse précise de l'immeuble ou du bien",
+            "Un contact sur place (gardien, syndic, occupant) pour l'accès",
+            "Vos délais souhaités (date de chantier, prochaine assemblée…)",
+        ]),
+        ("Repérage amiante avant travaux (RAAT)", [
+            "Le descriptif des travaux : devis d'entreprise, CCTP ou simple liste des interventions",
+            "Les plans ou croquis des zones concernées, même sommaires",
+            "L'année de construction ou la date du permis de construire",
+            "Le dossier technique amiante (DTA) ou sa fiche récapitulative, s'il existe",
+            "Les repérages ou diagnostics amiante déjà réalisés",
+            "Quelques photos des zones à ouvrir, si possible",
+        ]),
+        ("Repérage amiante avant démolition (RAAD)", [
+            "Le projet de démolition : totale, partielle, curage",
+            "Les plans du bâtiment, même anciens",
+            "L'année de construction ou la date du permis",
+            "L'état d'occupation (le bâtiment doit être libéré pour la visite)",
+            "Le DTA ou les repérages existants",
+        ]),
+        ("Diagnostic technique global (DTG)", [
+            "Le règlement de copropriété et l'état descriptif de division",
+            "Le carnet d'entretien de l'immeuble",
+            "Les procès-verbaux des trois dernières assemblées générales",
+            "Les contrats d'exploitation (chauffage, ascenseur, entretien)",
+            "Le DTA, le DPE collectif ou l'audit énergétique, s'ils existent",
+            "Les plans de l'immeuble, si disponibles",
+        ]),
+        ("Plan pluriannuel de travaux (PPPT)", [
+            "Les mêmes pièces que pour un DTG",
+            "Le DTG existant, s'il a déjà été réalisé",
+            "Le montant du fonds de travaux et les travaux déjà votés ou réalisés",
+        ]),
+        ("Diagnostics de l'immeuble (DTA, DAPP, plomb, assainissement…)", [
+            "L'année de construction ou la date du permis",
+            "Le nombre de lots et la liste des parties communes concernées",
+            "Les diagnostics antérieurs, même anciens",
+            "Les modalités d'accès aux caves, combles et locaux techniques",
+        ]),
+    ]
+    sections = "".join(
+        f'<h2>{esc(titre_bloc)}</h2><ul class="checklist">'
+        + "".join(f"<li>{esc(x)}</li>" for x in items) + "</ul>"
+        for titre_bloc, items in BLOCS)
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Aide au devis — à imprimer ou à garder sous la main</p>
+<h1>Les documents qui accélèrent votre devis</h1>
+<p class="lede">Plus votre demande est documentée, plus le chiffrage est rapide et juste —
+souvent sans même un rappel préalable. Cochez, réunissez, joignez.</p>
+<div class="actions"><button class="btn btn--light" onclick="window.print()">Imprimer ou enregistrer en PDF</button>
+<a class="btn btn--light" href="/devis/">Passer à la demande de devis</a></div>
+</div></section>
+<section class="band"><div class="wrap prose">
+<p class="enclair" style="margin-top:0"><span>L'antisèche</span>Réunissez ce qui vous concerne
+ci-dessous, puis joignez les fichiers à l'e-mail que le formulaire de devis prépare pour
+vous — ils arrivent directement dans notre boîte contact. Rien sous la main ? Envoyez
+quand même : on fait avec ce que vous avez.</p>
+{sections}
+<p class="maj">Établi par l'équipe DGLM Expertises — vérifié au {MAJ}</p>
+</div></section>
+{cta()}"""
+    shell(path=p, title="Aide au devis : les documents à joindre — DGLM",
+          desc=desc_courte("Mission par mission, la liste des documents qui accélèrent votre "
+                           "devis : plans, DTA, règlement de copropriété, procès-verbaux. "
+                           "À imprimer et à joindre."),
+          body=body,
+          schema=jsonld(org_schema(), breadcrumb(trail)))
+    URLS.append((p, "0.7", "monthly"))
+
+
 def page_devis():
     p = "/devis/"
     trail = [("Accueil", "/"), ("Demande de devis", p)]
@@ -2118,6 +2196,7 @@ def page_devis():
 <h1>Demander un devis</h1>
 <p class="lede">Le questionnaire s'adapte à la mission. En le remplissant
 complètement, vous nous évitez un rappel préalable : nous chiffrons directement.</p>
+<div class="actions"><a class="btn btn--light" href="/aide-au-devis/">Quels documents joindre ? La liste →</a></div>
 </div></section>
 
 <section class="band"><div class="wrap">
@@ -2416,6 +2495,7 @@ def main():
     page_tableau()
     page_recherche(contenus)
     page_pack()
+    page_aide_devis()
     page_conformite()
     for d in DIAGS_PRO:
         page_diag_pro(d)
