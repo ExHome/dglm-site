@@ -653,6 +653,9 @@ details[open]>p{animation:deplie .3s ease}
   linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
   url("/assets/photos/hero-immeuble.jpg") center 30%/cover no-repeat var(--vert-profond)}
 .hero--photo .skyline{display:none}
+.hero--echoppe{background:
+  linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
+  url("/assets/photos/hero-echoppe.jpg") center 42%/cover no-repeat var(--vert-profond)}
 
 /* ---------- parcours : à chacun son entrée ---------- */
 .parcours{background:var(--vert);border-top:1px solid var(--rule-or);

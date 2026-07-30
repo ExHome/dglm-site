@@ -241,7 +241,7 @@ Page à jour au {MAJ} ·
 <a href="/plan-du-site/">Plan du site</a> ·
 <a href="/mentions-legales/">Mentions légales</a> ·
 <a href="/particuliers/">{E['site_a_ancre']}</a> ·
-Photo d'accueil : Bétium217, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA 4.0</a>, via Wikimedia Commons</p>
+Photos d'architecture : Bétium217, Symac — <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA</a>, via Wikimedia Commons</p>
 </div></footer></body></html>"""
     write(path, head + body + foot)
 
@@ -1529,7 +1529,7 @@ def page_hub_bordeaux():
         f'<h3>{esc(q["nom"])}</h3><p>{esc(q["intro"][:135])}…</p>'
         f'<span class="more">Découvrir le quartier →</span></a>' for q in QUARTIERS_BORDEAUX)
     body = f"""{crumb_html(trail)}
-<section class="hero hero--page"><div class="wrap">
+<section class="hero hero--page hero--echoppe"><div class="wrap">
 <p class="eyebrow eyebrow--pale">{len(QUARTIERS_BORDEAUX)} quartiers</p>
 <h1>Bordeaux, quartier par quartier.</h1>
 <p class="lede">Une échoppe de Nansouty, un chai des Chartrons et une barre du Grand Parc ne
