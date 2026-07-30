@@ -2,6 +2,7 @@
 titre: Notre dossier technique amiante date de 2005 : est-il encore valable ?
 question: Un dossier technique amiante de 2005 est-il encore valable ?
 meta: Un DTA ancien reste formellement en vigueur mais son évaluation de l'état des matériaux est périmée. Ce qu'un syndic doit vérifier et faire réévaluer.
+schema: coupe-immeuble
 publication: 2026-07-17
 tags: DTA | syndic | copropriété
 liens: /dossier-technique-amiante/ | /diagnostic-technique-global/

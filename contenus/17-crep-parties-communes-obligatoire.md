@@ -2,6 +2,7 @@
 titre: Le constat plomb des parties communes est-il obligatoire ?
 question: Le CREP des parties communes est-il obligatoire en copropriété ?
 meta: Oui, dans les parties communes des immeubles d'habitation construits avant le 1er janvier 1949. Une obligation ancienne, souvent oubliée, réveillée par les travaux.
+schema: crep-1949
 publication: 2026-07-22
 tags: plomb | CREP | parties communes
 liens: /crep-parties-communes/ | /dossier-technique-amiante/

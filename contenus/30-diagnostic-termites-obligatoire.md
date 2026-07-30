@@ -2,6 +2,7 @@
 titre: Le diagnostic termites est-il obligatoire ?
 question: Le diagnostic termites est-il obligatoire pour vendre un logement ?
 meta: Le diagnostic termites est obligatoire à la vente dans les zones délimitées par arrêté préfectoral. Valable 6 mois. La Gironde et les Landes sont largement concernées.
+schema: agents-bois
 publication: 2026-07-27
 tags: termites | parasitaire | obligations
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/duree-validite-diagnostics/

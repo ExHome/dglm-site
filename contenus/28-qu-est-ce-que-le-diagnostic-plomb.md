@@ -2,6 +2,7 @@
 titre: Qu'est-ce que le diagnostic plomb (CREP) ?
 question: Qu'est-ce que le diagnostic plomb, ou constat de risque d'exposition au plomb ?
 meta: Le CREP recherche le plomb dans les peintures des logements construits avant 1949. Obligatoire en vente et location, il protège surtout les jeunes enfants.
+schema: crep-1949
 publication: 2026-07-27
 tags: plomb | CREP | santé
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/diagnostics-obligatoires-location/

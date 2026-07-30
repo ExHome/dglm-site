@@ -2,6 +2,7 @@
 titre: Amiante : ce que recouvrent vraiment les listes A, B et C
 question: Quelle différence entre les listes A, B et C de l'amiante ?
 meta: Listes A, B et C des matériaux amiantés : à quoi correspond chaque liste, quel repérage les couvre, et pourquoi la confusion coûte cher en copropriété.
+schema: listes-amiante
 publication: 2026-07-17
 tags: amiante | DTA | RAAT
 liens: /dossier-technique-amiante/ | /reperage-amiante-avant-travaux/

@@ -43,3 +43,30 @@ Elle ne vaut que pour le périmètre et les matériaux effectivement recherchés
 Sur un bien mis en vente avec un dossier ancien, la question utile n'est pas « est-ce encore valable ? » mais « est-ce encore exact ? ». Un dossier techniquement valable mais inexact expose le vendeur au titre des vices cachés, ce que la validité formelle ne protège pas.
 
 *Ces durées sont susceptibles d'évoluer. Faites-les confirmer par votre diagnostiqueur au moment de la transaction.*
+
+## Les tableaux récapitulatifs
+
+Pour une cession :
+
+| Diagnostic | Durée de validité | À savoir |
+| --- | --- | --- |
+| DPE | 10 ans | Les DPE antérieurs à juillet 2021 ne sont plus valables |
+| État d'amiante | Illimitée si négatif | Réalisé avant 2013 : à refaire |
+| Plomb (CREP) | 1 an si présence, illimitée si absence | Bien d'avant 1949 |
+| Termites | 6 mois | En zone délimitée par arrêté |
+| Gaz | 3 ans | Installation de plus de 15 ans |
+| Électricité | 3 ans | Installation de plus de 15 ans |
+| État des risques (ERP) | 6 mois | À actualiser si dépassé au compromis |
+| Mesurage Carrez | Illimitée | Sauf travaux modifiant la surface |
+| Assainissement non collectif | 3 ans | Rapport du SPANC |
+
+Pour un bail :
+
+| Diagnostic | Durée de validité | À savoir |
+| --- | --- | --- |
+| DPE | 10 ans | Opposable au bailleur |
+| Plomb (CREP) | 6 ans si présence, illimitée si absence | Bien d'avant 1949 |
+| Gaz | 6 ans | Installation de plus de 15 ans |
+| Électricité | 6 ans | Installation de plus de 15 ans |
+| État des risques (ERP) | 6 mois | À la signature du bail |
+| Surface habitable (Boutin) | Illimitée | Sauf travaux modifiant la surface |

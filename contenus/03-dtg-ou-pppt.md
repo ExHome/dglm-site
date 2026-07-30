@@ -2,6 +2,7 @@
 titre: DTG ou PPPT : que faut-il voter en assemblée générale ?
 question: Faut-il voter un DTG ou un PPPT en assemblée générale ?
 meta: DTG et PPPT ne répondent pas à la même question et ne se votent pas dans les mêmes conditions. Comment présenter le choix au conseil syndical.
+schema: dtg-vs-pppt
 publication: 2026-07-17
 tags: DTG | PPPT | assemblée générale
 liens: /diagnostic-technique-global/ | /plan-pluriannuel-de-travaux/ | /simulateur-obligations-copropriete/

@@ -2,6 +2,7 @@
 titre: Le DPE est-il obligatoire pour toutes les locations ?
 question: Le DPE est-il obligatoire pour toutes les locations, ou existe-t-il des exceptions ?
 meta: Le DPE est dû pour presque toutes les locations, sauf trois cas : occupation de moins de 4 mois par an, monument historique, et petite maison indépendante de moins de 50 m².
+schema: etiquette-dpe
 publication: 2026-08-05
 tags: DPE | location | exceptions
 liens: /questions/qu-est-ce-que-le-dpe/ | /questions/diagnostics-obligatoires-location/

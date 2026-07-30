@@ -2,6 +2,7 @@
 titre: Dossier technique amiante ou diagnostic des parties privatives : lequel, pour qui ?
 question: Quelle différence entre le dossier technique amiante et le diagnostic amiante des parties privatives ?
 meta: Le DTA relève du syndic pour les parties communes, le DAPP du propriétaire pour son logement. Deux obligations distinctes, deux responsables, deux périmètres.
+schema: dta-vs-dapp
 publication: 2026-07-22
 tags: amiante | DTA | DAPP | copropriété
 liens: /dossier-technique-amiante/ | /amiante-parties-privatives/

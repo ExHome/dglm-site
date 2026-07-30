@@ -2,6 +2,7 @@
 titre: Combien de temps un plan pluriannuel de travaux est-il valable ?
 question: Quelle est la durée de validité d'un plan pluriannuel de travaux ?
 meta: Le PPPT couvre dix ans mais se réactualise tous les dix ans et se met à jour avant chaque vote de travaux. Ce que doit surveiller un conseil syndical.
+schema: cycle-pppt
 publication: 2026-07-18
 tags: PPPT | copropriété | syndic
 liens: /plan-pluriannuel-de-travaux/ | /simulateur-obligations-copropriete/

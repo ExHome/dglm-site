@@ -2,6 +2,7 @@
 titre: Faut-il un diagnostic gaz pour vendre ou louer ?
 question: Le diagnostic gaz est-il obligatoire pour vendre ou louer un logement ?
 meta: Le diagnostic gaz est obligatoire quand l'installation intérieure a plus de 15 ans. Valable 3 ans pour la vente, 6 ans pour la location. Ce qu'il vérifie.
+schema: qui-fait-quoi
 publication: 2026-07-26
 tags: gaz | sécurité | obligations
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/diagnostics-obligatoires-location/
