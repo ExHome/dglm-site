@@ -7,6 +7,7 @@ avant mise en ligne (voir NOTE-JURIDIQUE.md).
 SERVICES = [
     dict(
         slug="reperage-amiante-avant-travaux",
+        clair="Avant d'ouvrir un mur ou un sol, on vérifie si de l'amiante s'y cache — et on fait analyser en laboratoire. Le chantier démarre en sachant, pas en espérant.",
         sigle="RAAT",
         nom="Repérage amiante avant travaux",
         nom_court="Repérage amiante avant travaux",
@@ -84,6 +85,7 @@ SERVICES = [
     ),
     dict(
         slug="reperage-amiante-avant-demolition",
+        clair="Avant de démolir, on cherche partout, sans exception : tout ce que la pelleteuse va toucher doit être connu d'avance.",
         sigle="RAAD",
         nom="Repérage amiante avant démolition",
         nom_court="Repérage amiante avant démolition",
@@ -154,6 +156,7 @@ SERVICES = [
     ),
     dict(
         slug="diagnostic-technique-global",
+        clair="Le bilan de santé complet de l'immeuble : ce qui va, ce qui fatigue, ce que ça coûtera — pour décider en assemblée sur du solide.",
         sigle="DTG",
         nom="Diagnostic technique global",
         nom_court="Diagnostic technique global",
@@ -224,6 +227,7 @@ SERVICES = [
     ),
     dict(
         slug="plan-pluriannuel-de-travaux",
+        clair="Le plan d'entretien des dix prochaines années : quels travaux, dans quel ordre, pour quel budget — et l'épargne qui va avec.",
         sigle="PPPT",
         nom="Plan pluriannuel de travaux",
         nom_court="Projet de plan pluriannuel de travaux",

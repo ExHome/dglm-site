@@ -620,6 +620,7 @@ def page_service(s):
 <section id="fiche" class="band"><div class="wrap">
 <p class="eyebrow">La fiche pratique</p>
 <h2>L'essentiel en trente secondes</h2>
+{f'<p class="enclair"><span>En français courant</span>{esc(s["clair"])}</p>' if s.get("clair") else ""}
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(s['intro'])}</p></div>
 {fiche_html(s.get('fiche'))}
 </div></section>
@@ -1076,6 +1077,7 @@ def page_diag_pro(d):
 <section id="fiche" class="band"><div class="wrap">
 <p class="eyebrow">La fiche pratique</p>
 <h2>L'essentiel en trente secondes</h2>
+{f'<p class="enclair"><span>En français courant</span>{esc(d["clair"])}</p>' if d.get("clair") else ""}
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(d['intro'])}</p></div>
 {fiche_html(d.get('fiche'))}
 </div></section>

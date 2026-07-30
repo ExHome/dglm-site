@@ -754,3 +754,7 @@ details[open]>p{animation:deplie .3s ease}
 .band--dark .card p{color:rgba(247,244,238,.78)}
 .band--dark .card .more{color:var(--or-clair);border-bottom-color:rgba(192,144,72,.45)}
 .band--dark .card--link:hover .more{border-bottom-color:var(--or-clair)}
+
+/* en francais courant : la vulgarisation en tete de fiche */
+.enclair{font-family:var(--display);font-style:italic;font-size:clamp(1.12rem,2vw,1.35rem);line-height:1.55;color:var(--vert);max-width:56ch;margin:1.6rem 0 .4rem;border-left:2px solid var(--or);padding-left:1.3rem}
+.enclair span{display:block;font-family:var(--sans);font-style:normal;font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:.55rem}

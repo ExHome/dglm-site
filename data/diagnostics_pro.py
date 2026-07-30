@@ -18,6 +18,7 @@ automatiquement par audit_seo.py.
 DIAGS_PRO = [
     dict(
         slug="dossier-technique-amiante",
+        clair="Le carnet de santé amiante des parties communes : ce qu'on sait, où c'est, dans quel état. Il vit avec l'immeuble et doit suivre chaque travaux.",
         sigle="DTA",
         nom="Dossier technique amiante des parties communes",
         h1="Dossier technique amiante (DTA) des parties communes",
@@ -67,6 +68,7 @@ DIAGS_PRO = [
     ),
     dict(
         slug="amiante-parties-privatives",
+        clair="La même logique, mais à l'intérieur des logements — et c'est au propriétaire de chaque lot de le faire établir, pas au syndic.",
         sigle="DAPP",
         nom="Amiante des parties privatives (DAPP)",
         h1="Amiante des parties privatives (DAPP) en immeuble collectif",
@@ -112,6 +114,7 @@ DIAGS_PRO = [
     ),
     dict(
         slug="diagnostic-pemd",
+        clair="Avant de démolir ou de rénover en grand, on inventorie ce qui va sortir du bâtiment : ce qui se réemploie, se recycle, ou part en filière spéciale.",
         sigle="PEMD",
         nom="Diagnostic produits, équipements, matériaux et déchets",
         h1="Diagnostic PEMD avant démolition ou rénovation significative",
@@ -160,6 +163,7 @@ DIAGS_PRO = [
     ),
     dict(
         slug="dpe-collectif-copropriete",
+        clair="La même étiquette énergie que pour un logement, mais pour l'immeuble entier : elle dit où part la chaleur, et par où commencer les travaux.",
         sigle="DPE collectif",
         nom="DPE collectif de copropriété",
         h1="DPE collectif de copropriété : obligation et calendrier",
@@ -205,6 +209,7 @@ DIAGS_PRO = [
     ),
     dict(
         slug="audit-energetique-copropriete",
+        clair="Le DPE donne la note ; l'audit dit comment la remonter — plusieurs scénarios de travaux chiffrés, pour choisir en connaissance de cause.",
         sigle="Audit énergétique",
         nom="Audit énergétique de copropriété",
         h1="Audit énergétique de copropriété : au-delà de l'étiquette",
@@ -257,6 +262,7 @@ DIAGS_PRO = [
     ),
     dict(
         slug="crep-parties-communes",
+        clair="Sur les immeubles d'avant 1949, on mesure le plomb des vieilles peintures sans rien casser. Peinture saine : dossier clos. Peinture écaillée : on protège avant de toucher.",
         sigle="CREP communes",
         nom="Constat plomb des parties communes",
         h1="Constat de risque d'exposition au plomb des parties communes",
@@ -303,6 +309,7 @@ DIAGS_PRO = [
     ),
     dict(
         slug="etat-parasitaire-avant-travaux",
+        clair="On cherche tout ce qui mange le bois — termites, insectes, champignons — et on regarde si planchers et charpentes tiennent encore leur rôle.",
         sigle="État parasitaire",
         nom="État parasitaire et termites avant travaux",
         h1="État parasitaire et termites avant travaux ou acquisition",
@@ -351,6 +358,7 @@ DIAGS_PRO = [
     ),
     dict(
         slug="installations-collectives-gaz-electricite",
+        clair="Ce contrôle-là n'est pas un diagnostic immobilier : un organisme agréé le réalise. Nous vous indiquons vers qui aller, puis intégrons ses conclusions au dossier de l'immeuble.",
         sigle="Installations collectives",
         nom="Contrôle des installations collectives de gaz et d'électricité",
         h1="Contrôle des installations collectives de gaz et d'électricité",
@@ -406,6 +414,7 @@ DIAGS_PRO = [
     ),
     dict(
         slug="conformite-assainissement-copropriete",
+        clair="On vérifie que les eaux usées partent dans le bon tuyau et les eaux de pluie dans le leur — avant que la collectivité ne l'exige avec un délai.",
         sigle="Assainissement",
         nom="Conformité assainissement en copropriété",
         h1="Conformité de l'assainissement en copropriété et en immeuble",
