@@ -293,7 +293,7 @@ décennal d'une copropriété : le repérage amiante avant travaux, le repérage
 démolition, le diagnostic technique global et le plan pluriannuel de travaux. Ce sont les seules que nous exerçons.</p>
 <div class="actions">
 <a class="btn btn--light" href="{SILO}/simulateur-obligations-copropriete/">Évaluer ma copropriété</a>
-<a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div>
 <dl class="refbar">
 <div><dt>Spécialité</dt><dd>Copropriété, travaux et démolition</dd></div>
 <div><dt>Périmètre</dt><dd>Les 28 communes de Bordeaux Métropole</dd></div>
@@ -513,7 +513,7 @@ def page_service(s):
 <h1>{esc(s['nom'])} à Bordeaux et en Gironde</h1>
 <p class="lede">{esc(s['accroche'])}</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <section class="band"><div class="wrap">
 <p class="eyebrow">La fiche pratique</p>
@@ -673,7 +673,7 @@ def page_local(s, c):
 <p class="lede">{esc(s['accroche'])} Intervention sur {esc(c['nom'])} et l'ensemble de
 Bordeaux Métropole sous 72 heures.</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <section class="band"><div class="wrap prose">
 <p style="font-size:1.12rem">{esc(s['intro'])}</p>
@@ -846,7 +846,7 @@ def page_audience(a):
 <p class="eyebrow eyebrow--pale">{esc(a['titre'])}</p>
 <h1>{esc(a['h1'])}</h1><p class="lede">{esc(a['lede'])}</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 <section class="band"><div class="wrap prose">{corps}</div></section>
 <section class="band band--pale"><div class="wrap"><p class="eyebrow">Prestations</p>
 <h2>Nos quatre missions</h2>
@@ -956,7 +956,7 @@ def page_diag_pro(d):
 <h1>{esc(d['h1'])}</h1>
 <p class="lede">{esc(d['accroche'])}</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <section class="band"><div class="wrap prose">
 <p style="font-size:1.12rem">{esc(d['intro'])}</p>
@@ -1012,7 +1012,7 @@ def page_hub_diags():
 des parties communes, état parasitaire, installations collectives, assainissement. Les
 versions collectives des diagnostics, pour syndics, bailleurs et maîtres d'ouvrage.</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 <section class="band"><div class="wrap">
 <p class="eyebrow">Une pratique distincte</p>
 <h2>Un immeuble occupé ne se diagnostique pas comme un logement à vendre</h2>
@@ -1245,7 +1245,7 @@ def page_quartier(q):
 <h1>Repérage amiante, DTG et plan pluriannuel de travaux à {esc(q['nom'])}</h1>
 <p class="lede">{esc(q['intro'])}</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <section class="band"><div class="wrap prose">
 <h2>Le bâti du quartier</h2><p>{esc(q['bati'])}</p>
@@ -1330,7 +1330,7 @@ def page_quartier_ville(q, ville):
 <h1>Repérage amiante, DTG et plan pluriannuel de travaux à {esc(q['nom'])}</h1>
 <p class="lede">{esc(q['intro'])}</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <section class="band"><div class="wrap prose">
 <h2>Le bâti du quartier</h2><p>{esc(q['bati'])}</p>
