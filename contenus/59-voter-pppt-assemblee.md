@@ -2,7 +2,7 @@
 titre: On me demande de voter le PPPT : qu'est-ce que ça engage ?
 question: Que vote-t-on exactement quand le PPPT est à l'ordre du jour de l'assemblée générale ?
 meta: Voter le plan pluriannuel de travaux, ce n'est ni voter des travaux, ni payer tout de suite. Ce que le vote adopte vraiment, et ce qu'il n'engage pas.
-publication: 2026-08-05
+publication: 2026-07-30
 tags: PPPT | assemblée générale | copropriété
 liens: /plan-pluriannuel-de-travaux/ | /questions/majorites-vote-travaux-assemblee/ | /questions/fonds-de-travaux/
 sources: Loi n°65-557 du 10 juillet 1965, article 14-2~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026
