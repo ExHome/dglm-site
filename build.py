@@ -240,7 +240,8 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 Page à jour au {MAJ} ·
 <a href="/plan-du-site/">Plan du site</a> ·
 <a href="/mentions-legales/">Mentions légales</a> ·
-<a href="/particuliers/">{E['site_a_ancre']}</a></p>
+<a href="/particuliers/">{E['site_a_ancre']}</a> ·
+Photo d'accueil : Bétium217, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA 4.0</a>, via Wikimedia Commons</p>
 </div></footer></body></html>"""
     write(path, head + body + foot)
 
@@ -341,7 +342,7 @@ def page_home(dernier=None):
 {PICTOS.get(s['sigle'], '')}<span class="sigle">{s['sigle']}</span><h3>{esc(s['nom'])}</h3>
 <p>{esc(s['accroche'])}</p><span class="more">Découvrir la mission →</span></a>""" for s in SERVICES)
 
-    body = f"""<section class="hero"><div class="wrap">
+    body = f"""<section class="hero hero--photo"><div class="wrap">
 <p class="eyebrow eyebrow--pale">RAAT · RAAD · DTG · PPPT — Bordeaux Métropole</p>
 <h1>L'expertise du bâti, au service des copropriétés et des maîtres d'ouvrage.</h1>
 <p class="lede">Quatre missions techniques déterminent le démarrage d'un chantier et le budget

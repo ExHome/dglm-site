@@ -648,6 +648,12 @@ details[open]>p{animation:deplie .3s ease}
 /* schémas et figures : jamais pleine page, une largeur de lecture */
 .schema{max-width:50rem}
 
+/* ---------- hero photographique : la pierre bordelaise, voilée de vert ---------- */
+.hero--photo{background:
+  linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
+  url("/assets/photos/hero-immeuble.jpg") center 30%/cover no-repeat var(--vert-profond)}
+.hero--photo .skyline{display:none}
+
 /* ---------- parcours : à chacun son entrée ---------- */
 .parcours{background:var(--vert);border-top:1px solid var(--rule-or);
   border-bottom:3px solid var(--or)}
