@@ -5,7 +5,7 @@ meta: L’état d’amiante est exigé à la vente pour tout bien d’avant juil
 publication: 2026-07-28
 tags: amiante | vente | obligations
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/raat-remplacement-fenetres/
-sources: Code de la santé publique, articles R.1334-15 et R.1334-29-4 et suivants | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025
+sources: Code de la santé publique, articles R.1334-15 et R.1334-29-4 et suivants | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Service Public — État d’amiante (diagnostic amiante) (F742)~https://www.service-public.gouv.fr/particuliers/vosdroits/F742~30/07/2026
 ---
 
 Pour tout bien immobilier dont le **permis de construire est antérieur au 1er juillet 1997** — date d'interdiction de l'amiante en construction. C'est ce seul critère, l'âge du permis, qui déclenche l'obligation à la **vente**, en maison comme en appartement.

@@ -5,7 +5,7 @@ meta: Depuis 2023, l'état des risques indique si un bien est soumis à l'obliga
 publication: 2026-09-02
 tags: ERP | incendie | débroussaillement
 liens: /questions/qu-est-ce-que-etat-des-risques-erp/ | /questions/diagnostics-obligatoires-vente/
-sources: Loi n°2023-580 du 10 juillet 2023 (prévention du risque incendie) | Code forestier, articles L.131-1 et suivants (débroussaillement) | Code de l'environnement, article L.125-5 (état des risques) | Géorisques — information des acquéreurs et locataires~https://www.georisques.gouv.fr/information-des-acquereurs-et-locataires
+sources: Loi n°2023-580 du 10 juillet 2023 (prévention du risque incendie) | Code forestier, articles L.131-1 et suivants (débroussaillement) | Code de l'environnement, article L.125-5 (état des risques) | Géorisques — information des acquéreurs et locataires~https://www.georisques.gouv.fr/information-des-acquereurs-et-locataires | Service Public — État des risques (F12239)~https://www.service-public.gouv.fr/particuliers/vosdroits/F12239~30/07/2026
 ---
 
 Oui. Depuis la loi du 10 juillet 2023, l'**état des risques (ERP)** doit indiquer si le bien est situé dans une zone soumise à l'**obligation légale de débroussaillement (OLD)** — c'est-à-dire, le plus souvent, une zone exposée au **risque de feux de forêt**. En Gironde et dans les Landes, une large partie du territoire est concernée.
