@@ -209,3 +209,42 @@ ANIM_DPE = ('<figure class="animex"><svg viewBox="0 0 800 300" role="img" aria-l
     + f'<text x="520" y="240" font-size="13.5" fill="{_AX_G}">F en 2028, E en 2034.</text></g>'
     + f'<text x="60" y="286" font-size="12.5" fill="{_AX_G}">Le DPE collectif classe l\u2019immeuble entier — et guide le plan de travaux.</text>'
     '</svg></figure>')
+
+
+# ---------------------------------------------------------------- pictos rubriques
+# Un dessin au trait par rubrique des guides — même geste que les PICTOS missions.
+_R = ('<svg class="picto picto--rub" viewBox="0 0 64 64" aria-hidden="true" focusable="false">'
+      '<g fill="none" stroke="currentColor" stroke-width="2.2" '
+      'stroke-linecap="round" stroke-linejoin="round">{}</g></svg>')
+
+RUBRIQUE_PICTOS = {
+    # Amiante : plaque ondulée + loupe
+    "Amiante": _R.format(
+        '<path d="M8,40 Q13,32 18,40 T28,40 T38,40 T48,40"/>'
+        '<path d="M8,50 Q13,42 18,50 T28,50 T38,50 T48,50"/>'
+        '<circle cx="46" cy="22" r="9"/><line x1="52.5" y1="28.5" x2="58" y2="34"/>'),
+    # Copropriété, DTG & PPPT : immeuble + coche
+    "Copropriété, DTG & PPPT": _R.format(
+        '<path d="M12,54 L12,14 L34,14 L34,54"/>'
+        '<rect x="17" y="20" width="5" height="6"/><rect x="26" y="20" width="5" height="6"/>'
+        '<rect x="17" y="32" width="5" height="6"/><rect x="26" y="32" width="5" height="6"/>'
+        '<path d="M40,40 L46,47 L58,30"/>'),
+    # Performance énergétique : trois barres d'étiquette
+    "Performance énergétique": _R.format(
+        '<line x1="12" y1="18" x2="34" y2="18"/><line x1="12" y1="30" x2="42" y2="30"/>'
+        '<line x1="12" y1="42" x2="50" y2="42"/>'
+        '<path d="M12,12 L12,52"/><path d="M44,10 L50,18 L44,26" transform="translate(6,0)"/>'),
+    # Vente & location : document + clé
+    "Vente & location": _R.format(
+        '<path d="M14,10 L36,10 L44,18 L44,54 L14,54 Z"/><path d="M36,10 L36,18 L44,18"/>'
+        '<circle cx="26" cy="32" r="5"/><line x1="26" y1="37" x2="26" y2="46"/>'
+        '<line x1="26" y1="42" x2="31" y2="42"/>'),
+    # Plomb, gaz & risques : triangle de vigilance
+    "Plomb, gaz & risques": _R.format(
+        '<path d="M32,10 L56,52 L8,52 Z"/>'
+        '<line x1="32" y1="26" x2="32" y2="38"/><circle cx="32" cy="45" r="1.4" fill="currentColor"/>'),
+    # Repères & définitions : livre ouvert
+    "Repères & définitions": _R.format(
+        '<path d="M32,16 C26,11 16,11 10,14 L10,48 C16,45 26,45 32,50 C38,45 48,45 54,48 L54,14 C48,11 38,11 32,16 Z"/>'
+        '<line x1="32" y1="16" x2="32" y2="50"/>'),
+}

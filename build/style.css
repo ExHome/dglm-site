@@ -782,3 +782,12 @@ details[open]>p{animation:deplie .3s ease}
 .tabsimple th{text-align:left;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);font-weight:600;padding:.5rem .8rem .5rem 0;border-bottom:1.5px solid var(--vert)}
 .tabsimple td{padding:.6rem .8rem .6rem 0;border-bottom:1px solid var(--rule-fine);vertical-align:top}
 .tabsimple td:first-child{font-weight:600;color:var(--vert)}
+
+/* rubriques : cartes illustrees et pages dediees */
+.card--photo img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--rule);margin-bottom:.85rem;display:block}
+.photo--rub{max-width:34rem;margin:2rem 0 0}
+.photo--rub img{aspect-ratio:16/9;object-fit:cover}
+.rub-titre{display:flex;align-items:center;gap:1.1rem}
+.rub-titre .picto--rub{width:52px;height:52px;flex:none;color:var(--or-clair)}
+.picto--rub{color:var(--or)}
+@media (max-width:640px){.rub-titre{gap:.8rem}.rub-titre .picto--rub{width:40px;height:40px}}

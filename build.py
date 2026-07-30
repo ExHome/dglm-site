@@ -17,7 +17,8 @@ from data.contenus import charger as charger_contenus, en_attente, md_vers_html,
 from data.quartiers import QUARTIERS_BORDEAUX, QUARTIERS_PAR_VILLE
 from data.normes import NORMES, CONSULTE_LE
 from data.schemas_svg import rendre as rendre_schema
-from data.illustrations import SKYLINE, PICTOS, ECHOPPE, ANIM_MISSION, ANIM_PPPT, ANIM_DPE
+from data.illustrations import (SKYLINE, PICTOS, ECHOPPE, ANIM_MISSION, ANIM_PPPT,
+                                ANIM_DPE, RUBRIQUE_PICTOS)
 
 COMMUNES = METROPOLE + GIRONDE_ELARGIE + LANDES
 SLUG_TO_NOM = {c["slug"]: c["nom"] for c in COMMUNES}
@@ -1675,30 +1676,30 @@ def page_hub_contenus(contenus):
     trail = [("Accueil", "/"), ("Guides pratiques", p)]
     # Sous-catégories : chaque thème dans son propre bandeau (fin du fouillis).
     CATS = [
-        ("Amiante", "Repérages avant travaux et démolition, DTA, listes A/B/C",
+        ("Amiante", "amiante", "Repérages avant travaux et démolition, DTA, listes A/B/C",
          "Interdit depuis 1997, présent presque partout avant. Tant qu'on n'y touche "
          "pas, rien ne se passe — avant d'y toucher, on repère et on fait analyser.",
          {"raat", "raad", "amiante", "dta", "dapp"}),
-        ("Copropriété, DTG & PPPT", "Diagnostic global, plan de travaux, gouvernance",
+        ("Copropriété, DTG & PPPT", "copropriete", "Diagnostic global, plan de travaux, gouvernance",
          "L'immeuble se gère comme il se diagnostique : un état des lieux, un plan "
          "sur dix ans, une épargne — et des votes en assemblée.",
          {"dtg", "pppt", "fonds de travaux", "syndic", "assemblée générale",
           "carnet d'entretien", "petite copropriété", "copropriété"}),
-        ("Performance énergétique", "DPE, audit énergétique, passoires thermiques",
+        ("Performance énergétique", "energie", "DPE, audit énergétique, passoires thermiques",
          "Le DPE note, l'audit trace le chemin. Et depuis 2025, la note décide de "
          "qui peut louer.",
          {"dpe", "énergie", "audit énergétique", "passoire thermique", "décence"}),
-        ("Vente & location", "Obligations, durées de validité, surfaces",
+        ("Vente & location", "vente-location", "Obligations, durées de validité, surfaces",
          "Un dossier de diagnostics accompagne chaque cession et chaque bail. L'âge "
          "du bâtiment et l'adresse décident de son contenu.",
          {"vente", "location", "ddt", "loi carrez", "loi boutin", "surface",
           "meublé", "bailleur", "validité"}),
-        ("Plomb, gaz & risques", "CREP, termites, gaz, électricité, ERP, PEMD",
+        ("Plomb, gaz & risques", "risques", "CREP, termites, gaz, électricité, ERP, PEMD",
          "Avant 1949 le plomb ; plus de quinze ans, le gaz et l'électricité ; la "
          "zone décide des termites et des risques. Chaque danger a sa date et sa carte.",
          {"plomb", "crep", "gaz", "électricité", "termites", "parasitaire", "erp",
           "incendie", "débroussaillement", "pemd", "déchets", "santé", "sécurité"}),
-        ("Repères & définitions", "Le vocabulaire du diagnostic, en clair",
+        ("Repères & définitions", "reperes", "Le vocabulaire du diagnostic, en clair",
          "Les mots du métier, traduits. Un sigle ne devrait jamais faire peur.",
          {"glossaire", "définitions", "pédagogie"}),
     ]
@@ -1712,44 +1713,70 @@ def page_hub_contenus(contenus):
     groupes = {}
     for c in contenus:
         tset = {t.strip().lower() for t in c.get("tags", [])}
-        idx = next((i for i, (_, _, _, k) in enumerate(CATS) if tset & k), len(CATS))
+        idx = next((i for i, (_, _, _, _, k) in enumerate(CATS) if tset & k), len(CATS))
         groupes.setdefault(idx, []).append(c)
 
-    rubcards, sections, shown = "", "", 0
-    for i, (nom, sub, anti, _) in enumerate(CATS):
+    RUB_IMG = {
+        "amiante": ("terrain-conduits.jpg", 960, 1280),
+        "copropriete": ("rub-copro.jpg", 1200, 691),
+        "energie": ("hero-immeuble.jpg", 1600, 1067),
+        "vente-location": ("hero-echoppe.jpg", 1400, 1050),
+        "risques": ("terrain-merule.jpg", 481, 640),
+        "reperes": ("terrain-combles.jpg", 960, 1280),
+    }
+    rubcards, rubpages, shown = "", [], 0
+    for i, (nom, rslug, sub, anti, _) in enumerate(CATS):
         items = groupes.get(i)
         if not items:
             continue
         shown += 1
-        rubcards += (f'<a class="card card--link" href="#rub-{i}">'
+        img, iw, ih = RUB_IMG.get(rslug, ("", 0, 0))
+        vignette = (f'<img src="/assets/photos/{img}" alt="" loading="lazy" '
+                    f'decoding="async" width="{iw}" height="{ih}">' if img else "")
+        rubcards += (f'<a class="card card--link card--photo" href="/questions/rubriques/{rslug}/">'
+                     f'{vignette}'
                      f'<span class="sigle">Rubrique {shown:02d} · {len(items)} guides</span>'
                      f'<h3>{esc(nom)}</h3><p>{esc(sub)}</p>'
-                     f'<span class="more">Voir la rubrique →</span></a>')
-        cartes = "".join(carte(c) for c in items)
-        pale = " band--pale" if shown % 2 else ""
-        sections += (f'<section id="rub-{i}" class="band{pale}"><div class="wrap">'
-                     f'<p class="eyebrow">Rubrique {shown:02d} — {esc(nom)} · {len(items)} guides</p>'
-                     f'<h2>{esc(sub)}</h2>'
-                     f'<p class="enclair"><span>L\'antisèche</span>{esc(anti)}</p>'
-                     f'<details class="volet" style="margin-top:1.2rem"><summary>'
-                     f'<span class="volet__ouvrir" aria-hidden="true">Déplier les guides</span></summary>'
-                     f'<div class="volet__corps"><div class="grid grid--2">{cartes}</div></div>'
-                     f'</details></div></section>')
+                     f'<span class="more">Ouvrir la rubrique →</span></a>')
+        rubpages.append((shown, nom, rslug, sub, anti, items, img, iw, ih))
     reste = groupes.get(len(CATS))
     if reste:
         shown += 1
-        cartes = "".join(carte(c) for c in reste)
-        rubcards += (f'<a class="card card--link" href="#rub-x">'
+        rubcards += (f'<a class="card card--link" href="/questions/rubriques/autres/">'
                      f'<span class="sigle">Rubrique {shown:02d} · {len(reste)} guides</span>'
                      f'<h3>Autres réponses</h3><p>Ce qui ne rentre dans aucune case</p>'
-                     f'<span class="more">Voir la rubrique →</span></a>')
-        sections += (f'<section id="rub-x" class="band"><div class="wrap">'
-                     f'<p class="eyebrow">Rubrique {shown:02d} — Autres réponses · {len(reste)}</p>'
-                     f'<h2>Autres questions fréquentes</h2>'
-                     f'<details class="volet" style="margin-top:1.2rem"><summary>'
-                     f'<span class="volet__ouvrir" aria-hidden="true">Déplier les guides</span></summary>'
-                     f'<div class="volet__corps"><div class="grid grid--2">{cartes}</div></div>'
-                     f'</details></div></section>')
+                     f'<span class="more">Ouvrir la rubrique →</span></a>')
+        rubpages.append((shown, "Autres réponses", "autres",
+                         "Les guides hors catégories", "", reste, "", 0, 0))
+
+    # Chaque rubrique est une VRAIE page : un clic = une page, jamais un défilement.
+    for num, nom, rslug, sub, anti, items, img, iw, ih in rubpages:
+        rp = f"/questions/rubriques/{rslug}/"
+        rtrail = [("Accueil", "/"), ("Guides pratiques", "/questions/"), (nom, rp)]
+        rcartes = "".join(carte(c) for c in items)
+        picto = RUBRIQUE_PICTOS.get(nom, "")
+        photo = (f'<figure class="photo photo--rub"><img src="/assets/photos/{img}" '
+                 f'alt="{esc(nom)} — illustration" loading="lazy" decoding="async" '
+                 f'width="{iw}" height="{ih}"></figure>' if img else "")
+        rbody = f"""{crumb_html(rtrail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Rubrique {num:02d} — {len(items)} guides</p>
+<div class="rub-titre">{picto}<h1>{esc(nom)} : les guides</h1></div>
+<p class="lede">{esc(sub)}.</p></div></section>
+<section class="band"><div class="wrap">
+{f'<p class="enclair" style="margin-top:0"><span>L&#x27;antisèche</span>{esc(anti)}</p>' if anti else ''}
+{photo}
+<div class="grid grid--2" style="margin-top:2.2rem">{rcartes}</div>
+<p style="margin-top:2rem"><a class="btn btn--ghost" href="/questions/">← Toutes les rubriques</a></p>
+</div></section>
+{cta()}"""
+        shell(path=rp, title=f"{nom} : les guides pratiques — DGLM"[:58],
+              desc=desc_courte(f"{sub}. {anti}" if anti else f"{sub}."),
+              body=rbody,
+              schema=jsonld(org_schema(), breadcrumb(rtrail),
+                            {"@type": "CollectionPage", "url": DOM + rp, "name": nom}))
+        URLS.append((rp, "0.7", "weekly"))
+
     rubriques = (f'<section class="band"><div class="wrap">'
                  f'<p class="eyebrow">Le sommaire</p><h2>Choisissez votre rubrique.</h2>'
                  f'<div class="grid grid--3" style="margin-top:1.8rem">{rubcards}</div></div></section>')
@@ -1762,7 +1789,6 @@ def page_hub_contenus(contenus):
 datée, et revue à chaque évolution réglementaire. Quand nous n'avons pas de réponse assurée,
 nous préférons ne pas écrire la page.</p></div></section>
 {rubriques}
-{sections}
 {cta()}"""
     shell(path=p, title="Guides pratiques du diagnostic en copropriété",
           desc=desc_courte("Réponses documentées sur le repérage amiante avant travaux, le "
