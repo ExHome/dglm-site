@@ -1306,17 +1306,22 @@ Tout reste dans votre navigateur, rien n'est transmis.</p></div></section>
 def page_hub_diags():
     p = "/diagnostics-copropriete/"
     trail = [("Accueil", "/"), ("Diagnostics de copropriété", p)]
+    phares = "".join(
+        f'<a class="card card--link" href="{SILO}/{s["slug"]}/">{PICTOS.get(s["sigle"], "")}'
+        f'<span class="sigle">{s["sigle"]}</span>'
+        f'<h3>{esc(s["nom"])}</h3><p>{esc(s["accroche"])}</p>'
+        f'<span class="more">Découvrir la mission →</span></a>' for s in SERVICES)
     cards = "".join(
         f'<a class="card card--link" href="/{d["slug"]}/"><span class="sigle">{esc(d["sigle"])}</span>'
         f'<h3>{esc(d["nom"])}</h3><p>{esc(d["accroche"])}</p>'
         f'<span class="more">Voir →</span></a>' for d in DIAGS_PRO)
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Neuf missions collectives</p>
+<p class="eyebrow eyebrow--pale">Quatre missions phares, neuf diagnostics complémentaires</p>
 <h1>Les diagnostics de copropriété et de patrimoine</h1>
-<p class="lede">Dossier technique amiante, DPE collectif, audit énergétique, PEMD, plomb
-des parties communes, état parasitaire, installations collectives, assainissement. Les
-versions collectives des diagnostics, pour syndics, bailleurs et maîtres d'ouvrage.</p>
+<p class="lede">D'abord nos quatre spécialités — repérages amiante, diagnostic technique
+global, plan pluriannuel. Puis les diagnostics collectifs qui complètent la gestion d'un
+immeuble, pour syndics, bailleurs et maîtres d'ouvrage.</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
 <a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 <section class="band"><div class="wrap">
@@ -1326,7 +1331,15 @@ versions collectives des diagnostics, pour syndics, bailleurs et maîtres d'ouvr
 plus souvent vacant, un décideur unique. La mission collective suppose un conseil
 syndical, un calendrier d'assemblée, un budget voté et des occupants sur place. Nous n'exerçons que la seconde.</p>
 <p style="margin-top:1.4rem"><a class="btn btn--ghost" href="/le-tableau-des-diagnostics/">Tout voir en un tableau</a></p>
-<div class="grid grid--3" style="margin-top:2rem">{cards}</div></div></section>
+</div></section>
+<section class="band"><div class="wrap">
+<p class="eyebrow">Niveau 1 — nos spécialités</p>
+<h2>Les quatre missions phares</h2>
+<div class="grid grid--2" style="margin-top:1.8rem">{phares}</div></div></section>
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Niveau 2 — les compléments</p>
+<h2>Les neuf diagnostics collectifs</h2>
+<div class="grid grid--3" style="margin-top:1.8rem">{cards}</div></div></section>
 {cta()}"""
     shell(path=p, title="Diagnostics de copropriété : DTA, DPE collectif, PEMD, plomb",
           desc=desc_courte("Diagnostics collectifs pour copropriétés et patrimoines à "
