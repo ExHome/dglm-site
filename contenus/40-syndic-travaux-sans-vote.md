@@ -5,7 +5,7 @@ meta: Oui, dans un seul cas : les travaux urgents nécessaires à la sauvegarde 
 publication: 2026-09-16
 tags: syndic | assemblée générale | copropriété
 liens: /diagnostic-technique-global/ | /questions/majorites-vote-travaux-assemblee/
-sources: Décret n°67-223 du 17 mars 1967, article 37 (travaux urgents)
+sources: Décret n°67-223 du 17 mars 1967, article 37 (travaux urgents)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006061423~30/07/2026
 ---
 
 Oui, mais dans un seul cas : lorsque des travaux sont nécessaires à la sauvegarde de l'immeuble et qu'ils ne peuvent attendre une assemblée. Fuite majeure, péril sur une souche de cheminée, garde-corps descellé : le syndic doit alors faire procéder de sa propre initiative aux travaux urgents.

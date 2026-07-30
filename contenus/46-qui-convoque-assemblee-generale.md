@@ -5,7 +5,7 @@ meta: Le syndic convoque l'assemblée générale. À défaut, le conseil syndica
 publication: 2026-10-28
 tags: assemblée générale | syndic | copropriété
 liens: /questions/majorites-vote-travaux-assemblee/ | /plan-pluriannuel-de-travaux/
-sources: Décret n°67-223 du 17 mars 1967, articles 7 à 9 (convocation de l'assemblée)
+sources: Décret n°67-223 du 17 mars 1967, articles 7 à 9 (convocation de l'assemblée)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006061423~30/07/2026
 ---
 
 C'est le syndic qui convoque l'assemblée générale : au moins une fois par an, et chaque fois que les décisions à prendre l'exigent. La convocation part au moins vingt et un jours avant la réunion, avec l'ordre du jour et les documents nécessaires au vote.
