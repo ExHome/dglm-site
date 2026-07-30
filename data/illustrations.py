@@ -211,6 +211,65 @@ ANIM_DPE = ('<figure class="animex"><svg viewBox="0 0 800 300" role="img" aria-l
     '</svg></figure>')
 
 
+# ------------------------------------------------- déperditions & ponts thermiques
+# Coupe d'immeuble auto-suffisante : on comprend sans lire le texte de la page.
+# Flèches rouges proportionnelles aux pertes (échelle 1,1 px par %), loupe sur le
+# nez de dalle du balcon (LE pont thermique des copropriétés). Ordres de grandeur
+# ADEME, immeuble collectif d'avant 1975 non isolé. Pulsation .depflux discrète,
+# coupée par prefers-reduced-motion : le dessin statique est complet.
+ANIM_DEPERDITIONS = '''<figure class="animex"><svg viewBox="0 0 800 560" role="img" aria-labelledby="axdp">
+<title id="axdp">Coupe d’un immeuble collectif non isolé : la chaleur s’échappe par la toiture (30 %), les murs (25 %), le renouvellement d’air et les fuites (20 %), les fenêtres (13 %), les ponts thermiques — la dalle du balcon qui traverse le mur — (7 %) et le plancher bas (5 %)</title>
+<rect width="800" height="560" fill="#FFFFFF"/>
+<g fill="none" stroke="#C09048" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M140,470 L280,470 M480,470 L585,470"/>
+<path d="M280,146 L280,180 M280,220 L280,288 M280,328 L280,396 M280,436 L280,512"/>
+<path d="M290,146 L290,180 M290,220 L290,288 M290,328 L290,396 M290,436 L290,512"/>
+<path d="M470,146 L470,198 M470,256 L470,512"/>
+<path d="M480,146 L480,198 M480,256 L480,512"/>
+<path d="M290,150 L470,150 M290,158 L470,158"/>
+<path d="M290,248 L536,248 M290,256 L536,256 M536,248 L536,256"/>
+<path d="M290,356 L470,356 M290,364 L470,364"/>
+<path d="M290,464 L470,464 M290,472 L470,472"/>
+<path d="M280,512 L480,512"/>
+<path d="M266,144 L375,98 L494,144"/>
+<path d="M436,121 L436,92 M452,128 L452,92 M431,92 L457,92"/>
+<path d="M285,182 L285,218 M285,290 L285,326 M285,398 L285,434"/>
+<path d="M278,180 L292,180 M278,220 L292,220 M278,288 L292,288 M278,328 L292,328 M278,396 L292,396 M278,436 L292,436"/>
+<path d="M475,200 L475,240 M468,198 L482,198"/>
+<path d="M534,246 L534,214 M482,214 L534,214 M508,214 L508,242"/>
+</g>
+<g fill="none" stroke="#C09048" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="490" cy="252" r="18"/>
+<circle cx="665" cy="395" r="75"/>
+<path d="M500,266 L612,342 M482,268 L596,370"/>
+<path d="M648,330 L648,386 M648,404 L648,460 M664,330 L664,386 M664,404 L664,460"/>
+<path d="M612,386 L724,386 M612,404 L724,404 M724,386 L724,404"/>
+</g>
+<g class="depflux" fill="#D02B1E">
+<path d="M313.5,116 L313.5,78 L300,78 L330,50 L360,78 L346.5,78 L346.5,116 Z"/>
+<path d="M433,92 L433,66 L425,66 L444,52 L463,66 L455,66 L455,92 Z"/>
+<path d="M278,146.25 L230,146.25 L230,135 L204,160 L230,185 L230,173.75 L278,173.75 Z"/>
+<path d="M278,300.85 L240,300.85 L240,295 L222,308 L240,321 L240,315.15 L278,315.15 Z"/>
+<path d="M445.25,472 L445.25,492 L441.5,492 L448,505 L454.5,492 L450.75,492 L450.75,472 Z"/>
+<path d="M538,248.15 L560,248.15 L560,244 L572,252 L560,260 L560,255.85 L538,255.85 Z"/>
+<path d="M620,389 L700,389 L700,384 L716,395 L700,406 L700,401 L620,401 Z"/>
+</g>
+<text x="40" y="36" font-size="21" font-weight="700" fill="#093F30">Par où l’immeuble perd sa chaleur ?</text>
+<text x="296" y="72" text-anchor="end" font-size="14" fill="#093F30">Toiture <tspan font-size="17" font-weight="700">30 %</tspan></text>
+<text x="482" y="66" font-size="14" fill="#093F30">Air renouvelé et fuites <tspan font-size="17" font-weight="700">20 %</tspan></text>
+<text x="188" y="165" text-anchor="end" font-size="14" fill="#093F30">Murs <tspan font-size="17" font-weight="700">25 %</tspan></text>
+<text x="214" y="313" text-anchor="end" font-size="14" fill="#093F30">Fenêtres <tspan font-size="17" font-weight="700">13 %</tspan></text>
+<text x="436" y="500" text-anchor="end" font-size="14" fill="#093F30">Plancher bas <tspan font-size="17" font-weight="700">5 %</tspan></text>
+<text x="578" y="247" font-size="17" font-weight="700" fill="#093F30">7 %</text>
+<text x="665" y="492" text-anchor="middle" font-size="14" fill="#093F30">Ponts thermiques <tspan font-size="17" font-weight="700">7 %</tspan></text>
+<text x="665" y="513" text-anchor="middle" font-size="13" fill="#5B6A62">Le béton du balcon traverse le mur</text>
+<text x="665" y="531" text-anchor="middle" font-size="13" fill="#5B6A62">et laisse filer la chaleur dehors.</text>
+<text x="616" y="370" text-anchor="middle" font-size="13" fill="#5B6A62">dedans</text>
+<text x="708" y="370" text-anchor="middle" font-size="13" fill="#5B6A62">dehors</text>
+<text x="40" y="548" font-size="13" fill="#5B6A62">L’immeuble est vu en coupe · ordres de grandeur ADEME, immeuble collectif d’avant 1975 non isolé.</text>
+</svg></figure>'''
+
+
 # ---------------------------------------------------------------- pictos rubriques
 # Un dessin au trait par rubrique des guides — même geste que les PICTOS missions.
 _R = ('<svg class="picto picto--rub" viewBox="0 0 64 64" aria-hidden="true" focusable="false">'
