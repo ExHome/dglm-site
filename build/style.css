@@ -631,13 +631,19 @@ main{counter-reset:planche}
 /* ---------- topbar allégée sur téléphone ---------- */
 @media (max-width:640px){.topbar span{display:none}}
 
-/* ---------- transitions douces des tiroirs ---------- */
-.volet__corps{animation:deplie .3s ease}
+/* ---------- transitions douces (FAQ, menu) ---------- */
 details[open]>p{animation:deplie .3s ease}
 .menu__list{animation:deplie .22s ease}
 @keyframes deplie{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){
-  .volet__corps,.menu__list,details[open]>p{animation:none}}
+  .menu__list,details[open]>p{animation:none}}
+
+/* ---------- illustrations au trait ---------- */
+.hero .wrap{z-index:1}
+.hero .skyline{position:absolute;right:-2%;bottom:-4px;width:min(720px,74%);
+  opacity:.32;pointer-events:none;z-index:0}
+.card .picto{display:block;width:46px;height:46px;color:var(--or);margin-bottom:.5rem}
+.illu-echoppe{display:block;width:min(300px,72%);margin:1.8rem 0 .6rem;opacity:.9}
 
 /* impression : dossier net pour l'assemblée générale, sans chrome ni aplats sombres */
 @media print{

@@ -16,6 +16,7 @@ from data.contenus import charger as charger_contenus, en_attente, md_vers_html,
 from data.quartiers import QUARTIERS_BORDEAUX, QUARTIERS_PAR_VILLE
 from data.normes import NORMES, CONSULTE_LE
 from data.schemas_svg import rendre as rendre_schema
+from data.illustrations import SKYLINE, PICTOS, ECHOPPE
 
 COMMUNES = METROPOLE + GIRONDE_ELARGIE + LANDES
 SLUG_TO_NOM = {c["slug"]: c["nom"] for c in COMMUNES}
@@ -262,16 +263,14 @@ def cta(titre="Un chantier à cadrer ? Parlons-en aujourd'hui.",
 
 
 def volet(eyebrow, h2, corps, ouvert=False, pale=False, dark=False):
-    """Bandeau à tiroir : un titre visible, un contenu révélé au clic.
-    Progressive disclosure sans une ligne de JavaScript (<details> natif)."""
+    """Bandeau de section : titre et contenu visibles — on est sur un site web,
+    la lecture se fait au défilement. (L'argument ouvert est conservé pour
+    compatibilité, il n'a plus d'effet.)"""
     cls = "band" + (" band--pale" if pale else "") + (" band--dark" if dark else "")
-    o = " open" if ouvert else ""
     eb = "eyebrow eyebrow--pale" if dark else "eyebrow"
     return (f'<section class="{cls}"><div class="wrap">'
-            f'<details class="volet"{o}><summary>'
-            f'<span class="{eb}">{eyebrow}</span><h2>{h2}</h2>'
-            f'<span class="volet__ouvrir" aria-hidden="true">Déplier</span></summary>'
-            f'<div class="volet__corps">{corps}</div></details></div></section>')
+            f'<p class="{eb}">{eyebrow}</p><h2>{h2}</h2>'
+            f'<div class="volet__corps">{corps}</div></div></section>')
 
 
 def fiche_html(fiche):
@@ -287,7 +286,7 @@ def fiche_html(fiche):
 # (RAAT / RAAD / DTG / PPPT). Aucune requête du site A n'est ciblée.
 def page_home():
     cards = "".join(f"""<a class="card card--link" href="{SILO}/{s['slug']}/">
-<span class="sigle">{s['sigle']}</span><h3>{esc(s['nom'])}</h3>
+{PICTOS.get(s['sigle'], '')}<span class="sigle">{s['sigle']}</span><h3>{esc(s['nom'])}</h3>
 <p>{esc(s['accroche'])}</p><span class="more">Découvrir la mission →</span></a>""" for s in SERVICES)
 
     body = f"""<section class="hero"><div class="wrap">
@@ -304,7 +303,7 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <div><dt>Périmètre</dt><dd>Bordeaux Métropole en priorité — Gironde et Landes sur mission</dd></div>
 <div><dt>Intervention</dt><dd>Visite sous 72 heures, rapport sous 48 heures</dd></div>
 <div><dt>Analyses</dt><dd>Laboratoire accrédité COFRAC</dd></div>
-</dl></div></section>
+</dl></div>{SKYLINE}</section>
 
 <section class="band"><div class="wrap">
 <p class="eyebrow">Quatre missions</p>
@@ -351,6 +350,7 @@ quantitatifs exploitables en chiffrage.</p><span class="more">Voir →</span></a
        f'''<p class="narrow" style="color:rgba(248,245,238,.82)">Le parc bâti de la métropole n'a rien d'homogène. Une échoppe des Chartrons, une
 barre de Génicart et un hangar de Blanquefort n'appellent ni les mêmes sondages, ni le
 même plan de repérage, ni la même lecture.</p>
+{ECHOPPE}
 <ul class="mesh">{"".join(f'<li><a href="{SILO}/{SERVICES[0]["slug"]}/{c["slug"]}/">{esc(c["nom"])}</a></li>' for c in COMMUNES)}</ul>
 <p style="margin-top:1.6rem"><a href="{SILO}/zones-d-intervention/">Toutes les zones d'intervention →</a></p>''',
        dark=True)}
