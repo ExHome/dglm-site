@@ -775,3 +775,10 @@ details[open]>p{animation:deplie .3s ease}
 .checklist li{position:relative;padding:.55rem 0 .55rem 2.1rem;border-bottom:1px solid var(--rule-fine);font-size:.97rem}
 .checklist li::before{content:"";position:absolute;left:0;top:.75rem;width:1rem;height:1rem;border:1.5px solid var(--vert)}
 @media print{.checklist li{break-inside:avoid}}
+
+/* tableaux d articles */
+.tabwrap{overflow-x:auto;margin:1.4rem 0 1.8rem}
+.tabsimple{width:100%;border-collapse:collapse;font-size:.9rem;min-width:34rem}
+.tabsimple th{text-align:left;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);font-weight:600;padding:.5rem .8rem .5rem 0;border-bottom:1.5px solid var(--vert)}
+.tabsimple td{padding:.6rem .8rem .6rem 0;border-bottom:1px solid var(--rule-fine);vertical-align:top}
+.tabsimple td:first-child{font-weight:600;color:var(--vert)}

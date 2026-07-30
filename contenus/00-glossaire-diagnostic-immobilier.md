@@ -45,3 +45,21 @@ Le diagnostic immobilier est plein de sigles. En voici la traduction en langage 
 ## À garder sous la main
 
 Un sigle vous échappe en lisant un rapport ou une convocation d'assemblée générale ? Revenez ici : ce glossaire s'enrichit au fil de nos publications, pour que personne ne reste bloqué devant un mot.
+
+## La vie de la copropriété
+
+- **Lot — l'unité de propriété.** Une partie privative (logement, cave, parking) et sa quote-part de parties communes, indissociables. On achète un lot, jamais « un appartement » seul.
+- **Tantièmes — la clé de répartition.** La part de chaque lot dans les parties communes, souvent en millièmes. Ils fixent les charges et le poids des votes.
+- **Syndicat des copropriétaires — le collectif.** L'ensemble des copropriétaires, propriétaire des parties communes. Le syndic n'en est que le représentant.
+- **Conseil syndical — le relais.** Copropriétaires élus qui assistent et contrôlent le syndic entre deux assemblées. Notre interlocuteur naturel en mission.
+- **État descriptif de division — l'inventaire.** Le document qui liste tous les lots de l'immeuble, leurs numéros et leurs tantièmes.
+
+## Compléments techniques
+
+- **COFRAC — Comité français d'accréditation.** L'organisme qui accrédite les certificateurs de diagnostiqueurs et les laboratoires d'analyse. Le mot qui garantit la chaîne de confiance.
+- **RCP — responsabilité civile professionnelle.** L'assurance obligatoire du diagnostiqueur, qui couvre les conséquences d'une erreur. À demander avant de confier une mission.
+- **Empoussièrement — la mesure d'air.** Le comptage des fibres d'amiante en suspension dans l'air, exigé quand des matériaux de la liste A sont dégradés.
+- **Encapsulage — recouvrir plutôt que retirer.** Traitement qui emprisonne un matériau amianté sous un revêtement étanche, quand le retrait n'est pas la meilleure option.
+- **Fluorescence X — la mesure du plomb.** L'appareil qui mesure le plomb des peintures sans rien casser, unité de diagnostic par unité de diagnostic.
+- **SPANC — le contrôle public des fosses.** Le service public d'assainissement non collectif, qui contrôle les installations individuelles ; son rapport de moins de trois ans est exigé en cas de cession.
+- **PEB — plan d'exposition au bruit.** La carte des zones de bruit autour d'un aérodrome ; s'y trouver déclenche l'état des nuisances sonores aériennes (ENSA).

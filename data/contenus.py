@@ -96,12 +96,15 @@ def md_vers_html(texte):
             bloc.clear()
 
     liste = False
+    tableau = False
     for ligne in texte.splitlines():
         l = ligne.rstrip()
         if not l.strip():
             vider()
             if liste:
                 html.append("</ul>"); liste = False
+            if tableau:
+                html.append("</tbody></table></div>"); tableau = False
             continue
         if l.startswith("## "):
             vider()
@@ -111,6 +114,20 @@ def md_vers_html(texte):
             vider()
             if liste: html.append("</ul>"); liste = False
             html.append(f"<h3>{l[4:].strip()}</h3>")
+        elif l.startswith("|"):
+            vider()
+            if liste:
+                html.append("</ul>"); liste = False
+            if set(l) <= set("|-: \t"):
+                continue
+            cellules = [c.strip() for c in l.strip("|").split("|")]
+            if not tableau:
+                html.append('<div class="tabwrap"><table class="tabsimple"><thead><tr>'
+                            + "".join(f"<th>{c}</th>" for c in cellules)
+                            + "</tr></thead><tbody>")
+                tableau = True
+            else:
+                html.append("<tr>" + "".join(f"<td>{c}</td>" for c in cellules) + "</tr>")
         elif l.startswith("- "):
             vider()
             if not liste:
@@ -121,6 +138,8 @@ def md_vers_html(texte):
     vider()
     if liste:
         html.append("</ul>")
+    if tableau:
+        html.append("</tbody></table></div>")
     s = "\n".join(html)
     s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', s)
