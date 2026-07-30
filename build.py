@@ -2267,7 +2267,12 @@ complètement, vous nous évitez un rappel préalable : nous chiffrons directeme
 {"".join(f"<option>{o}</option>" for o in ["Syndic professionnel", "Conseil syndical ou syndic bénévole", "Bailleur ou administrateur de biens", "Maître d'ouvrage", "Entreprise de travaux", "Architecte ou maître d'œuvre", "Collectivité ou bailleur social", "Particulier"])}
 </select></label>
 <label class="field" for="c_societe"><span>Société ou copropriété</span>
-<input id="c_societe" name="societe" type="text" required></label></div>
+<input id="c_societe" name="societe" type="text" required></label>
+<div id="devis-part" class="enclair" hidden><p><strong>Vous êtes un particulier ?</strong>
+Pour des travaux, une démolition ou une mission d'immeuble, vous êtes exactement au bon
+endroit — laissez « Société » vide. Pour les diagnostics d'une vente ou d'une location de
+votre logement, c'est notre <a href="/particuliers/">équipe dédiée aux particuliers</a>
+qui s'en charge.</p></div></div>
 
 <div id="devis-mission" hidden></div>
 

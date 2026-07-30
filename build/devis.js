@@ -47,7 +47,8 @@
         { id: "nature", label: "Nature des travaux prévus", type: "textarea", requis: true,
           aide: "Ravalement, remplacement de menuiseries, réfection de toiture, reprise de réseaux…" },
         { id: "perimetre", label: "Périmètre concerné", type: "checks", options: [
-          "Façades", "Toiture", "Parties communes intérieures", "Logements",
+          "Façades", "Toiture", "Parties communes intérieures",
+          "Intérieur de logements (cuisine, salle de bain, cloisons…)",
           "Caves et sous-sol", "Chaufferie et locaux techniques", "Extérieurs" ] },
         { id: "surface", label: "Surface approximative concernée (m²)", type: "number", min: 1 },
         { id: "logements", label: "Nombre de logements concernés", type: "number", min: 0 },
@@ -109,12 +110,26 @@
           aide: "Ravalement, toiture, ascenseur, chaufferie… même à l'état d'intention" }
       ]
     },
+    dpe: {
+      nom: "DPE collectif de copropriété",
+      champs: [
+        { id: "lots", label: "Nombre total de lots", type: "number", requis: true, min: 2 },
+        { id: "batiments", label: "Nombre de bâtiments", type: "number", min: 1 },
+        { id: "chauffage", label: "Mode de chauffage", type: "select", options: [
+          "Chauffage collectif", "Chauffages individuels", "Mixte", "Je ne sais pas" ] },
+        { id: "motif", label: "Motif de la demande", type: "select", options: [
+          "Échéance réglementaire", "Projet de rénovation énergétique",
+          "Demande de l'assemblée générale", "Autre" ] },
+        { id: "dpe_prec", label: "Un DPE collectif a-t-il déjà été réalisé ?", type: "select", options: [
+          "Oui, de moins de 10 ans", "Oui, plus ancien", "Non" ] }
+      ]
+    },
     autre: {
       nom: "Autre mission",
       champs: [
         { id: "mission", label: "Mission souhaitée", type: "select", requis: true, options: [
           "Dossier technique amiante (DTA)", "Amiante parties privatives (DAPP)",
-          "Diagnostic PEMD", "DPE collectif", "Audit énergétique de copropriété",
+          "Diagnostic PEMD", "Audit énergétique de copropriété",
           "Constat plomb des parties communes", "État parasitaire",
           "Installations collectives gaz et électricité",
           "Conformité assainissement", "Plusieurs missions" ] },
@@ -127,8 +142,21 @@
   var DELAI = { id: "delai", label: "Délai souhaité", type: "select", requis: true, options: [
     "Urgent — sous 8 jours", "Sous 15 jours", "Sous un mois",
     "Avant la prochaine assemblée générale", "Pas de contrainte particulière" ] };
+  var PORTEE = { id: "portee", label: "Cette demande concerne", type: "select", options: [
+    "Un seul immeuble ou site", "Plusieurs immeubles d'un même portefeuille" ],
+    aide: "Gestionnaire d'un parc ? Listez les autres adresses dans le dernier champ : nous chiffrons le tout en une seule fois" };
   var NOTE = { id: "note", label: "Autre information utile", type: "textarea",
     aide: "Contraintes d'accès, interlocuteur sur place, particularité du bâtiment…" };
+
+  /* aide au choix : à quoi sert chaque mission, en une ligne */
+  var HINTS = {
+    raat: "Vous rénovez, réhabilitez ou entretenez",
+    raad: "Vous démolissez ou curez un bâtiment",
+    dtg: "L'état complet de l'immeuble, poste par poste",
+    pppt: "La feuille de route travaux sur dix ans",
+    dpe: "L'étiquette énergie de l'immeuble entier",
+    autre: "DTA, DAPP, plomb, PEMD, parasitaire…"
+  };
 
   /* ---------- rendu ---------- */
   var form = document.getElementById("devis");
@@ -177,7 +205,7 @@
     zoneMission.innerHTML =
       bloc("2 · Le bien concerné", BIEN) +
       bloc("3 · " + m.nom, m.champs) +
-      bloc("4 · Délai et compléments", [DELAI, NOTE]);
+      bloc("4 · Délai et compléments", [DELAI, PORTEE, NOTE]);
     zoneMission.hidden = false;
     document.getElementById("devis-envoi").hidden = false;
     zoneMission.querySelector("input,select,textarea").focus();
@@ -191,8 +219,22 @@
   document.getElementById("devis-choix").innerHTML =
     Object.keys(MISSIONS).map(function (k) {
       return '<button type="button" class="mission" data-m="' + k + '">' +
-             '<b>' + MISSIONS[k].nom + "</b></button>";
+             '<b>' + MISSIONS[k].nom + "</b>" +
+             (HINTS[k] ? "<i>" + HINTS[k] + "</i>" : "") + "</button>";
     }).join("");
+
+  /* ---------- particulier : société facultative + orientation ---------- */
+  var qualite = document.getElementById("c_qualite");
+  var societe = document.getElementById("c_societe");
+  var encartPart = document.getElementById("devis-part");
+  if (qualite && societe) qualite.addEventListener("change", function () {
+    var estPart = qualite.value === "Particulier";
+    societe.required = !estPart;
+    var lbl = societe.previousElementSibling;
+    if (lbl) lbl.textContent = estPart ?
+      "Société ou copropriété — facultatif" : "Société ou copropriété";
+    if (encartPart) encartPart.hidden = !estPart;
+  });
 
   document.getElementById("devis-choix").addEventListener("click", function (e) {
     var b = e.target.closest(".mission");
@@ -207,7 +249,7 @@
   function collecter() {
     var out = [], vus = {};
     var libelle = {};
-    [CONTACT, BIEN, MISSIONS[choix].champs, [DELAI, NOTE]].forEach(function (g) {
+    [CONTACT, BIEN, MISSIONS[choix].champs, [DELAI, PORTEE, NOTE]].forEach(function (g) {
       g.forEach(function (c) { libelle[c.id] = c.label; });
     });
     Array.prototype.forEach.call(form.elements, function (el) {
