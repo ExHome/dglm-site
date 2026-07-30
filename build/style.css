@@ -808,3 +808,6 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 .photo__theme{margin-top:.55rem;font-size:.8rem}
 .photo__theme a{color:var(--vert);border-bottom:1px solid var(--rule-or);text-decoration:none;padding-bottom:.15rem}
 .photo__theme a:hover{border-bottom-color:var(--vert)}
+
+/* accessibilite : gris lisible pour les textes porteurs (Lighthouse) */
+.maj,.photo figcaption,.signature,.mesh--plain,.sources p{color:#5B6A62}
