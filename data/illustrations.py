@@ -103,3 +103,49 @@ ECHOPPE = """<svg class="illu-echoppe" viewBox="0 0 320 210" aria-hidden="true" 
 <line x1="216" y1="170" x2="284" y2="170"/>
 <line x1="20" y1="86" x2="300" y2="86"/>
 </g></svg>"""
+
+
+# ---------------------------------------------------------------- explainer animé
+# Micro motion-design : quatre temps qui s'enchaînent en boucle (CSS .ax).
+# Prefers-reduced-motion : tout s'affiche, rien ne bouge.
+_AX_OR, _AX_V, _AX_G = "#C09048", "#093F30", "#7C8B84"
+
+def _ax_temps(classe, num, icone, titre, sous):
+    return (f'<g class="{classe}">'
+            f'<text x="70" y="90" font-size="64" font-weight="700" fill="{_AX_OR}" opacity=".25">{num}</text>'
+            f'{icone}'
+            f'<text x="400" y="216" text-anchor="middle" font-size="23" font-weight="600" fill="{_AX_V}">{titre}</text>'
+            f'<text x="400" y="247" text-anchor="middle" font-size="15" fill="{_AX_G}">{sous}</text></g>')
+
+_AX_ICONES = [
+    # visite : façade + loupe
+    f'<g fill="none" stroke="{_AX_OR}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
+    f'<path d="M355,168 L355,110 L415,110 L415,168"/><path d="M347,110 L385,84 L423,110"/>'
+    f'<rect x="370" y="128" width="14" height="16"/>'
+    f'<circle cx="440" cy="150" r="16"/><line x1="451" y1="161" x2="466" y2="176"/></g>',
+    # prélèvement : tube + étiquette
+    f'<g fill="none" stroke="{_AX_OR}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
+    f'<path d="M385,86 L385,158 A15,15 0 0 0 415,158 L415,86"/><line x1="377" y1="86" x2="423" y2="86"/>'
+    f'<line x1="385" y1="128" x2="415" y2="128"/><rect x="428" y="118" width="34" height="22"/></g>',
+    # laboratoire : fiole
+    f'<g fill="none" stroke="{_AX_OR}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
+    f'<path d="M388,84 L388,120 L358,170 A12,12 0 0 0 368,188 L432,188 A12,12 0 0 0 442,170 L412,120 L412,84"/>'
+    f'<line x1="380" y1="84" x2="420" y2="84"/><line x1="371" y1="152" x2="429" y2="152"/></g>',
+    # rapport : document coché
+    f'<g fill="none" stroke="{_AX_OR}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
+    f'<path d="M362,80 L418,80 L438,100 L438,190 L362,190 Z"/><path d="M418,80 L418,100 L438,100"/>'
+    f'<line x1="376" y1="120" x2="424" y2="120"/><line x1="376" y1="138" x2="424" y2="138"/>'
+    f'<path d="M388,160 L398,172 L416,150"/></g>',
+]
+
+ANIM_MISSION = ('<figure class="animex"><svg viewBox="0 0 800 300" role="img" aria-labelledby="axt">'
+    '<title id="axt">Une mission en quatre temps : visite sur site, prélèvements, analyses en '
+    'laboratoire accrédité, rapport exploitable</title>'
+    '<rect width="800" height="300" fill="#FFFFFF"/>'
+    + _ax_temps("ax", "01", _AX_ICONES[0], "La visite, sur site", "On regarde partout — y compris là où personne ne va.")
+    + _ax_temps("ax ax2", "02", _AX_ICONES[1], "Les prélèvements", "Chaque doute devient un échantillon référencé.")
+    + _ax_temps("ax ax3", "03", _AX_ICONES[2], "Le laboratoire accrédité", "Les analyses tranchent : jamais de « présumé » par confort.")
+    + _ax_temps("ax ax4", "04", _AX_ICONES[3], "Le rapport exploitable", "Localisé, chiffré, prêt pour l\u2019assemblée ou le chantier.")
+    + f'<g fill="{_AX_G}"><circle cx="370" cy="278" r="4"/><circle cx="390" cy="278" r="4"/>'
+    + f'<circle cx="410" cy="278" r="4"/><circle cx="430" cy="278" r="4"/></g>'
+    '</svg></figure>')

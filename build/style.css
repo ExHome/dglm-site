@@ -657,6 +657,24 @@ details[open]>p{animation:deplie .3s ease}
   linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
   url("/assets/photos/hero-echoppe.jpg") center 42%/cover no-repeat var(--vert-profond)}
 
+/* ---------- réponse express (recherche) ---------- */
+.repexp{background:var(--blanc);border:1px solid var(--rule);
+  border-left:3px solid var(--or);padding:1.6rem 1.7rem;max-width:56rem}
+.repexp h3{color:var(--vert);font-size:1.3rem;margin:.5rem 0 .6rem}
+.repexp ul{padding-left:1.1rem;margin:.3rem 0 0}
+.repexp li{padding:.15rem 0}
+
+/* ---------- explainer animé : micro motion-design ---------- */
+.animex{max-width:50rem;margin-top:1.6rem;background:var(--blanc);
+  border:1px solid var(--rule-fine)}
+.animex svg{width:100%;height:auto;display:block}
+.animex .ax{opacity:0;animation:ax 12s infinite}
+.animex .ax2{animation-delay:3s}.animex .ax3{animation-delay:6s}.animex .ax4{animation-delay:9s}
+@keyframes ax{0%{opacity:0;transform:translateY(8px)}4%,24%{opacity:1;transform:none}
+  30%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  .animex .ax{opacity:1;animation:none;transform:none}}
+
 /* ---------- parcours : à chacun son entrée ---------- */
 .parcours{background:var(--vert);border-top:1px solid var(--rule-or);
   border-bottom:3px solid var(--or)}

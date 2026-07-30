@@ -16,7 +16,7 @@ from data.contenus import charger as charger_contenus, en_attente, md_vers_html,
 from data.quartiers import QUARTIERS_BORDEAUX, QUARTIERS_PAR_VILLE
 from data.normes import NORMES, CONSULTE_LE
 from data.schemas_svg import rendre as rendre_schema
-from data.illustrations import SKYLINE, PICTOS, ECHOPPE
+from data.illustrations import SKYLINE, PICTOS, ECHOPPE, ANIM_MISSION
 
 COMMUNES = METROPOLE + GIRONDE_ELARGIE + LANDES
 SLUG_TO_NOM = {c["slug"]: c["nom"] for c in COMMUNES}
@@ -147,6 +147,7 @@ MENU = ('<a href="/">Accueil</a>'
         + '<a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>'
         + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
         + '<a href="/questions/">Guides pratiques</a>'
+        + '<a href="/recherche/">Rechercher dans le site</a>'
         + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
         + '<a href="/equipe/">Notre équipe</a>'
         + '<a href="/devis/">Demander un devis</a>'
@@ -205,6 +206,7 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <a href="/le-tableau-des-diagnostics/">Le tableau</a>
 <a href="{SILO}/simulateur-obligations-copropriete/">Simulateur</a>
 <a href="/questions/">Guides</a>
+<a href="/recherche/">Rechercher</a>
 <a class="btn" href="/devis/">Demander un devis</a></nav>
 <details class="menu"><summary aria-label="Ouvrir le menu">Menu</summary>
 <nav class="menu__list" aria-label="Menu complet">{MENU}</nav></details></div></header>
@@ -394,7 +396,12 @@ années. <b>Pourquoi on y va :</b> c'est là que se logent flocages, calorifugea
 désordres de charpente. Un diagnostic sérieux ne se fait pas depuis le palier :
 il va voir.</p></figure>
 </div>
-<p style="margin-top:2rem"><a class="btn btn--ghost" href="https://www.instagram.com/paul.sabourin_immobilier/reel/DTLUU4IDTBs/" rel="noopener">▶ Notre série vidéo : le dossier de diagnostic en 4 épisodes</a></p>
+</div></section>
+
+<section class="band"><div class="wrap">
+<p class="eyebrow">Le déroulé</p>
+<h2>Une mission, quatre temps.</h2>
+{ANIM_MISSION}
 </div></section>
 
 <section class="band band--dark"><div class="wrap">
@@ -1176,6 +1183,108 @@ cadre — nos <a href="/questions/">réponses détaillées</a> les couvrent, et 
                         {"@type": "Table", "about": "Diagnostics de copropriété",
                          "name": "Le tableau des diagnostics de copropriété"}))
     URLS.append((p, "0.9", "weekly"))
+
+
+def _norm_recherche(s):
+    import unicodedata as _u
+    return _u.normalize("NFD", s).encode("ascii", "ignore").decode().lower()
+
+
+def page_recherche(contenus):
+    """Recherche instantanée, entièrement locale : l'index est embarqué dans
+    la page, le filtrage se fait dans le navigateur. Zéro requête, zéro serveur."""
+    p = "/recherche/"
+    trail = [("Accueil", "/"), ("Rechercher", p)]
+    idx = []
+
+    def add(t, u, d, extra="", art=0):
+        e = {"t": t, "u": u, "d": d[:170],
+             "n": _norm_recherche(f"{t} {d} {extra}")}
+        if art:
+            e["a"] = 1
+        idx.append(e)
+
+    for s in SERVICES:
+        add(f"{s['nom']} ({s['sigle']})", f"{SILO}/{s['slug']}/", s["accroche"], s["kw"])
+    for d in DIAGS_PRO:
+        add(d["nom"], f"/{d['slug']}/", d["accroche"], d["sigle"])
+    for c in contenus:
+        add(c["titre"], f"/questions/{c['slug']}/", c["meta"], " ".join(c["tags"]), art=1)
+    # Définitions des sigles pour la réponse express (uniquement nos données).
+    defs = {}
+    for s in SERVICES:
+        defs[_norm_recherche(s["sigle"])] = f"{s['nom_court']}. {s['accroche']}"
+    for d in DIAGS_PRO:
+        sig = _norm_recherche(d["sigle"].split()[0])
+        if sig not in defs and len(sig) <= 6:
+            defs[sig] = f"{d['nom']}. {d['accroche']}"
+    add("Le tableau des diagnostics", "/le-tableau-des-diagnostics/",
+        "Treize missions : qui commande, quand, validité — en une page.", "tableau récapitulatif")
+    add("Simulateur d'obligations", f"{SILO}/simulateur-obligations-copropriete/",
+        "Votre situation établie en six questions.", "pppt dtg dpe obligations")
+    add("Notre équipe", "/equipe/", "Des noms, des visages, des signatures.", "diagnostiqueurs certifiés")
+    add("Zones d'intervention", f"{SILO}/zones-d-intervention/",
+        "Bordeaux Métropole en priorité, Gironde et Landes sur mission.", "communes secteur")
+    add("Demande de devis", "/devis/", "Devis chiffré sous deux heures ouvrées.", "contact rappel")
+    add("Normes et textes", "/referentiel-des-normes/",
+        "Norme, arrêté et article de code applicables à chaque diagnostic.", "afnor réglementation")
+    add("Bordeaux, quartier par quartier", "/bordeaux/",
+        "Échoppes, pierre, grands ensembles : le bâti tel qu'il est.", "quartiers")
+    for q in QUARTIERS_BORDEAUX:
+        add(f"{q['nom']} — Bordeaux", f"/bordeaux/{q['slug']}/", q["intro"][:110], "quartier")
+    for ville in QUARTIERS_PAR_VILLE:
+        add(f"{ville['nom']}, quartier par quartier", f"/{ville['slug']}/", ville.get("intro", "")[:110] if isinstance(ville, dict) else "", "quartiers")
+    for s in SERVICES:
+        for c in METROPOLE:
+            add(f"{s['sigle']} à {c['nom']}", f"{SILO}/{s['slug']}/{c['slug']}/",
+                f"{s['nom_court']} à {c['nom']} ({c['cp']}).", "commune")
+
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">{len(idx)} pages indexées — recherche instantanée</p>
+<h1>Que cherchez-vous ?</h1>
+<p class="lede">Un sigle, une commune, une question : les résultats s'affichent à la frappe.
+Tout reste dans votre navigateur, rien n'est transmis.</p></div></section>
+<section class="band"><div class="wrap">
+<label class="field" style="max-width:34rem"><span>Votre recherche</span>
+<input type="search" id="q" placeholder="dtg, amiante, Mérignac, fonds de travaux…" autofocus autocomplete="off"></label>
+<div id="rep" style="margin-top:2rem"></div>
+<div class="grid grid--2" id="res" style="margin-top:2rem"></div>
+</div></section>"""
+    js = ("<script>const IDX=" + json.dumps(idx, ensure_ascii=False) + ";"
+          "const DEFS=" + json.dumps(defs, ensure_ascii=False) + ";"
+          "const MAIL='" + E["email"] + "';"
+          "const inp=document.getElementById('q'),out=document.getElementById('res'),rep=document.getElementById('rep');"
+          "function norm(s){return s.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase()}"
+          "function lienQ(){const su=encodeURIComponent('Question pour vos guides pratiques');"
+          "const co=encodeURIComponent('Bonjour, voici ma question : '+inp.value.trim());"
+          "return '<p style=\"margin-top:1.2rem\"><a class=\"btn btn--ghost\" href=\"mailto:'+MAIL+'?subject='+su+'&body='+co+'\">Nous envoyer cette question</a></p>'}"
+          "function go(){const q=norm(inp.value.trim());rep.innerHTML='';"
+          "if(q.length<2){out.innerHTML='';return}"
+          "const terms=q.split(/\\s+/).filter(Boolean);const sc=[];"
+          "for(const e of IDX){let s=0;for(const t of terms){if(e.n.includes(t))s+=(norm(e.t).includes(t)?3:1)}"
+          "if(s>=terms.length)sc.push([s,e])}"
+          "sc.sort((a,b)=>b[0]-a[0]);"
+          "let defs='';for(const k in DEFS){if(terms.includes(k)){defs+='<p><b>'+k.toUpperCase()+'</b> — '+DEFS[k]+'</p>'}}"
+          "const arts=sc.filter(x=>x[1].a);"
+          "if(arts.length||defs){const best=arts.length?arts[0][1]:null;"
+          "let h='<p class=\"eyebrow\">Réponse express — assemblée depuis nos guides, sans rien inventer</p>'+defs;"
+          "if(best){h+='<h3>'+best.t+'</h3><p>'+best.d+'</p>'"
+          "+'<p><a class=\"btn btn--ghost\" href=\"'+best.u+'\">Lire la réponse complète</a></p>';"
+          "const plus=arts.slice(1,3).map(x=>'<li><a href=\"'+x[1].u+'\">'+x[1].t+'</a></li>').join('');"
+          "if(plus)h+='<p style=\"margin-top:1rem\"><b>Pour aller plus loin :</b></p><ul>'+plus+'</ul>'}"
+          "rep.innerHTML='<div class=\"repexp\">'+h+'</div>'}"
+          "out.innerHTML=sc.slice(0,24).map(x=>{const e=x[1];return '<a class=\"card card--link\" href=\"'+e.u+'\"><h3>'+e.t+'</h3><p>'+e.d+'</p><span class=\"more\">Ouvrir →</span></a>'}).join('')"
+          "||('<div><p>Nous n\\'avons pas encore de guide qui réponde à cette question — elle mérite peut-être le sien, et nous l\\'écrirons.</p>'+lienQ()+'</div>')}"
+          "inp.addEventListener('input',go);"
+          "const p0=new URLSearchParams(location.search).get('q');if(p0){inp.value=p0;go()}"
+          "</script>")
+    shell(path=p, title="Rechercher — DGLM Expertises",
+          desc="Recherche instantanée dans les missions, guides pratiques, communes et "
+               "quartiers couverts par DGLM Expertises.",
+          body=body + js + cta(),
+          schema=jsonld(org_schema(), breadcrumb(trail)),
+          robots="noindex,follow")
 
 
 def page_hub_diags():
@@ -1960,6 +2069,7 @@ def main():
     page_simulateur()
     page_hub_diags()
     page_tableau()
+    page_recherche(contenus)
     for d in DIAGS_PRO:
         page_diag_pro(d)
     for s in SERVICES:
