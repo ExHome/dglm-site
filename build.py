@@ -1721,8 +1721,6 @@ def page_hub_contenus(contenus):
         "copropriete": ("rub-copro.jpg", 1200, 691),
         "energie": ("hero-immeuble.jpg", 1600, 1067),
         "vente-location": ("hero-echoppe.jpg", 1400, 1050),
-        "risques": ("terrain-merule.jpg", 481, 640),
-        "reperes": ("terrain-combles.jpg", 960, 1280),
     }
     rubcards, rubpages, shown = "", [], 0
     for i, (nom, rslug, sub, anti, _) in enumerate(CATS):
@@ -1732,7 +1730,8 @@ def page_hub_contenus(contenus):
         shown += 1
         img, iw, ih = RUB_IMG.get(rslug, ("", 0, 0))
         vignette = (f'<img src="/assets/photos/{img}" alt="" loading="lazy" '
-                    f'decoding="async" width="{iw}" height="{ih}">' if img else "")
+                    f'decoding="async" width="{iw}" height="{ih}">' if img else
+                    f'<div class="card-picto">{RUBRIQUE_PICTOS.get(nom, "")}</div>')
         rubcards += (f'<a class="card card--link card--photo" href="/questions/rubriques/{rslug}/">'
                      f'{vignette}'
                      f'<span class="sigle">Rubrique {shown:02d} · {len(items)} guides</span>'

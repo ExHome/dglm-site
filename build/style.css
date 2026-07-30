@@ -791,3 +791,7 @@ details[open]>p{animation:deplie .3s ease}
 .rub-titre .picto--rub{width:52px;height:52px;flex:none;color:var(--or-clair)}
 .picto--rub{color:var(--or)}
 @media (max-width:640px){.rub-titre{gap:.8rem}.rub-titre .picto--rub{width:40px;height:40px}}
+
+/* carte rubrique sans photo : grand picto DGLM sur fond creme */
+.card-picto{aspect-ratio:16/9;background:var(--creme-2);border:1px solid var(--rule);display:grid;place-items:center;margin-bottom:.85rem}
+.card-picto .picto--rub{width:56px;height:56px;color:var(--or)}
