@@ -19,6 +19,11 @@ from data.schemas_svg import rendre as rendre_schema
 
 COMMUNES = METROPOLE + GIRONDE_ELARGIE + LANDES
 SLUG_TO_NOM = {c["slug"]: c["nom"] for c in COMMUNES}
+# Priorité d'indexation : la métropole d'abord. Les pages hors métropole restent
+# servies (maillage intact) mais en noindex et hors sitemap tant que le domaine
+# n'a pas d'autorité — protection contre le classement « scaled content abuse ».
+# À rouvrir progressivement une fois le site établi.
+METRO_SLUGS = {c["slug"] for c in METROPOLE}
 GROUPES = [("Bordeaux Métropole", METROPOLE),
            ("Gironde — bassin, Libournais, Sud-Gironde et Médoc", GIRONDE_ELARGIE),
            ("Landes — côte, Dax et Mont-de-Marsan", LANDES)]
@@ -201,8 +206,6 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <a class="btn" href="/devis/">Demander un devis</a></nav>
 <details class="menu"><summary aria-label="Ouvrir le menu">Menu</summary>
 <nav class="menu__list" aria-label="Menu complet">{MENU}</nav></details></div></header>
-<div class="chantier" role="status"><div class="wrap"><span>Site en construction</span>
-— le contenu s'enrichit chaque jour, certaines rubriques sont encore en cours de rédaction.</div></div>
 <main id="contenu" tabindex="-1">"""
     foot = f"""</main>
 <footer class="footer"><div class="wrap">
@@ -298,7 +301,7 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div>
 <dl class="refbar">
 <div><dt>Spécialité</dt><dd>Copropriété, travaux et démolition</dd></div>
-<div><dt>Périmètre</dt><dd>Les 28 communes de Bordeaux Métropole</dd></div>
+<div><dt>Périmètre</dt><dd>Bordeaux Métropole en priorité — Gironde et Landes sur mission</dd></div>
 <div><dt>Intervention</dt><dd>Visite sous 72 heures, rapport sous 48 heures</dd></div>
 <div><dt>Analyses</dt><dd>Laboratoire accrédité COFRAC</dd></div>
 </dl></div></section>
@@ -725,8 +728,10 @@ Bordeaux Métropole sous 72 heures.</p>
                                                     "postalCode": c["cp"],
                                                     "addressLocality": c["nom"],
                                                     "addressCountry": "FR"}},
-                         "description": c["enjeu"]}))
-    URLS.append((p, "0.8", "monthly"))
+                         "description": c["enjeu"]}),
+          robots="index,follow" if c["slug"] in METRO_SLUGS else "noindex,follow")
+    if c["slug"] in METRO_SLUGS:
+        URLS.append((p, "0.8", "monthly"))
 
 
 # ------------------------------------------------------------------ zones
