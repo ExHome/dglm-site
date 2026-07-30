@@ -627,7 +627,7 @@ def page_service(s):
 <a href="#fiche">L'essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(s['slug']) else ''}<a href="#reglementation">Réglementation</a><a href="#methode">Méthode</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a><a href="#communes">Votre commune</a>
 </div></nav>
 <section id="fiche" class="band"><div class="wrap">
-<p class="eyebrow">La fiche pratique</p>
+<p class="eyebrow">L'antisèche</p>
 <h2>L'essentiel en trente secondes</h2>
 {f'<p class="enclair"><span>En français courant</span>{esc(s["clair"])}</p>' if s.get("clair") else ""}
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(s['intro'])}</p></div>
@@ -1085,7 +1085,7 @@ def page_diag_pro(d):
 <a href="#fiche">L'essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(d['slug']) else ''}<a href="#reglementation">Réglementation</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a>
 </div></nav>
 <section id="fiche" class="band"><div class="wrap">
-<p class="eyebrow">La fiche pratique</p>
+<p class="eyebrow">L'antisèche</p>
 <h2>L'essentiel en trente secondes</h2>
 {f'<p class="enclair"><span>En français courant</span>{esc(d["clair"])}</p>' if d.get("clair") else ""}
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(d['intro'])}</p></div>
