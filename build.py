@@ -196,7 +196,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="topbar"><div class="wrap">
 <span>Diagnostiqueurs certifiés · Copropriété &amp; travaux · Bordeaux Métropole</span>
-<a href="{E['google_avis']}" rel="noopener">★ 4,9/5 — avis Google</a>
+<a class="topbar__avis" href="{E['google_avis']}" rel="noopener">★ 4,9/5 — avis Google</a>
 <a href="/particuliers/">Vous êtes un particulier ? Vente &amp; location →</a>
 <a href="tel:{E['tel_raw']}">{E['tel']}</a></div></div>
 <header class="masthead"><div class="wrap">
@@ -1286,6 +1286,12 @@ Tout reste dans votre navigateur, rien n'est transmis.</p></div></section>
           "if(s>=terms.length)sc.push([s,e])}"
           "sc.sort((a,b)=>b[0]-a[0]);"
           "let defs='';for(const k in DEFS){if(terms.includes(k)){defs+='<p><b>'+k.toUpperCase()+'</b> — '+DEFS[k]+'</p>'}}"
+          "if(!sc.length){const VOC=[...new Set(IDX.flatMap(e=>e.n.split(/[^a-z0-9]+/g)))].filter(w=>w.length>3);"
+          "function lev(a,b){if(Math.abs(a.length-b.length)>2)return 9;let pr=[...Array(b.length+1).keys()];"
+          "for(let i=1;i<=a.length;i++){const c=[i];for(let j=1;j<=b.length;j++){c[j]=Math.min(pr[j]+1,c[j-1]+1,pr[j-1]+(a[i-1]===b[j-1]?0:1))}pr=c}return pr[b.length]}"
+          "const sugg=terms.map(tm=>{if(tm.length<4)return tm;let best=tm,bd=3;for(const w of VOC){const d=lev(tm,w);if(d<bd){bd=d;best=w}}return best}).join(' ');"
+          "if(sugg&&norm(sugg)!==q){rep.innerHTML='<div class=\"repexp\"><p><b>Vouliez-vous dire « </b><a href=\"#\" id=\"sug\">'+sugg+'</a><b> » ?</b></p></div>';"
+          "const sg=document.getElementById('sug');if(sg)sg.onclick=ev=>{ev.preventDefault();inp.value=sugg;go()}}}"
           "const arts=sc.filter(x=>x[1].a);"
           "if(arts.length||defs){const best=arts.length?arts[0][1]:null;"
           "let h='<p class=\"eyebrow\">Réponse express — assemblée depuis nos guides, sans rien inventer</p>'+defs;"

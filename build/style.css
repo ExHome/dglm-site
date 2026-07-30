@@ -764,3 +764,8 @@ details[open]>p{animation:deplie .3s ease}
 .card--link .more{color:var(--vert)}
 .footer .foot-titre{font-family:var(--display);color:var(--or-clair);font-size:.95rem;margin:0 0 .75rem;font-weight:600}
 .footer .legalline a{text-decoration:underline}
+
+/* barre de chapitres collante + topbar mobile compacte */
+.ancres{position:sticky;top:63px;z-index:30}
+:target,[id]{scroll-margin-top:8.2rem}
+@media (max-width:640px){.topbar__avis{display:none}.topbar .wrap{justify-content:space-between}}
