@@ -282,8 +282,8 @@ QUARTIERS_MERIGNAC = [
     dict(
         nom="Chemin Long et l'aéroport", slug="chemin-long",
         intro="Autour de l'aéroport de Bordeaux-Mérignac, Chemin Long mêle zones "
-              "d'activité et poches d'habitat : pavillons des années 1960-1980 et petites "
-              "copropriétés récentes le long des axes requalifiés.",
+              "d'activité et poches d'habitat : pavillons d'avant 1997 et petites "
+              "copropriétés récentes.",
         bati="Pavillonnaire d'avant 1997 et petites copropriétés récentes, au contact de "
              "vastes emprises d'activité.",
         enjeu="Notre intervention porte sur l'habitat : repérages avant travaux sur les "

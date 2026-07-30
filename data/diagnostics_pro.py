@@ -355,8 +355,8 @@ DIAGS_PRO = [
         nom="Contrôle des installations collectives de gaz et d'électricité",
         h1="Contrôle des installations collectives de gaz et d'électricité",
         accroche="Un contrôle qui relève d'organismes agréés — voici lequel, et quand.",
-        meta="Installations collectives de gaz et d'électricité à {lieu} : un contrôle "
-             "d'organisme agréé. À qui s'adresser, comment l'intégrer au DTG.",
+        meta="Installations collectives de gaz et d'électricité : un contrôle "
+             "d'organisme agréé. À qui s'adresser, et comment l'intégrer au DTG.",
         intro="Les installations collectives de gaz et d'électricité des parties communes "
               "— colonnes montantes, locaux techniques, éclairage de sécurité, tableaux "
               "généraux — ne relèvent pas du diagnostic immobilier : leur vérification "
