@@ -640,10 +640,13 @@ details[open]>p{animation:deplie .3s ease}
 
 /* ---------- illustrations au trait ---------- */
 .hero .wrap{z-index:1}
-.hero .skyline{position:absolute;right:-2%;bottom:-4px;width:min(720px,74%);
-  opacity:.32;pointer-events:none;z-index:0}
-.card .picto{display:block;width:46px;height:46px;color:var(--or);margin-bottom:.5rem}
-.illu-echoppe{display:block;width:min(300px,72%);margin:1.8rem 0 .6rem;opacity:.9}
+.hero .skyline{position:absolute;right:-2%;bottom:-4px;width:min(540px,58%);
+  opacity:.28;pointer-events:none;z-index:0}
+.card .picto{display:block;width:40px;height:40px;color:var(--or);margin-bottom:.5rem}
+.illu-echoppe{display:block;width:min(210px,55%);margin:1.6rem 0 .4rem;opacity:.85}
+
+/* schémas et figures : jamais pleine page, une largeur de lecture */
+.schema{max-width:50rem}
 
 /* ---------- schémas : les traits se dessinent au défilement ---------- */
 @supports (animation-timeline: view()) {
@@ -656,8 +659,9 @@ details[open]>p{animation:deplie .3s ease}
   .schema svg :is(path,line){animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
 
 /* ---------- photos de terrain ---------- */
-.photo{margin:0}
-.photo img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.photo{margin:0;max-width:30rem}
+.photo img{width:100%;height:auto;display:block;border:1px solid var(--rule);
+  aspect-ratio:4/3;object-fit:cover}
 .photo figcaption{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--gris);padding:.8rem 0;border-bottom:1px solid var(--rule-fine)}
 
