@@ -1,27 +1,5 @@
 [
  {
-  "date": "2026-07-28",
-  "pages": 266,
-  "indexables": 264,
-  "mots_moyen": 693,
-  "mots_total": 183030,
-  "poids_moyen_ko": 17.3,
-  "poids_max_ko": 42.7,
-  "profondeur_max": 2,
-  "orphelines": [
-   "/contact/"
-  ],
-  "profondes": [],
-  "inatteignables": [
-   "/contact/"
-  ],
-  "lourdes": [],
-  "minces": [],
-  "sans_schema": [],
-  "titres_doublons": [],
-  "desc_doublons": []
- },
- {
   "date": "2026-07-29",
   "pages": 315,
   "indexables": 312,
@@ -1206,6 +1184,29 @@
   "indexables": 242,
   "mots_moyen": 838,
   "mots_total": 202684,
+  "poids_moyen_ko": 21.0,
+  "poids_max_ko": 73.9,
+  "profondeur_max": 3,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [
+   [
+    73,
+    "/recherche/"
+   ]
+  ],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-30",
+  "pages": 358,
+  "indexables": 242,
+  "mots_moyen": 838,
+  "mots_total": 202730,
   "poids_moyen_ko": 21.0,
   "poids_max_ko": 73.9,
   "profondeur_max": 3,
