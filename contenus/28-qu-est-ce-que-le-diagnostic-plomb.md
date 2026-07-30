@@ -6,7 +6,7 @@ schema: crep-1949
 publication: 2026-07-27
 tags: plomb | CREP | santé
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/diagnostics-obligatoires-location/
-sources: Code de la santé publique, articles L.1334-5 à L.1334-12 | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Service Public — Constat de risque d’exposition au plomb (Crep) (F1142)~https://www.service-public.gouv.fr/particuliers/vosdroits/F1142~30/07/2026
+sources: Code de la santé publique, articles L.1334-5 à L.1334-12~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026 | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Service Public — Constat de risque d’exposition au plomb (Crep) (F1142)~https://www.service-public.gouv.fr/particuliers/vosdroits/F1142~30/07/2026
 ---
 
 Le diagnostic plomb, ou **constat de risque d'exposition au plomb (CREP)**, recherche le plomb dans les **peintures anciennes** d'un logement. C'est avant tout un diagnostic de **santé publique** : le plomb ingéré, notamment par un jeune enfant, provoque le saturnisme.

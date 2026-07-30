@@ -5,7 +5,7 @@ meta: Parties communes, parties privatives, travaux d'intérêt collectif : qui 
 publication: 2026-07-18
 tags: RAAT | copropriété | syndic
 liens: /reperage-amiante-avant-travaux/ | /amiante-parties-privatives/
-sources: Code du travail, article R.4412-97 | Loi n°65-557 du 10 juillet 1965 fixant le statut de la copropriété
+sources: Code du travail, article R.4412-97~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026 | Loi n°65-557 du 10 juillet 1965 fixant le statut de la copropriété~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026
 ---
 
 La règle est simple, mais son application se complique dès que le chantier touche à la fois aux parties communes et aux parties privatives.

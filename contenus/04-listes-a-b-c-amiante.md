@@ -6,7 +6,7 @@ schema: listes-amiante
 publication: 2026-07-17
 tags: amiante | DTA | RAAT
 liens: /dossier-technique-amiante/ | /reperage-amiante-avant-travaux/
-sources: Code de la santé publique, articles R.1334-20 et R.1334-21 (listes A et B) | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations
+sources: Code de la santé publique, articles R.1334-20 et R.1334-21 (listes A et B)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations
 ---
 
 Trois listes, trois logiques différentes. La confusion entre elles est à l'origine de la majorité des repérages incomplets.

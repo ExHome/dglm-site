@@ -5,7 +5,7 @@ meta: Les tantièmes mesurent la quote-part de chaque lot dans les parties commu
 publication: 2026-11-11
 tags: copropriété | définitions | assemblée générale
 liens: /questions/quest-ce-quun-lot-copropriete/ | /questions/majorites-vote-travaux-assemblee/
-sources: Loi n°65-557 du 10 juillet 1965, articles 5 et 10
+sources: Loi n°65-557 du 10 juillet 1965, articles 5 et 10~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026
 ---
 
 Les tantièmes — souvent exprimés en millièmes — mesurent la part de chaque lot dans les parties communes de l'immeuble. Un lot à 85/1000 « pèse » 85 millièmes : c'est sa clé de répartition pour les charges, et son poids dans la plupart des votes.

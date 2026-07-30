@@ -5,7 +5,7 @@ meta: Oui, le carnet d’entretien est obligatoire depuis 2001, tenu à jour par
 publication: 2026-07-23
 tags: copropriété | syndic | carnet d'entretien
 liens: /diagnostic-technique-global/ | /plan-pluriannuel-de-travaux/
-sources: Loi n°65-557 du 10 juillet 1965, article 18 | Décret n°2001-477 du 30 mai 2001 relatif au carnet d'entretien de l'immeuble
+sources: Loi n°65-557 du 10 juillet 1965, article 18~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026 | Décret n°2001-477 du 30 mai 2001 relatif au carnet d'entretien de l'immeuble
 ---
 
 Oui. Le **carnet d'entretien** est obligatoire dans toute copropriété depuis 2001, et c'est au **syndic** de l'établir et de le tenir à jour. C'est la mémoire technique de l'immeuble — et le premier document que nous demandons pour un diagnostic technique global.

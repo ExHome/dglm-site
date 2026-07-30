@@ -6,7 +6,7 @@ schema: etiquette-dpe
 publication: 2026-08-05
 tags: DPE | location | exceptions
 liens: /questions/qu-est-ce-que-le-dpe/ | /questions/diagnostics-obligatoires-location/
-sources: Service Public — Diagnostics fournis par le bailleur (F33463)~https://www.service-public.gouv.fr/particuliers/vosdroits/F33463~20 février 2026 | Code de la construction et de l'habitation, articles L.126-26 et suivants | Service Public — Diagnostic de performance énergétique (DPE) (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096~30/07/2026
+sources: Service Public — Diagnostics fournis par le bailleur (F33463)~https://www.service-public.gouv.fr/particuliers/vosdroits/F33463~20 février 2026 | Code de la construction et de l'habitation, articles L.126-26 et suivants~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Service Public — Diagnostic de performance énergétique (DPE) (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096~30/07/2026
 ---
 
 Presque toutes — mais **trois exceptions** existent. En dehors d'elles, le diagnostic de performance énergétique doit être fourni au locataire, et figurer dans l'annonce dès la mise en location.

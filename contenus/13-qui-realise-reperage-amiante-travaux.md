@@ -5,7 +5,7 @@ meta: Un opérateur certifié amiante « avec mention », indépendant de l'entr
 publication: 2026-07-21
 tags: RAAT | amiante | certification
 liens: /reperage-amiante-avant-travaux/ | /questions/qui-paie-reperage-copropriete/
-sources: Code du travail, article R.4412-97 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations
+sources: Code du travail, article R.4412-97~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations
 ---
 
 Un opérateur de repérage **certifié « amiante avec mention »**, et **indépendant** de l'entreprise qui exécutera les travaux. Ce n'est pas une recommandation d'usage : c'est une condition de validité du repérage.

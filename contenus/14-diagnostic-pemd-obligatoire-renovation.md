@@ -5,7 +5,7 @@ meta: Le diagnostic PEMD est obligatoire avant démolition et avant rénovation 
 publication: 2026-07-21
 tags: PEMD | démolition | déchets
 liens: /diagnostic-pemd/ | /reperage-amiante-avant-demolition/
-sources: Code de la construction et de l'habitation, articles L.126-34 et R.126-8 | Loi n°2020-105 du 10 février 2020 relative à la lutte contre le gaspillage et à l'économie circulaire
+sources: Code de la construction et de l'habitation, articles L.126-34 et R.126-8~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Loi n°2020-105 du 10 février 2020 relative à la lutte contre le gaspillage et à l'économie circulaire
 ---
 
 Oui, mais pas pour n'importe quelle rénovation : le diagnostic portant sur les produits, équipements, matériaux et déchets s'impose avant une **rénovation significative** de bâtiments dépassant **1 000 m²** de surface cumulée, ou ayant accueilli une activité à substances dangereuses — comme il s'impose avant toute démolition.

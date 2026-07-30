@@ -6,7 +6,7 @@ schema: etiquette-dpe
 publication: 2026-07-29
 tags: passoire thermique | DPE | location
 liens: /questions/qu-est-ce-que-le-dpe/ | /questions/diagnostics-obligatoires-location/
-sources: Loi n°2021-1104 du 22 août 2021 (Climat et résilience) | Service Public — Diagnostic de performance énergétique (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096
+sources: Loi n°2021-1104 du 22 août 2021 (Climat et résilience)~https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043956924~30/07/2026 | Service Public — Diagnostic de performance énergétique (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096
 ---
 
 Une **passoire thermique** est un logement classé **F ou G** au diagnostic de performance énergétique : mal isolé, coûteux à chauffer, et désormais encadré à la location par la loi Climat et Résilience.

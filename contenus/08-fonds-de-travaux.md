@@ -5,7 +5,7 @@ meta: Le fonds de travaux se dimensionne par référence au plan pluriannuel, pa
 publication: 2026-07-19
 tags: fonds de travaux | PPPT | copropriété
 liens: /plan-pluriannuel-de-travaux/ | /diagnostic-technique-global/
-sources: Loi n°65-557 du 10 juillet 1965, article 14-2 (fonds de travaux) | Service Public — Plan pluriannuel de travaux en copropriété (F36760)~https://www.service-public.gouv.fr/particuliers/vosdroits/F36760
+sources: Loi n°65-557 du 10 juillet 1965, article 14-2 (fonds de travaux)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026 | Service Public — Plan pluriannuel de travaux en copropriété (F36760)~https://www.service-public.gouv.fr/particuliers/vosdroits/F36760
 ---
 
 La plupart des copropriétés alimentent leur fonds de travaux au minimum légal, découvrent au premier gros chantier qu'il couvre une fraction du besoin, et appellent la différence en fonds exceptionnels. C'est évitable.

@@ -6,7 +6,7 @@ schema: arbre-reperage
 publication: 2026-07-16
 tags: RAAT | RAAD | démolition
 liens: /reperage-amiante-avant-travaux/ | /reperage-amiante-avant-demolition/
-sources: Code du travail, article R.4412-97 | Code de la santé publique, article R.1334-19 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations
+sources: Code du travail, article R.4412-97~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026 | Code de la santé publique, article R.1334-19~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations
 ---
 
 La question se pose sur presque toutes les opérations de restructuration, et le mauvais choix se paie en arrêt de chantier.

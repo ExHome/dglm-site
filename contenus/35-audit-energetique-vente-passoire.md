@@ -6,7 +6,7 @@ schema: dpe-vs-audit
 publication: 2026-08-12
 tags: audit énergétique | vente | passoire thermique
 liens: /questions/qu-est-ce-qu-une-passoire-thermique/ | /questions/qu-est-ce-que-le-dpe/
-sources: Code de la construction et de l'habitation, article L.126-28-1 | Service Public — Diagnostic de performance énergétique (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096
+sources: Code de la construction et de l'habitation, article L.126-28-1~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Service Public — Diagnostic de performance énergétique (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096
 ---
 
 Oui. Pour **vendre** une **maison individuelle** ou un **immeuble entier détenu par un seul propriétaire** classé **F ou G**, un **audit énergétique réglementaire** doit être remis à l'acquéreur, en plus du DPE. Depuis 2025, l'obligation s'étend à la classe **E**.

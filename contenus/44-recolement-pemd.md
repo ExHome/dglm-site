@@ -5,7 +5,7 @@ meta: Le récolement compare ce que le diagnostic PEMD annonçait et ce qui est 
 publication: 2026-10-14
 tags: PEMD | déchets | pédagogie
 liens: /diagnostic-pemd/ | /reperage-amiante-avant-demolition/
-sources: Code de la construction et de l'habitation, art. L.126-34 et R.126-8 (diagnostic PEMD)
+sources: Code de la construction et de l'habitation, art. L.126-34 et R.126-8 (diagnostic PEMD)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026
 ---
 
 Le formulaire de récolement est le bilan de fin d'opération du diagnostic PEMD : il décrit la nature et les quantités des produits, équipements, matériaux et déchets réellement issus de la démolition ou de la rénovation, et les filières où ils sont partis — réemploi, recyclage, valorisation, élimination.

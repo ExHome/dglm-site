@@ -5,7 +5,7 @@ meta: L'unité de diagnostic est l'élément de construction homogène que l'on 
 publication: 2026-10-07
 tags: plomb | CREP | pédagogie
 liens: /crep-parties-communes/ | /questions/glossaire-diagnostic-immobilier/
-sources: Code de la santé publique, art. L.1334-8 (constat de risque d'exposition au plomb)
+sources: Code de la santé publique, art. L.1334-8 (constat de risque d'exposition au plomb)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026
 ---
 
 L'unité de diagnostic est la brique de base du constat plomb : un élément de construction — ou un ensemble d'éléments — présentant un revêtement identique et une histoire commune. Un mur d'une cage d'escalier, une plinthe, un garde-corps, un volet : chacun constitue une unité, mesurée pour elle-même à l'appareil à fluorescence X.

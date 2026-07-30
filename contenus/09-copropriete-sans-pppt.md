@@ -6,7 +6,7 @@ schema: cycle-pppt
 publication: 2026-07-19
 tags: PPPT | syndic | obligations
 liens: /plan-pluriannuel-de-travaux/ | /simulateur-obligations-copropriete/
-sources: Loi n°65-557 du 10 juillet 1965, article 14-2 | Loi n°2021-1104 du 22 août 2021 portant lutte contre le dérèglement climatique | Service Public — Plan pluriannuel de travaux en copropriété (F36760)~https://www.service-public.gouv.fr/particuliers/vosdroits/F36760
+sources: Loi n°65-557 du 10 juillet 1965, article 14-2~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026 | Loi n°2021-1104 du 22 août 2021 portant lutte contre le dérèglement climatique~https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043956924~30/07/2026 | Service Public — Plan pluriannuel de travaux en copropriété (F36760)~https://www.service-public.gouv.fr/particuliers/vosdroits/F36760
 ---
 
 Il n'existe pas d'amende automatique, et c'est précisément ce qui explique le retard massif du parc. Les conséquences sont ailleurs, et elles sont réelles.

@@ -5,7 +5,7 @@ meta: En principe, celui qui doit fournir le dossier paie : le vendeur pour une 
 publication: 2026-12-30
 tags: vente | location | pédagogie
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/duree-validite-diagnostics/
-sources: Code de la construction et de l'habitation, art. L.271-4 (dossier de diagnostic technique)
+sources: Code de la construction et de l'habitation, art. L.271-4 (dossier de diagnostic technique)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026
 ---
 
 En principe, oui : le dossier de diagnostic technique est fourni par le vendeur, donc établi à ses frais. Même logique pour un bail : les diagnostics annexés sont l'affaire du bailleur. La règle suit le bon sens — celui qui doit l'information la finance.

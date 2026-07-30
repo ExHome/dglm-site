@@ -5,7 +5,7 @@ meta: D'abord : pas de panique. Un matériau amianté en bon état ne libère ri
 publication: 2027-01-13
 tags: amiante | pédagogie | santé
 liens: /questions/listes-a-b-c-amiante/ | /reperage-amiante-avant-travaux/
-sources: Code de la santé publique, art. R.1334-27 à R.1334-29
+sources: Code de la santé publique, art. R.1334-27 à R.1334-29~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026
 ---
 
 D'abord, respirer : la présence d'amiante n'est pas un danger en soi. Des millions de logements français en contiennent. Le risque naît quand le matériau se dégrade ou quand on le travaille — perçage, ponçage, découpe — et libère des fibres.

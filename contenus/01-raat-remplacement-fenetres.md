@@ -5,7 +5,7 @@ meta: Remplacement de menuiseries en copropriété : le repérage amiante avant 
 publication: 2026-07-16
 tags: RAAT | copropriété | menuiseries
 liens: /reperage-amiante-avant-travaux/ | /plan-pluriannuel-de-travaux/
-sources: Code du travail, article R.4412-97 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations
+sources: Code du travail, article R.4412-97~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026 | Arrêté du 16 juillet 2019 relatif au repérage de l'amiante avant certaines opérations
 ---
 
 Oui, dans la quasi-totalité des cas — et c'est le chantier sur lequel l'omission est la plus fréquente.

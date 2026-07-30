@@ -5,7 +5,7 @@ meta: La sous-section 3 couvre le retrait et l’encapsulage d’amiante, la 4 l
 publication: 2026-07-21
 tags: amiante | travaux | réglementation
 liens: /reperage-amiante-avant-travaux/ | /reperage-amiante-avant-demolition/
-sources: Code du travail, articles R.4412-94 à R.4412-148 (prévention du risque amiante) | Arrêté du 8 avril 2013 relatif aux règles techniques de prévention
+sources: Code du travail, articles R.4412-94 à R.4412-148 (prévention du risque amiante)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026 | Arrêté du 8 avril 2013 relatif aux règles techniques de prévention
 ---
 
 La **sous-section 3** vise les travaux dont l'objet est de **retirer ou de confiner** l'amiante ; la **sous-section 4**, les interventions **sur ou à proximité** de matériaux amiantés qui restent en place. Le repérage sert à savoir dans quel régime on se trouve — et ce n'est pas au hasard du chantier qu'on le découvre.

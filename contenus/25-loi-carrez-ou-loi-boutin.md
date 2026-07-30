@@ -5,7 +5,7 @@ meta: La loi Carrez mesure la surface privative pour la vente d'un lot de coprop
 publication: 2026-07-25
 tags: loi Carrez | loi Boutin | surface
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/diagnostics-obligatoires-location/
-sources: Loi n°65-557 du 10 juillet 1965, article 46 (loi Carrez) | Code de la construction et de l'habitation, article R.156-1 (surface habitable, loi Boutin) | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025
+sources: Loi n°65-557 du 10 juillet 1965, article 46 (loi Carrez)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026 | Code de la construction et de l'habitation, article R.156-1 (surface habitable, loi Boutin)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025
 ---
 
 La **loi Carrez** mesure la **surface privative** d'un lot de copropriété pour la **vente** ; la **loi Boutin** mesure la **surface habitable** d'un logement pour la **location**. Même bien, deux mètres carrés différents — et c'est normal.

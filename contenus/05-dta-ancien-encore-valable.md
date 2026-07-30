@@ -6,7 +6,7 @@ schema: coupe-immeuble
 publication: 2026-07-17
 tags: DTA | syndic | copropriété
 liens: /dossier-technique-amiante/ | /diagnostic-technique-global/
-sources: Code de la santé publique, article R.1334-29-5 (dossier technique amiante) | Arrêté du 12 décembre 2012 relatif au repérage amiante (entrée en vigueur le 1er avril 2013)
+sources: Code de la santé publique, article R.1334-29-5 (dossier technique amiante)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026 | Arrêté du 12 décembre 2012 relatif au repérage amiante (entrée en vigueur le 1er avril 2013)
 ---
 
 Formellement, il n'a pas de date d'expiration. En pratique, un dossier technique amiante de vingt ans jamais actualisé n'est plus opposable, et expose le syndicat des copropriétaires.

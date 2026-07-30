@@ -5,7 +5,7 @@ meta: DTG, PPPT, RAAT, RAAD, DTA, DAPP, PEMD, DPE, CREP, ERP, COFRAC… Tous les
 publication: 2026-07-16
 tags: glossaire | définitions | pédagogie
 liens: /diagnostic-technique-global/ | /reperage-amiante-avant-travaux/
-sources: Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Code de la santé publique | Code du travail | Code de la construction et de l'habitation
+sources: Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Code de la santé publique~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026 | Code du travail~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026 | Code de la construction et de l'habitation~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026
 ---
 
 Le diagnostic immobilier est plein de sigles. En voici la traduction en langage clair : chaque terme en une phrase, pour comprendre sans être du métier.

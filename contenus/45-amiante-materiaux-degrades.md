@@ -5,7 +5,7 @@ meta: Un matériau amianté dégradé appelle une action graduée : surveillance
 publication: 2026-10-21
 tags: amiante | DTA | copropriété
 liens: /dossier-technique-amiante/ | /reperage-amiante-avant-travaux/
-sources: Code de la santé publique, art. R.1334-27 à R.1334-29 (matériaux des listes A et B)
+sources: Code de la santé publique, art. R.1334-27 à R.1334-29 (matériaux des listes A et B)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026
 ---
 
 Un matériau contenant de l'amiante n'est pas dangereux en soi : c'est sa dégradation qui libère des fibres. Quand un rapport signale des matériaux dégradés, il assortit ce constat de préconisations graduées — et c'est leur mise en œuvre qui protège les occupants et la responsabilité du syndicat.

@@ -5,7 +5,7 @@ meta: La fiche récapitulative résume le DTA : matériaux repérés, état, pr�
 publication: 2026-09-30
 tags: DTA | amiante | copropriété
 liens: /dossier-technique-amiante/ | /reperage-amiante-avant-travaux/
-sources: Code de la santé publique, art. R.1334-29-5 (dossier technique amiante)
+sources: Code de la santé publique, art. R.1334-29-5 (dossier technique amiante)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026
 ---
 
 La fiche récapitulative est la synthèse du dossier technique amiante : elle liste les matériaux contenant de l'amiante repérés dans les parties communes, leur localisation, leur état de conservation et les préconisations qui en découlent. C'est le document de travail que l'on transmet — le dossier complet, lui, reste consultable chez le syndic.

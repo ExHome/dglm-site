@@ -6,7 +6,7 @@ schema: etiquette-dpe
 publication: 2026-07-25
 tags: DPE | validité | énergie
 liens: /questions/qu-est-ce-que-le-dpe/ | /questions/duree-validite-diagnostics/
-sources: Code de la construction et de l'habitation, article D.126-19 | Service Public — Diagnostic de performance énergétique (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096 | ADEME — Diagnostic de performance énergétique
+sources: Code de la construction et de l'habitation, article D.126-19~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Service Public — Diagnostic de performance énergétique (F16096)~https://www.service-public.gouv.fr/particuliers/vosdroits/F16096 | ADEME — Diagnostic de performance énergétique
 ---
 
 **Dix ans.** Un diagnostic de performance énergétique est valable dix ans à compter de sa réalisation — sous réserve qu'aucun travaux n'ait modifié la performance énergétique du logement entre-temps.

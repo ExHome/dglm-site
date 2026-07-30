@@ -5,7 +5,7 @@ meta: Oui : relecture contradictoire, contre-diagnostic, mise en cause de l'assu
 publication: 2027-01-06
 tags: pédagogie | vente | location
 liens: /questions/qui-realise-reperage-amiante-travaux/ | /equipe/
-sources: Code de la construction et de l'habitation, art. L.271-6 (compétences et assurance du diagnostiqueur)
+sources: Code de la construction et de l'habitation, art. L.271-6 (compétences et assurance du diagnostiqueur)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026
 ---
 
 Oui. Un diagnostic n'est pas une parole d'évangile : c'est un document technique, engageant, établi par un professionnel assuré — et donc contestable par les voies ordinaires.

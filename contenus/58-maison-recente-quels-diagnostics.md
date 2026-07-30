@@ -5,7 +5,7 @@ meta: Après 1997, plus d'amiante ; après 1949, plus de plomb. Restent le DPE, 
 publication: 2027-01-20
 tags: vente | location | pédagogie
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/duree-validite-diagnostics/
-sources: Code de la construction et de l'habitation, art. L.271-4
+sources: Code de la construction et de l'habitation, art. L.271-4~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026
 ---
 
 Bonne nouvelle : plus le bâtiment est récent, plus le dossier s'allège. Mais « récent » n'exonère pas de tout — et deux ou trois documents restent dus quel que soit l'âge du bien.

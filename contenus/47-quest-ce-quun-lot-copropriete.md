@@ -5,7 +5,7 @@ meta: Un lot = une partie privative + une quote-part des parties communes, indis
 publication: 2026-11-04
 tags: copropriété | définitions | pédagogie
 liens: /questions/parties-communes-privatives/ | /questions/glossaire-diagnostic-immobilier/
-sources: Loi n°65-557 du 10 juillet 1965, article 1er
+sources: Loi n°65-557 du 10 juillet 1965, article 1er~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026
 ---
 
 Un lot de copropriété associe deux choses indissociables : une partie privative — votre appartement, votre cave, votre parking — et une quote-part des parties communes, exprimée en tantièmes. On n'achète jamais « un appartement » en copropriété : on achète un lot, c'est-à-dire les deux à la fois.

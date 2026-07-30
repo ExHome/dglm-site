@@ -5,7 +5,7 @@ meta: Entretien à l’article 24, amélioration à l’article 25, actes lourds
 publication: 2026-07-23
 tags: copropriété | assemblée générale | travaux
 liens: /plan-pluriannuel-de-travaux/ | /diagnostic-technique-global/
-sources: Loi n°65-557 du 10 juillet 1965, articles 24, 25, 25-1 et 26
+sources: Loi n°65-557 du 10 juillet 1965, articles 24, 25, 25-1 et 26~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026
 ---
 
 Cela dépend de la nature des travaux : **entretien et travaux obligatoires** à la majorité de l'**article 24**, **amélioration et économies d'énergie** à l'**article 25**, décisions les plus lourdes à l'**article 26**. Savoir quelle majorité s'applique **avant** l'assemblée évite de faire voter dans le vide.

@@ -5,7 +5,7 @@ meta: Le DTG ne dépend pas du nombre de lots : il est obligatoire dans des cas 
 publication: 2026-07-24
 tags: DTG | PPPT | petite copropriété
 liens: /diagnostic-technique-global/ | /plan-pluriannuel-de-travaux/
-sources: Code de la construction et de l'habitation, articles L.731-1 à L.731-5 | Loi n°65-557 du 10 juillet 1965, article 14-2
+sources: Code de la construction et de l'habitation, articles L.731-1 à L.731-5~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Loi n°65-557 du 10 juillet 1965, article 14-2~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026
 ---
 
 Le nombre de lots ne change rien à l'obligation de **diagnostic technique global** : il est obligatoire dans des **cas précis** — mise en copropriété d'un immeuble de plus de dix ans, procédure d'insalubrité — que la copropriété fasse quatre lots ou quatre cents. En revanche, une petite copropriété reste bel et bien concernée par le **plan pluriannuel de travaux**.

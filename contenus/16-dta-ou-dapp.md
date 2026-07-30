@@ -6,7 +6,7 @@ schema: dta-vs-dapp
 publication: 2026-07-22
 tags: amiante | DTA | DAPP | copropriété
 liens: /dossier-technique-amiante/ | /amiante-parties-privatives/
-sources: Code de la santé publique, article R.1334-29-5 (dossier technique amiante) | Code de la santé publique, article R.1334-29-4 (parties privatives)
+sources: Code de la santé publique, article R.1334-29-5 (dossier technique amiante)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026 | Code de la santé publique, article R.1334-29-4 (parties privatives)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026
 ---
 
 Le **dossier technique amiante (DTA)** couvre les **parties communes** et incombe au **syndic** ; le **diagnostic amiante des parties privatives (DAPP)** couvre les **logements** et incombe à **chaque propriétaire**. Ce sont deux obligations différentes, souvent confondues, et l'oubli de la seconde est le plus fréquent.

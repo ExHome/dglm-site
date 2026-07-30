@@ -6,7 +6,7 @@ schema: crep-1949
 publication: 2026-07-22
 tags: plomb | CREP | parties communes
 liens: /crep-parties-communes/ | /dossier-technique-amiante/
-sources: Code de la santé publique, article L.1334-8 | Code de la santé publique, articles R.1334-10 à R.1334-12
+sources: Code de la santé publique, article L.1334-8~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026 | Code de la santé publique, articles R.1334-10 à R.1334-12~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026
 ---
 
 Oui. Les **parties communes** des immeubles d'habitation construits **avant le 1er janvier 1949** doivent faire l'objet d'un **constat de risque d'exposition au plomb (CREP)**. L'échéance légale est ancienne — mais une large part du parc bordelais et landais n'y a jamais satisfait, jusqu'au jour où des travaux sont engagés.

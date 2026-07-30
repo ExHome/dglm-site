@@ -5,7 +5,7 @@ meta: Bien non raccordé au tout-à-l'égout : le rapport de contrôle du SPANC,
 publication: 2026-11-25
 tags: vente | assainissement | ddt
 liens: /conformite-assainissement-copropriete/ | /questions/diagnostics-obligatoires-vente/
-sources: Code de la santé publique, art. L.1331-11-1 (contrôle des installations non collectives)
+sources: Code de la santé publique, art. L.1331-11-1 (contrôle des installations non collectives)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026
 ---
 
 Lorsqu'un bien n'est pas raccordé au réseau public d'assainissement — fosse septique, micro-station —, le dossier de vente doit comporter le rapport de contrôle de l'installation, établi par le service public d'assainissement non collectif (le SPANC) et daté de moins de trois ans.

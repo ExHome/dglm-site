@@ -5,7 +5,7 @@ meta: Non : les sommes versées au fonds de travaux restent attachées au lot et
 publication: 2026-09-09
 tags: fonds de travaux | copropriété | syndic
 liens: /questions/fonds-de-travaux/ | /plan-pluriannuel-de-travaux/
-sources: Loi n°65-557 du 10 juillet 1965, article 14-2-1 (fonds de travaux)
+sources: Loi n°65-557 du 10 juillet 1965, article 14-2-1 (fonds de travaux)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026
 ---
 
 Non. Les sommes versées au fonds de travaux sont définitivement acquises au syndicat des copropriétaires : elles restent attachées au lot et ne sont pas remboursées au copropriétaire qui s'en sépare. C'est la règle posée par la loi du 10 juillet 1965.

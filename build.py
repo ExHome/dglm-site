@@ -1622,7 +1622,9 @@ def page_contenu(c, voisins):
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">Question fréquente</p>
 <h1>{esc(c['titre'])}</h1></div></section>
-<article class="band"><div class="wrap prose">{som}{corps}{schema_art}
+<article class="band"><div class="wrap prose">
+<p class="enclair" style="margin-top:0"><span>L'antisèche</span>{esc(c.get("antiseche", c["meta"]))}</p>
+{som}{corps}{schema_art}
 <p class="maj">Publié le {c['date'].strftime('%d/%m/%Y')} · vérifié au {MAJ} ·
 rédigé par l'équipe technique de {E['nom']}</p>
 <h2>Pour approfondir</h2><ul>{liens}</ul>

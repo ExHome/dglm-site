@@ -5,7 +5,7 @@ meta: Découverte d'amiante en cours de chantier : arrêt immédiat, mise en sé
 publication: 2026-07-23
 tags: amiante | chantier | RAAT
 liens: /reperage-amiante-avant-travaux/ | /questions/qui-paie-reperage-copropriete/
-sources: Code du travail, articles R.4412-94 à R.4412-148 (prévention du risque amiante) | Code du travail, article R.4412-97
+sources: Code du travail, articles R.4412-94 à R.4412-148 (prévention du risque amiante)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026 | Code du travail, article R.4412-97~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026
 ---
 
 Le chantier **s'arrête**. On met la zone en sécurité, on fait analyser le matériau suspect, et on ne reprend que dans le **régime adapté** — le plus souvent après un repérage complémentaire. C'est la situation que le repérage avant travaux est précisément fait pour éviter.

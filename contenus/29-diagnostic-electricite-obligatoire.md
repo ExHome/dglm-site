@@ -6,7 +6,7 @@ schema: qui-fait-quoi
 publication: 2026-07-27
 tags: électricité | sécurité | obligations
 liens: /questions/diagnostic-gaz-obligatoire/ | /questions/duree-validite-diagnostics/
-sources: Code de la construction et de l'habitation, articles L.134-7 et suivants | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Service Public — État de l’installation intérieure d’électricité (F18692)~https://www.service-public.gouv.fr/particuliers/vosdroits/F18692~30/07/2026
+sources: Code de la construction et de l'habitation, articles L.134-7 et suivants~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025 | Service Public — État de l’installation intérieure d’électricité (F18692)~https://www.service-public.gouv.fr/particuliers/vosdroits/F18692~30/07/2026
 ---
 
 Oui, dès que l'**installation intérieure d'électricité** a **plus de quinze ans**. Comme pour le gaz, c'est un diagnostic de **sécurité** : il prévient les risques d'électrocution et d'incendie d'origine électrique.

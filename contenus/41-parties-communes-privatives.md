@@ -5,7 +5,7 @@ meta: Les parties privatives sont à l'usage exclusif d'un copropriétaire, les 
 publication: 2026-09-23
 tags: copropriété | pédagogie | définitions
 liens: /dossier-technique-amiante/ | /amiante-parties-privatives/
-sources: Loi n°65-557 du 10 juillet 1965, articles 2 et 3
+sources: Loi n°65-557 du 10 juillet 1965, articles 2 et 3~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026
 ---
 
 Les parties privatives sont les parties de l'immeuble réservées à l'usage exclusif d'un copropriétaire : son logement, sa cave, son parking. Les parties communes sont affectées à l'usage de tous ou de plusieurs : hall, escaliers, toiture, gros œuvre, réseaux collectifs. La frontière exacte est fixée par le règlement de copropriété — et, à défaut, par la loi du 10 juillet 1965.

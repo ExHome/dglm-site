@@ -6,7 +6,7 @@ schema: agents-bois
 publication: 2026-07-27
 tags: termites | parasitaire | obligations
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/duree-validite-diagnostics/
-sources: Code de la construction et de l'habitation, articles L.126-13 et suivants (état relatif à la présence de termites) | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025
+sources: Code de la construction et de l'habitation, articles L.126-13 et suivants (état relatif à la présence de termites)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Service Public — Diagnostics immobiliers (F10798)~https://www.service-public.gouv.fr/particuliers/vosdroits/F10798~7 mars 2025
 ---
 
 Oui, mais **uniquement dans les zones délimitées par un arrêté préfectoral**, et pour la **vente** — pas la location. En Gironde et dans les Landes, une large partie du territoire est classée : le climat océanique y est favorable aux termites.

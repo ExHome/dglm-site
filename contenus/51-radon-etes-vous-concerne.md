@@ -5,7 +5,7 @@ meta: Le radon, gaz radioactif naturel, est cartographié en trois zones. En zon
 publication: 2026-12-02
 tags: erp | santé | vente | location
 liens: /questions/qu-est-ce-que-etat-des-risques-erp/ | /questions/glossaire-diagnostic-immobilier/
-sources: Code de la santé publique, art. R.1333-29 (cartographie du potentiel radon)
+sources: Code de la santé publique, art. R.1333-29 (cartographie du potentiel radon)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026
 ---
 
 Le radon est un gaz radioactif d'origine naturelle, issu des sols granitiques et volcaniques, inodore et invisible. La France est cartographiée commune par commune en trois zones de potentiel : faible (1), intermédiaire (2) et significatif (3).

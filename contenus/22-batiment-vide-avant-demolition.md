@@ -6,7 +6,7 @@ schema: arbre-reperage
 publication: 2026-07-24
 tags: RAAD | démolition | amiante
 liens: /reperage-amiante-avant-demolition/ | /diagnostic-pemd/
-sources: Code de la santé publique, article R.1334-19 | Code du travail, articles R.4412-94 à R.4412-148
+sources: Code de la santé publique, article R.1334-19~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026 | Code du travail, articles R.4412-94 à R.4412-148~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~30/07/2026
 ---
 
 Oui. Un **repérage amiante avant démolition** ne se conçoit que sur un bâtiment **libéré, coupé de ses fluides et entièrement accessible**. Mené sur un bâtiment encore occupé, il est nécessairement incomplet — et devra être repris, au pire moment.
