@@ -146,7 +146,7 @@ MENU = ('<a href="/">Accueil</a>'
         + '<a href="/diagnostics-copropriete/">Les diagnostics de copropriété</a>'
         + '<a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>'
         + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
-        + '<a href="/questions/">Questions fréquentes</a>'
+        + '<a href="/questions/">Guides pratiques</a>'
         + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
         + '<a href="/equipe/">Notre équipe</a>'
         + '<a href="/devis/">Demander un devis</a>'
@@ -204,7 +204,7 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <a href="/diagnostics-copropriete/">Diagnostics copro</a>
 <a href="/le-tableau-des-diagnostics/">Le tableau</a>
 <a href="{SILO}/simulateur-obligations-copropriete/">Simulateur</a>
-<a href="/questions/">Questions</a>
+<a href="/questions/">Guides</a>
 <a class="btn" href="/devis/">Demander un devis</a></nav>
 <details class="menu"><summary aria-label="Ouvrir le menu">Menu</summary>
 <nav class="menu__list" aria-label="Menu complet">{MENU}</nav></details></div></header>
@@ -1315,7 +1315,7 @@ def sommaire_article(corps):
 
 def page_contenu(c, voisins):
     p = f"/questions/{c['slug']}/"
-    trail = [("Accueil", "/"), ("Questions fréquentes", "/questions/"), (c["titre"], p)]
+    trail = [("Accueil", "/"), ("Guides pratiques", "/questions/"), (c["titre"], p)]
     corps = md_vers_html(c["corps"])
     corps, som = sommaire_article(corps)
     # Glossaire : chaque terme reçoit une ancre, et un index cliquable
@@ -1389,7 +1389,7 @@ def strip_tags(h):
 
 def page_hub_contenus(contenus):
     p = "/questions/"
-    trail = [("Accueil", "/"), ("Questions fréquentes", p)]
+    trail = [("Accueil", "/"), ("Guides pratiques", p)]
     # Sous-catégories : chaque thème dans son propre bandeau (fin du fouillis).
     CATS = [
         ("Amiante", "Repérages avant travaux et démolition, DTA, listes A/B/C",
@@ -1447,14 +1447,14 @@ datée, et revue à chaque évolution réglementaire. Quand nous n'avons pas de 
 nous préférons ne pas écrire la page.</p></div></section>
 {sections}
 {cta()}"""
-    shell(path=p, title="Questions fréquentes sur les diagnostics de copropriété",
+    shell(path=p, title="Guides pratiques du diagnostic en copropriété",
           desc=desc_courte("Réponses documentées sur le repérage amiante avant travaux, le "
                            "DTG, le plan pluriannuel de travaux et les obligations de "
                            "copropriété, par les diagnostiqueurs de DGLM Expertises."),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "CollectionPage", "url": DOM + p,
-                         "name": "Questions fréquentes", "dateModified": ISO}))
+                         "name": "Guides pratiques", "dateModified": ISO}))
     URLS.append((p, "0.85", "daily"))
 
 
@@ -1646,7 +1646,7 @@ répond en six questions.</p>
 <div class="actions" style="justify-content:center;display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.8rem">
 <a class="btn" href="/">Retour à l'accueil</a>
 <a class="btn btn--ghost" href="{SILO}/simulateur-obligations-copropriete/">Simulateur d'obligations</a>
-<a class="btn btn--ghost" href="/questions/">Questions fréquentes</a></div>
+<a class="btn btn--ghost" href="/questions/">Guides pratiques</a></div>
 </div></section>"""
     shell(path="/404", title="Page introuvable — DGLM Expertises",
           desc="La page demandée n'existe pas ou a été déplacée.",
@@ -1928,7 +1928,7 @@ def ecrire_llms(contenus):
     md += "\n## Diagnostics de copropriété\n"
     for d in DIAGS_PRO:
         md += li(f"/{d['slug']}/", d["nom"])
-    md += "\n## Questions fréquentes\n"
+    md += "\n## Guides pratiques\n"
     for c in contenus:
         md += li(f"/questions/{c['slug']}/", c["titre"], c.get("meta", ""))
     md += "\n## Ressources\n"
