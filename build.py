@@ -179,7 +179,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow"):
 <meta name="theme-color" content="#093F30">
 <link rel="icon" href="/assets/logo-dglm-vert.png">
 <meta name="geo.region" content="FR-33"><meta name="geo.placename" content="Bordeaux">
-<link rel="preload" href="/assets/fonts/playfair.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/style.css">
 {schema}
 {jsonld(page_schema(canon, title))}
