@@ -408,55 +408,35 @@ relecture de nos rapports.</p>
 <a class="btn btn--light" href="{E['diagadvisor']}" rel="noopener">Avis certifiés DiagAdvisor</a></div>
 </div></section>
 
-{volet("Échéancier réglementaire",
-       "Le plan pluriannuel de travaux s'applique désormais à l'ensemble du parc.",
-       f'''<p class="narrow">Issue de la loi Climat et Résilience, l'obligation est entrée en vigueur par
-paliers successifs, déterminés par le nombre de lots. Le déploiement est aujourd'hui
-achevé : toute copropriété d'habitation de plus de quinze ans y est soumise.</p>
-<div class="frise">
-<div><b>1<sup>er</sup> janvier 2023</b><span>Copropriétés de plus de 200 lots</span></div>
-<div><b>1<sup>er</sup> janvier 2024</b><span>Copropriétés de 51 à 200 lots</span></div>
-<div><b>1<sup>er</sup> janvier 2025</b><span>Copropriétés de 50 lots et moins</span></div>
-<div><b>Aujourd'hui</b><span>Toutes concernées au-delà de 15 ans d'ancienneté</span></div>
-</div>
-<p style="margin-top:1.8rem"><a class="btn" href="{SILO}/simulateur-obligations-copropriete/">Établir ma situation en six questions</a></p>''',
-       pale=True)}
-{volet("Interlocuteurs", "Une méthode adaptée à chaque interlocuteur.",
-       f'''<div class="grid grid--3">
-<a class="card card--link" href="{SILO}/syndics-de-copropriete/"><h3>Syndics de copropriété</h3>
-<p>DTG, plan pluriannuel de travaux et repérage avant travaux sur parties communes,
-présentés en assemblée générale.</p><span class="more">Voir →</span></a>
-<a class="card card--link" href="{SILO}/bailleurs-et-maitres-d-ouvrage/"><h3>Bailleurs et maîtres d'ouvrage</h3>
-<p>Repérages sur patrimoine occupé, campagnes multi-sites, pièces annexables aux
-marchés de travaux.</p><span class="more">Voir →</span></a>
-<a class="card card--link" href="{SILO}/entreprises-de-travaux/"><h3>Entreprises de travaux</h3>
-<p>Repérage avant travaux et avant démolition en amont de vos interventions, avec
-quantitatifs exploitables en chiffrage.</p><span class="more">Voir →</span></a>
-</div>''')}
-{volet("Couverture", "De Bordeaux centre à la presqu'île d'Ambès",
-       f'''<p class="narrow" style="color:rgba(248,245,238,.82)">Le parc bâti de la métropole n'a rien d'homogène. Une échoppe des Chartrons, une
-barre de Génicart et un hangar de Blanquefort n'appellent ni les mêmes sondages, ni le
-même plan de repérage, ni la même lecture.</p>
-{ECHOPPE}
-<ul class="mesh">{"".join(f'<li><a href="{SILO}/{SERVICES[0]["slug"]}/{c["slug"]}/">{esc(c["nom"])}</a></li>' for c in COMMUNES)}</ul>
-<p style="margin-top:1.6rem"><a href="{SILO}/zones-d-intervention/">Toutes les zones d'intervention →</a></p>''',
-       dark=True)}
-{volet("La maison", "Une maison à taille humaine.",
-       f'''<div class="humain"><div>
-<p>DGLM Expertises a été fondée en 2020 par Aude de Gentile et Thibault Le Moine.
-Structure familiale et indépendante, elle le demeure par choix : celui de connaître les
-immeubles dont on nous confie la charge, et les personnes qui nous les confient.</p>
-<p>Nos rapports portent la signature de diagnostiqueurs certifiés, joignables pour en
-commenter les conclusions devant un conseil syndical. Lorsque la mission le justifie,
-nous nous déplaçons en assemblée générale.</p>
+<section class="band band--dark"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Tout le site, en un clic</p>
+<h2>Où voulez-vous aller ?</h2>
+<div class="grid grid--3" style="margin-top:1.8rem">
+<a class="card card--link" href="/le-tableau-des-diagnostics/"><h3>Le tableau des diagnostics</h3>
+<p>Treize missions : qui commande, quand, validité — en une page.</p><span class="more">Ouvrir →</span></a>
+<a class="card card--link" href="/questions/"><h3>Les guides pratiques</h3>
+<p>Toutes nos réponses, classées par thème et mises à jour.</p><span class="more">Ouvrir →</span></a>
+<a class="card card--link" href="/diagnostics-copropriete/"><h3>Les diagnostics de copropriété</h3>
+<p>DTA, DPE collectif, plomb, PEMD, parasitaire, assainissement.</p><span class="more">Ouvrir →</span></a>
+<a class="card card--link" href="{SILO}/simulateur-obligations-copropriete/"><h3>Le simulateur d'obligations</h3>
+<p>Votre situation établie en six questions, sans inscription.</p><span class="more">Ouvrir →</span></a>
+<a class="card card--link" href="/bordeaux/"><h3>Bordeaux, quartier par quartier</h3>
+<p>Échoppes, pierre, grands ensembles : le bâti tel qu'il est.</p><span class="more">Ouvrir →</span></a>
+<a class="card card--link" href="{SILO}/zones-d-intervention/"><h3>Les zones d'intervention</h3>
+<p>Bordeaux Métropole en priorité, Gironde et Landes sur mission.</p><span class="more">Ouvrir →</span></a>
+</div></div></section>
+
+<section class="band band--pale"><div class="wrap humain">
+<div>
+<p class="eyebrow">La maison</p>
+<h2>Une maison à taille humaine.</h2>
 <p class="cite">Nous ne prétendons pas tout savoir d'un immeuble en une visite.
 Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à vérifier.</p>
 <p class="signature">Aude, Thibault et toute l'équipe DGLM</p>
 <p><a class="btn btn--ghost" href="/equipe/">Faire connaissance</a></p>
 </div>
 <ul class="trombine">{"".join(f'<li><picture><source srcset="/assets/equipe/{m["photo"]}.webp" type="image/webp"><img src="/assets/equipe/{m["photo"]}.png" alt="{esc(m["nom"])}" width="76" height="76" loading="lazy" decoding="async"></picture></li>' for m in EQUIPE)}</ul>
-</div>''',
-       pale=True)}
+</div></section>
 {cta()}"""
 
     shell(path="/", title="RAAT, RAAD, DTG, PPPT à Bordeaux — DGLM Expertises",
@@ -507,6 +487,19 @@ def page_simulateur():
 <h1>Simulateur d'obligations de copropriété</h1>
 <p class="lede">PPPT, DTG, DPE collectif, repérage amiante : six questions suffisent à
 savoir ce que votre copropriété doit à la réglementation, et depuis quand.</p></div></section>
+
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Échéancier réglementaire</p>
+<h2>Le plan pluriannuel de travaux s'applique désormais à l'ensemble du parc.</h2>
+<p class="narrow">Issue de la loi Climat et Résilience, l'obligation est entrée en vigueur par
+paliers successifs, déterminés par le nombre de lots. Le déploiement est aujourd'hui
+achevé : toute copropriété d'habitation de plus de quinze ans y est soumise.</p>
+<div class="frise">
+<div><b>1<sup>er</sup> janvier 2023</b><span>Copropriétés de plus de 200 lots</span></div>
+<div><b>1<sup>er</sup> janvier 2024</b><span>Copropriétés de 51 à 200 lots</span></div>
+<div><b>1<sup>er</sup> janvier 2025</b><span>Copropriétés de 50 lots et moins</span></div>
+<div><b>Aujourd'hui</b><span>Toutes concernées au-delà de 15 ans d'ancienneté</span></div>
+</div></div></section>
 
 <section class="band"><div class="wrap sim">
 <form class="sim__form" id="sim" novalidate>
@@ -1257,6 +1250,14 @@ qui l'a établi.</p></div></section>
 <p class="eyebrow">L'équipe</p><h2>Celles et ceux qui interviennent</h2>
 <div class="team">{fiches}</div>
 <p class="maj">Effectif et certifications à jour au {MAJ}</p></div></section>
+<section class="band"><div class="wrap prose">
+<h2>Une maison à taille humaine</h2>
+<p>DGLM Expertises a été fondée en 2020 par Aude de Gentile et Thibault Le Moine.
+Structure familiale et indépendante, elle le demeure par choix : celui de connaître les
+immeubles dont on nous confie la charge, et les personnes qui nous les confient.</p>
+<p>Nos rapports portent la signature de diagnostiqueurs certifiés, joignables pour en
+commenter les conclusions devant un conseil syndical. Lorsque la mission le justifie,
+nous nous déplaçons en assemblée générale.</p></div></section>
 <section class="band band--pale"><div class="wrap prose">
 <h2>Certifications et assurances</h2>
 <p>Nos diagnostiqueurs sont certifiés par un organisme accrédité COFRAC pour chacune des
