@@ -16,7 +16,7 @@ from data.contenus import charger as charger_contenus, en_attente, md_vers_html,
 from data.quartiers import QUARTIERS_BORDEAUX, QUARTIERS_PAR_VILLE
 from data.normes import NORMES, CONSULTE_LE
 from data.schemas_svg import rendre as rendre_schema
-from data.illustrations import SKYLINE, PICTOS, ECHOPPE, ANIM_MISSION, ANIM_PPPT
+from data.illustrations import SKYLINE, PICTOS, ECHOPPE, ANIM_MISSION, ANIM_PPPT, ANIM_DPE
 
 COMMUNES = METROPOLE + GIRONDE_ELARGIE + LANDES
 SLUG_TO_NOM = {c["slug"]: c["nom"] for c in COMMUNES}
@@ -1037,6 +1037,8 @@ def page_diag_pro(d):
     p = f"/{d['slug']}/"
     trail = [("Accueil", "/"), (d["nom"], p)]
     schema = rendre_schema(SCHEMA_DIAG.get(d["slug"], ""))
+    if d["slug"] == "dpe-collectif-copropriete":
+        schema = ANIM_DPE
     schema_bloc = (volet("Repère visuel", "Comprendre en un schéma", schema)
                    if schema else "")
     cadre = "".join(f"<dt>{esc(t)}</dt><dd>{esc(x)}</dd>" for t, x in d["cadre"])

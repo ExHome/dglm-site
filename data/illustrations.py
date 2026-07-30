@@ -181,3 +181,31 @@ ANIM_PPPT = ('<figure class="animex"><svg viewBox="0 0 800 300" role="img" aria-
     + _ax_temps("ax ax4", "04", _PP_ICONES[3], "Les travaux et le fonds", "Exécution échelonnée, épargne calibrée.")
     + f'<text x="400" y="284" text-anchor="middle" font-size="12.5" fill="{_AX_G}">Et l\u2019on remet le plan à jour tous les dix ans.</text>'
     '</svg></figure>')
+
+
+# ---------------------------------------------------------------- DPE animé
+_DPE_BARRES = [("A", "#00873C"), ("B", "#4CAF39"), ("C", "#AFCA31"),
+               ("D", "#F5D520"), ("E", "#F0A029"), ("F", "#E2661B"), ("G", "#D02B1E")]
+
+def _dpe_anim():
+    b = ""
+    for i, (l, coul) in enumerate(_DPE_BARRES):
+        y = 78 + i * 27
+        w = 150 + i * 40
+        b += (f'<rect class="grow g{i}" x="60" y="{y}" width="{w}" height="21" fill="{coul}"/>'
+              f'<text x="{60+w+14}" y="{y+16}" font-size="15" font-weight="700" fill="{coul}">{l}</text>')
+    return b
+
+ANIM_DPE = ('<figure class="animex"><svg viewBox="0 0 800 300" role="img" aria-labelledby="axd">'
+    '<title id="axd">L\u2019étiquette énergie se remplit de A à G ; les logements G sont exclus de la '
+    'location depuis 2025, F en 2028, E en 2034</title>'
+    '<rect width="800" height="300" fill="#FFFFFF"/>'
+    f'<text x="60" y="48" font-size="19" font-weight="600" fill="{_AX_V}">L\u2019étiquette de votre immeuble, de A à G</text>'
+    + _dpe_anim()
+    + f'<g class="axin"><text x="520" y="110" font-size="15" font-weight="600" fill="{_AX_V}">A à C — le parc performant</text>'
+    + f'<text x="520" y="150" font-size="15" font-weight="600" fill="{_AX_V}">D et E — le milieu du parc</text>'
+    + f'<text x="520" y="196" font-size="15" font-weight="700" fill="#D02B1E">F et G — « passoires »</text>'
+    + f'<text x="520" y="220" font-size="13.5" fill="{_AX_G}">G exclu de la location depuis 2025,</text>'
+    + f'<text x="520" y="240" font-size="13.5" fill="{_AX_G}">F en 2028, E en 2034.</text></g>'
+    + f'<text x="60" y="286" font-size="12.5" fill="{_AX_G}">Le DPE collectif classe l\u2019immeuble entier — et guide le plan de travaux.</text>'
+    '</svg></figure>')

@@ -729,3 +729,11 @@ details[open]>p{animation:deplie .3s ease}
 
 .photo__lecon{font-size:.9rem;color:var(--encre-2);margin:.7rem 0 0;max-width:60ch}
 .photo__lecon b{color:var(--vert)}
+
+.animex .grow{transform-origin:60px center;transform:scaleX(0);animation:axgrow 12s infinite}
+.animex .g1{animation-delay:.35s}.animex .g2{animation-delay:.7s}.animex .g3{animation-delay:1.05s}
+.animex .g4{animation-delay:1.4s}.animex .g5{animation-delay:1.75s}.animex .g6{animation-delay:2.1s}
+@keyframes axgrow{0%{transform:scaleX(0)}7%,90%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
+.animex .axin{opacity:0;animation:axin 12s infinite}
+@keyframes axin{0%,20%{opacity:0}30%,90%{opacity:1}97%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.animex .grow,.animex .axin{animation:none;transform:none;opacity:1}}
