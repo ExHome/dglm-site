@@ -1256,9 +1256,9 @@ oublier. Imprimez-les, cochez-les, faites-les circuler.</p>
 </div></section>
 {cta()}"""
     shell(path=p, title="Le pack du conseil syndical — check-lists à imprimer | DGLM",
-          desc=desc_courte("Trois check-lists gratuites pour les conseils syndicaux : documents "
-                           "à réunir avant l'assemblée, questions à poser à un diagnostiqueur, "
-                           "calendrier type d'une mission."),
+          desc=desc_courte("Trois check-lists gratuites : documents à réunir avant "
+                           "assemblée, questions à poser à un diagnostiqueur, "
+                           "calendrier type de mission."),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail)))
     URLS.append((p, "0.8", "monthly"))
@@ -1802,7 +1802,7 @@ def page_quartier_ville(q, ville):
                       f"Diagnostics copropriété — {vnom} {q['nom']}",
                       f"{vnom} {q['nom']}"),
           desc=desc_courte(f"Repérage amiante avant travaux, DTG et plan pluriannuel de "
-                           f"travaux à {vnom} {q['nom']}. {q['bati'][:70]}"),
+                           f"travaux à {vnom} {q['nom']}. {q['bati'][:52]}"),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "Service", "serviceType": "Diagnostics de copropriété",
