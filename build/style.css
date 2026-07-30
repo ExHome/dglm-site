@@ -795,3 +795,11 @@ details[open]>p{animation:deplie .3s ease}
 /* carte rubrique sans photo : grand picto DGLM sur fond creme */
 .card-picto{aspect-ratio:16/9;background:var(--creme-2);border:1px solid var(--rule);display:grid;place-items:center;margin-bottom:.85rem}
 .card-picto .picto--rub{width:56px;height:56px;color:var(--or)}
+
+/* familles : groupes du menu tiroir et sous-groupes accueil */
+.menu__list .menu__groupe{margin-top:.9rem;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or-clair);border-bottom:1px solid rgba(192,144,72,.35);padding-bottom:.5rem;font-weight:600}
+span.menu__groupe{display:block;padding:.9rem 0 .5rem}
+.famille{margin-top:2.6rem;color:var(--vert);font-size:1.05rem;letter-spacing:.01em;border-left:3px solid var(--or);padding-left:.9rem}
+.famille:first-of-type{margin-top:1.8rem}
+.fam-lien{margin-top:1rem}
+.fam-lien a{font-size:.85rem;color:var(--vert)}

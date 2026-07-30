@@ -149,17 +149,30 @@ NAV = "".join(
 # Menu tiroir : navigation complète, lisible par un néophyte (sigle + intitulé
 # en clair), disponible sur tous les formats — téléphone, tablette, ordinateur.
 MENU = ('<a href="/">Accueil</a>'
-        + "".join(f'<a href="{SILO}/{s["slug"]}/"><b>{s["sigle"]}</b> — {s["nom_court"]}</a>'
-                  for s in SERVICES)
-        + '<a href="/diagnostics-copropriete/">Les diagnostics de copropriété</a>'
+        + '<a class="menu__groupe" href="/diagnostics-copropriete/">◆ Diagnostics de copropriété</a>'
+        + '<a href="/diagnostic-technique-global/"><b>DTG</b> — Diagnostic technique global</a>'
+        + '<a href="/plan-pluriannuel-de-travaux/"><b>PPPT</b> — Plan pluriannuel de travaux</a>'
+        + '<a href="/dpe-collectif-copropriete/"><b>DPE collectif</b> — l\'étiquette de l\'immeuble</a>'
+        + '<a href="/audit-energetique-copropriete/"><b>Audit</b> — les scénarios de travaux chiffrés</a>'
+        + '<a href="/dossier-technique-amiante/"><b>DTA</b> — amiante des parties communes</a>'
+        + '<a href="/amiante-parties-privatives/"><b>DAPP</b> — amiante des parties privatives</a>'
+        + '<a href="/crep-parties-communes/"><b>CREP</b> — plomb des parties communes</a>'
+        + '<a href="/conformite-assainissement-copropriete/">Assainissement — le raccordement</a>'
+        + '<a class="menu__groupe" href="/avant-travaux-et-demolition/">◆ Avant travaux &amp; démolition</a>'
+        + '<a href="/reperage-amiante-avant-travaux/"><b>RAAT</b> — repérage amiante avant travaux</a>'
+        + '<a href="/reperage-amiante-avant-demolition/"><b>RAAD</b> — repérage avant démolition</a>'
+        + '<a href="/diagnostic-pemd/"><b>PEMD</b> — matériaux et déchets du chantier</a>'
+        + '<a href="/etat-parasitaire-avant-travaux/">État parasitaire — termites et mérule</a>'
+        + '<span class="menu__groupe">◆ Outils &amp; repères</span>'
         + '<a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>'
         + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
-        + '<a href="/questions/">Guides pratiques</a>'
-        + '<a href="/recherche/">Rechercher dans le site</a>'
         + '<a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>'
-        + '<a href="/conformite/">Certificat de conformité du site</a>'
+        + '<a href="/questions/">Guides pratiques</a>'
         + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
+        + '<a href="/recherche/">Rechercher dans le site</a>'
+        + '<span class="menu__groupe">◆ La maison</span>'
         + '<a href="/equipe/">Notre équipe</a>'
+        + '<a href="/conformite/">Certificat de conformité du site</a>'
         + '<a href="/devis/">Demander un devis</a>'
         + '<a href="/particuliers/">Particuliers — vente &amp; location</a>')
 
@@ -212,8 +225,9 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <header class="masthead"><div class="wrap">
 <a class="brand" href="/"><img src="/assets/logo-dglm-blanc.png" alt="DGLM Expertises"
 width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
-<nav class="nav" aria-label="Navigation principale">{NAV}
-<a href="/diagnostics-copropriete/">Diagnostics copro</a>
+<nav class="nav" aria-label="Navigation principale">
+<a href="/diagnostics-copropriete/" title="Diagnostics de copropriété">Copropriété — DTG · PPPT</a>
+<a href="/avant-travaux-et-demolition/" title="Avant travaux et démolition">Chantier — RAAT · RAAD</a>
 <a href="/le-tableau-des-diagnostics/">Le tableau</a>
 <a href="{SILO}/simulateur-obligations-copropriete/">Simulateur</a>
 <a href="/questions/">Guides</a>
@@ -226,7 +240,11 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <footer class="footer"><div class="wrap">
 <img class="mark" src="/assets/logo-dglm-blanc.png" alt="" width="164" height="52" loading="lazy">
 <div class="grid grid--4">
-<div><p class="foot-titre">Prestations</p><ul>{"".join(f'<li><a href="{SILO}/{s["slug"]}/">{s["nom"]}</a></li>' for s in SERVICES)}</ul></div>
+<div><p class="foot-titre">Avant travaux &amp; démolition</p><ul>
+<li><a href="/avant-travaux-et-demolition/">La famille chantier</a></li>
+{"".join(f'<li><a href="{SILO}/{s["slug"]}/">{s["nom"]}</a></li>' for s in SERVICES if s["sigle"] in ("RAAT", "RAAD"))}
+<li><a href="/diagnostic-pemd/">Diagnostic PEMD</a></li>
+<li><a href="/etat-parasitaire-avant-travaux/">État parasitaire</a></li></ul></div>
 <div><p class="foot-titre">Vous êtes</p><ul>
 <li><a href="{SILO}/syndics-de-copropriete/">Syndic de copropriété</a></li>
 <li><a href="{SILO}/bailleurs-et-maitres-d-ouvrage/">Bailleur ou maître d'ouvrage</a></li>
@@ -355,9 +373,13 @@ def page_home(dernier=None):
     actu = (f'<p class="maj">Dernière réponse publiée : '
             f'<a href="/questions/{dernier["slug"]}/">{esc(dernier["titre"])}</a></p>'
             if dernier else "")
-    cards = "".join(f"""<a class="card card--link" href="{SILO}/{s['slug']}/">
-{PICTOS.get(s['sigle'], '')}<span class="sigle">{s['sigle']}</span><h3>{esc(s['nom'])}</h3>
-<p>{esc(s['accroche'])}</p><span class="more">Découvrir la mission →</span></a>""" for s in SERVICES)
+    def _carte_mission(s):
+        return (f'<a class="card card--link" href="{SILO}/{s["slug"]}/">'
+                f'{PICTOS.get(s["sigle"], "")}<span class="sigle">{s["sigle"]}</span>'
+                f'<h3>{esc(s["nom"])}</h3><p>{esc(s["accroche"])}</p>'
+                f'<span class="more">Découvrir la mission →</span></a>')
+    cards_copro = "".join(_carte_mission(s) for s in SERVICES if s["sigle"] in ("DTG", "PPPT"))
+    cards_chantier = "".join(_carte_mission(s) for s in SERVICES if s["sigle"] in ("RAAT", "RAAD"))
 
     body = f"""<section class="hero hero--photo"><div class="wrap">
 <p class="eyebrow eyebrow--pale">RAAT · RAAD · DTG · PPPT — Bordeaux Métropole</p>
@@ -384,9 +406,14 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 </div></section>
 
 <section class="band"><div class="wrap">
-<p class="eyebrow">Quatre missions</p>
-<h2>Quatre missions, une même exigence de précision.</h2>
-<div class="grid grid--2" style="margin-top:1.8rem">{cards}</div>
+<p class="eyebrow">Quatre missions, deux familles</p>
+<h2>Ce que nous faisons pour vous.</h2>
+<h3 class="famille">Diagnostics de copropriété — gérer l'immeuble</h3>
+<div class="grid grid--2" style="margin-top:1.2rem">{cards_copro}</div>
+<p class="fam-lien"><a href="/diagnostics-copropriete/">Toute la famille copropriété →</a></p>
+<h3 class="famille">Avant travaux &amp; démolition — préparer le chantier</h3>
+<div class="grid grid--2" style="margin-top:1.2rem">{cards_chantier}</div>
+<p class="fam-lien"><a href="/avant-travaux-et-demolition/">Toute la famille chantier →</a></p>
 {actu}</div></section>
 
 <section class="band band--pale"><div class="wrap">
@@ -444,7 +471,9 @@ relecture de nos rapports.</p>
 <a class="card card--link" href="/questions/"><h3>Les guides pratiques</h3>
 <p>Toutes nos réponses, classées par thème et mises à jour.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="/diagnostics-copropriete/"><h3>Les diagnostics de copropriété</h3>
-<p>DTA, DPE collectif, plomb, PEMD, parasitaire, assainissement.</p><span class="more">Ouvrir →</span></a>
+<p>DTG, PPPT, DPE collectif, DTA, plomb, assainissement.</p><span class="more">Ouvrir →</span></a>
+<a class="card card--link" href="/avant-travaux-et-demolition/"><h3>Avant travaux &amp; démolition</h3>
+<p>RAAT, RAAD, PEMD, état parasitaire : préparer le chantier.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="{SILO}/simulateur-obligations-copropriete/"><h3>Le simulateur d'obligations</h3>
 <p>Votre situation établie en six questions, sans inscription.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="/bordeaux/"><h3>Bordeaux, quartier par quartier</h3>
@@ -1133,6 +1162,61 @@ marché de travaux, non pour être classés dans un dossier de compromis.</p>'''
 
 
 
+def page_hub_travaux():
+    """La famille chantier : RAAT et RAAD en phares, PEMD et parasitaire en compléments."""
+    p = "/avant-travaux-et-demolition/"
+    trail = [("Accueil", "/"), ("Avant travaux & démolition", p)]
+    phares = "".join(
+        f'<a class="card card--link" href="{SILO}/{s["slug"]}/">{PICTOS.get(s["sigle"], "")}'
+        f'<span class="sigle">{s["sigle"]}</span>'
+        f'<h3>{esc(s["nom"])}</h3><p>{esc(s["accroche"])}</p>'
+        f'<span class="more">Découvrir la mission →</span></a>'
+        for s in SERVICES if s["sigle"] in ("RAAT", "RAAD"))
+    compl = "".join(
+        f'<a class="card card--link" href="/{d["slug"]}/"><span class="sigle">{esc(d["sigle"])}</span>'
+        f'<h3>{esc(d["nom"])}</h3><p>{esc(d["accroche"])}</p>'
+        f'<span class="more">Voir →</span></a>'
+        for d in DIAGS_PRO if d["slug"] in ("diagnostic-pemd", "etat-parasitaire-avant-travaux"))
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Deux missions phares, deux compléments de chantier</p>
+<h1>Les diagnostics avant travaux et avant démolition</h1>
+<p class="lede">Avant d'ouvrir un mur ou de faire tomber un bâtiment, on sait ce qu'on va
+toucher : repérages amiante, inventaire des matériaux, état des bois. Pour maîtres
+d'ouvrage, syndics donneurs d'ordre et entreprises.</p>
+<div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+<section class="band"><div class="wrap">
+<p class="eyebrow">Niveau 1 — les missions phares</p>
+<h2>Le repérage qui conditionne le chantier</h2>
+<p class="narrow">Travaux : le repérage se cale sur ce que vous allez ouvrir. Démolition :
+il couvre tout, sondages destructifs compris. Dans les deux cas, le chantier démarre en
+sachant.</p>
+<div class="grid grid--2" style="margin-top:1.8rem">{phares}</div></div></section>
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Niveau 2 — les compléments du même chantier</p>
+<h2>Ce qui se vérifie pendant qu'on y est</h2>
+<div class="grid grid--2" style="margin-top:1.8rem">{compl}</div></div></section>
+<section class="band band--dark"><div class="wrap">
+<p class="eyebrow eyebrow--pale">La passerelle</p>
+<h2>Besoin de la vision d'ensemble de l'immeuble ?</h2>
+<p class="narrow" style="color:rgba(248,245,238,.84)">État global, plan de travaux, énergie :
+c'est la famille copropriété qui s'en charge.</p>
+<div class="actions" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem">
+<a class="btn btn--light" href="/diagnostics-copropriete/">Diagnostics de copropriété →</a></div>
+</div></section>
+{cta()}"""
+    shell(path=p, title="Avant travaux et démolition : RAAT, RAAD, PEMD — Bordeaux",
+          desc=desc_courte("Repérages amiante avant travaux et démolition, diagnostic PEMD, "
+                           "état parasitaire : préparer un chantier à Bordeaux, en Gironde "
+                           "et dans les Landes."),
+          body=body,
+          schema=jsonld(org_schema(), breadcrumb(trail),
+                        {"@type": "CollectionPage", "url": DOM + p,
+                         "name": "Avant travaux et démolition"}))
+    URLS.append((p, "0.9", "weekly"))
+
+
 def page_tableau():
     """La page-bible : chaque mission et diagnostic de copropriété en un tableau."""
     p = "/le-tableau-des-diagnostics/"
@@ -1453,18 +1537,29 @@ def page_hub_diags():
         f'<a class="card card--link" href="{SILO}/{s["slug"]}/">{PICTOS.get(s["sigle"], "")}'
         f'<span class="sigle">{s["sigle"]}</span>'
         f'<h3>{esc(s["nom"])}</h3><p>{esc(s["accroche"])}</p>'
-        f'<span class="more">Découvrir la mission →</span></a>' for s in SERVICES)
+        f'<span class="more">Découvrir la mission →</span></a>'
+        for s in SERVICES if s["sigle"] in ("DTG", "PPPT"))
+    def _carte_diag(slugs):
+        return "".join(
+            f'<a class="card card--link" href="/{d["slug"]}/"><span class="sigle">{esc(d["sigle"])}</span>'
+            f'<h3>{esc(d["nom"])}</h3><p>{esc(d["accroche"])}</p>'
+            f'<span class="more">Voir →</span></a>'
+            for d in DIAGS_PRO if d["slug"] in slugs)
+    energie = _carte_diag(("dpe-collectif-copropriete", "audit-energetique-copropriete"))
+    sante = _carte_diag(("dossier-technique-amiante", "amiante-parties-privatives",
+                         "crep-parties-communes", "conformite-assainissement-copropriete"))
+    orientation = _carte_diag(("installations-collectives-gaz-electricite",))
     cards = "".join(
         f'<a class="card card--link" href="/{d["slug"]}/"><span class="sigle">{esc(d["sigle"])}</span>'
         f'<h3>{esc(d["nom"])}</h3><p>{esc(d["accroche"])}</p>'
         f'<span class="more">Voir →</span></a>' for d in DIAGS_PRO)
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Quatre missions phares, neuf diagnostics complémentaires</p>
-<h1>Les diagnostics de copropriété et de patrimoine</h1>
-<p class="lede">D'abord nos quatre spécialités — repérages amiante, diagnostic technique
-global, plan pluriannuel. Puis les diagnostics collectifs qui complètent la gestion d'un
-immeuble, pour syndics, bailleurs et maîtres d'ouvrage.</p>
+<p class="eyebrow eyebrow--pale">Deux missions phares, sept diagnostics de l'immeuble</p>
+<h1>Les diagnostics de copropriété</h1>
+<p class="lede">La colonne vertébrale : le diagnostic technique global et le plan pluriannuel
+de travaux. Autour d'eux, l'énergie, l'amiante, le plomb et l'assainissement — tout ce
+qu'un immeuble doit savoir sur lui-même, pour syndics, conseils syndicaux et bailleurs.</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
 <a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 <section class="band"><div class="wrap">
@@ -1476,15 +1571,31 @@ syndical, un calendrier d'assemblée, un budget voté et des occupants sur place
 <p style="margin-top:1.4rem"><a class="btn btn--ghost" href="/le-tableau-des-diagnostics/">Tout voir en un tableau</a></p>
 </div></section>
 <section class="band"><div class="wrap">
-<p class="eyebrow">Niveau 1 — nos spécialités</p>
-<h2>Les quatre missions phares</h2>
+<p class="eyebrow">Niveau 1 — les missions phares</p>
+<h2>Le tandem qui pilote l'immeuble</h2>
+<p class="narrow">Le DTG établit l'état réel ; le PPPT programme dix ans de travaux. Un DTG
+complet peut tenir lieu de PPPT : une mission au lieu de deux.</p>
 <div class="grid grid--2" style="margin-top:1.8rem">{phares}</div></div></section>
 <section class="band band--pale"><div class="wrap">
-<p class="eyebrow">Niveau 2 — les compléments</p>
-<h2>Les neuf diagnostics collectifs</h2>
-<div class="grid grid--3" style="margin-top:1.8rem">{cards}</div></div></section>
+<p class="eyebrow">Niveau 2 — l'énergie de l'immeuble</p>
+<h2>Le DPE collectif constate, l'audit décide.</h2>
+<div class="grid grid--2" style="margin-top:1.8rem">{energie}</div></div></section>
+<section class="band"><div class="wrap">
+<p class="eyebrow">Niveau 2 — santé et conformité du bâti</p>
+<h2>Les documents que l'immeuble doit tenir à jour</h2>
+<div class="grid grid--2" style="margin-top:1.8rem">{sante}</div></div></section>
+{volet("Hors diagnostic immobilier", "Gaz et électricité des parties communes : vers qui se tourner",
+       f'<div class="grid grid--2">{orientation}</div>', pale=True)}
+<section class="band band--dark"><div class="wrap">
+<p class="eyebrow eyebrow--pale">La passerelle</p>
+<h2>Vous engagez des travaux sur l'immeuble ?</h2>
+<p class="narrow" style="color:rgba(248,245,238,.84)">Le dossier technique amiante ne dispense
+jamais du repérage avant travaux : dès qu'un chantier s'ouvre, on change de famille.</p>
+<div class="actions" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem">
+<a class="btn btn--light" href="/avant-travaux-et-demolition/">Avant travaux &amp; démolition →</a></div>
+</div></section>
 {cta()}"""
-    shell(path=p, title="Diagnostics de copropriété : DTA, DPE collectif, PEMD, plomb",
+    shell(path=p, title="Diagnostics de copropriété : DTG, PPPT, DPE collectif",
           desc=desc_courte("Diagnostics collectifs pour copropriétés et patrimoines à "
                            "Bordeaux, en Gironde et dans les Landes : DTA, DPE collectif, "
                            "audit énergétique, PEMD, CREP parties communes."),
@@ -2301,6 +2412,7 @@ def main():
     page_home(contenus[0] if contenus else None)
     page_simulateur()
     page_hub_diags()
+    page_hub_travaux()
     page_tableau()
     page_recherche(contenus)
     page_pack()
