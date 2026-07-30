@@ -310,17 +310,6 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <h2>Quatre missions, une même exigence de précision.</h2>
 <div class="grid grid--2" style="margin-top:1.8rem">{cards}</div></div></section>
 
-<section class="band band--dark"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Ils nous font confiance</p>
-<h2>Notés 4,9 sur 5 par ceux qui nous confient leurs immeubles.</h2>
-<p class="narrow" style="color:rgba(248,245,238,.84)">Plus d'une centaine d'avis publics, déposés par des syndics, des conseils
-syndicaux et des propriétaires. Nous les lisons tous : c'est la meilleure
-relecture de nos rapports.</p>
-<div class="actions" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem">
-<a class="btn btn--light" href="{E['google_avis']}" rel="noopener">Lire les avis Google</a>
-<a class="btn btn--light" href="{E['diagadvisor']}" rel="noopener">Avis certifiés DiagAdvisor</a></div>
-</div></section>
-
 <section class="band band--pale"><div class="wrap">
 <p class="eyebrow">Carnets de terrain</p>
 <h2>Le terrain, tel que nous le voyons.</h2>
@@ -343,7 +332,20 @@ loading="lazy" decoding="async" width="960" height="1280">
 années. <b>Pourquoi on y va :</b> c'est là que se logent flocages, calorifugeages et
 désordres de charpente. Un diagnostic sérieux ne se fait pas depuis le palier :
 il va voir.</p></figure>
-</div></div></section>
+</div>
+<p style="margin-top:2rem"><a class="btn btn--ghost" href="https://www.instagram.com/paul.sabourin_immobilier/reel/DTLUU4IDTBs/" rel="noopener">▶ Notre série vidéo : le dossier de diagnostic en 4 épisodes</a></p>
+</div></section>
+
+<section class="band band--dark"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Ils nous font confiance</p>
+<h2>Notés 4,9 sur 5 par ceux qui nous confient leurs immeubles.</h2>
+<p class="narrow" style="color:rgba(248,245,238,.84)">Plus d'une centaine d'avis publics, déposés par des syndics, des conseils
+syndicaux et des propriétaires. Nous les lisons tous : c'est la meilleure
+relecture de nos rapports.</p>
+<div class="actions" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem">
+<a class="btn btn--light" href="{E['google_avis']}" rel="noopener">Lire les avis Google</a>
+<a class="btn btn--light" href="{E['diagadvisor']}" rel="noopener">Avis certifiés DiagAdvisor</a></div>
+</div></section>
 
 {volet("Échéancier réglementaire",
        "Le plan pluriannuel de travaux s'applique désormais à l'ensemble du parc.",
