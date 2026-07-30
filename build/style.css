@@ -737,3 +737,10 @@ details[open]>p{animation:deplie .3s ease}
 .animex .axin{opacity:0;animation:axin 12s infinite}
 @keyframes axin{0%,20%{opacity:0}30%,90%{opacity:1}97%,100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.animex .grow,.animex .axin{animation:none;transform:none;opacity:1}}
+
+/* barre de chapitres : la page se choisit au clic */
+.ancres{background:var(--creme-2);border-bottom:1px solid var(--rule-fine)}
+.ancres .wrap{display:flex;flex-wrap:wrap;gap:.45rem .5rem;padding-block:.85rem}
+.ancres a{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--encre-2);text-decoration:none;border:1px solid var(--rule);padding:.42rem .85rem;transition:border-color .16s,color .16s}
+.ancres a:hover{border-color:var(--or);color:var(--vert)}
+@media print{.ancres{display:none!important}}

@@ -266,13 +266,14 @@ def cta(titre="Un chantier à cadrer ? Parlons-en aujourd'hui.",
 <a class="btn btn--light" href="/devis/">Demander un devis</a></div></div></section>"""
 
 
-def volet(eyebrow, h2, corps, ouvert=False, pale=False, dark=False):
+def volet(eyebrow, h2, corps, ouvert=False, pale=False, dark=False, ancre=""):
     """Bandeau de section : titre et contenu visibles — on est sur un site web,
     la lecture se fait au défilement. (L'argument ouvert est conservé pour
     compatibilité, il n'a plus d'effet.)"""
     cls = "band" + (" band--pale" if pale else "") + (" band--dark" if dark else "")
     eb = "eyebrow eyebrow--pale" if dark else "eyebrow"
-    return (f'<section class="{cls}"><div class="wrap">'
+    aid = f' id="{ancre}"' if ancre else ""
+    return (f'<section{aid} class="{cls}"><div class="wrap">'
             f'<p class="{eb}">{eyebrow}</p><h2>{h2}</h2>'
             f'<div class="volet__corps">{corps}</div></div></section>')
 
@@ -328,7 +329,7 @@ def carnets_band(slug):
         f'<p class="photo__lecon"><b>Ce qu\'on voit :</b> {esc(v)} '
         f'<b>Pourquoi ça compte :</b> {esc(p)}</p></figure>'
         for f, w, h, cap, v, p in items)
-    return (f'<section class="band"><div class="wrap">'
+    return (f'<section id="terrain" class="band"><div class="wrap">'
             f'<p class="eyebrow">Carnets de terrain</p><h2>Vu en mission</h2>'
             f'<div class="grid grid--2" style="margin-top:1.8rem">{figs}</div></div></section>')
 
@@ -601,7 +602,8 @@ def page_service(s):
         for o in SERVICES if o["slug"] != s["slug"])
     mesh = "".join(f'<li><a href="{p}{c["slug"]}/">{esc(s["sigle"])} {esc(c["nom"])}</a></li>'
                    for c in COMMUNES)
-    schema_bloc = (volet("Repère visuel", "Comprendre en un schéma", schema, pale=True)
+    schema_bloc = (volet("Repère visuel", "Comprendre en un schéma", schema, pale=True,
+                         ancre="schema")
                    if schema else "")
 
     body = f"""{crumb_html(trail)}
@@ -612,7 +614,10 @@ def page_service(s):
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
 <a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
-<section class="band"><div class="wrap">
+<nav class="ancres" aria-label="Chapitres"><div class="wrap">
+<a href="#fiche">L'essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(s['slug']) else ''}<a href="#reglementation">Réglementation</a><a href="#methode">Méthode</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a><a href="#communes">Votre commune</a>
+</div></nav>
+<section id="fiche" class="band"><div class="wrap">
 <p class="eyebrow">La fiche pratique</p>
 <h2>L'essentiel en trente secondes</h2>
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(s['intro'])}</p></div>
@@ -620,16 +625,16 @@ def page_service(s):
 </div></section>
 {carnets_band(s['slug'])}
 {volet("Réglementation", "Ce que dit la réglementation",
-       f'<dl class="legal">{cadre}</dl>', pale=True)}
+       f'<dl class="legal">{cadre}</dl>', pale=True, ancre="reglementation")}
 {volet("Notre méthode", "Comment nous menons la mission",
-       f'<ol class="steps">{etapes}</ol>')}
+       f'<ol class="steps">{etapes}</ol>', ancre="methode")}
 {schema_bloc}
-<section class="band"><div class="wrap">
+<section id="faq" class="band"><div class="wrap">
 <p class="eyebrow">Questions fréquentes</p>
 <h2>{esc(s['sigle'])} : ce qu'on nous demande le plus souvent</h2>
 <div style="margin-top:1.5rem;max-width:74ch">{faq}</div></div></section>
-{volet("Par commune", f"{esc(s['nom_court'])} dans votre commune",
-       f'''<p class="narrow">Le parc bâti change de nature d'une commune à l'autre. Chaque page
+{volet("Par commune", f"{esc(s['nom_court'])} dans votre commune", ancre="communes",
+       corps=f'''<p class="narrow">Le parc bâti change de nature d'une commune à l'autre. Chaque page
 détaille les typologies rencontrées localement et les points d'attention qui en découlent.</p>
 <ul class="mesh">{mesh}</ul>
 <p class="mesh--plain" style="margin-top:1.5rem">Également : {esc(", ".join(ZONE_ELARGIE))}.</p>''',
@@ -1041,7 +1046,8 @@ def page_diag_pro(d):
     schema = rendre_schema(SCHEMA_DIAG.get(d["slug"], ""))
     if d["slug"] == "dpe-collectif-copropriete":
         schema = ANIM_DPE
-    schema_bloc = (volet("Repère visuel", "Comprendre en un schéma", schema)
+    schema_bloc = (volet("Repère visuel", "Comprendre en un schéma", schema,
+                         ancre="schema")
                    if schema else "")
     cadre = "".join(f"<dt>{esc(t)}</dt><dd>{esc(x)}</dd>" for t, x in d["cadre"])
     faq = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
@@ -1064,15 +1070,18 @@ def page_diag_pro(d):
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
 <a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
-<section class="band"><div class="wrap">
+<nav class="ancres" aria-label="Chapitres"><div class="wrap">
+<a href="#fiche">L'essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(d['slug']) else ''}<a href="#reglementation">Réglementation</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a>
+</div></nav>
+<section id="fiche" class="band"><div class="wrap">
 <p class="eyebrow">La fiche pratique</p>
 <h2>L'essentiel en trente secondes</h2>
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(d['intro'])}</p></div>
 {fiche_html(d.get('fiche'))}
 </div></section>
 {carnets_band(d['slug'])}
-{volet("Réglementation", "Ce que dit la réglementation",
-       f'''<dl class="legal">{cadre}</dl>
+{volet("Réglementation", "Ce que dit la réglementation", ancre="reglementation",
+       corps=f'''<dl class="legal">{cadre}</dl>
 <h3 style="margin-top:2.2rem;color:var(--vert)">Une pratique distincte du diagnostic de transaction</h3>
 <p>Un diagnostic de vente se rend en vingt-quatre heures sur un logement vacant. Une
 mission collective se conduit sur un immeuble habité, au rythme d'un conseil syndical
@@ -1081,7 +1090,7 @@ et d'un calendrier d'assemblée. Ce sont deux métiers ; nous exerçons le secon
 marché de travaux, non pour être classés dans un dossier de compromis.</p>''',
        pale=True)}
 {schema_bloc}
-<section class="band band--pale"><div class="wrap">
+<section id="faq" class="band band--pale"><div class="wrap">
 <p class="eyebrow">Questions fréquentes</p><h2>Les questions les plus fréquentes</h2>
 <div style="margin-top:1.5rem;max-width:74ch">{faq}</div></div></section>
 {volet("Missions liées", "Missions généralement associées",
