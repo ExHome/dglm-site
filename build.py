@@ -306,6 +306,17 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <h2>Quatre missions, une même exigence de précision.</h2>
 <div class="grid grid--2" style="margin-top:1.8rem">{cards}</div></div></section>
 
+<section class="band band--dark"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Ils nous font confiance</p>
+<h2>Notés 4,9 sur 5 par ceux qui nous confient leurs immeubles.</h2>
+<p class="narrow" style="color:rgba(248,245,238,.84)">Plus d'une centaine d'avis publics, déposés par des syndics, des conseils
+syndicaux et des propriétaires. Nous les lisons tous : c'est la meilleure
+relecture de nos rapports.</p>
+<div class="actions" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem">
+<a class="btn btn--light" href="{E['google_avis']}" rel="noopener">Lire les avis Google</a>
+<a class="btn btn--light" href="{E['diagadvisor']}" rel="noopener">Avis certifiés DiagAdvisor</a></div>
+</div></section>
+
 {volet("Échéancier réglementaire",
        "Le plan pluriannuel de travaux s'applique désormais à l'ensemble du parc.",
        f'''<p class="narrow">Issue de la loi Climat et Résilience, l'obligation est entrée en vigueur par
@@ -348,6 +359,7 @@ commenter les conclusions devant un conseil syndical. Lorsque la mission le just
 nous nous déplaçons en assemblée générale.</p>
 <p class="cite">Nous ne prétendons pas tout savoir d'un immeuble en une visite.
 Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à vérifier.</p>
+<p class="signature">Aude, Thibault et toute l'équipe DGLM</p>
 <p><a class="btn btn--ghost" href="/equipe/">Faire connaissance</a></p>
 </div>
 <ul class="trombine">{"".join(f'<li><picture><source srcset="/assets/equipe/{m["photo"]}.webp" type="image/webp"><img src="/assets/equipe/{m["photo"]}.png" alt="{esc(m["nom"])}" width="76" height="76" loading="lazy" decoding="async"></picture></li>' for m in EQUIPE)}</ul>

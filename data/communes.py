@@ -35,11 +35,11 @@ COMMUNES = [
              "pavillonnaire des années 1960-1980, les grands ensembles du Burck et de "
              "Beaudésert, et l'un des plus vastes tissus d'activité de Gironde autour "
              "de l'aéroport et de la zone aéronautique.",
-        enjeu="C'est le territoire où le RAAT tertiaire et industriel pèse le plus : "
-              "bardages fibres-ciment, dalles de sol, calorifugeages et joints de "
-              "menuiserie des bâtiments d'activité construits avant 1997. Sur les "
-              "grands ensembles, les réhabilitations lourdes déclenchent RAAT et RAAD "
-              "sur des volumes qui exigent une organisation de chantier réelle.",
+        enjeu="Sur les grands ensembles du Burck et de Beaudésert, les réhabilitations "
+              "lourdes déclenchent RAAT et RAAD sur des volumes qui exigent une "
+              "organisation de chantier réelle. Le très large pavillonnaire des années "
+              "1960-1980 alimente un flux continu de repérages avant travaux : dalles de "
+              "sol, colles et joints de menuiserie d'avant juillet 1997.",
         voisins=["pessac", "le-haillan", "eysines", "martignas-sur-jalle", "bordeaux"],
     ),
     dict(

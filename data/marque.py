@@ -103,15 +103,15 @@ EQUIPE = [
              "repérages avant travaux et avant démolition, diagnostics techniques globaux.",
          cert=""),
     dict(photo="portrait-5", nom="Nicolas Louvet", role="Diagnostiqueur certifié",
-         bio="Interventions amiante, plomb, gaz, électricité, termites et performance "
-             "énergétique sur Bordeaux Métropole.",
-         cert="Certifié LCC Qualixpert — amiante, plomb, gaz, électricité, termites, DPE"),
+         bio="Interventions amiante, plomb, termites et performance énergétique sur "
+             "Bordeaux Métropole.",
+         cert="Certifié LCC Qualixpert — amiante, plomb, termites, DPE"),
     dict(photo="portrait-6", nom="Nicolas Péré", role="Diagnostiqueur certifié",
          bio="Missions de repérage et de diagnostic sur immeubles collectifs et "
              "patrimoines gérés.", cert=""),
     dict(photo="portrait-7", nom="Virgile Poulain", role="Diagnostiqueur certifié",
          bio="Missions de repérage avant travaux et de diagnostic sur bâti ancien et "
-             "tertiaire.", cert=""),
+             "copropriétés.", cert=""),
     dict(photo="portrait-3", nom="Isabelle Doussau de Bazignan", role="Assistante de direction",
          bio="Planification des interventions, suivi des rapports et interface avec les "
              "conseils syndicaux.", cert=""),

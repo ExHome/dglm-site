@@ -294,36 +294,45 @@ DIAGS_PRO = [
         sigle="Installations collectives",
         nom="Contrôle des installations collectives de gaz et d'électricité",
         h1="Contrôle des installations collectives de gaz et d'électricité",
-        accroche="Ce que votre assureur regardera après le sinistre, autant le savoir avant.",
-        meta="Contrôle des installations collectives de gaz et d'électricité à {lieu} : "
-             "parties communes, colonnes montantes, locaux techniques.",
+        accroche="Un contrôle qui relève d'organismes agréés — voici lequel, et quand.",
+        meta="Installations collectives de gaz et d'électricité à {lieu} : un contrôle "
+             "d'organisme agréé. À qui s'adresser, comment l'intégrer au DTG.",
         intro="Les installations collectives de gaz et d'électricité des parties communes "
               "— colonnes montantes, locaux techniques, éclairage de sécurité, tableaux "
-              "généraux — ne relèvent pas des diagnostics obligatoires de vente. Leur "
-              "vérification est en revanche attendue au titre de l'obligation d'entretien "
-              "du syndicat des copropriétaires, et régulièrement demandée par les "
-              "assureurs.",
+              "généraux — ne relèvent pas du diagnostic immobilier : leur vérification "
+              "appartient aux bureaux et organismes de contrôle agréés. Nous ne réalisons "
+              "pas ce contrôle. Notre rôle est de vous orienter vers qui de droit, puis "
+              "d'intégrer ses conclusions à l'état des équipements communs du diagnostic "
+              "technique global et au plan pluriannuel de travaux.",
         cadre=[
+            ("À qui s'adresser",
+             "Aux bureaux et organismes de contrôle agréés pour les installations de gaz "
+             "et d'électricité. Votre syndic ou votre assureur peut en recommander ; nous "
+             "pouvons vous orienter."),
             ("Obligation d'entretien de l'immeuble",
              "Le syndicat des copropriétaires répond de la conservation et de l'entretien "
-             "des parties communes et des équipements communs."),
-            ("Points contrôlés",
-             "Colonnes montantes, protection différentielle, mise à la terre, éclairage de "
-             "sécurité, ventilation des locaux techniques, organes de coupure."),
-            ("Usage du rapport",
-             "Le relevé de non-conformités alimente directement le plan pluriannuel de "
-             "travaux et documente le dossier auprès de l'assureur."),
+             "des parties communes et des équipements communs. La vérification de ces "
+             "installations est régulièrement demandée par les assureurs."),
+            ("Notre rôle",
+             "Intégrer les conclusions de ces contrôles au diagnostic technique global et "
+             "au plan pluriannuel de travaux — pas les réaliser."),
         ],
         faq=[
+            ("Est-ce un diagnostic immobilier ?",
+             "Non. Ce contrôle relève des organismes de contrôle agréés, pas du "
+             "diagnostiqueur immobilier. C'est pourquoi nous ne le proposons pas, et vous "
+             "renvoyons vers qui de droit."),
             ("Est-ce obligatoire ?",
              "Il n'existe pas de diagnostic réglementaire équivalent à celui de la vente "
              "pour les parties communes. La vérification relève de l'obligation générale "
              "d'entretien, et devient déterminante en cas de sinistre."),
             ("Peut-on l'intégrer au diagnostic technique global ?",
-             "Oui. L'état des équipements communs fait partie du périmètre du diagnostic "
-             "technique global : c'est le cadre le plus économique."),
-            ("Qui commande cette mission ?",
-             "Le syndic, sur décision du conseil syndical ou de l'assemblée générale."),
+             "L'état apparent des équipements communs fait partie du périmètre du DTG. "
+             "Les rapports des organismes de contrôle viennent le documenter : "
+             "transmettez-les nous en début de mission."),
+            ("Qui commande ce contrôle ?",
+             "Le syndic, auprès d'un organisme de contrôle agréé, sur décision du conseil "
+             "syndical ou de l'assemblée générale."),
         ],
     ),
     dict(

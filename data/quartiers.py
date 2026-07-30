@@ -253,11 +253,11 @@ QUARTIERS_MERIGNAC = [
               "commerciales cèdent la place à des programmes neufs.",
         bati="Copropriétés des années 1960-1990 et pavillonnaire, au contact d'emprises "
              "commerciales et tertiaires en cours de restructuration.",
-        enjeu="Double marché : d'un côté des copropriétés existantes relevant du DTG, du "
-              "PPPT et de l'amiante en parties communes ; de l'autre, des opérations de "
-              "démolition-reconstruction sur les emprises commerciales, qui appellent le "
-              "repérage avant démolition et le diagnostic PEMD dès que les surfaces "
-              "dépassent les seuils.",
+        enjeu="Notre terrain ici : les copropriétés existantes, qui relèvent du DTG, du "
+              "PPPT et de l'amiante en parties communes, et l'habitat déposé par les "
+              "programmes neufs — maisons et petites copropriétés — qui appelle le "
+              "repérage avant démolition. Les emprises strictement commerciales et "
+              "tertiaires relèvent d'acteurs spécialisés, vers lesquels nous orientons.",
         vigilance="Sur les opérations mixtes conservation-démolition, le périmètre du "
                   "repérage doit suivre le phasage réel, faute de quoi des zones "
                   "apparaissent hors périmètre en cours de chantier.",
@@ -281,19 +281,19 @@ QUARTIERS_MERIGNAC = [
     ),
     dict(
         nom="Chemin Long et l'aéroport", slug="chemin-long",
-        intro="Secteur d'entreprises, de tertiaire et d'équipements autour de l'aéroport de "
-              "Bordeaux-Mérignac et de la zone aéronautique, Chemin Long est un territoire "
-              "de bâtiments d'activité en renouvellement.",
-        bati="Bâtiments d'activité, entrepôts, bureaux et halls techniques allant des "
-             "années 1960 à aujourd'hui.",
-        enjeu="Territoire dominé par les opérations professionnelles : restructurations "
-              "et démolitions de bâtiments tertiaires et industriels, où le repérage avant "
-              "démolition et le diagnostic PEMD sont commandés par des maîtres d'ouvrage "
-              "et des entreprises, avec des exigences de forme strictes pour l'annexion aux "
-              "marchés.",
-        vigilance="Sur marché privé comme public, le rapport doit être exploitable en pièce "
-                  "annexe : quantitatifs par local, plans de repérage cotés et localisation "
-                  "sans ambiguïté des matériaux.",
+        intro="Autour de l'aéroport de Bordeaux-Mérignac, Chemin Long mêle zones "
+              "d'activité et poches d'habitat : pavillons des années 1960-1980 et petites "
+              "copropriétés récentes le long des axes requalifiés.",
+        bati="Pavillonnaire d'avant 1997 et petites copropriétés récentes, au contact de "
+             "vastes emprises d'activité.",
+        enjeu="Notre intervention porte sur l'habitat : repérages avant travaux sur les "
+              "pavillons d'avant juillet 1997 — dalles de sol, colles, joints de "
+              "menuiserie — et diagnostics de copropriété sur les résidences des axes "
+              "requalifiés. Les bâtiments d'activité et de bureaux relèvent d'acteurs "
+              "spécialisés du tertiaire, vers lesquels nous vous orientons.",
+        vigilance="L'histoire du bâti est souvent mixte près des emprises d'activité : "
+                  "extensions et annexes d'avant 1997 à intégrer au périmètre du "
+                  "repérage.",
         voisins=["beutre", "centre"],
     ),
 ]
