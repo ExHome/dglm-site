@@ -769,3 +769,9 @@ details[open]>p{animation:deplie .3s ease}
 .ancres{position:sticky;top:63px;z-index:30}
 :target,[id]{scroll-margin-top:8.2rem}
 @media (max-width:640px){.topbar__avis{display:none}.topbar .wrap{justify-content:space-between}}
+
+/* check-lists imprimables du pack conseil syndical */
+.checklist{list-style:none;padding:0;margin:1.2rem 0 2.2rem}
+.checklist li{position:relative;padding:.55rem 0 .55rem 2.1rem;border-bottom:1px solid var(--rule-fine);font-size:.97rem}
+.checklist li::before{content:"";position:absolute;left:0;top:.75rem;width:1rem;height:1rem;border:1.5px solid var(--vert)}
+@media print{.checklist li{break-inside:avoid}}

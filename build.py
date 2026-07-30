@@ -148,6 +148,7 @@ MENU = ('<a href="/">Accueil</a>'
         + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
         + '<a href="/questions/">Guides pratiques</a>'
         + '<a href="/recherche/">Rechercher dans le site</a>'
+        + '<a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>'
         + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
         + '<a href="/equipe/">Notre équipe</a>'
         + '<a href="/devis/">Demander un devis</a>'
@@ -422,6 +423,8 @@ relecture de nos rapports.</p>
 <p class="eyebrow eyebrow--pale">Tout le site, en un clic</p>
 <h2>Où voulez-vous aller ?</h2>
 <div class="grid grid--3" style="margin-top:1.8rem">
+<a class="card card--link" href="/pack-conseil-syndical/"><h3>Le pack du conseil syndical</h3>
+<p>Trois check-lists à imprimer pour préparer l'assemblée.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="/recherche/"><h3>Rechercher dans le site</h3>
 <p>Un sigle, une commune, une question : réponse à la frappe.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="/le-tableau-des-diagnostics/"><h3>Le tableau des diagnostics</h3>
@@ -1205,6 +1208,60 @@ cadre — nos <a href="/questions/">réponses détaillées</a> les couvrent, et 
                         {"@type": "Table", "about": "Diagnostics de copropriété",
                          "name": "Le tableau des diagnostics de copropriété"}))
     URLS.append((p, "0.9", "weekly"))
+
+
+def page_pack():
+    """Le pack du conseil syndical : trois check-lists imprimables.
+    L'outil que les conseils syndicaux s'échangent — et qui ramène vers nous."""
+    p = "/pack-conseil-syndical/"
+    trail = [("Accueil", "/"), ("Le pack du conseil syndical", p)]
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Outil gratuit — à imprimer et partager</p>
+<h1>Le pack du conseil syndical</h1>
+<p class="lede">Trois check-lists pour aborder l'assemblée et les diagnostics sans rien
+oublier. Imprimez-les, cochez-les, faites-les circuler.</p>
+<div class="actions"><button class="btn btn--light" onclick="window.print()">Imprimer ou enregistrer en PDF</button></div>
+</div></section>
+<section class="band"><div class="wrap prose">
+<h2>1. Les documents à réunir avant l'assemblée</h2>
+<ul class="checklist">
+<li>Le règlement de copropriété et l'état descriptif de division</li>
+<li>Le carnet d'entretien, à jour</li>
+<li>Le dossier technique amiante (DTA) et sa fiche récapitulative</li>
+<li>Le dernier DPE collectif ou audit énergétique, s'il existe</li>
+<li>Le plan pluriannuel de travaux ou le DTG existant, avec sa date</li>
+<li>Les procès-verbaux des trois dernières assemblées</li>
+<li>Les contrats d'exploitation en cours (chauffage, ascenseur, entretien)</li>
+</ul>
+<h2>2. Les questions à poser à un diagnostiqueur avant de le retenir</h2>
+<ul class="checklist">
+<li>Êtes-vous certifié, par un organisme accrédité COFRAC, pour chaque mission proposée ?</li>
+<li>Pouvez-vous fournir votre attestation d'assurance responsabilité civile professionnelle ?</li>
+<li>Vos analyses passent-elles par un laboratoire accrédité COFRAC ?</li>
+<li>Le rapport comprendra-t-il localisation, photographies et quantitatifs exploitables ?</li>
+<li>Présentez-vous vos conclusions devant le conseil syndical ou l'assemblée ?</li>
+<li>Quels sont vos délais d'intervention et de remise du rapport ?</li>
+</ul>
+<h2>3. Le calendrier type d'une mission bien menée</h2>
+<ul class="checklist">
+<li>J−90 : demande de devis, comparaison, vérification des certifications</li>
+<li>J−60 : inscription de la mission à l'ordre du jour de l'assemblée</li>
+<li>J−30 : vote, ordre de service, collecte des documents de l'immeuble</li>
+<li>Jour J : visite sur site — accès organisés, occupants prévenus</li>
+<li>J+15 : rapport remis, lecture commentée avec le conseil syndical</li>
+<li>Assemblée suivante : présentation des conclusions et vote des suites</li>
+</ul>
+<p class="maj">Établi par l'équipe DGLM Expertises — vérifié au {MAJ}</p>
+</div></section>
+{cta()}"""
+    shell(path=p, title="Le pack du conseil syndical — check-lists à imprimer | DGLM",
+          desc=desc_courte("Trois check-lists gratuites pour les conseils syndicaux : documents "
+                           "à réunir avant l'assemblée, questions à poser à un diagnostiqueur, "
+                           "calendrier type d'une mission."),
+          body=body,
+          schema=jsonld(org_schema(), breadcrumb(trail)))
+    URLS.append((p, "0.8", "monthly"))
 
 
 def _norm_recherche(s):
@@ -2112,6 +2169,7 @@ def main():
     page_hub_diags()
     page_tableau()
     page_recherche(contenus)
+    page_pack()
     for d in DIAGS_PRO:
         page_diag_pro(d)
     for s in SERVICES:

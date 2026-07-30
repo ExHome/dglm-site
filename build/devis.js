@@ -38,6 +38,8 @@
   ];
 
   /* ---------- questions propres à chaque mission ---------- */
+  var RECAP = new URLSearchParams(location.search).get("recap") || "";
+
   var MISSIONS = {
     raat: {
       nom: "Repérage amiante avant travaux",
@@ -179,6 +181,10 @@
     zoneMission.hidden = false;
     document.getElementById("devis-envoi").hidden = false;
     zoneMission.querySelector("input,select,textarea").focus();
+    if (RECAP) {
+      var ta = zoneMission.querySelector("textarea");
+      if (ta && !ta.value) { ta.value = RECAP + "\n\n"; }
+    }
     etat.textContent = "Questionnaire adapté à la mission : " + m.nom + ".";
   }
 

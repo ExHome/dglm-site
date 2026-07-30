@@ -173,6 +173,10 @@
           "\n\nMissions identifiées :\n" + aFaire.map(function (x) { return "- " + x; }).join("\n") +
           "\n\nAdresse de l’immeuble :\nContact :\n\nMerci de m’adresser un devis.\n") +
         '">Recevoir un devis pour ces missions</a>' +
+        '<a class="btn btn--ghost" href="/devis/?recap=' +
+        encodeURIComponent("Simulateur — " + lots + " lots, achevé " + annee +
+          ". Missions identifiées : " + aFaire.join(" ; ")) +
+        '">Pré-remplir le formulaire de devis</a>' +
         '<button type="button" class="btn btn--ghost" id="copier">Copier le récapitulatif</button>' +
         "</div></div>";
     }
