@@ -328,5 +328,23 @@
   "sans_schema": [],
   "titres_doublons": [],
   "desc_doublons": []
+ },
+ {
+  "date": "2026-07-30",
+  "pages": 345,
+  "indexables": 342,
+  "mots_moyen": 738,
+  "mots_total": 252344,
+  "poids_moyen_ko": 18.9,
+  "poids_max_ko": 44.9,
+  "profondeur_max": 3,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
  }
 ]
