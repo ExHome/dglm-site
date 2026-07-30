@@ -45,3 +45,12 @@ Un dossier incomplet n'annule pas la vente. Il prive le vendeur de l'exonératio
 ## Où vérifier la certification du diagnostiqueur
 
 L'État met à disposition un annuaire public permettant de rechercher un diagnostiqueur certifié et de contrôler la validité de ses certificats. Cette vérification prend deux minutes et se fait avant de commander, pas après.
+
+## La même réponse, en vidéo
+
+Nous avons tourné une série de quatre épisodes courts sur le dossier de diagnostic technique, avec le conseiller immobilier Paul Sabourin — une minute par question, sur le terrain :
+
+- [Épisode 1 — Le DDT, c'est quoi ?](https://www.instagram.com/paul.sabourin_immobilier/reel/DTLUU4IDTBs/)
+- [Épisode 2 — Ce qu'il contient](https://www.instagram.com/paul.sabourin_immobilier/reel/DTva7fhDVkC/)
+- [Épisode 3 — Qui le réalise, et quand](https://www.instagram.com/paul.sabourin_immobilier/reel/DUJD8hODYoh/)
+- [Épisode 4 — Les pièges à éviter](https://www.instagram.com/paul.sabourin_immobilier/reel/DUTWbkUDXz-/)
