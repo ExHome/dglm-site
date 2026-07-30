@@ -194,6 +194,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow"):
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="topbar"><div class="wrap">
 <span>Diagnostiqueurs certifiés · Copropriété &amp; travaux · Bordeaux Métropole</span>
+<a href="{E['google_avis']}" rel="noopener">★ 4,9/5 — avis Google</a>
 <a href="/particuliers/">Vous êtes un particulier ? Vente &amp; location →</a>
 <a href="tel:{E['tel_raw']}">{E['tel']}</a></div></div>
 <header class="masthead"><div class="wrap">
@@ -332,7 +333,10 @@ def carnets_band(slug):
 # ------------------------------------------------------------------ accueil
 # Site dédié : l'accueil vise directement les requêtes têtes de silo
 # (RAAT / RAAD / DTG / PPPT). Aucune requête du site A n'est ciblée.
-def page_home():
+def page_home(dernier=None):
+    actu = (f'<p class="maj">Dernière réponse publiée : '
+            f'<a href="/questions/{dernier["slug"]}/">{esc(dernier["titre"])}</a></p>'
+            if dernier else "")
     cards = "".join(f"""<a class="card card--link" href="{SILO}/{s['slug']}/">
 {PICTOS.get(s['sigle'], '')}<span class="sigle">{s['sigle']}</span><h3>{esc(s['nom'])}</h3>
 <p>{esc(s['accroche'])}</p><span class="more">Découvrir la mission →</span></a>""" for s in SERVICES)
@@ -363,7 +367,8 @@ démolition, le diagnostic technique global et le plan pluriannuel de travaux. C
 <section class="band"><div class="wrap">
 <p class="eyebrow">Quatre missions</p>
 <h2>Quatre missions, une même exigence de précision.</h2>
-<div class="grid grid--2" style="margin-top:1.8rem">{cards}</div></div></section>
+<div class="grid grid--2" style="margin-top:1.8rem">{cards}</div>
+{actu}</div></section>
 
 <section class="band band--pale"><div class="wrap">
 <p class="eyebrow">Carnets de terrain</p>
@@ -1948,7 +1953,8 @@ def main():
             shutil.copy(os.path.join(src, js), os.path.join(OUT, "assets", js))
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),
                     dirs_exist_ok=True)
-    page_home()
+    contenus = charger_contenus()
+    page_home(contenus[0] if contenus else None)
     page_simulateur()
     page_hub_diags()
     page_tableau()
@@ -1968,7 +1974,6 @@ def main():
         page_hub_ville(ville)
         for q in ville["quartiers"]:
             page_quartier_ville(q, ville)
-    contenus = charger_contenus()
     if contenus:
         page_hub_contenus(contenus)
         for i, c in enumerate(contenus):
