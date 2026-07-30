@@ -281,6 +281,54 @@ def fiche_html(fiche):
     return f'<dl class="fiche">{lignes}</dl>'
 
 
+# Carnets de terrain : photos de nos propres missions, vulgarisées.
+# (fichier, largeur, hauteur, légende, ce qu'on voit, pourquoi ça compte)
+CARNETS = {
+    "reperage-amiante-avant-travaux": [
+        ("terrain-conduits.jpg", 960, 1280, "Toiture — conduits en fibres-ciment",
+         "des conduits en ciment gris posés avant 1997.",
+         "à l'époque, ce ciment était souvent armé d'amiante. Tant qu'on n'y touche "
+         "pas, il ne libère rien — mais avant des travaux, on prélève et on fait "
+         "analyser en laboratoire. C'est exactement ça, un repérage."),
+    ],
+    "diagnostic-technique-global": [
+        ("terrain-solive.jpg", 1200, 568, "Plancher — solive ancienne, renfort récent",
+         "une solive rongée par les insectes du bois, doublée par une pièce neuve.",
+         "un plancher qui a souffert raconte l'histoire de l'immeuble. Le diagnostic "
+         "technique global objective ce qui porte encore, ce qui doit être renforcé, "
+         "et à quel horizon."),
+    ],
+    "etat-parasitaire-avant-travaux": [
+        ("terrain-merule.jpg", 481, 640, "Bois de plancher — attaque fongique",
+         "un bois qui se délite dans un angle humide.",
+         "les champignons lignivores prospèrent sur l'humidité persistante. Repérés "
+         "tôt, ils se traitent ; découverts tard, ils emportent plancher et solives."),
+    ],
+    "reperage-amiante-avant-demolition": [
+        ("terrain-combles.jpg", 960, 1280, "Combles — l'envers du décor",
+         "un comble où personne n'est monté depuis des années.",
+         "avant une démolition, aucune réserve n'est acceptable : le repérage va "
+         "partout, y compris là où personne ne regarde jamais."),
+    ],
+}
+
+
+def carnets_band(slug):
+    items = CARNETS.get(slug)
+    if not items:
+        return ""
+    figs = "".join(
+        f'<figure class="photo"><img src="/assets/photos/{f}" alt="{esc(cap)}" '
+        f'loading="lazy" decoding="async" width="{w}" height="{h}">'
+        f'<figcaption>{esc(cap)}</figcaption>'
+        f'<p class="photo__lecon"><b>Ce qu\'on voit :</b> {esc(v)} '
+        f'<b>Pourquoi ça compte :</b> {esc(p)}</p></figure>'
+        for f, w, h, cap, v, p in items)
+    return (f'<section class="band"><div class="wrap">'
+            f'<p class="eyebrow">Carnets de terrain</p><h2>Vu en mission</h2>'
+            f'<div class="grid grid--2" style="margin-top:1.8rem">{figs}</div></div></section>')
+
+
 # ------------------------------------------------------------------ accueil
 # Site dédié : l'accueil vise directement les requêtes têtes de silo
 # (RAAT / RAAD / DTG / PPPT). Aucune requête du site A n'est ciblée.
@@ -552,6 +600,7 @@ def page_service(s):
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(s['intro'])}</p></div>
 {fiche_html(s.get('fiche'))}
 </div></section>
+{carnets_band(s['slug'])}
 {volet("Réglementation", "Ce que dit la réglementation",
        f'<dl class="legal">{cadre}</dl>', pale=True)}
 {volet("Notre méthode", "Comment nous menons la mission",
@@ -1001,6 +1050,7 @@ def page_diag_pro(d):
 <div class="prose" style="margin-top:1.4rem"><p style="font-size:1.12rem">{esc(d['intro'])}</p></div>
 {fiche_html(d.get('fiche'))}
 </div></section>
+{carnets_band(d['slug'])}
 {volet("Réglementation", "Ce que dit la réglementation",
        f'''<dl class="legal">{cadre}</dl>
 <h3 style="margin-top:2.2rem;color:var(--vert)">Une pratique distincte du diagnostic de transaction</h3>
