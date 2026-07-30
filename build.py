@@ -1305,6 +1305,26 @@ def page_contenu(c, voisins):
     trail = [("Accueil", "/"), ("Questions fréquentes", "/questions/"), (c["titre"], p)]
     corps = md_vers_html(c["corps"])
     corps, som = sommaire_article(corps)
+    # Glossaire : chaque terme reçoit une ancre, et un index cliquable
+    # remplace le sommaire — la porte d'entrée du lexique.
+    if c["slug"].startswith("glossaire"):
+        import re as _re
+        termes = []
+
+        def _anc(m):
+            terme = strip_tags(m.group(1)).split(" — ")[0].strip().rstrip(".")
+            a = "t-" + _slug_ancre(terme)
+            termes.append((terme, a))
+            return f'<li id="{a}"><strong>{m.group(1)}</strong>'
+        corps = _re.sub(r"<li><strong>(.*?)</strong>", _anc, corps)
+        if termes:
+            chips = "".join(f'<li><a href="#{a}">{esc(t)}</a></li>'
+                            for t, a in sorted(termes, key=lambda x: x[0].lower()))
+            som = (f'<nav class="sommaire-art" aria-label="Index des termes">'
+                   f'<p class="eyebrow">Index — {len(termes)} termes, de A à Z</p>'
+                   f'<ul class="mesh">{chips}</ul></nav>')
+    # Un article peut embarquer un schéma : champ « schema: » du frontmatter.
+    schema_art = rendre_schema(c.get("schema", ""))
     liens = "".join(f'<li><a href="{u}">{esc(u.strip("/").replace("-", " ").capitalize())}</a></li>'
                     for u in c["liens"])
     autres = "".join(
@@ -1316,7 +1336,7 @@ def page_contenu(c, voisins):
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">Question fréquente</p>
 <h1>{esc(c['titre'])}</h1></div></section>
-<article class="band"><div class="wrap prose">{som}{corps}
+<article class="band"><div class="wrap prose">{som}{corps}{schema_art}
 <p class="maj">Publié le {c['date'].strftime('%d/%m/%Y')} · vérifié au {MAJ} ·
 rédigé par l'équipe technique de {E['nom']}</p>
 <h2>Pour approfondir</h2><ul>{liens}</ul>

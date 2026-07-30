@@ -382,6 +382,34 @@ def eaux_separatif():
         c, "0 0 800 380", "800/380")
 
 
+# ---------------------------------------------------------------- 13. étiquette DPE
+def etiquette_dpe():
+    # Couleurs conventionnelles de l'étiquette énergie : repère universel.
+    barres = [("A", "#00873C"), ("B", "#4CAF39"), ("C", "#AFCA31"),
+              ("D", "#F5D520"), ("E", "#F0A029"), ("F", "#E2661B"), ("G", "#D02B1E")]
+    blocs = ""
+    for i, (l, coul) in enumerate(barres):
+        y = 84 + i * 44
+        w = 170 + i * 42
+        blocs += (f'<rect x="40" y="{y}" width="{w}" height="36" fill="{coul}"/>'
+                  f'<text x="{40+w-26}" y="{y+25}" font-size="19" font-weight="700" fill="#fff">{l}</text>')
+    c = f'''<rect width="800" height="440" fill="{CREME}"/>
+<text x="30" y="48" font-size="20" font-weight="600" fill="{V}">L'étiquette énergie, et ce qu'elle déclenche</text>
+{blocs}
+{_multi(520, 116, "A à C|le parc performant", 15, V, "600", interligne=22)}
+{_multi(520, 208, "D et E|le milieu du parc", 15, V, "600", interligne=22)}
+{_multi(520, 300, "F et G : « passoires »|G exclu de la location|depuis 2025, F en 2028,|E en 2034", 15, ALERTE, "600", interligne=22)}
+<text x="30" y="420" font-size="13.5" fill="{GRIS}">En copropriété, le DPE collectif classe l'immeuble entier — et guide le plan de travaux.</text>'''
+    return _envelope(
+        "L'étiquette énergie de A à G, et ce qu'elle déclenche",
+        "Étiquette énergie en sept barres, de A en vert à G en rouge. A à C : le parc "
+        "performant. D et E : le milieu du parc. F et G, les « passoires thermiques » : "
+        "les logements classés G sont exclus de la location depuis 2025, F le seront en "
+        "2028 et E en 2034. En copropriété, le DPE collectif classe l'immeuble entier "
+        "et guide le plan de travaux.",
+        c, "0 0 800 440", "800/440")
+
+
 SCHEMAS = {
     "arbre-reperage": arbre_reperage,
     "listes-amiante": listes_amiante,
@@ -395,6 +423,7 @@ SCHEMAS = {
     "agents-bois": agents_bois,
     "qui-fait-quoi": qui_fait_quoi,
     "eaux-separatif": eaux_separatif,
+    "etiquette-dpe": etiquette_dpe,
 }
 
 

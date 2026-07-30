@@ -2,6 +2,7 @@
 titre: Qu'est-ce que le DPE, et comment lire son étiquette ?
 question: Qu'est-ce que le DPE et comment lire son étiquette énergétique ?
 meta: Le DPE note un logement de A à G selon l'énergie qu'il consomme et les gaz à effet de serre qu'il émet. Comment lire les deux étiquettes, simplement.
+schema: etiquette-dpe
 publication: 2026-07-25
 tags: DPE | énergie | pédagogie
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/duree-validite-diagnostics/
