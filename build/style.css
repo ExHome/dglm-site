@@ -744,3 +744,13 @@ details[open]>p{animation:deplie .3s ease}
 .ancres a{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--encre-2);text-decoration:none;border:1px solid var(--rule);padding:.42rem .85rem;transition:border-color .16s,color .16s}
 .ancres a:hover{border-color:var(--or);color:var(--vert)}
 @media print{.ancres{display:none!important}}
+
+/* cartes sur bandeau sombre : declinaison premium (or, numerotation, survol subtil) */
+.band--dark .grid{counter-reset:dest}
+.band--dark .card--link::before{counter-increment:dest;content:counter(dest,decimal-leading-zero);font-family:var(--sans);font-size:.64rem;font-weight:500;letter-spacing:.22em;color:var(--or);display:block;margin-bottom:.7rem}
+.band--dark .card{border-top:1px solid var(--rule-or)}
+.band--dark .card--link:hover{background:rgba(255,255,255,.055)}
+.band--dark .card h3{color:var(--blanc)}
+.band--dark .card p{color:rgba(247,244,238,.78)}
+.band--dark .card .more{color:var(--or-clair);border-bottom-color:rgba(192,144,72,.45)}
+.band--dark .card--link:hover .more{border-bottom-color:var(--or-clair)}
