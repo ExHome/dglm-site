@@ -2467,24 +2467,8 @@ quand même : on fait avec ce que vous avez.</p>
 # juillet 2026). Toute modification doit être faite pièce en main : ce sont des
 # engagements opposables. Les dates sont celles portées sur les certificats.
 CERTIFIES = [
-    {"nom": "Aude de Gentile", "role": "Cofondatrice, diagnostiqueuse certifiée",
-     "num": "C3279",
-     "domaines": [("Amiante", "21/07/2027"),
-                  ("État relatif à la présence de termites (France métropolitaine)", "21/07/2027"),
-                  ("État des installations intérieures de gaz", "21/07/2027"),
-                  ("Constat de risque d'exposition au plomb (CREP)", "02/09/2027"),
-                  ("Diagnostic de performance énergétique", "02/09/2027"),
-                  ("État des installations intérieures d'électricité", "02/09/2027")]},
-    {"nom": "Thibault Le Moine", "role": "Cofondateur, diagnostiqueur certifié",
-     "num": "C3284",
-     "domaines": [("Amiante", "21/07/2027"),
-                  ("État relatif à la présence de termites (France métropolitaine)", "21/07/2027"),
-                  ("État des installations intérieures de gaz", "21/07/2027"),
-                  ("Constat de risque d'exposition au plomb (CREP)", "02/09/2027"),
-                  ("Diagnostic de performance énergétique", "02/09/2027"),
-                  ("État des installations intérieures d'électricité", "02/09/2027")]},
     {"nom": "Amaury Molinier", "role": "Directeur opérationnel, diagnostiqueur certifié",
-     "num": "C2936",
+     "num": "C2936", "org": "LCC Qualixpert", "date": "18/02/2026",
      "domaines": [("Amiante <strong>avec mention</strong>", "11/06/2030"),
                   ("Audit énergétique", "28/12/2028"),
                   ("Diagnostic de performance énergétique, tous types de bâtiments", "28/12/2028"),
@@ -2492,6 +2476,36 @@ CERTIFIES = [
                   ("Constat de risque d'exposition au plomb (CREP)", "19/07/2030"),
                   ("État des installations intérieures d'électricité", "19/07/2030"),
                   ("État des installations intérieures de gaz", "13/12/2029")]},
+    {"nom": "Virgile Poulain", "role": "Diagnostiqueur certifié",
+     "num": "C2022-SE09-041", "org": "WE-CERT", "date": "01/07/2024",
+     "domaines": [("Diagnostic de performance énergétique <strong>avec mention</strong>", "27/10/2029"),
+                  ("Diagnostic de performance énergétique", "27/10/2029"),
+                  ("Amiante", "27/10/2029"),
+                  ("Constat de risque d'exposition au plomb (CREP)", "27/10/2029"),
+                  ("État des installations intérieures d'électricité", "27/10/2029"),
+                  ("État des installations intérieures de gaz", "27/10/2029")]},
+    {"nom": "Nicolas Louvet", "role": "Diagnostiqueur certifié",
+     "num": "C3596", "org": "LCC Qualixpert", "date": "18/02/2026",
+     "domaines": [("Amiante", "09/11/2029"),
+                  ("Diagnostic de performance énergétique", "21/08/2029"),
+                  ("Constat de risque d'exposition au plomb (CREP)", "21/08/2029"),
+                  ("État des installations intérieures d'électricité", "21/08/2029"),
+                  ("État relatif à la présence de termites (France métropolitaine)", "15/06/2029"),
+                  ("État des installations intérieures de gaz", "15/06/2029")]},
+    {"nom": "Nicolas Péré", "role": "Diagnostiqueur certifié",
+     "num": "2456", "org": "LCP Certification", "date": "01/07/2024",
+     "domaines": [("Amiante", "09/04/2031"),
+                  ("Diagnostic de performance énergétique", "09/04/2031"),
+                  ("État des installations intérieures de gaz", "09/04/2031"),
+                  ("Constat de risque d'exposition au plomb (CREP)", "25/02/2031"),
+                  ("État des installations intérieures d'électricité", "25/02/2031"),
+                  ("État relatif à la présence de termites (France métropolitaine)", "25/02/2031")]},
+    {"nom": "Thibault Le Moine", "role": "Cofondateur, diagnostiqueur certifié",
+     "num": "C3284", "org": "LCC Qualixpert", "date": "18/02/2026",
+     "domaines": [("Amiante", "21/07/2027"),
+                  ("État relatif à la présence de termites (France métropolitaine)", "21/07/2027"),
+                  ("État des installations intérieures de gaz", "21/07/2027"),
+                  ("État des installations intérieures d'électricité", "02/09/2027")]},
 ]
 
 
@@ -2508,7 +2522,8 @@ def page_certifications():
         fiches += f"""<article class="certif">
 <header><h3>{esc(c['nom'])}</h3>
 <p class="certif__role">{esc(c['role'])}</p>
-<p class="certif__num">Certificat n<sup>o</sup> {esc(c['num'])} — LCC Qualixpert</p></header>
+<p class="certif__num">Certificat n<sup>o</sup> {esc(c['num'])} — {esc(c['org'])}
+<span>· édition du {esc(c['date'])}</span></p></header>
 <div class="tabwrap"><table class="tabsimple">
 <thead><tr><th>Domaine de certification</th><th>Validité</th></tr></thead>
 <tbody>{lignes}</tbody></table></div></article>"""
@@ -2526,7 +2541,7 @@ sans avoir à les demander.</p>
 
 <section class="band"><div class="wrap">
 <p class="eyebrow">Les personnes</p>
-<h2>Trois diagnostiqueurs certifiés</h2>
+<h2>Cinq diagnostiqueurs certifiés</h2>
 <p class="enclair"><span>L'antisèche</span>La certification est <strong>personnelle</strong>,
 jamais celle de l'entreprise : elle s'obtient domaine par domaine, après examen théorique et
 pratique, et se contrôle pendant tout son cycle. Chaque rapport porte le nom et le numéro de
@@ -2540,14 +2555,21 @@ en fait la valeur.</p>
 <section class="band band--pale"><div class="wrap">
 <p class="eyebrow">L'organisme</p>
 <h2>Qui nous certifie, et qui le contrôle</h2>
-<p class="narrow">Nos certifications sont délivrées par <strong>LCC Qualixpert</strong>,
-organisme certificateur accrédité par le <strong>COFRAC</strong> — le Comité français
-d'accréditation — sous le numéro d'accréditation <strong>4-0094</strong>, portée
-« certification de personnes ».</p>
+<p class="narrow">Nos diagnostiqueurs sont certifiés par trois organismes distincts, tous
+accrédités par le <strong>COFRAC</strong> — le Comité français d'accréditation — pour la
+certification de personnes : <strong>LCC Qualixpert</strong> (accréditation 4-0094),
+<strong>WE-CERT</strong> (accréditation 4-0634) et <strong>LCP Certification</strong>,
+à Pessac. Chacun a recruté là où il exerçait ; nous n'avons pas jugé utile de tout
+regrouper artificiellement chez un seul certificateur.</p>
 <p class="narrow">Cette chaîne compte : le COFRAC n'évalue pas les diagnostiqueurs, il
 évalue ceux qui les certifient. C'est ce qui empêche une certification de n'être qu'un
 logo acheté. Le référentiel applicable est fixé par arrêté ministériel, et il a été
 resserré en 2024 pour l'amiante, l'électricité, le gaz, le plomb et les termites.</p>
+<p class="narrow">Deux mentions méritent d'être signalées, parce qu'elles ne sont pas
+courantes. La <strong>mention amiante</strong> autorise les repérages les plus exigeants,
+dont ceux qui précèdent travaux et démolition — c'est le cœur de notre activité. La
+<strong>mention DPE</strong> permet d'établir le diagnostic de performance énergétique sur
+tout type de bâtiment, immeuble collectif compris, et non seulement sur un logement.</p>
 </div></section>
 
 <section class="band"><div class="wrap">
