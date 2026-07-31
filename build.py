@@ -399,7 +399,7 @@ width="47" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <li>{E['rue']}<br>{E['cp']} {E['ville']}</li></ul></div>
 </div>
 <p class="legalline">{E['nom']} — {E['endossement']} — {E['federation']} — SIRET {E['siret']} — {E['rcs']} ·
-Page à jour au {MAJ} ·
+Page à jour en {MAJ} ·
 <a href="/plan-du-site/">Plan du site</a> ·
 <a href="/conformite/">Certificat de conformité</a> ·
 <a href="/certifications-et-assurances/">Certifications et assurances</a> ·
@@ -632,11 +632,11 @@ def signature_html(r, date_pub):
     return (
         '<div class="relu">'
         f'<p class="relu__d">Publié le {date_pub.strftime("%d/%m/%Y")} · '
-        f'vérifié au {MAJ}</p>'
+        f'vérifié en {MAJ}</p>'
         '<p class="relu__r"><span>Relu et validé par</span> '
         f'<a href="/equipe/"><b>{esc(r["nom"])}</b></a>, {esc(r["qualite"])} — '
         f'{esc(r["detail"])}. '
-        '<a href="/certifications-et-assurances/">Voir les certificats</a>.</p></div>')
+        '<a href="/certifications-et-assurances/">Titres et certifications</a>.</p></div>')
 
 
 def relecteur_schema(r):
@@ -1647,7 +1647,7 @@ favori et à partager en conseil syndical. Chaque ligne renvoie vers la fiche co
 <table class="tabmaitre">
 <thead><tr><th>Mission</th><th>Qui le commande</th><th>Quand</th><th>Le point clé</th></tr></thead>
 <tbody>{rangs}</tbody></table>
-<p class="maj">Vérifié au {MAJ} — mis à jour automatiquement à chaque évolution réglementaire</p>
+<p class="maj">Vérifié en {MAJ} — mis à jour automatiquement à chaque évolution réglementaire</p>
 <p style="margin-top:1.6rem">Vente et location d'un logement : ces diagnostics relèvent d'un autre
 cadre — nos <a href="/questions/">réponses détaillées</a> les couvrent, et notre site
 <a href="/particuliers/">dédié aux particuliers</a> les réalise.</p>
@@ -1767,7 +1767,7 @@ oublier. Imprimez-les, cochez-les, faites-les circuler.</p>
 <li>J+15 : rapport remis, lecture commentée avec le conseil syndical</li>
 <li>Assemblée suivante : présentation des conclusions et vote des suites</li>
 </ul>
-<p class="maj">Établi par l'équipe DGLM Expertises — vérifié au {MAJ}</p>
+<p class="maj">Établi par l'équipe DGLM Expertises — vérifié en {MAJ}</p>
 </div></section>
 {cta()}"""
     shell(path=p, title="Le pack du conseil syndical — check-lists à imprimer | DGLM",
@@ -2061,7 +2061,7 @@ Chaque rapport est signé par celui qui l'a établi.</p></div></section>
 <section class="band"><div class="wrap">
 <p class="eyebrow">L'équipe</p><h2>Celles et ceux qui interviennent</h2>
 <div class="team">{fiches}</div>
-<p class="maj">Effectif et certifications à jour au {MAJ}</p></div></section>
+<p class="maj">Effectif et certifications à jour en {MAJ}</p></div></section>
 <section class="band"><div class="wrap prose">
 <h2>Une maison à taille humaine</h2>
 <p>DGLM Expertises a été fondée en 2020 par Aude de Gentile et Thibault Le Moine.
@@ -2648,7 +2648,7 @@ ci-dessous, puis joignez les fichiers à l'e-mail que le formulaire de devis pr�
 vous — ils arrivent directement dans notre boîte contact. Rien sous la main ? Envoyez
 quand même : on fait avec ce que vous avez.</p>
 {sections}
-<p class="maj">Établi par l'équipe DGLM Expertises — vérifié au {MAJ}</p>
+<p class="maj">Établi par l'équipe DGLM Expertises — vérifié en {MAJ}</p>
 </div></section>
 {cta()}"""
     shell(path=p, title="Aide au devis : les documents à joindre — DGLM",
@@ -2988,7 +2988,7 @@ sur le rapport — celle de la visite, pas celle où vous l'avez reçu.</p>
 <h2 style="margin-top:2.4rem">Ce qui tient, ce qui ne tient plus</h2>
 <div class="simu-corps"></div>
 <p class="maj">Analyse indicative, fondée sur les seules dates saisies et sur les durées
-en vigueur au {MAJ}. Elle ne remplace pas l'examen des rapports eux-mêmes : c'est leur
+en vigueur en {MAJ}. Elle ne remplace pas l'examen des rapports eux-mêmes : c'est leur
 contenu, et non leur seule date, qui détermine ce qui reste opposable.</p>
 </div>
 <noscript><p class="enclair"><span>Sans JavaScript</span>L'outil a besoin de JavaScript,
@@ -3050,7 +3050,7 @@ caduc plus tôt : des <strong>travaux</strong> qui modifient ce qu'il décrit, u
 <strong>découverte d'un fait nouveau</strong> qu'il ne mentionnait pas.</p></details>
 
 <p class="aide__pied">Les durées appliquées ici sont celles du code de la construction et
-de l'habitation, telles qu'en vigueur au {MAJ}.
+de l'habitation, telles qu'en vigueur en {MAJ}.
 <a href="/questions/duree-validite-diagnostics/">Le guide détaillé →</a></p>
 </aside>
 </div>
@@ -3500,7 +3500,7 @@ Le détail se copie tel quel dans une étude ou un procès-verbal.</p>
 {"".join(guide)}
 <section class="band"><div class="wrap prose">
 {sources}
-<p class="maj">Établi par l'équipe DGLM Expertises — barèmes vérifiés au {MAJ}</p>
+<p class="maj">Établi par l'équipe DGLM Expertises — barèmes vérifiés en {MAJ}</p>
 </div></section>
 {cta()}"""
 
