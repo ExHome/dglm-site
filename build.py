@@ -402,6 +402,7 @@ width="47" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 Page à jour en {MAJ} ·
 <a href="/plan-du-site/">Plan du site</a> ·
 <a href="/conformite/">Certificat de conformité</a> ·
+<a href="/notre-methode-editoriale/">Méthode éditoriale</a> ·
 <a href="/certifications-et-assurances/">Certifications et assurances</a> ·
 <a href="/mentions-legales/">Mentions légales</a> ·
 <a href="/particuliers/">{E['site_a_ancre']}</a> ·
@@ -1712,8 +1713,11 @@ dernier passage : {MAJ_JOUR}</p>
 <p>Il atteste de la rigueur de fabrication de ce site — pas de la conformité de votre
 immeuble, qui relève d'une mission sur place. Les certifications individuelles de nos
 diagnostiqueurs et notre attestation d'assurance responsabilité civile professionnelle
-sont présentées sur la page <a href="/equipe/">équipe</a> et communiquées sur simple
-demande.</p>
+sont publiées sur la page
+<a href="/certifications-et-assurances/">certifications et assurances</a>.</p>
+<p>Il ne dit rien non plus de la façon dont les guides sont écrits et relus : cela relève
+d'une autre discipline, publiée sur la page
+<a href="/notre-methode-editoriale/">notre méthode éditoriale</a>.</p>
 </div></section>
 {cta()}"""
     shell(path=p, title="Certificat de conformité du site — DGLM Expertises",
@@ -1723,6 +1727,105 @@ demande.</p>
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail)))
     URLS.append((p, "0.6", "weekly", MAJ_STRUCTURE))
+
+
+def page_methode():
+    """Qui écrit, d'où viennent les faits, ce que nous refusons de publier.
+    Le pendant humain du certificat de conformité, qui ne parle que de machine.
+    Un lecteur doit pouvoir juger nos guides sans nous croire sur parole."""
+    p = "/notre-methode-editoriale/"
+    trail = [("Accueil", "/"), ("Notre méthode éditoriale", p)]
+
+    refus = [
+        ("Aucune photo de banque d'images, aucune image générée",
+         "les photos de ce site sont prises en mission, et jamais dans un logement occupé "
+         "ni devant une façade reconnaissable"),
+        ("Aucun prix affiché",
+         "un devis se chiffre sur le bâti réel — annoncer un tarif de vitrine reviendrait "
+         "à le démentir ensuite"),
+        ("Aucun conseil juridique personnalisé",
+         "nous expliquons ce que dit un texte ; l'appliquer à votre situation relève de "
+         "votre notaire, de votre syndic ou d'un avocat"),
+        ("Aucune mission que nous ne sommes pas habilités à faire",
+         "gaz et électricité en parties communes relèvent d'organismes de contrôle agréés : "
+         "nous le disons et nous renvoyons vers qui de droit"),
+        ("Aucune source non vérifiée",
+         "un lien vers un texte officiel n'est publié qu'après avoir été ouvert et son "
+         "titre confirmé ; à défaut, le texte est cité sans lien"),
+    ]
+    lignes = "".join(f"<li><b>{esc(a)}</b> — {esc(b)}</li>" for a, b in refus)
+
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Qui écrit, comment, et ce que nous refusons</p>
+<h1>Notre méthode éditoriale</h1>
+<p class="lede">Ces guides sont écrits par des diagnostiqueurs, pas par un service
+communication. Voici comment ils sont fabriqués, vérifiés et corrigés — pour que vous
+puissiez les juger sans avoir à nous croire sur parole.</p></div></section>
+
+<section class="band"><div class="wrap prose">
+<p class="enclair"><span>L'antisèche</span>Chaque guide porte en bas de page le nom de
+celui qui l'a relu, la date de sa dernière vérification et ses sources. Le relecteur
+change selon le sujet : chacun ne valide que ce qu'il pratique.</p>
+<h2>Qui écrit et qui relit</h2>
+<p>Les guides sont rédigés en interne à partir des textes en vigueur, puis relus par
+l'un des deux cofondateurs, tous deux titulaires du <strong>titre professionnel de
+diagnostiqueur immobilier</strong> enregistré au RNCP.</p>
+<p>Le partage suit les compétences réelles, pas l'organigramme.
+<strong>Thibault Le Moine</strong>, certifié en amiante, termites, gaz et électricité,
+relit tout ce qui touche à ces domaines et aux repérages avant travaux ou démolition.
+<strong>Aude de Gentile</strong> relit le reste : copropriété, énergie, procédures,
+obligations d'information.</p>
+<p>Une précision que nous préférons donner nous-mêmes : Aude de Gentile n'est pas
+certifiée et ne signe donc aucun rapport. Son titre atteste qu'elle a appris le métier,
+pas qu'elle est habilitée à l'exercer — <a href="/certifications-et-assurances/">la
+différence est expliquée ici</a>, avec les numéros et les dates de chacun. Les rapports
+sont établis et signés par les quatre diagnostiqueurs certifiés qui interviennent sur le
+terrain, présentés sur la page <a href="/equipe/">équipe</a>.</p>
+</div></section>
+
+<section class="band band--pale"><div class="wrap prose">
+<h2>D'où viennent les faits</h2>
+<p>Nous citons d'abord la source première : le texte lui-même. Loi du 10 juillet 1965,
+Code de la santé publique, Code de la construction et de l'habitation, Code du travail,
+loi Climat et résilience, décret du 17 mars 1967 — chacun est lié sur Légifrance après
+vérification de son titre officiel.</p>
+<p>Viennent ensuite les fiches Service-Public.fr, citées avec leur numéro, et les
+publications de l'ADEME et de l'Anah pour les barèmes d'aides. Les sources d'un guide
+sont listées à la fin de ce guide, avec la date à laquelle nous les avons ouvertes.</p>
+<p>Un texte peut changer. Une veille automatique surveille les fiches officielles que
+nous citons et signale toute évolution, ce qui déclenche une relecture. Le détail de
+cette chaîne de contrôle est publié sur le
+<a href="/conformite/">certificat de conformité du site</a>.</p>
+</div></section>
+
+<section class="band"><div class="wrap prose">
+<h2>Ce que nous ne publions pas</h2>
+<ul class="checklist">{lignes}</ul>
+</div></section>
+
+<section class="band band--pale"><div class="wrap prose">
+<h2>Si vous trouvez une erreur</h2>
+<p>Écrivez-nous à <a href="mailto:{E['email']}">{E['email']}</a> en indiquant l'adresse
+de la page. Une erreur de fait est corrigée sans discuter et la date de vérification du
+guide est remise à jour le jour même. Nous ne supprimons pas un guide devenu inexact :
+nous le corrigeons, parce qu'il est déjà lu et parfois cité.</p>
+<h2>Pourquoi ces guides sont gratuits</h2>
+<p>Parce qu'un diagnostic mal compris se subit, et qu'un diagnostic compris se commande
+au bon moment — souvent bien avant le chantier. Expliquer sert notre métier mieux que le
+vendre. Les questions de vente et de location sont traitées ici à titre informatif
+seulement ; pour une mission de ce type, nous renvoyons vers
+<a href="/particuliers/">notre site dédié aux particuliers</a>.</p>
+<p class="maj">Méthode en vigueur en {MAJ} — toute modification est datée ici.</p>
+</div></section>
+{cta()}"""
+
+    shell(path=p, title="Notre méthode éditoriale — DGLM Expertises",
+          desc=desc_courte("Qui écrit ces guides, d'où viennent les faits, ce que nous "
+                           "refusons de publier et comment une erreur se corrige."),
+          body=body,
+          schema=jsonld(org_schema(), breadcrumb(trail)))
+    URLS.append((p, "0.6", "monthly", MAJ_STRUCTURE))
 
 
 def page_pack():
@@ -2355,7 +2458,9 @@ def page_hub_contenus(contenus):
 <h1>Ce que l'on nous demande</h1>
 <p class="lede">Chaque réponse est rédigée par les diagnostiqueurs qui conduisent les missions,
 datée, et revue à chaque évolution réglementaire. Quand nous n'avons pas de réponse assurée,
-nous préférons ne pas écrire la page.</p></div></section>
+nous préférons ne pas écrire la page.</p>
+<div class="actions"><a class="btn btn--light" href="/notre-methode-editoriale/">Comment
+ces guides sont écrits</a></div></div></section>
 {rubriques}
 {cta()}"""
     shell(path=p, title="Guides pratiques du diagnostic en copropriété",
@@ -3712,7 +3817,8 @@ def page_plan(contenus):
     outils = [("/simulateur-obligations-copropriete/", "Simulateur d'obligations"),
               ("/devis/", "Demander un devis"),
               ("/referentiel-des-normes/", "Référentiel des normes"),
-              ("/equipe/", "Notre équipe certifiée"),
+              ("/equipe/", "Notre équipe"),
+              ("/notre-methode-editoriale/", "Notre méthode éditoriale"),
               ("/contact/", "Contact"),
               ("/questions/", "Toutes les questions fréquentes")]
     zones = [("/zones-d-intervention/", "Toutes les zones — 56 communes"),
@@ -3836,6 +3942,8 @@ def ecrire_llms(contenus):
     md += li("/simulateur-obligations-copropriete/", "Simulateur d'obligations de copropriété")
     md += li("/referentiel-des-normes/", "Référentiel des normes et des textes")
     md += li("/equipe/", "Notre équipe de diagnostiqueurs certifiés")
+    md += li("/notre-methode-editoriale/",
+             "Notre méthode éditoriale : qui écrit, quelles sources, quels refus")
     md += li("/plan-du-site/", "Plan du site")
     open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(md)
 
@@ -3874,6 +3982,7 @@ def main():
     page_validite()
     page_certifications()
     page_conformite()
+    page_methode()
     for d in DIAGS_PRO:
         page_diag_pro(d)
     for s in SERVICES:
