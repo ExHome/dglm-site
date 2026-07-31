@@ -519,6 +519,8 @@ relecture de nos rapports.</p>
 <p>RAAT, RAAD, PEMD, état parasitaire : préparer le chantier.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="{SILO}/simulateur-obligations-copropriete/"><h3>Le simulateur d'obligations</h3>
 <p>Votre situation établie en six questions, sans inscription.</p><span class="more">Ouvrir →</span></a>
+<a class="card card--link" href="/aides-financieres-copropriete/"><h3>Le simulateur d'aides</h3>
+<p>MaPrimeRénov' Copropriété : le montant estimé, ligne à ligne.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="/bordeaux/"><h3>Bordeaux, quartier par quartier</h3>
 <p>Échoppes, pierre, grands ensembles : le bâti tel qu'il est.</p><span class="more">Ouvrir →</span></a>
 <a class="card card--link" href="{SILO}/zones-d-intervention/"><h3>Les zones d'intervention</h3>
@@ -2199,12 +2201,10 @@ répond en six questions.</p>
 
 
 # ------------------------------------------------------------------ demande de devis
-def page_aide_devis():
-    """Les documents à joindre à une demande de devis, mission par mission.
-    Imprimable : le client coche, réunit, et joint tout à son e-mail."""
-    p = "/aide-au-devis/"
-    trail = [("Accueil", "/"), ("Aide au devis", p)]
-    BLOCS = [
+# Les documents attendus, mission par mission. SOURCE UNIQUE : la page
+# /aide-au-devis/ les affiche en check-list, et le formulaire de devis les
+# rappelle à côté de la zone de dépôt, selon la mission choisie.
+DOCS_DEVIS = [
         ("Pour toute demande", [
             "L'adresse précise de l'immeuble ou du bien",
             "Un contact sur place (gardien, syndic, occupant) pour l'accès",
@@ -2244,7 +2244,25 @@ def page_aide_devis():
             "Les diagnostics antérieurs, même anciens",
             "Les modalités d'accès aux caves, combles et locaux techniques",
         ]),
-    ]
+]
+
+# Correspondance entre les missions du formulaire et les blocs ci-dessus.
+DOCS_PAR_MISSION = {
+    "raat": ("Pour toute demande", "Repérage amiante avant travaux (RAAT)"),
+    "raad": ("Pour toute demande", "Repérage amiante avant démolition (RAAD)"),
+    "dtg": ("Pour toute demande", "Diagnostic technique global (DTG)"),
+    "pppt": ("Pour toute demande", "Plan pluriannuel de travaux (PPPT)"),
+    "dpe": ("Pour toute demande", "Diagnostic technique global (DTG)"),
+    "autre": ("Pour toute demande", "Diagnostics de l'immeuble (DTA, DAPP, plomb, assainissement…)"),
+}
+
+
+def page_aide_devis():
+    """Les documents à joindre à une demande de devis, mission par mission.
+    Imprimable : le client coche, réunit, et joint tout à son e-mail."""
+    p = "/aide-au-devis/"
+    trail = [("Accueil", "/"), ("Aide au devis", p)]
+    BLOCS = DOCS_DEVIS
     sections = "".join(
         f'<h2>{esc(titre_bloc)}</h2><ul class="checklist">'
         + "".join(f"<li>{esc(x)}</li>" for x in items) + "</ul>"
@@ -2285,33 +2303,110 @@ def page_aides():
     p = "/aides-financieres-copropriete/"
     trail = [("Accueil", "/"), ("Aides financières", p)]
 
-    def champ_n(cid, lbl, aide="", requis=True):
+    _info = [0]
+
+    def info(titre, texte_aide):
+        """Bulle d'explication au clic — le jargon devient lisible sur place."""
+        _info[0] += 1
+        i = _info[0]
+        return (f'<span class="info"><button type="button" class="info__b" '
+                f'aria-expanded="false" aria-controls="inf{i}" '
+                f'aria-label="Qu\'est-ce que {esc(titre)} ?">?</button>'
+                f'<span class="info__c" id="inf{i}" role="note">{texte_aide}</span></span>')
+
+    def champ_n(cid, lbl, aide="", requis=True, bulle=""):
         a = f"<em>{esc(aide)}</em>" if aide else ""
-        return (f'<label class="field" for="{cid}"><span>{esc(lbl)}</span>'
+        return (f'<label class="field" for="{cid}"><span>{esc(lbl)}{bulle}</span>'
                 f'<input id="{cid}" type="number" min="0" inputmode="numeric">{a}</label>')
 
-    def champ_s(cid, lbl, options, aide=""):
+    def champ_s(cid, lbl, options, aide="", bulle=""):
         opts = "".join(f'<option value="{v}">{esc(t)}</option>' for v, t in options)
         a = f"<em>{esc(aide)}</em>" if aide else ""
-        return (f'<label class="field" for="{cid}"><span>{esc(lbl)}</span>'
+        return (f'<label class="field" for="{cid}"><span>{esc(lbl)}{bulle}</span>'
                 f'<select id="{cid}">{opts}</select>{a}</label>')
+
+    B_LOTS = info("un lot d'habitation", """<strong>Un lot</strong>, c'est une partie
+privative (un appartement, un local) avec sa quote-part de parties communes. Comptez ici
+les lots à usage d'habitation, pas les caves et parkings vendus séparément.
+L'administration apprécie la règle <strong>en tantièmes</strong> : si votre répartition
+s'écarte du simple comptage, ajustez le chiffre en conséquence.""")
+    B_RP = info("une résidence principale", """<strong>Résidence principale</strong> =
+logement occupé au moins huit mois par an, par son propriétaire ou son locataire. Les
+résidences secondaires et les logements vacants n'entrent pas dans le compte. Il en faut
+au moins <strong>65 %</strong> des lots pour une copropriété de 20 lots ou moins,
+<strong>75 %</strong> au-delà.""")
+    B_IMMAT = info("l'immatriculation", """Toute copropriété d'habitation doit être
+inscrite au <strong>registre national des copropriétés</strong>, et ses données mises à
+jour chaque année par le syndic. Sans immatriculation à jour, aucune aide publique n'est
+versée. Le numéro figure sur les documents de la copropriété — sinon, demandez-le au
+syndic. <a href="/questions/registre-national-coproprietes/">Notre guide sur le
+registre →</a>""")
+    B_AMO = info("l'AMO", """L'<strong>assistance à maîtrise d'ouvrage</strong> est
+l'accompagnateur obligatoire du projet : un professionnel indépendant qui aide la
+copropriété à définir le programme, consulter les entreprises, monter le dossier de
+subvention et suivre le chantier. Son coût est lui-même aidé à <strong>50 %</strong>
+(plafond 300 € par logement, minimum 3 000 € par copropriété). Ce n'est pas le
+diagnostiqueur, ni le syndic, ni l'architecte : c'est un rôle à part.""")
+    B_GAIN = info("le gain énergétique", """Le <strong>gain énergétique</strong> est la
+baisse de consommation attendue après travaux, exprimée en pourcentage — par exemple
+passer de 300 à 180 kWh/m²/an, soit 40 % de gain. Il ne s'estime pas au jugé : c'est
+l'<a href="/audit-energetique-copropriete/">audit énergétique</a> ou le
+<a href="/diagnostic-technique-global/">DTG</a> qui le calcule, scénario par scénario.
+En deçà de 35 %, aucune aide collective.""")
+    B_PASSOIRE = info("une passoire thermique", """Une <strong>passoire thermique</strong>
+est un logement classé <strong>F ou G</strong> au diagnostic de performance énergétique.
+Si les travaux font passer l'immeuble à la classe <strong>D ou mieux</strong>, l'aide est
+majorée de 10 points. <a href="/questions/quest-ce-quune-passoire-thermique/">Notre guide
+sur les passoires →</a>""")
+    B_FRAGILE = info("une copropriété fragile", """L'Anah qualifie de
+<strong>fragile</strong> une copropriété dont le taux d'impayés dépasse un seuil
+réglementaire, et de <strong>en difficulté</strong> celle qui fait l'objet d'un plan de
+sauvegarde ou d'une procédure judiciaire. Sont aussi visées les copropriétés situées dans
+un quartier en renouvellement urbain. Dans le doute, votre syndic ou l'espace conseil
+France Rénov' vous le confirmera : la majoration atteint 20 points.""")
+    B_REVENUS = info("les revenus modestes", """Les catégories <strong>modeste</strong> et
+<strong>très modeste</strong> reposent sur les <strong>plafonds de ressources de
+l'Anah</strong> : ils dépendent du revenu fiscal de référence du ménage, du nombre de
+personnes du foyer et de la région (les plafonds d'Île-de-France diffèrent des autres).
+Ils sont revalorisés chaque année — c'est l'AMO qui les vérifie au dépôt du dossier.
+Ne comptez ici que les <strong>propriétaires occupants</strong> : les bailleurs relèvent
+d'un autre régime.""")
 
     formulaire = f"""<form id="simu-aides" class="devis" onsubmit="return false">
 <div class="devis__bloc"><h3>1 · La copropriété</h3>
-{champ_n("a_lots", "Nombre de lots d'habitation", "La règle officielle s'apprécie en tantièmes : ajustez si votre répartition s'en écarte.")}
-{champ_n("a_rp", "dont résidences principales", "Il en faut au moins 65 % (copropriétés de 20 lots ou moins) ou 75 % (au-delà).")}
-{champ_s("a_immat", "Immatriculée et à jour au registre national ?", [("oui", "Oui"), ("non", "Non / je ne sais pas")])}
-{champ_s("a_age", "Bâtiment achevé depuis plus de 15 ans ?", [("oui", "Oui"), ("non", "Non")])}
+{champ_n("a_lots", "Nombre de lots d'habitation", "", bulle=B_LOTS)}
+{champ_n("a_rp", "dont résidences principales", "", bulle=B_RP)}
+{champ_s("a_immat", "Immatriculée et à jour au registre national ?", [("oui", "Oui"), ("non", "Non / je ne sais pas")], bulle=B_IMMAT)}
+{champ_s("a_age", "Bâtiment achevé depuis plus de 15 ans ?", [("oui", "Oui"), ("non", "Non")], "La date d'achèvement, pas celle de la dernière rénovation.")}
 </div>
 <div class="devis__bloc"><h3>2 · Le programme de travaux</h3>
 {champ_n("a_travaux", "Montant de travaux estimé (€ HT)", "Le chiffrage issu du DTG, du PPPT ou de l'audit énergétique.")}
-{champ_n("a_amo", "Coût de l'AMO (€ HT), si connu", "L'assistance à maîtrise d'ouvrage est obligatoire pour cette aide.", requis=False)}
-{champ_s("a_gain", "Gain énergétique visé", [("35", "35 à 49 % (minimum requis)"), ("50", "50 % ou plus"), ("0", "Moins de 35 %")], "C'est l'étude énergétique qui établit ce pourcentage.")}
-{champ_s("a_passoire", "Sortie de passoire ?", [("non", "Non"), ("oui", "Oui : F ou G aujourd'hui, D ou mieux après travaux")])}
-{champ_s("a_fragile", "Copropriété fragile ou en difficulté ?", [("non", "Non / je ne sais pas"), ("oui", "Oui (impayés élevés, plan de sauvegarde, quartier en renouvellement urbain)")])}
+<details class="postes" id="a_postes">
+<summary>Détailler par poste de travaux — recommandé pour un plan pluriannuel</summary>
+<p class="postes__intro">Tous les postes d'un programme n'ouvrent pas droit à l'aide :
+seuls les travaux d'économie d'énergie, et ceux qui leur sont indissociablement liés,
+entrent dans l'assiette. Renseignez ce que vous connaissez — la somme remplace alors le
+montant global ci-dessus.</p>
+<p class="postes__groupe">Postes éligibles</p>
+{"".join(champ_n("a_p_" + c, n, "", requis=False) for c, n in [
+    ("murs", "Isolation des murs (extérieur ou intérieur)"),
+    ("toiture", "Isolation de la toiture, des combles ou de la terrasse"),
+    ("plancher", "Isolation des planchers bas (sur cave, sur passage)"),
+    ("menuiseries", "Menuiseries extérieures (fenêtres, portes sur l'extérieur)"),
+    ("chauffage", "Chauffage collectif et eau chaude sanitaire"),
+    ("ventilation", "Ventilation"),
+    ("induits", "Travaux induits (reprises indissociables des postes ci-dessus)")])}
+<p class="postes__groupe postes__groupe--non">Postes non éligibles à cette aide</p>
+{champ_n("a_p_ravalement", "Ravalement seul, sans isolation", "Avec une isolation par l'extérieur, portez-le au poste « isolation des murs » : il devient subventionnable.", requis=False)}
+{champ_n("a_p_autres", "Autres postes (ascenseur, électricité, embellissement…)", "", requis=False)}
+</details>
+{champ_n("a_amo", "Coût de l'AMO (€ HT), si connu", "", requis=False, bulle=B_AMO)}
+{champ_s("a_gain", "Gain énergétique visé", [("35", "35 à 49 % (minimum requis)"), ("50", "50 % ou plus"), ("0", "Moins de 35 %")], "", bulle=B_GAIN)}
+{champ_s("a_passoire", "Sortie de passoire ?", [("non", "Non"), ("oui", "Oui : F ou G aujourd'hui, D ou mieux après travaux")], "", bulle=B_PASSOIRE)}
+{champ_s("a_fragile", "Copropriété fragile ou en difficulté ?", [("non", "Non / je ne sais pas"), ("oui", "Oui (impayés élevés, plan de sauvegarde, quartier en renouvellement urbain)")], "", bulle=B_FRAGILE)}
 </div>
 <div class="devis__bloc"><h3>3 · Les ménages (primes individuelles)</h3>
-{champ_n("a_tm", "Propriétaires occupants très modestes", "Selon les plafonds de ressources Anah.", requis=False)}
+{champ_n("a_tm", "Propriétaires occupants très modestes", "", requis=False, bulle=B_REVENUS)}
 {champ_n("a_m", "Propriétaires occupants modestes", "", requis=False)}
 </div>
 </form>
@@ -2461,6 +2556,32 @@ qui s'en charge.</p></div></div>
 
 <div id="devis-mission" hidden></div>
 
+<div id="devis-pieces" class="devis__bloc" hidden>
+<h3>Vos documents</h3>
+<p class="pieces__intro">Joindre vos pièces, c'est souvent gagner un aller-retour :
+nous chiffrons sur pièces plutôt que sur hypothèses. Rien sous la main ?
+Envoyez quand même, on fait avec ce que vous avez.</p>
+<div class="pieces">
+<div class="pieces__zone" id="pieces-zone">
+<label class="pieces__btn" for="pieces-input">Choisir des fichiers</label>
+<input id="pieces-input" type="file" multiple
+ accept=".pdf,.jpg,.jpeg,.png,.heic,.doc,.docx,.xls,.xlsx,.odt,.ods,.dwg,.zip,.txt,.csv">
+<p class="pieces__aide">ou glissez-les ici — PDF, photos, plans, tableurs.
+Tout reste dans votre navigateur : rien n'est envoyé tant que vous ne le décidez pas.</p>
+</div>
+<ul class="pieces__liste" id="pieces-liste"></ul>
+<p class="pieces__etat" id="pieces-etat" role="status" aria-live="polite"></p>
+<div class="actions" id="pieces-actions" hidden>
+<button type="button" id="pieces-zip" class="btn">Préparer mon dossier (.zip)</button>
+</div>
+</div>
+<aside class="pieces__memo" id="pieces-memo" hidden>
+<p class="pieces__memo-titre">Ce qui nous aide le plus, pour cette mission</p>
+<ul id="pieces-memo-liste"></ul>
+<p class="pieces__memo-lien"><a href="/aide-au-devis/">La liste complète, à imprimer →</a></p>
+</aside>
+</div>
+
 <div id="devis-envoi" hidden>
 <p id="devis-etat" class="devis__etat" role="status" aria-live="polite"></p>
 <button type="submit" id="devis-submit" class="btn">Envoyer la demande</button>
@@ -2491,9 +2612,13 @@ même ancien, ou des plans, réduisent le temps d'intervention — et le prix.</
 {cta()}"""
     schema = jsonld(org_schema(), breadcrumb(trail),
                     {"@type": "ContactPage", "url": DOM + p, "name": "Demande de devis"})
+    docs = {cle: [d for bloc in (b1, b2)
+                  for t, items in DOCS_DEVIS if t == bloc for d in items]
+            for cle, (b1, b2) in DOCS_PAR_MISSION.items()}
     extra = (f'<script>window.DEVIS_CFG={{endpoint:"{FORMULAIRE["endpoint"]}",'
              f'cle:"{FORMULAIRE["cle"]}",destinataire:"{FORMULAIRE["destinataire"]}",'
-             f'objet:"{FORMULAIRE["objet"]}"}};</script>'
+             f'objet:"{FORMULAIRE["objet"]}"}};'
+             f'window.DEVIS_DOCS={json.dumps(docs, ensure_ascii=False)};</script>'
              f'<script src="/assets/devis.js" defer></script>')
     shell(path=p, title="Demander un devis — DGLM Expertises",
           desc=desc_courte("Demande de devis pour un repérage amiante avant travaux, un "

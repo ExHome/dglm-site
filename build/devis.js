@@ -165,6 +165,210 @@
   var etat = document.getElementById("devis-etat");
   var choix = null;
 
+  /* ================= pièces jointes =================
+     Site statique : aucun serveur ne peut recevoir un fichier. On assemble
+     donc le dossier DANS le navigateur, en une seule archive que le client
+     joint à l'e-mail préparé. Rien ne quitte son poste avant son geste. */
+  var pieces = [];                    // [{fichier, id}]
+  var LIMITE_TOTAL = 40 * 1024 * 1024; // au-delà, une messagerie refuse souvent
+  var idPiece = 0;
+
+  var TABLE_CRC = (function () {
+    var t = new Uint32Array(256), c, n, k;
+    for (n = 0; n < 256; n++) {
+      c = n;
+      for (k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      t[n] = c >>> 0;
+    }
+    return t;
+  })();
+
+  function crc32(u8) {
+    var c = 0xFFFFFFFF;
+    for (var i = 0; i < u8.length; i++) c = TABLE_CRC[(c ^ u8[i]) & 0xFF] ^ (c >>> 8);
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  /* Noms translittérés : le dossier s'ouvre lisiblement sur n'importe quel
+     poste, y compris avec les vieux utilitaires d'archive de Windows. */
+  function assainirNom(nom) {
+    var pt = nom.lastIndexOf("."), ext = "", base = nom;
+    if (pt > 0) { ext = nom.slice(pt).toLowerCase(); base = nom.slice(0, pt); }
+    base = base.normalize("NFD").replace(/[̀-ͯ]/g, "")
+      .replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60);
+    ext = ext.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9.]/g, "");
+    return (base || "piece") + ext;
+  }
+
+  function creerZip(fichiers) {
+    var enc = new TextEncoder(), morceaux = [], central = [], offset = 0, d = new Date();
+    var hh = ((d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() / 2)) & 0xFFFF;
+    var jj = (((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate()) & 0xFFFF;
+
+    fichiers.forEach(function (f) {
+      var nom = enc.encode(f.nom), dat = f.donnees, crc = crc32(dat);
+      var lh = new DataView(new ArrayBuffer(30));
+      lh.setUint32(0, 0x04034B50, true); lh.setUint16(4, 20, true);
+      lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+      lh.setUint16(10, hh, true); lh.setUint16(12, jj, true);
+      lh.setUint32(14, crc, true); lh.setUint32(18, dat.length, true);
+      lh.setUint32(22, dat.length, true); lh.setUint16(26, nom.length, true);
+      lh.setUint16(28, 0, true);
+      morceaux.push(new Uint8Array(lh.buffer), nom, dat);
+
+      var ch = new DataView(new ArrayBuffer(46));
+      ch.setUint32(0, 0x02014B50, true); ch.setUint16(4, 20, true);
+      ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true);
+      ch.setUint16(10, 0, true); ch.setUint16(12, hh, true); ch.setUint16(14, jj, true);
+      ch.setUint32(16, crc, true); ch.setUint32(20, dat.length, true);
+      ch.setUint32(24, dat.length, true); ch.setUint16(28, nom.length, true);
+      ch.setUint32(42, offset, true);
+      central.push(new Uint8Array(ch.buffer), nom);
+      offset += 30 + nom.length + dat.length;
+    });
+
+    var tailleCentral = central.reduce(function (n, m) { return n + m.length; }, 0);
+    var fin = new DataView(new ArrayBuffer(22));
+    fin.setUint32(0, 0x06054B50, true);
+    fin.setUint16(8, fichiers.length, true); fin.setUint16(10, fichiers.length, true);
+    fin.setUint32(12, tailleCentral, true); fin.setUint32(16, offset, true);
+    central.push(new Uint8Array(fin.buffer));
+
+    var tout = morceaux.concat(central);
+    var total = tout.reduce(function (n, m) { return n + m.length; }, 0);
+    var out = new Uint8Array(total), p = 0;
+    tout.forEach(function (m) { out.set(m, p); p += m.length; });
+    return out;
+  }
+
+  function poids(o) {
+    if (o < 1024) return o + " o";
+    if (o < 1024 * 1024) return Math.round(o / 1024) + " Ko";
+    return (o / 1024 / 1024).toFixed(1).replace(".", ",") + " Mo";
+  }
+
+  function totalPieces() {
+    return pieces.reduce(function (n, p) { return n + p.fichier.size; }, 0);
+  }
+
+  function ajouter(liste) {
+    Array.prototype.forEach.call(liste, function (f) {
+      var doublon = pieces.some(function (p) {
+        return p.fichier.name === f.name && p.fichier.size === f.size;
+      });
+      if (!doublon) pieces.push({ fichier: f, id: ++idPiece });
+    });
+    rendrePieces();
+  }
+
+  function rendrePieces() {
+    var ul = document.getElementById("pieces-liste");
+    var etatP = document.getElementById("pieces-etat");
+    var actions = document.getElementById("pieces-actions");
+    if (!ul) return;
+    ul.innerHTML = pieces.map(function (p, i) {
+      return '<li><span class="pieces__num">' + (i + 1) + '</span>' +
+        '<span class="pieces__nom">' + p.fichier.name + "</span>" +
+        '<span class="pieces__poids">' + poids(p.fichier.size) + "</span>" +
+        '<button type="button" class="pieces__x" data-id="' + p.id +
+        '" aria-label="Retirer ' + p.fichier.name + '">retirer</button></li>';
+    }).join("");
+    var t = totalPieces();
+    if (!pieces.length) {
+      etatP.textContent = "";
+      actions.hidden = true;
+    } else {
+      etatP.textContent = pieces.length + " document" + (pieces.length > 1 ? "s" : "") +
+        " · " + poids(t) +
+        (t > LIMITE_TOTAL ? " — au-delà de 40 Mo, beaucoup de messageries refusent l'envoi : privilégiez un lien de partage." : "");
+      etatP.className = "pieces__etat" + (t > LIMITE_TOTAL ? " pieces__etat--warn" : "");
+      actions.hidden = false;
+    }
+  }
+
+  function nomDossier() {
+    var soc = (form.elements.societe && form.elements.societe.value) || "";
+    var d = new Date(), p2 = function (n) { return (n < 10 ? "0" : "") + n; };
+    return "DGLM-" + (choix || "devis").toUpperCase() +
+      (soc ? "-" + assainirNom(soc).slice(0, 28) : "") +
+      "-" + d.getFullYear() + p2(d.getMonth() + 1) + p2(d.getDate()) + ".zip";
+  }
+
+  function preparerZip() {
+    var bouton = document.getElementById("pieces-zip");
+    bouton.disabled = true;
+    var libelle = bouton.textContent;
+    bouton.textContent = "Préparation…";
+    var lus = [];
+    var suite = pieces.reduce(function (chaine, p, i) {
+      return chaine.then(function () {
+        return p.fichier.arrayBuffer().then(function (buf) {
+          var p2 = function (n) { return (n < 10 ? "0" : "") + n; };
+          lus.push({ nom: p2(i + 1) + "-" + assainirNom(p.fichier.name),
+                     donnees: new Uint8Array(buf) });
+        });
+      });
+    }, Promise.resolve());
+
+    suite.then(function () {
+      lus.push({ nom: "00-recapitulatif-demande.txt",
+                 donnees: new TextEncoder().encode(texte()) });
+      var zip = creerZip(lus);
+      var url = URL.createObjectURL(new Blob([zip], { type: "application/zip" }));
+      var a = document.createElement("a");
+      a.href = url; a.download = nomDossier();
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      bouton.disabled = false; bouton.textContent = libelle;
+      document.getElementById("pieces-etat").innerHTML =
+        "Dossier <strong>" + nomDossier() + "</strong> enregistré (" +
+        pieces.length + " pièce" + (pieces.length > 1 ? "s" : "") +
+        " + le récapitulatif). Joignez ce fichier unique à l'e-mail ci-dessous.";
+    }).catch(function () {
+      bouton.disabled = false; bouton.textContent = libelle;
+      document.getElementById("pieces-etat").textContent =
+        "La préparation du dossier a échoué. Joignez vos fichiers directement à l'e-mail.";
+    });
+  }
+
+  /* mémo contextuel : les documents utiles à la mission choisie */
+  function rendreMemo(cle) {
+    var memo = document.getElementById("pieces-memo");
+    var liste = document.getElementById("pieces-memo-liste");
+    var docs = (window.DEVIS_DOCS || {})[cle];
+    if (!memo || !liste || !docs || !docs.length) { if (memo) memo.hidden = true; return; }
+    liste.innerHTML = docs.map(function (d) { return "<li>" + d + "</li>"; }).join("");
+    memo.hidden = false;
+  }
+
+  var zoneDepot = document.getElementById("pieces-zone");
+  if (zoneDepot) {
+    document.getElementById("pieces-input").addEventListener("change", function (e) {
+      ajouter(e.target.files); e.target.value = "";
+    });
+    ["dragenter", "dragover"].forEach(function (ev) {
+      zoneDepot.addEventListener(ev, function (e) {
+        e.preventDefault(); zoneDepot.classList.add("pieces__zone--survol");
+      });
+    });
+    ["dragleave", "drop"].forEach(function (ev) {
+      zoneDepot.addEventListener(ev, function (e) {
+        e.preventDefault(); zoneDepot.classList.remove("pieces__zone--survol");
+      });
+    });
+    zoneDepot.addEventListener("drop", function (e) {
+      if (e.dataTransfer && e.dataTransfer.files) ajouter(e.dataTransfer.files);
+    });
+    document.getElementById("pieces-liste").addEventListener("click", function (e) {
+      var b = e.target.closest(".pieces__x");
+      if (!b) return;
+      var id = parseInt(b.dataset.id, 10);
+      pieces = pieces.filter(function (p) { return p.id !== id; });
+      rendrePieces();
+    });
+    document.getElementById("pieces-zip").addEventListener("click", preparerZip);
+  }
+
   function champ(c) {
     var id = "f_" + c.id;
     var req = c.requis ? ' required aria-required="true"' : "";
@@ -207,7 +411,9 @@
       bloc("3 · " + m.nom, m.champs) +
       bloc("4 · Délai et compléments", [DELAI, PORTEE, NOTE]);
     zoneMission.hidden = false;
+    document.getElementById("devis-pieces").hidden = false;
     document.getElementById("devis-envoi").hidden = false;
+    rendreMemo(cle);
     zoneMission.querySelector("input,select,textarea").focus();
     if (RECAP) {
       var ta = zoneMission.querySelector("textarea");
@@ -271,6 +477,12 @@
   function texte() {
     var l = ["DEMANDE DE DEVIS — " + MISSIONS[choix].nom, ""];
     collecter().forEach(function (p) { l.push(p[0] + " : " + p[1]); });
+    if (pieces.length) {
+      l.push("", "PIÈCES JOINTES (" + pieces.length + ", " + poids(totalPieces()) + ") :");
+      pieces.forEach(function (p, i) {
+        l.push("  " + (i + 1) + ". " + p.fichier.name + " (" + poids(p.fichier.size) + ")");
+      });
+    }
     l.push("", "Transmis depuis dglmexpertises.fr le " +
       new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" }));
     return l.join("\n");
@@ -294,6 +506,12 @@
     data.append("subject", CFG.objet + " — " + MISSIONS[choix].nom);
     data.append("from_name", "Site DGLM Expertises");
     data.append("recapitulatif", texte());
+    /* Les pièces partent avec la demande si le relais accepte les fichiers
+       (offre Pro). Sinon le service ignore ces champs et le récapitulatif
+       en garde la liste — le client les envoie alors par retour d'e-mail. */
+    pieces.forEach(function (p, i) {
+      data.append("piece_" + (i + 1), p.fichier, p.fichier.name);
+    });
 
     fetch(CFG.endpoint, { method: "POST", body: data })
       .then(function (r) { return r.json(); })
@@ -320,7 +538,10 @@
     etat.className = "devis__etat devis__etat--warn";
     etat.innerHTML = 'Votre logiciel de messagerie va s\'ouvrir avec la demande ' +
       'pré-remplie. <a href="' + lien + '">Ouvrir maintenant</a> — ou ' +
-      '<button type="button" id="copier" class="lien">copier le récapitulatif</button>.';
+      '<button type="button" id="copier" class="lien">copier le récapitulatif</button>.' +
+      (pieces.length ? '<br><strong>N\'oubliez pas de joindre votre dossier ' +
+        nomDossier() + '</strong> — préparez-le avec le bouton ci-dessus s\'il ' +
+        'n\'est pas encore enregistré.' : '');
     document.getElementById("devis-submit").disabled = false;
     try { window.location.href = lien; } catch (x) {}
     var c = document.getElementById("copier");

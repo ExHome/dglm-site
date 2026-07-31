@@ -26,6 +26,23 @@
     gainMinimum: 35                   // % de gain énergétique exigé
   };
 
+  /* Postes de travaux. Seuls les travaux d'économie d'énergie — et ceux qui
+     leur sont indissociablement liés — entrent dans l'assiette de l'aide ;
+     le reste du programme se finance, mais ne se subventionne pas à ce titre.
+     Piège classique en copropriété : un ravalement seul n'est pas éligible,
+     le même ravalement mené avec une isolation par l'extérieur l'est. */
+  var POSTES = [
+    { cle: "murs", nom: "Isolation des murs (extérieur ou intérieur)", eligible: true },
+    { cle: "toiture", nom: "Isolation de la toiture, des combles ou de la terrasse", eligible: true },
+    { cle: "plancher", nom: "Isolation des planchers bas (sur cave, sur passage)", eligible: true },
+    { cle: "menuiseries", nom: "Menuiseries extérieures (fenêtres, portes sur l'extérieur)", eligible: true },
+    { cle: "chauffage", nom: "Chauffage collectif et eau chaude sanitaire", eligible: true },
+    { cle: "ventilation", nom: "Ventilation", eligible: true },
+    { cle: "induits", nom: "Travaux induits (reprises indissociables des postes ci-dessus)", eligible: true },
+    { cle: "ravalement", nom: "Ravalement seul, sans isolation", eligible: false },
+    { cle: "autres", nom: "Autres postes (ascenseur, électricité, embellissement…)", eligible: false }
+  ];
+
   var EUR = function (n) {
     return Math.round(n).toLocaleString("fr-FR") + " €";
   };
@@ -47,14 +64,40 @@
       BAREME.gainMinimum + " % de gain énergétique (c'est ce que chiffrent le DTG, le PPPT ou l'audit).");
     r.eligible = r.motifs.length === 0;
 
+    /* Ventilation du programme : ce qui ouvre droit à l'aide, et ce qui n'y
+       ouvre pas droit mais reste à financer. */
+    var elig = d.travaux, nonElig = 0, detaille = false;
+    if (d.postes) {
+      var somme = 0;
+      elig = 0;
+      POSTES.forEach(function (p) {
+        var m = d.postes[p.cle] || 0;
+        somme += m;
+        if (p.eligible) elig += m; else nonElig += m;
+      });
+      if (somme > 0) {
+        detaille = true;
+        r.lignes.push(["Programme détaillé par poste",
+          EUR(elig) + " éligibles + " + EUR(nonElig) + " non éligibles", EUR(somme)]);
+        if (d.postes.ravalement > 0) r.avertissements.push(
+          "Ravalement seul : non éligible. Mené avec une isolation par l'extérieur, " +
+          "il bascule dans le poste « isolation des murs » et devient subventionnable — " +
+          "c'est l'arbitrage le plus rentable d'un plan de travaux.");
+        if (nonElig > 0 && !d.postes.ravalement) r.avertissements.push(
+          EUR(nonElig) + " de travaux hors champ énergétique : ils restent intégralement " +
+          "à la charge de la copropriété au titre de cette aide.");
+      } else { elig = d.travaux; }
+    }
+    var travauxTotal = detaille ? elig + nonElig : d.travaux;
+
     /* assiette plafonnée */
     var plafond = BAREME.plafondTravauxParLogement * d.lots;
-    var assiette = Math.min(d.travaux, plafond);
+    var assiette = Math.min(elig, plafond);
     r.lignes.push(["Assiette de travaux retenue",
-      "min(" + EUR(d.travaux) + " ; " + EUR(BAREME.plafondTravauxParLogement) + " × " +
-      d.lots + " logements)", EUR(assiette)]);
-    if (d.travaux > plafond) r.avertissements.push("Travaux au-delà du plafond : " +
-      EUR(d.travaux - plafond) + " restent hors assiette (mais bénéficient de la TVA à 5,5 % s'ils sont éligibles).");
+      "min(" + EUR(elig) + (detaille ? " éligibles" : "") + " ; " +
+      EUR(BAREME.plafondTravauxParLogement) + " × " + d.lots + " logements)", EUR(assiette)]);
+    if (elig > plafond) r.avertissements.push("Travaux éligibles au-delà du plafond : " +
+      EUR(elig - plafond) + " restent hors assiette (mais bénéficient de la TVA à 5,5 % s'ils sont éligibles).");
 
     /* taux */
     var taux = d.gain >= 50 ? BAREME.tauxGain50 : (d.gain >= 35 ? BAREME.tauxGain35 : 0);
@@ -85,7 +128,8 @@
     }
 
     r.total = socle + primes + amoAide;
-    r.resteACharge = d.travaux + d.amo - r.total;
+    r.travauxTotal = travauxTotal;
+    r.resteACharge = travauxTotal + d.amo - r.total;
     r.parLogement = d.lots > 0 ? r.resteACharge / d.lots : 0;
     return r;
   }
@@ -99,7 +143,13 @@
   function sel(id) { return (document.getElementById(id) || {}).value || ""; }
 
   function lire() {
+    var postes = null, dp = document.getElementById("a_postes");
+    if (dp && dp.open) {
+      postes = {};
+      POSTES.forEach(function (p) { postes[p.cle] = val("a_p_" + p.cle); });
+    }
     return {
+      postes: postes,
       lots: Math.round(val("a_lots")),
       rp: Math.round(val("a_rp")),
       travaux: val("a_travaux"),
@@ -114,6 +164,14 @@
   /* ---------- rendu ---------- */
   function rendre() {
     var d = lire();
+    var sommePostes = d.postes ? POSTES.reduce(function (n, p) {
+      return n + (d.postes[p.cle] || 0); }, 0) : 0;
+    /* le détail par poste, dès qu'il est renseigné, fait foi sur le montant global */
+    if (sommePostes > 0) {
+      d.travaux = sommePostes;
+      var champT = document.getElementById("a_travaux");
+      if (champT && document.activeElement !== champT) champT.value = Math.round(sommePostes);
+    }
     if (!(d.lots > 0) || !(d.travaux > 0)) { zone.hidden = true; return; }
     var r = calculer(d);
     var h = "";
@@ -167,6 +225,33 @@
 
   form.addEventListener("input", rendre);
   form.addEventListener("change", rendre);
+
+  /* ---------- bulles d'explication (AMO, revenus modestes…) ----------
+     Un seul dépliant ouvert à la fois ; le clavier et la touche Échap
+     fonctionnent comme à la souris. */
+  function fermerBulles(sauf) {
+    document.querySelectorAll(".info__b[aria-expanded=true]").forEach(function (b) {
+      if (b !== sauf) b.setAttribute("aria-expanded", "false");
+    });
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest(".info__b");
+    if (b) {
+      e.preventDefault();
+      var ouvert = b.getAttribute("aria-expanded") === "true";
+      fermerBulles(b);
+      b.setAttribute("aria-expanded", ouvert ? "false" : "true");
+      return;
+    }
+    if (!e.target.closest(".info__c")) fermerBulles(null);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") fermerBulles(null);
+  });
+  /* le libellé du champ ne doit pas capter le clic destiné à la bulle */
+  document.querySelectorAll(".info").forEach(function (i) {
+    i.addEventListener("click", function (e) { e.stopPropagation(); }, true);
+  });
 
   var bCopie = document.getElementById("aides-copier");
   if (bCopie) bCopie.addEventListener("click", function () {

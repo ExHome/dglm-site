@@ -838,6 +838,73 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 /* l'étiquette or des encarts : assombrie pour rester lisible en petit corps */
 .enclair span{color:#8A6224}
 
+/* devis — pièces jointes : dépôt, liste, mémo des documents utiles */
+.pieces__intro{color:#5B6A62;font-size:.92rem;margin:0 0 1.2rem;max-width:44rem}
+.devis__bloc .pieces{max-width:44rem}
+.pieces__zone{border:1px dashed var(--rule);padding:1.6rem 1.2rem;text-align:center;
+  transition:border-color .18s,background .18s}
+.pieces__zone--survol{border-color:var(--or);background:var(--creme-2)}
+.pieces__zone input[type=file]{position:absolute;width:1px;height:1px;opacity:0;
+  overflow:hidden;clip:rect(0 0 0 0)}
+.pieces__btn{display:inline-block;border:1px solid var(--or);padding:.6rem 1.15rem;
+  cursor:pointer;font-weight:600;font-size:.92rem;color:var(--vert-profond);
+  border-radius:2px;transition:background .18s}
+.pieces__btn:hover{background:var(--creme-2)}
+.pieces__zone input[type=file]:focus-visible + .pieces__aide,
+.pieces__zone:focus-within .pieces__btn{outline:2px solid var(--vert);outline-offset:2px}
+.pieces__aide{font-size:.84rem;color:#5B6A62;margin:.8rem 0 0;line-height:1.5}
+.pieces__liste{list-style:none;margin:1.1rem 0 0;padding:0}
+.pieces__liste li{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;
+  border-bottom:1px solid var(--rule);font-size:.9rem}
+.pieces__num{width:1.5rem;height:1.5rem;flex:0 0 auto;border:1px solid var(--or);
+  display:grid;place-items:center;font-size:.72rem;color:#8A6224}
+.pieces__nom{flex:1;word-break:break-word}
+.pieces__poids{color:#5B6A62;font-size:.82rem;white-space:nowrap}
+.pieces__x{background:0;border:0;cursor:pointer;color:#8A3A2A;font-size:.78rem;
+  text-decoration:underline;padding:.2rem .3rem;font-family:inherit}
+.pieces__etat{font-size:.88rem;color:#5B6A62;margin:.9rem 0 0}
+.pieces__etat--warn{color:#8A3A2A}
+.pieces__memo{margin-top:1.6rem;border-left:2px solid var(--or);padding:.2rem 0 .2rem 1.1rem;
+  max-width:44rem}
+.pieces__memo-titre{font-family:var(--sans);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#8A6224;margin:0 0 .6rem}
+.pieces__memo ul{margin:0;padding-left:1.1rem}
+.pieces__memo li{font-size:.88rem;color:#5B6A62;margin:.3rem 0;line-height:1.45}
+.pieces__memo-lien{margin:.8rem 0 0;font-size:.86rem}
+@media print{.pieces__zone,.pieces__x,#pieces-actions{display:none}}
+
+/* infobulles pédagogiques : un mot compliqué, une explication au clic */
+.info{position:relative;display:inline-block}
+.info__b{background:0;border:1px solid var(--or);color:#8A6224;cursor:pointer;
+  width:1.15rem;height:1.15rem;border-radius:50%;font-size:.68rem;line-height:1;
+  font-family:var(--sans);padding:0;vertical-align:.08em;margin-left:.3rem}
+.info__b:hover,.info__b[aria-expanded=true]{background:var(--or);color:#fff}
+.info__c{display:none;position:absolute;z-index:70;left:0;top:calc(100% + .45rem);
+  width:min(23rem,78vw);background:var(--blanc);border:1px solid var(--rule);
+  border-left:2px solid var(--or);padding:.85rem 1rem;font-size:.86rem;line-height:1.5;
+  color:var(--encre);text-transform:none;letter-spacing:normal;font-weight:400;
+  box-shadow:0 2px 14px rgba(9,63,48,.09)}
+.info__b[aria-expanded=true] + .info__c{display:block}
+.info__c strong{color:var(--vert)}
+@media (max-width:640px){.info__c{position:fixed;left:1rem;right:1rem;width:auto;
+  top:auto;bottom:1rem}}
+
+/* simulateur : détail des postes de travaux */
+.postes{margin:1.6rem 0 0;border-top:1px solid var(--rule);padding-top:1rem}
+.postes summary{cursor:pointer;font-family:var(--sans);font-size:.86rem;font-weight:600;
+  color:var(--vert);list-style:none;padding:.3rem 0}
+.postes summary::-webkit-details-marker{display:none}
+.postes summary::before{content:"+ ";color:var(--or);font-weight:700}
+.postes[open] summary::before{content:"– "}
+.postes__intro{font-size:.88rem;color:#5B6A62;margin:.7rem 0 1.2rem;max-width:44rem;
+  line-height:1.55}
+.postes__groupe{font-family:var(--sans);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#8A6224;margin:1.6rem 0 .5rem;
+  border-bottom:1px solid var(--rule-or);padding-bottom:.4rem}
+.postes__groupe--non{color:#8A3A2A;border-bottom-color:var(--rule)}
+.postes .field{margin-top:.9rem}
+@media (prefers-reduced-motion:no-preference){.postes[open] .field{animation:deplie .2s ease-out}}
+
 /* simulateur d'aides : verdict, tableau de calcul, avertissements */
 .simu-verdict{border-left:3px solid var(--or);padding:.9rem 1.1rem;margin:0 0 1.4rem;
   background:var(--creme-2)}
