@@ -1103,3 +1103,14 @@ dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
    se lisait à 3,36:1 sur 10,88px. */
 .sources h2{color:var(--vert);font-size:.8rem;letter-spacing:.14em}
 .sources li a{color:var(--vert);text-decoration:underline;text-underline-offset:.18em}
+
+/* fiches de certification : une personne, un numéro, ses domaines datés */
+.certif{border-top:1px solid var(--vert);padding:1.6rem 0 .6rem;margin-top:1.8rem}
+.certif h3{margin:0;font-size:1.25rem}
+.certif__role{margin:.2rem 0 0;font-size:.9rem;color:#5B6A62}
+.certif__num{margin:.5rem 0 1.1rem;font-family:var(--mono);font-size:.82rem;
+  letter-spacing:.04em;color:#8A6224}
+.certif .tabsimple{min-width:0}
+.certif .tabsimple td:last-child,.certif .tabsimple th:last-child{
+  white-space:nowrap;text-align:right;color:#5B6A62}
+@media (max-width:560px){.certif .tabsimple td,.certif .tabsimple th{font-size:.86rem}}

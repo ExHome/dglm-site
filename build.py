@@ -81,7 +81,7 @@ def org_schema():
             "Diagnostic PEMD", "DPE collectif de copropriété", "Constat de risque "
             "d'exposition au plomb", "Copropriété", "Rénovation énergétique"],
         "memberOf": {"@type": "Organization",
-                     "name": "FIDI — Fédération Interprofessionnelle du Diagnostic Immobilier"},
+                     "name": "Alliance du Diagnostic Immobilier"},
         "founder": [{"@type": "Person", "name": "Aude de Gentile"},
                     {"@type": "Person", "name": "Thibault Le Moine"}],
         "sameAs": [E["google_avis"], E["diagadvisor"],
@@ -188,6 +188,7 @@ MENU = ('<a class="menu__cta" href="/devis/">Demander un devis →</a>'
         + '<a href="/recherche/">Rechercher dans le site</a>'
         + '<span class="menu__groupe">◆ La maison</span>'
         + '<a href="/equipe/">Notre équipe</a>'
+        + '<a href="/certifications-et-assurances/">Certifications et assurances</a>'
         + '<a href="/conformite/">Certificat de conformité du site</a>'
         + '<a href="/devis/">Demander un devis</a>'
         + '<a href="/particuliers/">Particuliers — vente &amp; location</a>')
@@ -332,6 +333,7 @@ width="47" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 Page à jour au {MAJ} ·
 <a href="/plan-du-site/">Plan du site</a> ·
 <a href="/conformite/">Certificat de conformité</a> ·
+<a href="/certifications-et-assurances/">Certifications et assurances</a> ·
 <a href="/mentions-legales/">Mentions légales</a> ·
 <a href="/particuliers/">{E['site_a_ancre']}</a> ·
 Photos d'architecture : Bétium217, Symac — <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA</a>, via Wikimedia Commons</p>
@@ -1212,9 +1214,14 @@ démolition, diagnostic technique global, plan pluriannuel de travaux.</p>
 <p>Les diagnostics obligatoires de vente et de location (DPE, amiante, plomb, termites,
 gaz, électricité, mesurage) sont réalisés par {E['site_a_nom']}, sous une marque et un
 site distincts : <a href="{E['site_a_url']}">{E['site_a_url']}</a>.</p>
-<h2>Certifications</h2><p>Diagnostiqueurs certifiés par un organisme accrédité COFRAC.
-Attestations d'assurance responsabilité civile professionnelle et de certification
-communiquées sur simple demande.</p>
+<h2>Certifications et assurance</h2><p>Diagnostiqueurs certifiés par LCC Qualixpert,
+organisme accrédité par le COFRAC sous le numéro 4-0094. Responsabilité civile
+professionnelle souscrite auprès de Markel Insurance SE. Numéros de certification,
+domaines et dates de validité :
+<a href="/certifications-et-assurances/">certifications et assurances</a>.</p>
+<h2>Médiation de la consommation</h2><p>Conformément à l'ordonnance n° 2015-1033 du
+20 août 2015, nos clients consommateurs ont accès à un dispositif de médiation de la
+consommation, proposé par l'Alliance du Diagnostic Immobilier dont nous sommes membres.</p>
 <h2>Hébergement</h2><p>À compléter avant mise en ligne.</p>
 <h2>Données personnelles</h2><p>Les informations transmises via le formulaire de contact
 sont utilisées uniquement pour répondre à votre demande et établir un devis. Vous disposez
@@ -1872,9 +1879,9 @@ nous nous déplaçons en assemblée générale.</p></div></section>
 <section class="band band--pale"><div class="wrap prose">
 <h2>Certifications et assurances</h2>
 <p>Nos diagnostiqueurs sont certifiés par un organisme accrédité COFRAC pour chacune des
-compétences qu'ils exercent. Les attestations de certification et l'attestation de
-responsabilité civile professionnelle sont communiquées sur simple demande, et jointes
-à chaque dossier de consultation.</p>
+compétences qu'ils exercent. Plutôt que de les tenir « à disposition », nous publions
+les numéros de certification, les domaines couverts et leurs dates de validité :
+<a href="/certifications-et-assurances/">voir nos certifications et notre assurance</a>.</p>
 <h2>Fédération professionnelle</h2>
 <p>DGLM Expertises est membre de la {E['federation']}.</p>
 <h2>Analyses en laboratoire</h2>
@@ -1884,7 +1891,7 @@ par l'analyse.</p>
 {cta()}"""
     shell(path=p, title="Notre équipe de diagnostiqueurs certifiés — DGLM Expertises",
           desc=desc_courte("Les diagnostiqueurs certifiés de DGLM Expertises à Bordeaux : "
-                           "équipe, certifications COFRAC, membre FIDI. Structure familiale "
+                           "équipe, certifications COFRAC, veille réglementaire. Structure familiale "
                            "créée en 2020."),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail), *personnes))
@@ -2453,6 +2460,154 @@ quand même : on fait avec ce que vous avez.</p>
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail)))
     URLS.append((p, "0.7", "monthly"))
+
+
+# ------------------------------------------------------- certifications et assurances
+# Données relevées sur les certificats et attestations originaux (Dropbox DGLM,
+# juillet 2026). Toute modification doit être faite pièce en main : ce sont des
+# engagements opposables. Les dates sont celles portées sur les certificats.
+CERTIFIES = [
+    {"nom": "Aude de Gentile", "role": "Cofondatrice, diagnostiqueuse certifiée",
+     "num": "C3279",
+     "domaines": [("Amiante", "21/07/2027"),
+                  ("État relatif à la présence de termites (France métropolitaine)", "21/07/2027"),
+                  ("État des installations intérieures de gaz", "21/07/2027"),
+                  ("Constat de risque d'exposition au plomb (CREP)", "02/09/2027"),
+                  ("Diagnostic de performance énergétique", "02/09/2027"),
+                  ("État des installations intérieures d'électricité", "02/09/2027")]},
+    {"nom": "Thibault Le Moine", "role": "Cofondateur, diagnostiqueur certifié",
+     "num": "C3284",
+     "domaines": [("Amiante", "21/07/2027"),
+                  ("État relatif à la présence de termites (France métropolitaine)", "21/07/2027"),
+                  ("État des installations intérieures de gaz", "21/07/2027"),
+                  ("Constat de risque d'exposition au plomb (CREP)", "02/09/2027"),
+                  ("Diagnostic de performance énergétique", "02/09/2027"),
+                  ("État des installations intérieures d'électricité", "02/09/2027")]},
+    {"nom": "Amaury Molinier", "role": "Directeur opérationnel, diagnostiqueur certifié",
+     "num": "C2936",
+     "domaines": [("Amiante <strong>avec mention</strong>", "11/06/2030"),
+                  ("Audit énergétique", "28/12/2028"),
+                  ("Diagnostic de performance énergétique, tous types de bâtiments", "28/12/2028"),
+                  ("État relatif à la présence de termites (France métropolitaine)", "11/06/2030"),
+                  ("Constat de risque d'exposition au plomb (CREP)", "19/07/2030"),
+                  ("État des installations intérieures d'électricité", "19/07/2030"),
+                  ("État des installations intérieures de gaz", "13/12/2029")]},
+]
+
+
+def page_certifications():
+    """Les preuves, nominatives et datées. Un donneur d'ordre doit pouvoir
+    vérifier nos titres sans nous les demander."""
+    p = "/certifications-et-assurances/"
+    trail = [("Accueil", "/"), ("Certifications et assurances", p)]
+
+    fiches = ""
+    for c in CERTIFIES:
+        lignes = "".join(
+            f"<tr><td>{d}</td><td>jusqu'au {fin}</td></tr>" for d, fin in c["domaines"])
+        fiches += f"""<article class="certif">
+<header><h3>{esc(c['nom'])}</h3>
+<p class="certif__role">{esc(c['role'])}</p>
+<p class="certif__num">Certificat n<sup>o</sup> {esc(c['num'])} — LCC Qualixpert</p></header>
+<div class="tabwrap"><table class="tabsimple">
+<thead><tr><th>Domaine de certification</th><th>Validité</th></tr></thead>
+<tbody>{lignes}</tbody></table></div></article>"""
+
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Nos titres, vérifiables</p>
+<h1>Certifications et assurances</h1>
+<p class="lede">Un diagnostic n'a de valeur que si celui qui le signe est certifié pour
+le faire, et assuré pour ce qu'il engage. Voici nos numéros, nos domaines et nos dates —
+sans avoir à les demander.</p>
+<div class="actions"><a class="btn btn--light" href="/equipe/">Qui nous sommes</a>
+<a class="btn btn--light" href="/devis/">Demander un devis</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<p class="eyebrow">Les personnes</p>
+<h2>Trois diagnostiqueurs certifiés</h2>
+<p class="enclair"><span>L'antisèche</span>La certification est <strong>personnelle</strong>,
+jamais celle de l'entreprise : elle s'obtient domaine par domaine, après examen théorique et
+pratique, et se contrôle pendant tout son cycle. Chaque rapport porte le nom et le numéro de
+celui qui l'a signé — vous pouvez donc vérifier, avant comme après.</p>
+{fiches}
+<p class="maj">Portée et validité vérifiables auprès de l'organisme certificateur.
+Une certification peut être suspendue, modifiée ou retirée à tout moment : c'est ce qui
+en fait la valeur.</p>
+</div></section>
+
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">L'organisme</p>
+<h2>Qui nous certifie, et qui le contrôle</h2>
+<p class="narrow">Nos certifications sont délivrées par <strong>LCC Qualixpert</strong>,
+organisme certificateur accrédité par le <strong>COFRAC</strong> — le Comité français
+d'accréditation — sous le numéro d'accréditation <strong>4-0094</strong>, portée
+« certification de personnes ».</p>
+<p class="narrow">Cette chaîne compte : le COFRAC n'évalue pas les diagnostiqueurs, il
+évalue ceux qui les certifient. C'est ce qui empêche une certification de n'être qu'un
+logo acheté. Le référentiel applicable est fixé par arrêté ministériel, et il a été
+resserré en 2024 pour l'amiante, l'électricité, le gaz, le plomb et les termites.</p>
+</div></section>
+
+<section class="band"><div class="wrap">
+<p class="eyebrow">La responsabilité</p>
+<h2>Assurance et veille</h2>
+<div class="grid grid--2" style="margin-top:1.6rem">
+<div class="card"><h3>Responsabilité civile professionnelle</h3>
+<p>Contrat souscrit auprès de <strong>Markel Insurance SE</strong> (succursale française),
+par l'intermédiaire du courtier Klarity Assurance, au titre de l'activité de diagnostiqueur
+immobilier. Garantie de <strong>300 000 € par sinistre</strong> et
+<strong>500 000 € par année d'assurance</strong>. L'attestation en cours est transmise sur
+demande, et jointe d'office à nos dossiers de consultation.</p></div>
+<div class="card"><h3>Veille réglementaire</h3>
+<p>Nous sommes membres de l'<strong>Alliance du Diagnostic Immobilier</strong>, qui diffuse
+à ses adhérents la veille technique, juridique et réglementaire du métier. C'est ce qui
+nous permet d'appliquer un texte le mois où il change, et non l'année suivante.
+<a href="/conformite/">Notre veille est contrôlée chaque matin</a>.</p></div>
+</div>
+<div class="enclair" style="margin-top:1.8rem"><p><strong>Médiation de la consommation.</strong>
+En tant qu'adhérents, nous donnons à nos clients particuliers l'accès à un dispositif de
+médiation de la consommation conforme à l'ordonnance du 20 août 2015. Concrètement : en cas
+de désaccord qui ne se règle pas avec nous, vous disposez d'un recours gratuit avant toute
+action judiciaire.</p></div>
+</div></section>
+
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Ce que ça change</p>
+<h2>Pourquoi nous publions tout cela</h2>
+<p class="narrow">Un rapport de diagnostic engage celui qui le signe, et il engage aussi
+celui qui s'en sert : le syndic qui présente un plan de travaux à son assemblée, le maître
+d'ouvrage qui lance un chantier. Avant de commander, un donneur d'ordre sérieux vérifie
+trois choses — que l'opérateur est certifié <em>dans le domaine concerné</em>, que sa
+certification est <em>en cours de validité</em>, et qu'il est <em>assuré</em> pour cette
+activité.</p>
+<p class="narrow">La plupart des cabinets répondent « sur simple demande ». Nous préférons
+répondre avant la question. Si une pièce vous manque pour votre dossier de consultation,
+elle vous parviendra le jour même.</p>
+<div class="actions" style="margin-top:1.6rem">
+<a class="btn" href="/devis/">Demander un devis</a>
+<a class="btn btn--ghost" href="tel:{E['tel_raw']}">{E['tel']}</a></div>
+</div></section>
+{cta()}"""
+
+    schema = jsonld(org_schema(), breadcrumb(trail),
+                    {"@type": "WebPage", "url": DOM + p,
+                     "name": "Certifications et assurances"},
+                    *[{"@type": "Person", "name": c["nom"], "jobTitle": c["role"],
+                       "worksFor": {"@id": DOM + "#org"},
+                       "hasCredential": {
+                           "@type": "EducationalOccupationalCredential",
+                           "credentialCategory": "certification",
+                           "identifier": c["num"],
+                           "recognizedBy": {"@type": "Organization", "name": "LCC Qualixpert"}}}
+                      for c in CERTIFIES])
+    shell(path=p, title="Certifications et assurances — DGLM Expertises",
+          desc=desc_courte("Nos numéros de certification par diagnostiqueur, les domaines "
+                           "couverts, leurs dates de validité, notre assurance de "
+                           "responsabilité civile et notre veille."),
+          body=body, schema=schema)
+    URLS.append((p, "0.8", "monthly"))
 
 
 # ------------------------------------------------------------------ aides financières
@@ -3035,6 +3190,7 @@ def main():
     page_pack()
     page_aide_devis()
     page_aides()
+    page_certifications()
     page_conformite()
     for d in DIAGS_PRO:
         page_diag_pro(d)

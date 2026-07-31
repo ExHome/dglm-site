@@ -40,7 +40,7 @@ MARQUE = dict(
     siret="89128707000017",
     rcs="891 287 070 R.C.S. Bordeaux",
     depuis="2020",
-    federation="FIDI — Fédération Interprofessionnelle du Diagnostic Immobilier",
+    federation="Alliance du Diagnostic Immobilier",
 
     site_a_url="https://www.dglm-expertises.com/",
     site_a_nom="DGLM Expertises — vente et location",
