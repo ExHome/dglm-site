@@ -1099,3 +1099,7 @@ dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
    d'où un décalage à chaque chargement. */
 .brand img{flex:0 0 auto;width:47px}
 .footer .mark{width:55px;height:52px}
+/* Le titre « Sources » — la preuve la plus visible de notre sérieux —
+   se lisait à 3,36:1 sur 10,88px. */
+.sources h2{color:var(--vert);font-size:.8rem;letter-spacing:.14em}
+.sources li a{color:var(--vert);text-decoration:underline;text-underline-offset:.18em}
