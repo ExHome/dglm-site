@@ -2,7 +2,7 @@
 titre: Maison récente : quels diagnostics restent dus ?
 question: Quels diagnostics faut-il pour un logement construit récemment ?
 meta: Après 1997, plus d'amiante ; après 1949, plus de plomb. Restent le DPE, l'état des risques, et selon les cas termites, gaz, électricité, assainissement.
-publication: 2027-01-20
+publication: 2026-10-12
 tags: vente | location | pédagogie
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/duree-validite-diagnostics/
 sources: Code de la construction et de l'habitation, art. L.271-4~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026

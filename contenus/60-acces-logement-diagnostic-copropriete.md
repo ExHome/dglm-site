@@ -2,7 +2,7 @@
 titre: Diagnostic voté en copropriété : peut-on entrer chez moi ?
 question: Un copropriétaire peut-il refuser l'accès à son logement lors d'un diagnostic voté par l'assemblée ?
 meta: Quand l'assemblée a voté une mission qui exige de passer dans les logements, l'accès est dû — encadré, planifié, et jamais forcé. Ce que dit la loi de 1965.
-publication: 2027-01-27
+publication: 2026-10-14
 tags: copropriété | assemblée générale | pédagogie
 liens: /dossier-technique-amiante/ | /questions/diagnostiqueur-toutes-les-pieces/
 sources: Loi n°65-557 du 10 juillet 1965, article 9~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026

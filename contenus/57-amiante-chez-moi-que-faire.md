@@ -2,7 +2,7 @@
 titre: On a trouvé de l'amiante chez moi : que faire ?
 question: Que faire quand un diagnostic révèle de l'amiante dans son logement ?
 meta: D'abord : pas de panique. Un matériau amianté en bon état ne libère rien. Ce qui compte : l'état, l'usage de la pièce, et ne jamais y toucher soi-même.
-publication: 2027-01-13
+publication: 2026-10-09
 tags: amiante | pédagogie | santé
 liens: /questions/listes-a-b-c-amiante/ | /reperage-amiante-avant-travaux/
 sources: Code de la santé publique, art. R.1334-27 à R.1334-29~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026

@@ -2,7 +2,7 @@
 titre: Peut-on contester le résultat d'un diagnostic ?
 question: Quels recours existe-t-il quand on conteste un diagnostic immobilier ?
 meta: Oui : relecture contradictoire, contre-diagnostic, mise en cause de l'assurance du diagnostiqueur. Les étapes d'un recours, dans l'ordre utile.
-publication: 2027-01-06
+publication: 2026-10-07
 tags: pédagogie | vente | location
 liens: /questions/qui-realise-reperage-amiante-travaux/ | /equipe/
 sources: Code de la construction et de l'habitation, art. L.271-6 (compétences et assurance du diagnostiqueur)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026

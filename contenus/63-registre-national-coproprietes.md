@@ -2,7 +2,7 @@
 titre: Le registre national des copropriétés, c'est quoi ?
 question: Qu'est-ce que l'immatriculation d'une copropriété et à quoi sert le registre national ?
 meta: Toute copropriété d'habitation doit être immatriculée au registre national. Qui s'en charge, ce qu'on y déclare, et ce qu'on risque à l'oublier.
-publication: 2027-02-17
+publication: 2026-10-21
 tags: copropriété | définitions | pédagogie
 liens: /questions/carnet-entretien-copropriete/ | /questions/quest-ce-quun-lot-copropriete/
 sources: Code de la construction et de l'habitation, art. L.711-1 et suivants~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026

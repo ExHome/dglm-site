@@ -2,7 +2,7 @@
 titre: Qu'est-ce que la fiche récapitulative du DTA ?
 question: À quoi sert la fiche récapitulative du DTA et qui doit la recevoir ?
 meta: La fiche récapitulative résume le DTA : matériaux repérés, état, préconisations. Tenue à disposition des occupants, remise aux entreprises qui interviennent.
-publication: 2026-09-30
+publication: 2026-09-04
 tags: DTA | amiante | copropriété
 liens: /dossier-technique-amiante/ | /reperage-amiante-avant-travaux/
 sources: Code de la santé publique, art. R.1334-29-5 (dossier technique amiante)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026

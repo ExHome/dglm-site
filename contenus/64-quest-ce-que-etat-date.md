@@ -2,7 +2,7 @@
 titre: Qu'est-ce que l'état daté ?
 question: Qu'est-ce que l'état daté demandé lors de la vente d'un lot de copropriété ?
 meta: L'état daté est la photographie comptable du lot au jour de la vente : ce que le vendeur doit, ce que l'acheteur devra. Qui l'établit, ce qu'il contient.
-publication: 2027-02-24
+publication: 2026-10-23
 tags: copropriété | vente | définitions
 liens: /questions/acheter-copropriete-lire-pv/ | /questions/quest-ce-quun-lot-copropriete/
 sources: Décret n°67-223 du 17 mars 1967, article 5~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006061423/~30/07/2026

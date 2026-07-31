@@ -2,7 +2,7 @@
 titre: Qu'est-ce que l'état des nuisances sonores aériennes ?
 question: Quand faut-il fournir un état des nuisances sonores aériennes (ENSA) ?
 meta: L'ENSA informe l'acquéreur ou le locataire qu'un bien se trouve dans une zone de bruit d'aéroport. Qui est concerné, ce que contient le document.
-publication: 2026-11-18
+publication: 2026-09-21
 tags: vente | location | ERP
 liens: /questions/qu-est-ce-que-etat-des-risques-erp/ | /questions/diagnostics-obligatoires-vente/
 sources: Code de l'urbanisme, art. L.112-6 et suivants (plans d'exposition au bruit)

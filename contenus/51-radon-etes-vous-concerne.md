@@ -2,7 +2,7 @@
 titre: Radon : votre secteur est-il concerné ?
 question: Dans quels cas le radon doit-il figurer dans l'information de l'acquéreur ou du locataire ?
 meta: Le radon, gaz radioactif naturel, est cartographié en trois zones. En zone 3, l'information figure dans l'état des risques. Comment vérifier votre situation.
-publication: 2026-12-02
+publication: 2026-09-25
 tags: erp | santé | vente | location
 liens: /questions/qu-est-ce-que-etat-des-risques-erp/ | /questions/glossaire-diagnostic-immobilier/
 sources: Code de la santé publique, art. R.1333-29 (cartographie du potentiel radon)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026

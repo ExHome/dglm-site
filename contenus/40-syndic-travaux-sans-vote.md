@@ -2,7 +2,7 @@
 titre: Le syndic peut-il faire des travaux sans vote ?
 question: Un syndic peut-il faire réaliser des travaux sans l'accord de l'assemblée générale ?
 meta: Oui, dans un seul cas : les travaux urgents nécessaires à la sauvegarde de l'immeuble. Ce que recouvre l'urgence, et ce que le syndic doit faire ensuite.
-publication: 2026-09-16
+publication: 2026-08-31
 tags: syndic | assemblée générale | copropriété
 liens: /diagnostic-technique-global/ | /questions/majorites-vote-travaux-assemblee/
 sources: Décret n°67-223 du 17 mars 1967, article 37 (travaux urgents)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006061423~30/07/2026

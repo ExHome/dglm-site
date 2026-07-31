@@ -2,7 +2,7 @@
 titre: Tantièmes et millièmes : comment ça marche ?
 question: À quoi servent les tantièmes dans une copropriété ?
 meta: Les tantièmes mesurent la quote-part de chaque lot dans les parties communes. Ils fixent les charges, le poids des votes — et la répartition du coût des diagnostics.
-publication: 2026-11-11
+publication: 2026-09-18
 tags: copropriété | définitions | assemblée générale
 liens: /questions/quest-ce-quun-lot-copropriete/ | /questions/majorites-vote-travaux-assemblee/
 sources: Loi n°65-557 du 10 juillet 1965, articles 5 et 10~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026

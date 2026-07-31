@@ -58,7 +58,8 @@
               "août", "septembre", "octobre", "novembre", "décembre"];
 
   function dateFr(d) {
-    return d.getDate() + " " + MOIS[d.getMonth()] + " " + d.getFullYear();
+    var j = d.getDate();
+    return (j === 1 ? "1er" : j) + " " + MOIS[d.getMonth()] + " " + d.getFullYear();
   }
 
   function ajouterMois(d, n) {

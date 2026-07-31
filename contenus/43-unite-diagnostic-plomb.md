@@ -2,7 +2,7 @@
 titre: Plomb : qu'est-ce qu'une « unité de diagnostic » ?
 question: Que signifie unité de diagnostic dans un constat de risque d'exposition au plomb ?
 meta: L'unité de diagnostic est l'élément de construction homogène que l'on mesure d'un seul tenant : un mur, une plinthe, un volet. La logique du CREP, expliquée.
-publication: 2026-10-07
+publication: 2026-09-07
 tags: plomb | CREP | pédagogie
 liens: /crep-parties-communes/ | /questions/glossaire-diagnostic-immobilier/
 sources: Code de la santé publique, art. L.1334-8 (constat de risque d'exposition au plomb)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026

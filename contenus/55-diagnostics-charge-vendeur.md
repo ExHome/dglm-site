@@ -2,7 +2,7 @@
 titre: Les diagnostics sont-ils à la charge du vendeur ?
 question: Qui paie les diagnostics immobiliers, le vendeur ou l'acquéreur ?
 meta: En principe, celui qui doit fournir le dossier paie : le vendeur pour une cession, le bailleur pour un bail. Ce que dit la règle, et ses nuances.
-publication: 2026-12-30
+publication: 2026-10-05
 tags: vente | location | pédagogie
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/duree-validite-diagnostics/
 sources: Code de la construction et de l'habitation, art. L.271-4 (dossier de diagnostic technique)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026

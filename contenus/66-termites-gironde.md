@@ -3,7 +3,7 @@ titre: Termites : pourquoi toute la Gironde est concernée
 question: Pourquoi le département entier est-il classé en zone termites, et qu'est-ce que ce classement change concrètement pour un propriétaire ou une copropriété ?
 meta: Toute la Gironde est classée zone termites par arrêté préfectoral : ce que ce classement change pour les propriétaires et copropriétés.
 antiseche: La Gironde est classée dans sa totalité en zone contaminée par les termites, par arrêté préfectoral : le risque est reconnu sur l'ensemble du territoire, ville comprise. Ce classement conditionne deux obligations, l'état relatif à la présence de termites lors d'une vente et le traitement particulier des bois en cas de démolition, et il ouvre au maire la faculté d'enjoindre aux propriétaires de rechercher les termites. La déclaration en mairie d'une infestation constatée, elle, s'impose partout en France.
-publication: 2026-08-04
+publication: 2026-08-03
 tags: risques | pédagogie | copropriété
 liens: /questions/diagnostic-termites-obligatoire/ | /questions/majorites-vote-travaux-assemblee/ | /etat-parasitaire-avant-travaux/
 sources: Code de la construction et de l'habitation~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026 | Loi du 10 juillet 1965 (copropriété)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026

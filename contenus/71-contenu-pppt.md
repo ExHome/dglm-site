@@ -3,7 +3,7 @@ titre: Que doit contenir un plan pluriannuel de travaux ?
 question: Quels éléments doit-on retrouver dans un projet de plan pluriannuel de travaux, et comment juger la qualité du document présenté en assemblée ?
 meta: Liste des travaux sur dix ans, hiérarchisation, chiffrage poste par poste, échéancier : ce que doit contenir un plan pluriannuel sérieux.
 antiseche: Un plan pluriannuel doit énumérer les travaux utiles sur les dix prochaines années, les hiérarchiser par priorité, en estimer le coût et proposer un échéancier, le tout à partir d'une analyse réelle du bâti. Un document qui liste sans hiérarchiser ni chiffrer existe sur le papier, mais ne sert à rien le jour où il faut décider.
-publication: 2026-09-08
+publication: 2026-08-26
 tags: PPPT | copropriété | assemblée générale
 liens: /questions/dtg-ou-pppt/ | /questions/fonds-de-travaux/ | /questions/validite-pppt/
 sources: Loi n°65-557 du 10 juillet 1965, article 14-2 (projet de plan pluriannuel de travaux)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~31/07/2026 | Loi n°2021-1104 du 22 août 2021 portant lutte contre le dérèglement climatique~https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043956924~31/07/2026

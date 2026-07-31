@@ -3,7 +3,7 @@ titre: Un repérage amiante avant travaux expire-t-il ?
 question: Mon repérage amiante avant travaux date de deux ans : reste-t-il valable pour le chantier que je lance aujourd'hui ?
 meta: Le repérage amiante avant travaux ne se périme pas au calendrier : sa validité dépend du périmètre et de la nature des travaux prévus.
 antiseche: Un repérage amiante avant travaux n'a pas de durée de validité exprimée en années. Il vaut pour un périmètre et pour une nature d'opération précis : dès que le projet change, le rapport existant ne le couvre plus, même s'il a été établi la semaine dernière.
-publication: 2026-08-18
+publication: 2026-08-12
 tags: amiante | chantier | pédagogie
 liens: /questions/raat-ou-raad/ | /questions/duree-validite-diagnostics/ | /questions/dta-ancien-encore-valable/
 sources: Code du travail, art. R.4412-97~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~31/07/2026 | Code de la santé publique, art. R.1334-29-5~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~31/07/2026

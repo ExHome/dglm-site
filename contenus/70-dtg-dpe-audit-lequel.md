@@ -3,7 +3,7 @@ titre: DTG, DPE collectif, audit : lequel vous concerne ?
 question: DTG, DPE collectif ou audit énergétique : quelle étude ma copropriété doit-elle faire réaliser, et dans quel ordre ?
 meta: Le DTG regarde tout le bâti, le DPE collectif donne une étiquette, un audit chiffre des scénarios. Comment trier entre les trois études.
 antiseche: Le DTG examine l'immeuble entier et débouche sur une liste de travaux chiffrée sommairement ; le DPE collectif attribue une étiquette énergie et climat au bâtiment ; l'audit énergétique construit des scénarios de travaux chiffrés. Le DPE collectif est aujourd'hui obligatoire pour les immeubles d'habitation concernés, le DTG ne l'est que dans des cas précis, et l'audit devient incontournable dès qu'une rénovation aidée est envisagée.
-publication: 2026-09-01
+publication: 2026-08-21
 tags: copropriété | énergie | pédagogie
 liens: /diagnostic-technique-global/ | /dpe-collectif-copropriete/ | /audit-energetique-copropriete/ | /questions/dtg-ou-pppt/
 sources: Code de la construction et de l'habitation, articles L.731-1 et suivants (diagnostic technique global)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~31/07/2026 | Code de la construction et de l'habitation, article L.126-31 (diagnostic de performance énergétique collectif)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~31/07/2026 | Loi n°65-557 du 10 juillet 1965, article 14-2 (projet de plan pluriannuel de travaux)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~31/07/2026 | Loi n°2021-1104 du 22 août 2021 portant lutte contre le dérèglement climatique~https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043956924~31/07/2026

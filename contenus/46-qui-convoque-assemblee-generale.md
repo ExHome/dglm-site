@@ -2,7 +2,7 @@
 titre: Qui convoque l'assemblée générale de copropriété ?
 question: Qui a le pouvoir de convoquer une assemblée générale en copropriété ?
 meta: Le syndic convoque l'assemblée générale. À défaut, le conseil syndical puis les copropriétaires peuvent l'y contraindre. Les règles et les délais, en clair.
-publication: 2026-10-28
+publication: 2026-09-14
 tags: assemblée générale | syndic | copropriété
 liens: /questions/majorites-vote-travaux-assemblee/ | /plan-pluriannuel-de-travaux/
 sources: Décret n°67-223 du 17 mars 1967, articles 7 à 9 (convocation de l'assemblée)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006061423~30/07/2026

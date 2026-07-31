@@ -2,7 +2,7 @@
 titre: Qu'est-ce qu'un lot de copropriété ?
 question: Que recouvre exactement la notion de lot en copropriété ?
 meta: Un lot = une partie privative + une quote-part des parties communes, indissociables. Pourquoi cette définition commande charges, votes et diagnostics.
-publication: 2026-11-04
+publication: 2026-09-16
 tags: copropriété | définitions | pédagogie
 liens: /questions/parties-communes-privatives/ | /questions/glossaire-diagnostic-immobilier/
 sources: Loi n°65-557 du 10 juillet 1965, article 1er~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026

@@ -2,7 +2,7 @@
 titre: Parties communes ou privatives : où est la frontière ?
 question: Quelle est la différence entre parties communes et parties privatives en copropriété ?
 meta: Les parties privatives sont à l'usage exclusif d'un copropriétaire, les communes à l'usage de tous. Cette frontière décide de qui commande quel diagnostic.
-publication: 2026-09-23
+publication: 2026-09-02
 tags: copropriété | pédagogie | définitions
 liens: /dossier-technique-amiante/ | /amiante-parties-privatives/
 sources: Loi n°65-557 du 10 juillet 1965, articles 2 et 3~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026

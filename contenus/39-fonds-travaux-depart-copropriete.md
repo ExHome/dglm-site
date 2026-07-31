@@ -2,7 +2,7 @@
 titre: Le fonds de travaux est-il remboursé au départ ?
 question: Le fonds de travaux est-il remboursé au copropriétaire qui vend son lot ?
 meta: Non : les sommes versées au fonds de travaux restent attachées au lot et ne sont pas remboursées au départ. Pourquoi, et comment en tenir compte.
-publication: 2026-09-09
+publication: 2026-08-28
 tags: fonds de travaux | copropriété | syndic
 liens: /questions/fonds-de-travaux/ | /plan-pluriannuel-de-travaux/
 sources: Loi n°65-557 du 10 juillet 1965, article 14-2-1 (fonds de travaux)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026

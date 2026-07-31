@@ -3,7 +3,7 @@ titre: Chantier lancé sans repérage amiante : que risque-t-on ?
 question: Quelles sont les conséquences réelles, juridiques et financières, lorsqu'un chantier démarre sans que le repérage amiante avant travaux ait été réalisé ?
 meta: Sans repérage amiante préalable, le chantier peut être arrêté, la responsabilité pénale engagée et la garantie assurance refusée.
 antiseche: L'obligation de faire rechercher l'amiante avant travaux pèse sur le donneur d'ordre, c'est-à-dire celui qui commande le chantier, et non sur l'entreprise qui l'exécute. Partir sans repérage expose à un arrêt de chantier par l'inspection du travail, à une responsabilité pénale et civile, et à un surcoût sans rapport avec celui du repérage lui-même.
-publication: 2026-08-25
+publication: 2026-08-17
 tags: amiante | chantier | risques
 liens: /questions/decouverte-amiante-en-chantier/ | /questions/qui-realise-reperage-amiante-travaux/ | /questions/amiante-sous-section-3-et-4/
 sources: Code du travail, art. R.4412-97 et suivants~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~31/07/2026 | Code de la santé publique, dossier technique amiante~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~31/07/2026

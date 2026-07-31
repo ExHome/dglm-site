@@ -2,7 +2,7 @@
 titre: Amiante dégradé dans le rapport : que faire ?
 question: Quelles suites donner à un repérage amiante concluant à des matériaux dégradés ?
 meta: Un matériau amianté dégradé appelle une action graduée : surveillance, mesures d'empoussièrement, confinement ou retrait. Comment lire les préconisations.
-publication: 2026-10-21
+publication: 2026-09-11
 tags: amiante | DTA | copropriété
 liens: /dossier-technique-amiante/ | /reperage-amiante-avant-travaux/
 sources: Code de la santé publique, art. R.1334-27 à R.1334-29 (matériaux des listes A et B)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~30/07/2026

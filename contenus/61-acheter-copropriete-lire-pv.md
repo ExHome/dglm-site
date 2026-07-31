@@ -2,7 +2,7 @@
 titre: Acheter en copropriété : que lire dans les PV d'assemblée ?
 question: Comment lire les procès-verbaux d'assemblée générale avant d'acheter un lot ?
 meta: Les trois derniers PV racontent la santé réelle de l'immeuble : travaux votés ou repoussés, impayés, procédures, fonds de travaux. La grille de lecture.
-publication: 2027-02-03
+publication: 2026-10-16
 tags: copropriété | pédagogie | vente
 liens: /questions/voter-pppt-assemblee/ | /questions/fonds-de-travaux/
 sources: Loi n°65-557 du 10 juillet 1965~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026

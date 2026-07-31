@@ -2,7 +2,7 @@
 titre: PEMD : à quoi sert le formulaire de récolement ?
 question: Qu'est-ce que le formulaire de récolement après un diagnostic PEMD ?
 meta: Le récolement compare ce que le diagnostic PEMD annonçait et ce qui est réellement sorti du chantier : natures, quantités, filières. Qui le remplit, et quand.
-publication: 2026-10-14
+publication: 2026-09-09
 tags: PEMD | déchets | pédagogie
 liens: /diagnostic-pemd/ | /reperage-amiante-avant-demolition/
 sources: Code de la construction et de l'habitation, art. L.126-34 et R.126-8 (diagnostic PEMD)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006074096/~30/07/2026

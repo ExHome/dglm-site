@@ -2,7 +2,7 @@
 titre: Pourquoi va-t-on dans les combles et les caves ?
 question: Pourquoi le diagnostiqueur inspecte-t-il les combles, les caves et les gaines ?
 meta: Parce que c'est là que tout se cache : flocages, calorifugeages, charpentes attaquées, humidité. Ce qu'on cherche vraiment dans les recoins d'un bâtiment.
-publication: 2026-12-23
+publication: 2026-10-02
 tags: pédagogie | amiante | copropriété
 liens: /reperage-amiante-avant-travaux/ | /etat-parasitaire-avant-travaux/
 sources: Normes et arrêtés de méthode applicables à chaque diagnostic

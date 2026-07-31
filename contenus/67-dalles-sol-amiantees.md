@@ -3,7 +3,7 @@ titre: Dalles de sol amiantées : comment les reconnaître ?
 question: Comment reconnaître des dalles de sol amiantées, et que faire quand on en a ?
 meta: Dalles vinyle-amiante et colle noire : à quoi elles ressemblent, où on les trouve, et pourquoi seule une analyse tranche vraiment.
 antiseche: Les dalles carrées de 30 centimètres posées avant 1997, et surtout la colle noire qui les fixe, comptent parmi les matériaux amiantés les plus fréquents des logements et des parties communes. Aucun examen visuel ne permet de conclure : seule l'analyse d'un prélèvement en laboratoire dit s'il y a de l'amiante ou non.
-publication: 2026-08-11
+publication: 2026-08-07
 tags: amiante | pédagogie
 liens: /questions/listes-a-b-c-amiante/ | /questions/raat-ou-raad/ | /questions/decouverte-amiante-en-chantier/
 sources: Code de la santé publique, annexe 13-9 (listes A, B et C)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072665/~31/07/2026 | Code du travail, art. R.4412-97 (repérage avant travaux)~https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006072050/~31/07/2026 | Loi du 10 juillet 1965 (décisions sur les parties communes)~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~31/07/2026

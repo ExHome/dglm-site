@@ -2,7 +2,7 @@
 titre: Qu'est-ce qu'un logement décent en location ?
 question: Quels sont les critères d'un logement décent pour la location ?
 meta: Un logement décent respecte des critères de surface, de sécurité, de confort et, depuis 2023, de performance énergétique. Ce que le bailleur doit garantir.
-publication: 2026-08-19
+publication: 2026-08-14
 tags: décence | location | bailleur
 liens: /questions/qu-est-ce-qu-une-passoire-thermique/ | /questions/diagnostics-obligatoires-location/
 sources: Loi n°89-462 du 6 juillet 1989, article 6 | Décret n°2002-120 du 30 janvier 2002 relatif au logement décent | Service Public — Logement à louer décent (F2042)~https://www.service-public.gouv.fr/particuliers/vosdroits/F2042~30/07/2026

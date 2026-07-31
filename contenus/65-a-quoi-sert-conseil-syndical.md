@@ -2,7 +2,7 @@
 titre: À quoi sert le conseil syndical ?
 question: Quel est le rôle du conseil syndical dans une copropriété ?
 meta: Élu parmi les copropriétaires, le conseil syndical assiste le syndic et contrôle sa gestion. Son vrai pouvoir, ses limites, et pourquoi s'y engager.
-publication: 2027-03-03
+publication: 2026-10-26
 tags: copropriété | assemblée générale | pédagogie
 liens: /questions/qui-convoque-assemblee-generale/ | /questions/majorites-vote-travaux-assemblee/
 sources: Loi n°65-557 du 10 juillet 1965, article 21~https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068256/~30/07/2026

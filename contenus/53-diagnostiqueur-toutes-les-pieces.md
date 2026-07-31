@@ -2,7 +2,7 @@
 titre: Le diagnostiqueur doit-il visiter toutes les pièces ?
 question: Le diagnostiqueur est-il obligé de passer dans toutes les pièces du logement ?
 meta: Oui : le repérage porte sur tout ce qui est visible et accessible. Une pièce fermée ou un meuble inamovible se retrouvent en réserve dans le rapport.
-publication: 2026-12-16
+publication: 2026-09-30
 tags: pédagogie | vente | location
 liens: /questions/diagnostics-obligatoires-vente/ | /questions/glossaire-diagnostic-immobilier/
 sources: Normes et arrêtés de méthode applicables à chaque diagnostic
