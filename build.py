@@ -190,6 +190,21 @@ def og_pour(path):
 
 def shell(*, path, title, desc, body, schema="", robots="index,follow", head_extra=""):
     canon = DOM + path
+    # Barre de recherche du bandeau : on tape sa question directement.
+    # Absente de la page /recherche/ elle-même, qui a déjà son champ.
+    sur_recherche = path == "/recherche/"
+    navq = "" if sur_recherche else (
+        '<form class="navq" role="search" action="/recherche/">'
+        '<label class="navq__l" for="navq">'
+        '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="16" height="16">'
+        '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">'
+        '<circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></g></svg>'
+        '<span class="sr">Rechercher sur le site</span></label>'
+        '<input id="navq" name="q" type="search" autocomplete="off" role="combobox"'
+        ' aria-expanded="false" aria-controls="navq-sug" aria-autocomplete="list"'
+        ' placeholder="Votre question ou un mot-clé…">'
+        '<div id="navq-sug" class="navsug" role="listbox" hidden></div></form>')
+    script_navq = "" if sur_recherche else '<script src="/assets/recherche.js" defer></script>'
     head = f"""<!doctype html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
@@ -261,11 +276,7 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>
 <a href="/aide-au-devis/">Aide au devis : les documents</a>
 <a href="/recherche/">Rechercher dans le site</a></div></div>
-<a class="nav__loupe" href="/recherche/" title="Rechercher dans le site">
-<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="17" height="17">
-<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-<circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></g></svg>
-<span>Rechercher</span></a>
+{navq}
 <a class="btn" href="/devis/">Demander un devis</a></nav>
 <details class="menu"><summary aria-label="Ouvrir le menu">Menu</summary>
 <nav class="menu__list" aria-label="Menu complet">{MENU}</nav></details></div></header>
@@ -308,7 +319,7 @@ Page à jour au {MAJ} ·
 <a href="/mentions-legales/">Mentions légales</a> ·
 <a href="/particuliers/">{E['site_a_ancre']}</a> ·
 Photos d'architecture : Bétium217, Symac — <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA</a>, via Wikimedia Commons</p>
-</div></footer></body></html>"""
+</div></footer>{script_navq}</body></html>"""
     write(path, head + body + foot)
 
 
@@ -1625,8 +1636,13 @@ indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques<
 <div id="rep" style="margin-top:2rem"></div>
 <div class="grid grid--2" id="res" style="margin-top:2rem"></div>
 </div></section>"""
-    js = ("<script>const IDX=" + json.dumps(idx, ensure_ascii=False) + ";"
-          "const DEFS=" + json.dumps(defs, ensure_ascii=False) + ";"
+    # L'index est écrit une seule fois dans /assets/recherche.json : la barre
+    # du bandeau et cette page le partagent, au lieu de l'embarquer deux fois.
+    os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
+    open(os.path.join(OUT, "assets", "recherche.json"), "w", encoding="utf-8").write(
+        json.dumps({"idx": idx, "defs": defs}, ensure_ascii=False, separators=(",", ":")))
+
+    js = ("<script>let IDX=[],DEFS={};"
           "const MAIL='" + E["email"] + "';"
           "const inp=document.getElementById('q'),out=document.getElementById('res'),rep=document.getElementById('rep');"
           "function norm(s){return s.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase()}"
@@ -1659,7 +1675,12 @@ indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques<
           "return '<a class=\"card card--link'+(e.i?' card--photo':'')+'\" href=\"'+e.u+'\">'+v+'<h3>'+e.t+'</h3><p>'+e.d+'</p><span class=\"more\">'+(e.i?'Voir la photo →':'Ouvrir →')+'</span></a>'}).join('')"
           "||('<div><p>Nous n\\'avons pas encore de guide qui réponde à cette question — elle mérite peut-être le sien, et nous l\\'écrirons.</p>'+lienQ()+'</div>')}"
           "inp.addEventListener('input',go);"
-          "const p0=new URLSearchParams(location.search).get('q');if(p0){inp.value=p0;go()}"
+          "const p0=new URLSearchParams(location.search).get('q');if(p0)inp.value=p0;"
+          "out.innerHTML='<p class=\"maj\">Chargement de l\\'index…</p>';"
+          "fetch('/assets/recherche.json').then(r=>r.json()).then(d=>{IDX=d.idx;DEFS=d.defs;"
+          "out.innerHTML='';if(inp.value)go();inp.focus()})"
+          ".catch(()=>{out.innerHTML='<p>La recherche n\\'a pas pu se charger. "
+          "Le <a href=\"/plan-du-site/\">plan du site</a> liste toutes les pages.</p>'});"
           "</script>")
     shell(path=p, title="Rechercher — DGLM Expertises",
           desc="Recherche instantanée dans les missions, guides pratiques, communes et "
@@ -2933,7 +2954,7 @@ def main():
     os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
     src = os.path.join(os.path.dirname(OUT), "build")
     shutil.copy(os.path.join(src, "style.css"), os.path.join(OUT, "assets", "style.css"))
-    for js in ("simulateur.js", "devis.js", "aides.js"):
+    for js in ("simulateur.js", "devis.js", "aides.js", "recherche.js"):
         if os.path.exists(os.path.join(src, js)):
             shutil.copy(os.path.join(src, js), os.path.join(OUT, "assets", js))
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),

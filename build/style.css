@@ -127,16 +127,42 @@ p:last-child{margin-bottom:0}
   .nav__grp:hover .nav__menu,.nav__grp:focus-within .nav__menu{animation:deplie .16s ease-out}}
 @media (hover:none){.nav__menu{display:none!important}}
 
-/* la loupe reste visible partout, y compris sur mobile */
-.nav__loupe{display:inline-flex;align-items:center;gap:.45rem;
-  border:1px solid var(--rule-or);padding:.42rem .85rem;border-radius:2px}
-.nav__loupe:hover{border-color:var(--or);color:var(--or-clair)}
-.nav__loupe svg{flex:0 0 auto}
+/* barre de recherche du bandeau : on tape sa question directement */
+.navq{position:relative;display:flex;align-items:center;gap:.5rem;
+  border:1px solid var(--rule-or);border-radius:2px;padding:.34rem .7rem;
+  transition:border-color .18s;min-width:14rem}
+.navq:focus-within{border-color:var(--or)}
+.navq__l{display:flex;align-items:center;color:var(--or-clair);cursor:pointer}
+.navq input{background:0;border:0;color:var(--creme);font:inherit;font-size:.86rem;
+  padding:.16rem 0;width:100%;min-width:0}
+.navq input::placeholder{color:rgba(250,248,243,.55)}
+.navq input:focus{outline:0}
+.navq input::-webkit-search-cancel-button{filter:invert(1);opacity:.5}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+  white-space:nowrap}
 
-@media (max-width:980px){.nav a:not(.btn):not(.nav__loupe){display:none}
-  .nav__grp{display:none}.brand span{display:none}}
-@media (max-width:520px){.nav__loupe span{display:none}
-  .nav__loupe{padding:.42rem .6rem}}
+.navsug{position:absolute;top:calc(100% + .5rem);right:0;z-index:80;
+  width:min(30rem,88vw);background:var(--blanc);border:1px solid var(--rule);
+  border-top:2px solid var(--or);box-shadow:0 6px 28px rgba(9,63,48,.16);
+  max-height:min(28rem,70vh);overflow-y:auto}
+.navsug__item{display:flex;gap:.8rem;align-items:flex-start;padding:.7rem .95rem;
+  border-bottom:1px solid var(--rule);text-decoration:none;color:var(--encre)}
+.navsug__item:hover,.navsug__item:focus-visible{background:var(--creme-2);outline:0}
+.navsug__item b{display:block;font-family:var(--display);font-size:.94rem;
+  font-weight:600;color:var(--vert);line-height:1.3}
+.navsug__item i{display:block;font-style:normal;font-size:.8rem;color:#5B6A62;
+  margin-top:.2rem;line-height:1.4}
+.navsug__item img{width:3.4rem;height:2.6rem;object-fit:cover;flex:0 0 auto}
+.navsug__tous{display:block;padding:.75rem .95rem;font-size:.85rem;font-weight:600;
+  color:var(--vert);text-decoration:none;background:var(--creme-2)}
+.navsug__tous:hover{color:#8A6224}
+.navsug__vide{margin:0;padding:.95rem;font-size:.87rem;color:#5B6A62;line-height:1.5}
+
+@media (max-width:980px){.nav a:not(.btn){display:none}
+  .nav__grp{display:none}.brand span{display:none}
+  .navq{min-width:0;flex:1 1 8rem;max-width:16rem}}
+@media (max-width:560px){.navq{padding:.3rem .55rem}
+  .navsug{position:fixed;left:.6rem;right:.6rem;width:auto;top:auto}}
 
 .btn{display:inline-flex;align-items:center;gap:.55rem;background:transparent;
   color:var(--vert-profond);text-decoration:none;font-weight:600;font-size:.92rem;
