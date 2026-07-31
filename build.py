@@ -166,6 +166,7 @@ MENU = ('<a href="/">Accueil</a>'
         + '<span class="menu__groupe">◆ Outils &amp; repères</span>'
         + '<a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>'
         + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
+        + '<a href="/aides-financieres-copropriete/">Aides financières : le simulateur</a>'
         + '<a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>'
         + '<a href="/aide-au-devis/">Aide au devis : les documents à joindre</a>'
         + '<a href="/questions/">Guides pratiques</a>'
@@ -227,12 +228,39 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <a class="brand" href="/"><img src="/assets/logo-dglm-blanc.png" alt="DGLM Expertises"
 width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <nav class="nav" aria-label="Navigation principale">
-<a href="/diagnostics-copropriete/" title="Diagnostics de copropriété">Copropriété — DTG · PPPT</a>
-<a href="/avant-travaux-et-demolition/" title="Avant travaux et démolition">Chantier — RAAT · RAAD</a>
-<a href="/le-tableau-des-diagnostics/">Le tableau</a>
-<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur</a>
-<a href="/questions/">Guides</a>
-<a href="/recherche/">Rechercher</a>
+<div class="nav__grp"><a href="/diagnostics-copropriete/" title="Diagnostics de copropriété">Copropriété</a>
+<div class="nav__menu">
+<a href="/diagnostic-technique-global/"><b>DTG</b> — diagnostic technique global</a>
+<a href="/plan-pluriannuel-de-travaux/"><b>PPPT</b> — plan pluriannuel de travaux</a>
+<a href="/dpe-collectif-copropriete/">DPE collectif</a>
+<a href="/audit-energetique-copropriete/">Audit énergétique</a>
+<a href="/diagnostics-copropriete/">Tous les diagnostics de copropriété →</a></div></div>
+<div class="nav__grp"><a href="/avant-travaux-et-demolition/" title="Avant travaux et démolition">Chantier</a>
+<div class="nav__menu">
+<a href="/reperage-amiante-avant-travaux/"><b>RAAT</b> — amiante avant travaux</a>
+<a href="/reperage-amiante-avant-demolition/"><b>RAAD</b> — avant démolition</a>
+<a href="/diagnostic-pemd/"><b>PEMD</b> — matériaux et déchets</a>
+<a href="/etat-parasitaire-avant-travaux/">État parasitaire</a>
+<a href="/avant-travaux-et-demolition/">Tout l'avant-travaux →</a></div></div>
+<div class="nav__grp"><a href="{SILO}/simulateur-obligations-copropriete/">Simulateurs</a>
+<div class="nav__menu">
+<a href="{SILO}/simulateur-obligations-copropriete/">Diagnostics : suis-je concerné ?</a>
+<a href="/aides-financieres-copropriete/">Aides financières : combien ?</a></div></div>
+<div class="nav__grp"><a href="/questions/">Guides</a>
+<div class="nav__menu">
+<a href="/questions/rubriques/amiante/">Amiante</a>
+<a href="/questions/rubriques/copropriete/">Copropriété, DTG &amp; PPPT</a>
+<a href="/questions/rubriques/energie/">Performance énergétique</a>
+<a href="/questions/rubriques/vente-location/">Vente &amp; location</a>
+<a href="/questions/rubriques/risques/">Plomb, gaz &amp; risques</a>
+<a href="/questions/rubriques/reperes/">Repères &amp; définitions</a>
+<a href="/questions/">Tous les guides →</a></div></div>
+<div class="nav__grp"><a href="/le-tableau-des-diagnostics/">Outils</a>
+<div class="nav__menu">
+<a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>
+<a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>
+<a href="/aide-au-devis/">Aide au devis : les documents</a>
+<a href="/recherche/">Rechercher dans le site</a></div></div>
 <a class="btn" href="/devis/">Demander un devis</a></nav>
 <details class="menu"><summary aria-label="Ouvrir le menu">Menu</summary>
 <nav class="menu__list" aria-label="Menu complet">{MENU}</nav></details></div></header>
@@ -668,13 +696,15 @@ def page_service(s):
                          ancre="schema")
                    if schema else "")
 
+    bouton_aides = ('<a class="btn btn--light" href="/aides-financieres-copropriete/">Simuler vos aides</a>'
+                    if s["slug"] in ("diagnostic-technique-global", "plan-pluriannuel-de-travaux") else "")
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">{s['sigle']} — Bordeaux Métropole</p>
 <h1>{esc(s['nom'])} à Bordeaux et en Gironde</h1>
 <p class="lede">{esc(s['accroche'])}</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+{bouton_aides}<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <nav class="ancres" aria-label="Chapitres"><div class="wrap">
 <a href="#fiche">L'essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(s['slug']) else ''}<a href="#reglementation">Réglementation</a><a href="#methode">Méthode</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a><a href="#communes">Votre commune</a>
@@ -1140,7 +1170,8 @@ def page_diag_pro(d):
 <h1>{esc(d['h1'])}</h1>
 <p class="lede">{esc(d['accroche'])}</p>
 <div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
-<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
+{('<a class="btn btn--light" href="/aides-financieres-copropriete/">Simuler vos aides</a>'
+  if d["slug"] in ("dpe-collectif-copropriete", "audit-energetique-copropriete") else "")}<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <nav class="ancres" aria-label="Chapitres"><div class="wrap">
 <a href="#fiche">L'essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(d['slug']) else ''}<a href="#reglementation">Réglementation</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a>
@@ -2245,6 +2276,154 @@ quand même : on fait avec ce que vous avez.</p>
     URLS.append((p, "0.7", "monthly"))
 
 
+# ------------------------------------------------------------------ aides financières
+def page_aides():
+    """Simulateur MaPrimeRénov' Copropriété + guide des aides. Double usage :
+    le syndic qui veut un ordre de grandeur, et l'étude (DTG, PPPT, audit)
+    qui a besoin du détail ligne à ligne. Barèmes datés, sources officielles,
+    moteur dans build/aides.js — rien d'inventé."""
+    p = "/aides-financieres-copropriete/"
+    trail = [("Accueil", "/"), ("Aides financières", p)]
+
+    def champ_n(cid, lbl, aide="", requis=True):
+        a = f"<em>{esc(aide)}</em>" if aide else ""
+        return (f'<label class="field" for="{cid}"><span>{esc(lbl)}</span>'
+                f'<input id="{cid}" type="number" min="0" inputmode="numeric">{a}</label>')
+
+    def champ_s(cid, lbl, options, aide=""):
+        opts = "".join(f'<option value="{v}">{esc(t)}</option>' for v, t in options)
+        a = f"<em>{esc(aide)}</em>" if aide else ""
+        return (f'<label class="field" for="{cid}"><span>{esc(lbl)}</span>'
+                f'<select id="{cid}">{opts}</select>{a}</label>')
+
+    formulaire = f"""<form id="simu-aides" class="devis" onsubmit="return false">
+<div class="devis__bloc"><h3>1 · La copropriété</h3>
+{champ_n("a_lots", "Nombre de lots d'habitation", "La règle officielle s'apprécie en tantièmes : ajustez si votre répartition s'en écarte.")}
+{champ_n("a_rp", "dont résidences principales", "Il en faut au moins 65 % (copropriétés de 20 lots ou moins) ou 75 % (au-delà).")}
+{champ_s("a_immat", "Immatriculée et à jour au registre national ?", [("oui", "Oui"), ("non", "Non / je ne sais pas")])}
+{champ_s("a_age", "Bâtiment achevé depuis plus de 15 ans ?", [("oui", "Oui"), ("non", "Non")])}
+</div>
+<div class="devis__bloc"><h3>2 · Le programme de travaux</h3>
+{champ_n("a_travaux", "Montant de travaux estimé (€ HT)", "Le chiffrage issu du DTG, du PPPT ou de l'audit énergétique.")}
+{champ_n("a_amo", "Coût de l'AMO (€ HT), si connu", "L'assistance à maîtrise d'ouvrage est obligatoire pour cette aide.", requis=False)}
+{champ_s("a_gain", "Gain énergétique visé", [("35", "35 à 49 % (minimum requis)"), ("50", "50 % ou plus"), ("0", "Moins de 35 %")], "C'est l'étude énergétique qui établit ce pourcentage.")}
+{champ_s("a_passoire", "Sortie de passoire ?", [("non", "Non"), ("oui", "Oui : F ou G aujourd'hui, D ou mieux après travaux")])}
+{champ_s("a_fragile", "Copropriété fragile ou en difficulté ?", [("non", "Non / je ne sais pas"), ("oui", "Oui (impayés élevés, plan de sauvegarde, quartier en renouvellement urbain)")])}
+</div>
+<div class="devis__bloc"><h3>3 · Les ménages (primes individuelles)</h3>
+{champ_n("a_tm", "Propriétaires occupants très modestes", "Selon les plafonds de ressources Anah.", requis=False)}
+{champ_n("a_m", "Propriétaires occupants modestes", "", requis=False)}
+</div>
+</form>
+<div id="aides-resultat" hidden>
+<h2 style="margin-top:2rem">Votre estimation, ligne à ligne</h2>
+<div class="simu-corps"></div>
+<div class="actions" style="margin-top:1.2rem">
+<button type="button" id="aides-copier" class="btn">Copier le détail (pour une étude ou un PV)</button>
+<button type="button" id="aides-imprimer" class="btn btn--light">Imprimer ou enregistrer en PDF</button>
+</div>
+<p class="maj">Estimation indicative et non contractuelle : seule la décision d'octroi de
+l'Anah fait foi, après instruction du dossier déposé avec votre AMO. Barèmes consultés le
+31/07/2026 — signalez-nous toute évolution, la page est revue à chaque mise à jour du site.</p>
+</div>
+<noscript><p class="enclair"><span>Sans JavaScript</span>Le simulateur a besoin de JavaScript,
+mais tout le barème est dans le guide ci-dessous — le calcul se fait très bien à la main.</p></noscript>"""
+
+    guide = (
+        volet("Le socle", "MaPrimeRénov' Copropriété, en clair",
+              """<p>C'est l'aide centrale, versée par l'Anah <strong>au syndicat des
+copropriétaires</strong>, puis répartie entre copropriétaires aux tantièmes. Quatre conditions
+principales : la copropriété est <strong>immatriculée</strong> au registre national, le bâtiment a
+<strong>plus de 15 ans</strong>, les résidences principales représentent au moins
+<strong>65 %</strong> des lots (20 lots ou moins) ou <strong>75 %</strong> (au-delà), et le
+programme vise au moins <strong>35 % de gain énergétique</strong> — c'est précisément ce que
+chiffrent le DTG, le projet de plan pluriannuel et l'audit énergétique.</p>
+<p>Le financement : <strong>30 %</strong> du montant des travaux (gain de 35 à 49 %) ou
+<strong>45 %</strong> (gain de 50 % et plus), sur une assiette plafonnée à
+<strong>25 000 € par logement</strong>. S'y ajoutent le cas échéant <strong>+ 10 %</strong> si
+l'immeuble sort du statut de passoire (F ou G avant travaux, D ou mieux après) et
+<strong>+ 20 %</strong> pour les copropriétés fragiles ou en difficulté. Les propriétaires
+occupants aux revenus modestes reçoivent en plus une prime individuelle
+(<strong>1 500 €</strong>, ou <strong>3 000 €</strong> pour les très modestes).</p>
+<p>Deux obligations de parcours : une <strong>assistance à maîtrise d'ouvrage</strong> (AMO),
+elle-même aidée à 50 % (plafond 300 € par logement, plancher 3 000 €), et des entreprises
+<strong>RGE</strong>.</p>""", ouvert=True, ancre="mpr"),
+        volet("Le financement", "Éco-PTZ : financer le reste à charge",
+              """<p>Le prêt à taux zéro finance ce que l'aide ne couvre pas, <strong>sans
+intérêts</strong>. Il peut être porté collectivement par le syndicat (le syndic souscrit pour
+les copropriétaires volontaires) ou souscrit individuellement, jusqu'à
+<strong>50 000 € par logement</strong> pour une rénovation d'ampleur — montant et durée à
+confirmer avec la banque selon le programme retenu. Il se cumule avec MaPrimeRénov'
+Copropriété.</p>""", pale=True, ancre="ecoptz"),
+        volet("Les compléments", "TVA à 5,5 %, CEE et aides locales",
+              """<p><strong>TVA réduite :</strong> les travaux d'amélioration de la performance
+énergétique relèvent de la TVA à 5,5 % au lieu de 20 % — elle s'applique directement sur les
+factures, sans dossier.</p>
+<p><strong>Certificats d'économies d'énergie (CEE) :</strong> cumulables avec l'aide, leur
+valorisation dépend du marché et se chiffre sur devis auprès d'un délégataire — votre AMO les
+intègre au plan de financement.</p>
+<p><strong>Aides locales :</strong> selon les années, la métropole, le département ou la région
+abondent certains programmes. Le réflexe : interroger l'espace conseil France Rénov' de votre
+territoire au moment du dépôt.</p>""", ancre="complements"),
+        volet("La méthode", "Du diagnostic au dossier : le circuit",
+              """<p>1 · Le <a href="/diagnostic-technique-global/">DTG</a> ou
+l'<a href="/audit-energetique-copropriete/">audit énergétique</a> établit l'état du bâti et le
+<strong>gain énergétique atteignable</strong> — la donnée qui déclenche tout.
+2 · Le <a href="/plan-pluriannuel-de-travaux/">projet de plan pluriannuel</a> hiérarchise et
+chiffre les travaux. 3 · L'assemblée vote le programme et le recours à une AMO.
+4 · L'AMO monte le dossier Anah, intègre CEE et éco-PTZ, puis les travaux démarrent avec des
+entreprises RGE. Nos études sont conçues pour alimenter ce circuit sans ressaisie : le
+pourcentage de gain, poste par poste, figure dans nos rapports.</p>""", pale=True, ancre="circuit"),
+    )
+
+    sources = """<div class="sources"><p>Sources officielles — consultées le 31/07/2026 :
+<a href="https://www.service-public.fr/particuliers/vosdroits/F35083" rel="noopener nofollow">MaPrimeRénov' (Service-Public)</a> ·
+<a href="https://www.service-public.fr/particuliers/vosdroits/F19905" rel="noopener nofollow">Éco-prêt à taux zéro (Service-Public)</a> ·
+<a href="https://www.anah.fr/copropriete/syndicat-de-coproprietaires/beneficier-de-laide-maprimerenov-coproprietes/" rel="noopener nofollow">MaPrimeRénov' Copropriété (Anah)</a></p></div>"""
+
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Copropriétés — après le DTG, le PPPT ou l'audit</p>
+<h1>Les aides financières, chiffrées ligne à ligne</h1>
+<p class="lede">Votre diagnostic chiffre des travaux ; la collectivité en finance une part
+importante. Ce simulateur applique le barème en vigueur — taux, plafonds, bonus, primes —
+et détaille chaque calcul, pour un ordre de grandeur honnête en deux minutes.</p>
+<div class="actions"><a class="btn btn--light" href="/devis/">Demander une étude</a>
+<a class="btn btn--light" href="#guide">Lire le guide des aides</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<p class="eyebrow">Le simulateur</p>
+<h2>Estimez vos aides</h2>
+<p class="enclair"><span>L'antisèche</span>Remplissez ce que vous savez : le résultat s'affiche
+et se recalcule à mesure. Chaque ligne montre son calcul — rien n'est caché, tout se vérifie.
+Le détail se copie tel quel dans une étude ou un procès-verbal.</p>
+{formulaire}
+</div></section>
+
+<section id="guide" class="band band--pale"><div class="wrap">
+<p class="eyebrow">Le guide</p>
+<h2>Comprendre chaque dispositif</h2>
+</div></section>
+{"".join(guide)}
+<section class="band"><div class="wrap prose">
+{sources}
+<p class="maj">Établi par l'équipe DGLM Expertises — barèmes vérifiés au {MAJ}</p>
+</div></section>
+{cta()}"""
+
+    extra = '<script src="/assets/aides.js" defer></script>'
+    shell(path=p, title="Aides financières en copropriété : le simulateur — DGLM",
+          desc=desc_courte("Simulateur des aides en copropriété après un DTG, PPPT ou audit : "
+                           "taux, plafonds, primes, reste à charge, et le guide des dispositifs."),
+          body=body + extra,
+          schema=jsonld(org_schema(), breadcrumb(trail),
+                        {"@type": "WebApplication", "name": "Simulateur d'aides — copropriétés",
+                         "url": DOM + p, "applicationCategory": "FinanceApplication",
+                         "operatingSystem": "Web"}))
+    URLS.append((p, "0.85", "monthly"))
+
+
 def page_devis():
     p = "/devis/"
     trail = [("Accueil", "/"), ("Demande de devis", p)]
@@ -2545,7 +2724,7 @@ def main():
     os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
     src = os.path.join(os.path.dirname(OUT), "build")
     shutil.copy(os.path.join(src, "style.css"), os.path.join(OUT, "assets", "style.css"))
-    for js in ("simulateur.js", "devis.js"):
+    for js in ("simulateur.js", "devis.js", "aides.js"):
         if os.path.exists(os.path.join(src, js)):
             shutil.copy(os.path.join(src, js), os.path.join(OUT, "assets", js))
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),
@@ -2559,6 +2738,7 @@ def main():
     page_recherche(contenus)
     page_pack()
     page_aide_devis()
+    page_aides()
     page_conformite()
     for d in DIAGS_PRO:
         page_diag_pro(d)
