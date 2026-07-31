@@ -403,10 +403,12 @@ CARNETS = {
          "et à quel horizon."),
     ],
     "etat-parasitaire-avant-travaux": [
-        ("terrain-merule.jpg", 481, 640, "risques", "Bois de plancher — attaque fongique",
+        ("terrain-merule.jpg", 481, 640, "risques",
+         "Bois de plancher — attaque fongique (mérule)",
          "un bois qui se délite dans un angle humide.",
-         "les champignons lignivores prospèrent sur l'humidité persistante. Repérés "
-         "tôt, ils se traitent ; découverts tard, ils emportent plancher et solives."),
+         "les champignons lignivores — mérule en tête — prospèrent sur l'humidité "
+         "persistante. Repérés tôt, ils se traitent ; découverts tard, ils emportent "
+         "plancher et solives."),
     ],
     "reperage-amiante-avant-demolition": [
         ("terrain-combles.jpg", 960, 1280, "amiante", "Combles — l'envers du décor",
@@ -1572,19 +1574,21 @@ def page_recherche(contenus):
         if sig not in defs and len(sig) <= 6:
             defs[sig] = f"{d['nom']}. {d['accroche']}"
     # Les photos de terrain : on cherche « combles », on voit la photo.
-    _pages_photo = {s["slug"]: f"{SILO}/{s['slug']}/" for s in SERVICES}
-    _pages_photo.update({d["slug"]: f"/{d['slug']}/" for d in DIAGS_PRO})
+    _pages_photo = {s["slug"]: (f"{SILO}/{s['slug']}/", s["nom"]) for s in SERVICES}
+    _pages_photo.update({d["slug"]: (f"/{d['slug']}/", d["nom"]) for d in DIAGS_PRO})
     _vues = set()
     for slug, items in CARNETS.items():
-        base = _pages_photo.get(slug)
-        if not base:
+        cible = _pages_photo.get(slug)
+        if not cible:
             continue
+        base, nom_mission = cible
         for f, w, h, th, cap, voit, pourquoi in items:
             if f in _vues:
                 continue
             _vues.add(f)
             add(f"Photo — {cap}", base + "#terrain", f"Ce qu'on voit : {voit}",
-                f"photo image terrain {th} {pourquoi}", img=f)
+                f"photo image vue terrain chantier {th} {THEME_RUB.get(th, '')} "
+                f"{nom_mission} {CARNETS_TITRE.get(slug, '')} {pourquoi}", img=f)
     add("Le tableau des diagnostics", "/le-tableau-des-diagnostics/",
         "Treize missions : qui commande, quand, validité — en une page.", "tableau récapitulatif")
     add("Simulateur d'obligations", f"{SILO}/simulateur-obligations-copropriete/",
