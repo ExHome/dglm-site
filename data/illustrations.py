@@ -57,33 +57,44 @@ _P = ('<svg class="picto" viewBox="0 0 64 64" aria-hidden="true" focusable="fals
       'stroke-linecap="round" stroke-linejoin="round">{}</g></svg>')
 
 PICTOS = {
-    # RAAT : façade + loupe (on cherche avant d'ouvrir)
+    # RAAT : le mur en coupe, la loupe centrée dessus — on regarde DANS le mur
+    # avant d'ouvrir. Les deux points : les fibres qu'on cherche.
     "RAAT": _P.format(
-        '<path d="M10,54 L10,22 L34,22 L34,54"/>'
-        '<path d="M6,22 L22,10 L38,22"/>'
-        '<rect x="16" y="30" width="8" height="9"/>'
-        '<circle cx="44" cy="40" r="10"/><line x1="51" y1="47" x2="58" y2="54"/>'),
-    # RAAD : bâtiment + boule de démolition
+        '<line x1="25" y1="9" x2="25" y2="55"/><line x1="39" y1="9" x2="39" y2="55"/>'
+        '<line x1="32" y1="9" x2="32" y2="55" stroke-dasharray="2.5 3.5"/>'
+        '<circle cx="32" cy="30" r="13"/>'
+        '<line x1="41.2" y1="39.2" x2="51" y2="49"/>'
+        '<circle cx="28" cy="26" r="1.8" fill="currentColor" stroke="none"/>'
+        '<circle cx="36" cy="34" r="1.8" fill="currentColor" stroke="none"/>'),
+    # RAAD : la déconstruction bloc à bloc — le coin de l'immeuble est déjà
+    # démonté, les blocs partent proprement (pas de boule : on repère AVANT).
     "RAAD": _P.format(
-        '<path d="M14,54 L14,16 L38,16 L38,54"/>'
-        '<line x1="14" y1="28" x2="38" y2="28"/><line x1="14" y1="40" x2="38" y2="40"/>'
-        '<line x1="50" y1="10" x2="50" y2="30"/><circle cx="50" cy="37" r="7"/>'
-        '<path d="M38,16 L50,10"/>'),
-    # DTG : immeuble + liste cochée
+        '<line x1="8" y1="55" x2="56" y2="55"/>'
+        '<path d="M12,55 L12,25 L28,25 L28,33 L36,33 L36,55"/>'
+        '<line x1="10" y1="25" x2="30" y2="25"/>'
+        '<rect x="16" y="31" width="6" height="7"/><rect x="16" y="43" width="6" height="7"/>'
+        '<rect x="26" y="43" width="6" height="7"/>'
+        '<rect x="33" y="14" width="7" height="7"/><rect x="43" y="20" width="6" height="6"/>'
+        '<rect x="48" y="9" width="5" height="5"/>'),
+    # DTG : l'immeuble sous la cote d'architecte — on prend la mesure complète
+    # du bâti, du sol au toit.
     "DTG": _P.format(
-        '<path d="M10,54 L10,14 L30,14 L30,54"/>'
-        '<rect x="15" y="20" width="4" height="5"/><rect x="23" y="20" width="4" height="5"/>'
-        '<rect x="15" y="31" width="4" height="5"/><rect x="23" y="31" width="4" height="5"/>'
-        '<line x1="40" y1="22" x2="56" y2="22"/><line x1="40" y1="32" x2="56" y2="32"/>'
-        '<line x1="40" y1="42" x2="56" y2="42"/><path d="M35,20 L37,23 L40,17"/>'),
-    # PPPT : immeuble + calendrier décennal
+        '<line x1="10" y1="55" x2="44" y2="55"/>'
+        '<path d="M14,55 L14,13 L38,13 L38,55"/>'
+        '<line x1="12" y1="13" x2="40" y2="13"/>'
+        '<rect x="18" y="19" width="5" height="6"/><rect x="29" y="19" width="5" height="6"/>'
+        '<rect x="18" y="31" width="5" height="6"/><rect x="29" y="31" width="5" height="6"/>'
+        '<rect x="18" y="43" width="5" height="6"/><rect x="29" y="43" width="5" height="6"/>'
+        '<line x1="50" y1="13" x2="50" y2="55"/>'
+        '<path d="M47,17 L50,13 L53,17"/><path d="M47,51 L50,55 L53,51"/>'),
+    # PPPT : l'immeuble au pied de l'escalier du plan — des marches qui montent
+    # vers la flèche : les travaux s'échelonnent, l'immeuble progresse.
     "PPPT": _P.format(
-        '<path d="M8,54 L8,18 L26,18 L26,54"/>'
-        '<line x1="8" y1="30" x2="26" y2="30"/><line x1="8" y1="42" x2="26" y2="42"/>'
-        '<rect x="34" y="18" width="24" height="24" rx="2"/>'
-        '<line x1="34" y1="26" x2="58" y2="26"/>'
-        '<line x1="40" y1="14" x2="40" y2="20"/><line x1="52" y1="14" x2="52" y2="20"/>'
-        '<path d="M40,33 L44,37 L52,30"/>'),
+        '<path d="M10,55 L10,27 L26,27 L26,55"/>'
+        '<line x1="8" y1="27" x2="28" y2="27"/>'
+        '<rect x="14" y="33" width="5" height="6"/><rect x="14" y="45" width="5" height="6"/>'
+        '<path d="M8,55 L38,55 L38,45 L45,45 L45,35 L52,35 L52,25"/>'
+        '<path d="M48,29 L52,25 L56,29"/>'),
 }
 
 # ---------------------------------------------------------------- échoppe
@@ -277,33 +288,47 @@ _R = ('<svg class="picto picto--rub" viewBox="0 0 64 64" aria-hidden="true" focu
       'stroke-linecap="round" stroke-linejoin="round">{}</g></svg>')
 
 RUBRIQUE_PICTOS = {
-    # Amiante : plaque ondulée + loupe
+    # Amiante : la plaque de fibrociment cadrée + l'étiquette d'échantillon
+    # (chaque doute devient un prélèvement référencé).
     "Amiante": _R.format(
-        '<path d="M8,40 Q13,32 18,40 T28,40 T38,40 T48,40"/>'
-        '<path d="M8,50 Q13,42 18,50 T28,50 T38,50 T48,50"/>'
-        '<circle cx="46" cy="22" r="9"/><line x1="52.5" y1="28.5" x2="58" y2="34"/>'),
-    # Copropriété, DTG & PPPT : immeuble + coche
+        '<path d="M10,26 L54,26 L54,50 L10,50 Z"/>'
+        '<path d="M10,34 Q14,29 18,34 T26,34 T34,34 T42,34 T50,34"/>'
+        '<path d="M10,43 Q14,38 18,43 T26,43 T34,43 T42,43 T50,43"/>'
+        '<rect x="41" y="9" width="12" height="8"/>'
+        '<line x1="47" y1="17" x2="51" y2="26"/>'),
+    # Copropriété, DTG & PPPT : l'immeuble entier, un lot allumé — votre lot
+    # dans la copropriété, parties communes autour.
     "Copropriété, DTG & PPPT": _R.format(
-        '<path d="M12,54 L12,14 L34,14 L34,54"/>'
-        '<rect x="17" y="20" width="5" height="6"/><rect x="26" y="20" width="5" height="6"/>'
-        '<rect x="17" y="32" width="5" height="6"/><rect x="26" y="32" width="5" height="6"/>'
-        '<path d="M40,40 L46,47 L58,30"/>'),
-    # Performance énergétique : trois barres d'étiquette
+        '<line x1="8" y1="55" x2="56" y2="55"/>'
+        '<path d="M14,55 L14,11 L50,11 L50,55"/>'
+        '<line x1="12" y1="11" x2="52" y2="11"/>'
+        '<path d="M28,55 L28,46 L36,46 L36,55"/>'
+        '<rect x="19" y="17" width="6" height="7"/><rect x="30" y="17" width="6" height="7"/>'
+        '<rect x="41" y="17" width="6" height="7"/>'
+        '<rect x="19" y="29" width="6" height="7"/><rect x="41" y="29" width="6" height="7"/>'
+        '<rect x="19" y="40" width="6" height="7"/><rect x="41" y="40" width="6" height="7"/>'
+        '<rect x="30" y="29" width="6" height="7" fill="currentColor" stroke="none"/>'),
+    # Performance énergétique : les trois flèches d'étiquette, de plus en plus
+    # longues — la silhouette DPE reconnaissable entre toutes.
     "Performance énergétique": _R.format(
-        '<line x1="12" y1="18" x2="34" y2="18"/><line x1="12" y1="30" x2="42" y2="30"/>'
-        '<line x1="12" y1="42" x2="50" y2="42"/>'
-        '<path d="M12,12 L12,52"/><path d="M44,10 L50,18 L44,26" transform="translate(6,0)"/>'),
-    # Vente & location : document + clé
+        '<path d="M10,12 L30,12 L36,17 L30,22 L10,22 Z"/>'
+        '<path d="M10,27 L38,27 L44,32 L38,37 L10,37 Z"/>'
+        '<path d="M10,42 L48,42 L54,47 L48,52 L10,52 Z"/>'),
+    # Vente & location : le contrat au coin plié + la clé du logement.
     "Vente & location": _R.format(
-        '<path d="M14,10 L36,10 L44,18 L44,54 L14,54 Z"/><path d="M36,10 L36,18 L44,18"/>'
-        '<circle cx="26" cy="32" r="5"/><line x1="26" y1="37" x2="26" y2="46"/>'
-        '<line x1="26" y1="42" x2="31" y2="42"/>'),
-    # Plomb, gaz & risques : triangle de vigilance
+        '<path d="M16,8 L38,8 L46,16 L46,56 L16,56 Z"/>'
+        '<path d="M38,8 L38,16 L46,16"/>'
+        '<circle cx="27" cy="28" r="5"/>'
+        '<line x1="27" y1="33" x2="27" y2="46"/>'
+        '<line x1="27" y1="42" x2="31" y2="42"/><line x1="27" y1="46" x2="32" y2="46"/>'),
+    # Plomb, gaz & risques : le triangle de vigilance, exclamation affirmée.
     "Plomb, gaz & risques": _R.format(
-        '<path d="M32,10 L56,52 L8,52 Z"/>'
-        '<line x1="32" y1="26" x2="32" y2="38"/><circle cx="32" cy="45" r="1.4" fill="currentColor"/>'),
-    # Repères & définitions : livre ouvert
+        '<path d="M32,10 L55,50 L9,50 Z"/>'
+        '<line x1="32" y1="24" x2="32" y2="37"/>'
+        '<circle cx="32" cy="44" r="2.4" fill="currentColor" stroke="none"/>'),
+    # Repères & définitions : le livre ouvert, marque-page dans la page.
     "Repères & définitions": _R.format(
-        '<path d="M32,16 C26,11 16,11 10,14 L10,48 C16,45 26,45 32,50 C38,45 48,45 54,48 L54,14 C48,11 38,11 32,16 Z"/>'
-        '<line x1="32" y1="16" x2="32" y2="50"/>'),
+        '<path d="M32,17 C27,12 17,12 11,15 L11,49 C17,46 27,46 32,51 C37,46 47,46 53,49 L53,15 C47,12 37,12 32,17 Z"/>'
+        '<line x1="32" y1="17" x2="32" y2="51"/>'
+        '<path d="M44,14 L44,25 L47.5,21.5 L51,25 L51,15"/>'),
 }
