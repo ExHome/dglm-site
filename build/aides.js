@@ -196,8 +196,20 @@
     h += '<p class="simu-suite">Pour financer le reste à charge : éco-PTZ (voir le guide ci-dessous), ' +
       'CEE cumulables (valorisation variable, sur devis), TVA à 5,5 % déjà appliquée sur les factures ' +
       'de travaux éligibles, et aides locales éventuelles.</p>';
+    var premierAffichage = zone.hidden;
     zone.querySelector(".simu-corps").innerHTML = h;
     zone.hidden = false;
+    /* à la première estimation seulement : on amène le résultat à l'écran,
+       sinon chaque frappe ferait sauter la page sous les doigts. */
+    if (premierAffichage) {
+      var r = zone.getBoundingClientRect();
+      if (r.top > window.innerHeight - 80) {
+        zone.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+          block: "start"
+        });
+      }
+    }
   }
 
   /* ---------- export texte (pour les études et les PV d'AG) ---------- */

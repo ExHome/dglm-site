@@ -202,6 +202,26 @@
     out.setAttribute("aria-busy", "false");
   }
 
-  form.addEventListener("submit", function (e) { e.preventDefault(); calcule(); });
+  /* Le verdict s'affiche sous le formulaire — parfois très bas sur un écran
+     étroit. Sans ce rappel visuel, on clique et l'on croit qu'il ne se passe
+     rien. On amène donc la réponse à l'écran, et on y pose le focus pour que
+     les lecteurs d'écran l'annoncent. */
+  function montrerResultat() {
+    if (!out) return;
+    var r = out.getBoundingClientRect();
+    var horsEcran = r.top < 0 || r.top > window.innerHeight - 60;
+    if (horsEcran) {
+      var doux = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      out.scrollIntoView({ behavior: doux ? "smooth" : "auto", block: "start" });
+    }
+    if (!out.hasAttribute("tabindex")) out.setAttribute("tabindex", "-1");
+    out.focus({ preventScroll: true });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    calcule();
+    montrerResultat();
+  });
   form.addEventListener("change", calcule);
 })();
