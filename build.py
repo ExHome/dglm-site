@@ -1548,11 +1548,13 @@ def page_recherche(contenus):
     trail = [("Accueil", "/"), ("Rechercher", p)]
     idx = []
 
-    def add(t, u, d, extra="", art=0):
+    def add(t, u, d, extra="", art=0, img=""):
         e = {"t": t, "u": u, "d": d[:170],
              "n": _norm_recherche(f"{t} {d} {extra}")}
         if art:
             e["a"] = 1
+        if img:
+            e["i"] = img
         idx.append(e)
 
     for s in SERVICES:
@@ -1569,6 +1571,20 @@ def page_recherche(contenus):
         sig = _norm_recherche(d["sigle"].split()[0])
         if sig not in defs and len(sig) <= 6:
             defs[sig] = f"{d['nom']}. {d['accroche']}"
+    # Les photos de terrain : on cherche « combles », on voit la photo.
+    _pages_photo = {s["slug"]: f"{SILO}/{s['slug']}/" for s in SERVICES}
+    _pages_photo.update({d["slug"]: f"/{d['slug']}/" for d in DIAGS_PRO})
+    _vues = set()
+    for slug, items in CARNETS.items():
+        base = _pages_photo.get(slug)
+        if not base:
+            continue
+        for f, w, h, th, cap, voit, pourquoi in items:
+            if f in _vues:
+                continue
+            _vues.add(f)
+            add(f"Photo — {cap}", base + "#terrain", f"Ce qu'on voit : {voit}",
+                f"photo image terrain {th} {pourquoi}", img=f)
     add("Le tableau des diagnostics", "/le-tableau-des-diagnostics/",
         "Treize missions : qui commande, quand, validité — en une page.", "tableau récapitulatif")
     add("Simulateur d'obligations", f"{SILO}/simulateur-obligations-copropriete/",
@@ -1634,7 +1650,9 @@ indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques<
           "const plus=arts.slice(1,3).map(x=>'<li><a href=\"'+x[1].u+'\">'+x[1].t+'</a></li>').join('');"
           "if(plus)h+='<p style=\"margin-top:1rem\"><b>Pour aller plus loin :</b></p><ul>'+plus+'</ul>'}"
           "rep.innerHTML='<div class=\"repexp\">'+h+'</div>'}"
-          "out.innerHTML=sc.slice(0,24).map(x=>{const e=x[1];return '<a class=\"card card--link\" href=\"'+e.u+'\"><h3>'+e.t+'</h3><p>'+e.d+'</p><span class=\"more\">Ouvrir →</span></a>'}).join('')"
+          "out.innerHTML=sc.slice(0,24).map(x=>{const e=x[1];"
+          "const v=e.i?'<img class=\"vign\" src=\"/assets/photos/'+e.i+'\" alt=\"\" loading=\"lazy\" decoding=\"async\">':'';"
+          "return '<a class=\"card card--link'+(e.i?' card--photo':'')+'\" href=\"'+e.u+'\">'+v+'<h3>'+e.t+'</h3><p>'+e.d+'</p><span class=\"more\">'+(e.i?'Voir la photo →':'Ouvrir →')+'</span></a>'}).join('')"
           "||('<div><p>Nous n\\'avons pas encore de guide qui réponde à cette question — elle mérite peut-être le sien, et nous l\\'écrirons.</p>'+lienQ()+'</div>')}"
           "inp.addEventListener('input',go);"
           "const p0=new URLSearchParams(location.search).get('q');if(p0){inp.value=p0;go()}"

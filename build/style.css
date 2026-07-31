@@ -899,6 +899,12 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 @media (max-width:640px){.info__c{position:fixed;left:1rem;right:1rem;width:auto;
   top:auto;bottom:1rem}}
 
+/* recherche : les carnets de terrain apparaissent avec leur vignette */
+.card--photo{padding-top:0;overflow:hidden}
+.card--photo .vign{display:block;width:calc(100% + 2px);margin:-1px -1px 1.1rem;
+  height:8.5rem;object-fit:cover;filter:saturate(.92)}
+.card--photo h3{font-size:1rem}
+
 /* simulateur d'aides : le bouton de validation et ce qui manque */
 .simu-valider{border-top:1px solid var(--vert);padding-top:1.8rem;margin-top:.4rem}
 .simu-manque{margin:.9rem 0 0;font-size:.9rem;color:#5B6A62}
