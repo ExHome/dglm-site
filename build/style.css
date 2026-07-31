@@ -276,11 +276,10 @@ details summary::after{content:"+";font-family:var(--mono);color:var(--or);font-
 details[open] summary::after{content:"–"}
 details p{margin-top:.78rem;font-size:.97rem;color:var(--encre-2);max-width:68ch}
 
-.mesh{display:flex;flex-wrap:wrap;gap:.42rem;margin-top:1.35rem;padding:0;list-style:none}
-.mesh a{display:inline-block;font-size:.85rem;padding:.35rem .7rem;background:var(--blanc);
-  border:1px solid var(--rule);border-radius:2px;text-decoration:none;color:var(--encre);
-  transition:border-color .16s,color .16s}
-.mesh a:hover{border-color:var(--or);color:var(--vert)}
+/* Les communes se lisent en colonnes (voir plus bas). L'ancien rendu en
+   pastilles flex empêchait `columns` de s'appliquer — flex l'ignore. */
+.mesh a{text-decoration:none;color:var(--encre);transition:color .16s}
+.mesh a:hover{color:var(--vert)}
 .band--dark .mesh a{background:rgba(255,255,255,.05);border-color:rgba(192,144,72,.28);color:var(--creme)}
 .band--dark .mesh a:hover{background:var(--or);color:var(--vert-profond);border-color:var(--or)}
 .mesh--plain{color:var(--gris);font-size:.88rem}
@@ -479,7 +478,7 @@ main{counter-reset:planche}
 .refbar dd{font-size:.86rem;margin-top:.5rem}
 
 /* mesh : liste de communes en colonnes fines, sans puces */
-.mesh{columns:4 11rem;column-gap:2.2rem;list-style:none;padding:0;margin:1.4rem 0 0}
+.mesh{display:block;columns:4 11rem;column-gap:2.2rem;list-style:none;padding:0;margin:1.4rem 0 0}
 .mesh li{break-inside:avoid;padding:.34rem 0;border-bottom:1px solid var(--rule-fine)}
 .mesh a{font-size:.88rem;color:var(--encre-2);text-decoration:none}
 .mesh a:hover{color:var(--vert)}
@@ -650,7 +649,10 @@ main{counter-reset:planche}
 .menu__list a b{color:var(--or-clair);font-family:var(--mono);font-weight:500;
   font-size:.82em;letter-spacing:.08em}
 @media (max-width:980px){.menu{display:block}}
-@media (max-width:640px){.masthead .nav{display:none}}
+/* Sous 640px la navigation cède la place au tiroir — mais JAMAIS la barre de
+   recherche : sur téléphone, c'est la porte d'entrée principale du site. */
+@media (max-width:640px){.masthead .nav > :not(.navq){display:none}
+  .masthead .nav{flex:1 1 auto;justify-content:flex-end}}
 @media print{.menu{display:none!important}}
 
 /* décalage d'ancre : les liens #section ne passent plus sous l'en-tête collant */
@@ -822,8 +824,11 @@ details[open]>p{animation:deplie .3s ease}
 .footer .legalline a{text-decoration:underline}
 
 /* barre de chapitres collante + topbar mobile compacte */
-.ancres{position:sticky;top:63px;z-index:30}
-:target,[id]{scroll-margin-top:8.2rem}
+/* Hauteur réelle du bandeau, mesurée : 78,8px. L'ancien « top:63px » laissait
+   le masthead recouvrir 16px de la barre de chapitres, soit un tiers. */
+.masthead{--h-bandeau:4.95rem}
+.ancres{position:sticky;top:4.95rem;z-index:30}
+:target,[id]{scroll-margin-top:7.8rem}
 @media (max-width:640px){.topbar__avis{display:none}.topbar .wrap{justify-content:space-between}}
 
 /* check-lists imprimables du pack conseil syndical */
@@ -989,3 +994,23 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
   color:#5B6A62;margin-top:.3rem;letter-spacing:0}
 .mission[aria-pressed="true"] i{color:var(--vert)}
 .devis .enclair{margin-top:1.2rem}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MESURE DE LECTURE — la correction la plus structurante du site.
+   Avant : 21 blocs de texte sur 26 dépassaient 75 caractères par ligne,
+   avec une médiane à 85 et des pointes à 187 (mesuré sur la page DTG).
+   Au-delà de ~75, l'œil perd la ligne au retour chariot : on balaie au
+   lieu de lire. On pose une largeur de lecture unique, sur le conteneur
+   plutôt que composant par composant, pour qu'aucun bloc n'y échappe.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{--mesure:42rem}
+.band .wrap > p,
+.band .wrap > ul:not(.mesh):not(.ancres ul),
+.band .wrap > ol,
+.legal dd,.steps p,.fiche dd,.card p,.checklist li,
+.norme__piege p,.norme p,.recap ol,.postes__intro,.pieces__intro,
+.simu-suite,.simu-avert li,.verdict p,.enclair p,.repexp p{
+  max-width:var(--mesure)}
+/* Une fois la colonne resserrée, l'interlignage très ample n'a plus lieu
+   d'être : il compensait la difficulté à retrouver la ligne suivante. */
+body{line-height:1.68}
