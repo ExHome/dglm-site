@@ -2289,6 +2289,7 @@ même maison, même exigence.</p>
 <article class="band"><div class="wrap prose">
 <p class="enclair" style="margin-top:0"><span>L'antisèche</span>{esc(c.get("antiseche", c["meta"]))}</p>
 {som}{corps}{schema_art}
+{video_html(c['slug'])}
 {sources_html(c)}
 {signature_html(rel, c['date'])}
 <h2>Pour approfondir</h2><ul>{liens}</ul>
@@ -2299,26 +2300,30 @@ même maison, même exigence.</p>
 <ul class="mesh" style="margin-top:1.5rem">{tags}</ul></div></section>
 {cta_bloc}"""
 
-    schema = jsonld(
-        org_schema(), breadcrumb(trail),
-        {"@type": "Article", "headline": c["titre"][:110],
-         "description": c["meta"], "datePublished": c["date"].isoformat(),
-         "dateModified": ISO, "inLanguage": "fr-FR",
-         "speakable": {"@type": "SpeakableSpecification",
-                       "cssSelector": ["h1", ".prose > p:first-of-type"]},
-         "author": {"@id": DOM + "/#organisation"},
-         "reviewedBy": relecteur_schema(rel),
-         "publisher": {"@id": DOM + "/#organisation"},
-         "mainEntityOfPage": {"@type": "WebPage", "@id": DOM + p},
-         "citation": [{"@type": "CreativeWork", "name": s.split("~")[0],
-                       "url": s.split("~")[1] if "~" in s else None}
-                      for s in c.get("sources", [])]},
-        {"@type": "FAQPage", "mainEntity": [{
-            "@type": "Question", "name": c.get("question", c["titre"]),
-            "acceptedAnswer": {"@type": "Answer",
-                               "text": strip_tags(corps)[:900]}}]})
+    art = {"@type": "Article", "headline": c["titre"][:110],
+           "description": c["meta"], "datePublished": c["date"].isoformat(),
+           "dateModified": ISO, "inLanguage": "fr-FR",
+           "speakable": {"@type": "SpeakableSpecification",
+                         "cssSelector": ["h1", ".prose > p:first-of-type"]},
+           "author": {"@id": DOM + "/#organisation"},
+           "reviewedBy": relecteur_schema(rel),
+           "publisher": {"@id": DOM + "/#organisation"},
+           "mainEntityOfPage": {"@type": "WebPage", "@id": DOM + p},
+           "citation": [{"@type": "CreativeWork", "name": s.split("~")[0],
+                         "url": s.split("~")[1] if "~" in s else None}
+                        for s in c.get("sources", [])]}
+    faq = {"@type": "FAQPage", "mainEntity": [{
+        "@type": "Question", "name": c.get("question", c["titre"]),
+        "acceptedAnswer": {"@type": "Answer",
+                           "text": strip_tags(corps)[:900]}}]}
+    blocs = [org_schema(), breadcrumb(trail), art, faq]
+    # jsonld() ne filtre pas les None : on n'ajoute le bloc que s'il existe.
+    film = video_schema(c["slug"], p)
+    if film:
+        art["video"] = {"@id": film["@id"]}
+        blocs.append(film)
     shell(path=p, title=titre(c["titre"], c["titre"][:58], c["tags"][0] if c["tags"] else "Question"),
-          desc=desc_courte(c["meta"]), body=body, schema=schema)
+          desc=desc_courte(c["meta"]), body=body, schema=jsonld(*blocs))
     # Un guide porte sa vraie date de parution : c'est le seul lastmod honnête.
     URLS.append((p, "0.75", "monthly", c["date"].isoformat()))
 
@@ -2326,6 +2331,109 @@ même maison, même exigence.</p>
 def strip_tags(h):
     import re as _re
     return _re.sub(r"\s+", " ", _re.sub(r"<[^>]+>", " ", h)).strip()
+
+
+# ------------------------------------------------------------------ vidéos
+# Les épisodes sont tournés au format vertical, pour le téléphone. Un épisode
+# se pose sur UNE seule page, et uniquement dans /questions/ : c'est la seule
+# zone que le pare-feu vente/location exempte, et deux pages portant la même
+# vidéo se feraient concurrence dans les résultats.
+# Le rendu passe par esc() comme le reste du site — d'où sa place ici plutôt
+# que dans data/, qui ne peut pas importer build sans boucle.
+VIDEOS = {
+    "qu-est-ce-que-le-dpe": {
+        "fichier": "episode-02-dpe-voisin",
+        "episode": "Épisode 02",
+        "titre": "Deux voisins, deux étiquettes",
+        "duree": 65,
+        "duree_txt": "1 min 05",
+        "publie": "2026-07-31",
+        "chapo": "Deux logements du même immeuble, même surface et même chauffage : "
+                 "D pour l'un, F pour l'autre. L'écart ne vient pas de la façon "
+                 "d'habiter, mais de la place du logement dans le bâtiment — sous "
+                 "la toiture, à l'angle, sans voisin chauffé de l'autre côté du mur.",
+        "transcription": [
+            (3.2, "Même immeuble. Même surface. Même chauffage."),
+            (8.1, "Lui : D. Vous : F."),
+            (11.6, "Injuste ? Non. Physique."),
+            (14.4, "Voici l'immeuble, vu en coupe."),
+            (17.2, "Neuf logements. Le vôtre est en haut, à l'angle."),
+            (20.7, "En rouge : les parois qui donnent sur l'extérieur."),
+            (24.2, "La chaleur part par le toit. Personne ne vit au-dessus de vous."),
+            (30.5, "Et par deux façades exposées, au lieu d'une."),
+            (34.0, "Votre voisin, lui, est au milieu."),
+            (36.8, "Ses murs ne donnent pas sur le froid. Ils donnent sur du 20 degrés."),
+            (41.7, "Trois différences, et pas un mètre carré d'écart."),
+            (46.6, "Aucune des trois ne dépend de vous."),
+            (49.4, "Le DPE ne note pas votre bonne volonté."),
+            (53.6, "Il note de la physique."),
+            (57.8, "Avant de vendre, faites-vous expliquer votre étiquette."),
+            (62.0, "DGLM Expertises — 06 07 35 15 05"),
+        ],
+        # Ce que montre l'image, pour qui ne la voit pas. Rédigé après visionnage,
+        # pas déduit : une alternative fausse est pire qu'une alternative absente.
+        "alt": "Sur fond vert sombre, deux échelles DPE côte à côte : la barre D "
+               "allumée côté voisin, la barre F côté spectateur. Puis un immeuble "
+               "dessiné en coupe, découpé en neuf logements : celui du haut à "
+               "l'angle est cerclé et marqué « vous », et chaque logement est "
+               "coloré selon le nombre de parois donnant sur l'extérieur — rouge "
+               "pour deux, ocre pour une, vert pour aucune. Des chevrons montrent "
+               "la chaleur sortir par le toit puis par la façade latérale, tandis "
+               "que le logement du milieu est entouré de quatre voisins à 20°. "
+               "Un écran de synthèse récapitule les trois différences — toiture, "
+               "façades exposées, mitoyenneté — avant la carte de visite finale.",
+    },
+}
+
+
+def _mmss(s):
+    return f"{int(s) // 60}:{int(s) % 60:02d}"
+
+
+def video_html(slug):
+    """Le lecteur, sa description et sa transcription dépliable.
+    preload="none" : les deux mégaoctets ne partent que si on clique."""
+    v = VIDEOS.get(slug)
+    if not v:
+        return ""
+    b = f"/assets/video/{v['fichier']}"
+    lignes = "".join(f"<div><dt>{_mmss(t)}</dt><dd>{esc(txt)}</dd></div>"
+                     for t, txt in v["transcription"])
+    return f"""<figure class="film">
+<h3 class="film__t">{esc(v['titre'])}</h3>
+<div class="film__cadre">
+<video controls preload="none" playsinline width="720" height="1280"
+       poster="{b}.jpg" aria-describedby="film-desc">
+<source src="{b}.mp4" type="video/mp4">
+<track kind="captions" srclang="fr" label="Sous-titres français" src="{b}.fr.vtt">
+</video></div>
+<p class="film__d" id="film-desc">{esc(v['chapo'])}</p>
+<p class="film__a">{esc(v['alt'])}</p>
+<details class="film__x"><summary>Lire la transcription</summary>
+<dl class="film__l">{lignes}</dl></details>
+<figcaption>{esc(v['episode'])} · {esc(v['duree_txt'])}</figcaption>
+</figure>"""
+
+
+def video_schema(slug, page):
+    v = VIDEOS.get(slug)
+    if not v:
+        return None
+    b = DOM + f"/assets/video/{v['fichier']}"
+    return {"@type": "VideoObject", "@id": DOM + page + "#video",
+            "name": f"{v['episode']} — {v['titre']}",
+            "description": v["chapo"],
+            "thumbnailUrl": b + ".jpg",
+            "contentUrl": b + ".mp4",
+            "encodingFormat": "video/mp4",
+            "uploadDate": v["publie"] + "T09:00:00+02:00",
+            "duration": f"PT{v['duree']}S",
+            "inLanguage": "fr-FR",
+            "caption": b + ".fr.vtt",
+            "transcript": " ".join(t for _, t in v["transcription"]),
+            "creator": {"@id": DOM + "/#organisation"},
+            "publisher": {"@id": DOM + "/#organisation"},
+            "mainEntityOfPage": {"@type": "WebPage", "@id": DOM + page}}
 
 
 def page_hub_contenus(contenus):

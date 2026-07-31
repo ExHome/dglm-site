@@ -560,6 +560,34 @@ main{counter-reset:planche}
 .sources li{font-size:.88rem;padding:.35rem 0;border-bottom:1px solid var(--rule-fine)}
 .sources p{font-size:.8rem;color:#5B6A62;max-width:58ch}
 
+/* ---------- vidéo : les épisodes ---------- */
+/* Tournés au format vertical, pour le téléphone. Sur un écran large, le cadre
+   est donc plafonné : une colonne de 22rem, et le texte garde sa pleine mesure
+   en dessous — l'inverse (texte à côté de la vidéo) donnerait un ruban de
+   trente caractères, exactement le défaut que le reste de la feuille combat.
+   Fond vert profond dans le cadre : sans lui, le lecteur pose ses bandes
+   noires système autour de l'image. */
+.film{margin:2.8rem 0;max-width:50rem}
+.film__t{margin:0 0 .7rem;font-size:1.16rem}
+.film__cadre{width:min(100%,22rem);background:var(--vert-profond);
+  border:1px solid var(--rule-fine)}
+.film video{display:block;width:100%;height:auto;aspect-ratio:9/16}
+/* la règle globale de focus ne couvre que a, button et summary */
+.film video:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.film__d{font-size:.94rem;line-height:1.65;color:var(--encre-2);max-width:60ch;
+  margin:1rem 0 0}
+.film__a{font-size:.86rem;line-height:1.6;color:#5B6A62;max-width:60ch;margin:.7rem 0 0}
+.film__x{margin-top:1rem}
+.film__l{display:grid;grid-template-columns:4.2rem 1fr;gap:.4rem 1rem;margin:.9rem 0 0}
+.film__l dt{font-family:var(--mono);font-size:.74rem;color:#5B6A62;padding-top:.2rem}
+.film__l dd{margin:0;font-size:.92rem;line-height:1.55}
+.film figcaption{margin-top:1.2rem;padding-top:.6rem;border-top:1px solid var(--rule-fine);
+  font-family:var(--sans);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#5B6A62}
+@media (max-width:520px){
+  .film__l{grid-template-columns:3.6rem 1fr;gap:.35rem .7rem}
+}
+
 /* ---------- responsabilité éditoriale ---------- */
 /* Ce qui fait la preuve, ce n'est pas le ton du texte : c'est un nom que l'on
    peut relier à un visage et à un certificat vérifiable. Les deux liens sont
