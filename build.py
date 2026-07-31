@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """Générateur statique — pôle copropriété & travaux de DGLM Expertises."""
-import json, os, shutil, sys, html, datetime, locale
+import json, os, shutil, sys, html, datetime, locale, hashlib
+
+# Empreinte de l'index de recherche, fixée par page_recherche() dès le début
+# du build : elle sert de numéro de version dans l'URL du fichier.
+IDX_V = "0"
 
 AUJ = datetime.date.today()
 ANNEE = AUJ.year
@@ -204,7 +208,9 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
         ' aria-expanded="false" aria-controls="navq-sug" aria-autocomplete="list"'
         ' placeholder="Votre question ou un mot-clé…">'
         '<div id="navq-sug" class="navsug" role="listbox" hidden></div></form>')
-    script_navq = "" if sur_recherche else '<script src="/assets/recherche.js" defer></script>'
+    script_navq = "" if sur_recherche else (
+        f'<script>window.IDX_V="{IDX_V}"</script>'
+        f'<script src="/assets/recherche.js?v={IDX_V}" defer></script>')
     head = f"""<!doctype html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
@@ -1647,9 +1653,12 @@ indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques<
 </div></section>"""
     # L'index est écrit une seule fois dans /assets/recherche.json : la barre
     # du bandeau et cette page le partagent, au lieu de l'embarquer deux fois.
+    # Son empreinte sert de numéro de version : sans elle, le navigateur d'un
+    # visiteur garderait un index périmé après une mise à jour du site.
     os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
-    open(os.path.join(OUT, "assets", "recherche.json"), "w", encoding="utf-8").write(
-        json.dumps({"idx": idx, "defs": defs}, ensure_ascii=False, separators=(",", ":")))
+    brut = json.dumps({"idx": idx, "defs": defs}, ensure_ascii=False, separators=(",", ":"))
+    open(os.path.join(OUT, "assets", "recherche.json"), "w", encoding="utf-8").write(brut)
+    globals()["IDX_V"] = hashlib.md5(brut.encode("utf-8")).hexdigest()[:8]
 
     js = ("<script>let IDX=[],DEFS={};"
           "const MAIL='" + E["email"] + "';"
@@ -1700,7 +1709,7 @@ indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques<
           "inp.addEventListener('input',go);"
           "const p0=new URLSearchParams(location.search).get('q');if(p0)inp.value=p0;"
           "out.innerHTML='<p class=\"maj\">Chargement de l\\'index…</p>';"
-          "fetch('/assets/recherche.json').then(r=>r.json()).then(d=>{IDX=d.idx;DEFS=d.defs;"
+          "fetch('/assets/recherche.json?v=" + IDX_V + "').then(r=>r.json()).then(d=>{IDX=d.idx;DEFS=d.defs;"
           "out.innerHTML='';if(inp.value)go();inp.focus()})"
           ".catch(()=>{out.innerHTML='<p>La recherche n\\'a pas pu se charger. "
           "Le <a href=\"/plan-du-site/\">plan du site</a> liste toutes les pages.</p>'});"
@@ -2983,12 +2992,14 @@ def main():
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),
                     dirs_exist_ok=True)
     contenus = charger_contenus()
+    # En premier : l'index de recherche fixe son empreinte, que toutes les
+    # pages suivantes citent dans l'URL du fichier (invalidation du cache).
+    page_recherche(contenus)
     page_home(contenus[0] if contenus else None)
     page_simulateur()
     page_hub_diags()
     page_hub_travaux()
     page_tableau()
-    page_recherche(contenus)
     page_pack()
     page_aide_devis()
     page_aides()

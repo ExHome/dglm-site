@@ -36,7 +36,7 @@
 
   function charger() {
     if (chargement) return chargement;
-    chargement = fetch("/assets/recherche.json")
+    chargement = fetch("/assets/recherche.json?v=" + (window.IDX_V || "0"))
       .then(function (r) { return r.json(); })
       .then(function (d) { IDX = d.idx; return IDX; })
       .catch(function () { IDX = []; return IDX; });
