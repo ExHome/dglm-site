@@ -262,8 +262,9 @@ p:last-child{margin-bottom:0}
 
 .frise{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:0;
   margin-top:1.9rem;border-top:2px solid var(--or)}
-.frise div{padding:1.15rem 1rem 1.15rem 0;border-right:1px solid var(--rule)}
-.frise div:last-child{border-right:0}
+/* Le polissage de la frise vit plus bas, sur `.frise > *`. Cibler `.frise div`
+   ici l'emportait par spécificité et la frise changeait d'aspect selon la
+   balise employée dans le HTML. */
 .frise b{display:block;font-family:var(--mono);font-size:.94rem;color:var(--vert)}
 .frise span{display:block;font-size:.9rem;color:var(--encre-2);margin-top:.32rem}
 
@@ -348,8 +349,10 @@ details p{margin-top:.78rem;font-size:.97rem;color:var(--encre-2);max-width:68ch
 
 /* ---------- équipe ---------- */
 .team{display:grid;gap:1.15rem;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));margin-top:2rem}
-.team article{background:var(--blanc);border:1px solid var(--rule);border-top:2px solid var(--or);
-  border-radius:2px;padding:1.4rem 1.35rem}
+/* Fiches sans encadré : seul un filet supérieur les sépare (voir plus bas).
+   L'ancien cadre complet n'était surchargé que sur son bord haut, et les trois
+   autres côtés survivaient — d'où un encadré fantôme sur la page équipe. */
+.team article{padding:1.4rem 1.35rem 1.4rem 0}
 .team h3{font-size:1.05rem;color:var(--vert);margin-bottom:.18rem}
 .team .role{font-size:.85rem;color:var(--or);font-weight:600;margin-bottom:.55rem}
 .team p{font-size:.9rem;color:var(--encre-2);margin:0}
@@ -1206,3 +1209,16 @@ dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
   .hero--echoppe{background-image:linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
     url("/assets/photos/hero-echoppe-800.jpg")}
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   ÉCHELLE TYPOGRAPHIQUE — le niveau h3 n'existait pas visuellement :
+   16,96 px pour un corps de texte à 16,32 px, soit 4 % d'écart. Un
+   lecteur ne pouvait pas percevoir la structure d'une page sans la
+   lire. Trois paliers nets, et une seule valeur par usage au lieu de
+   quatre tailles voisines selon le composant.
+   ═══════════════════════════════════════════════════════════════════ */
+h3{font-size:1.3rem;letter-spacing:-.008em}          /* 20,8 px — 1,27× le corps */
+.card h3,.steps h3,.verdict h3,.team h3,
+.certif h3,.suite h3,.aide__bloc summary{font-size:1.16rem}   /* 18,6 px en grille */
+details summary{font-size:1.08rem}
+.devis__bloc h3{font-size:.86rem}                    /* étiquette d'étape, pas un titre */
