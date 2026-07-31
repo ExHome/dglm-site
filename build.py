@@ -145,7 +145,14 @@ SCRIPT_VOLETS = ('<script>(function(){function o(h){try{var e=h&&document.queryS
                  'if(e){var d=e.querySelector("details");if(d)d.open=true}}catch(x){}}'
                  'addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest("a");'
                  'if(a&&a.getAttribute("href")&&a.getAttribute("href").charAt(0)==="#")o(a.getAttribute("href"))});'
-                 'o(location.hash)})()</script>')
+                 'o(location.hash);'
+                 # À l'impression, on ouvre tout : la feuille print prépare un
+                 # dossier d'assemblée, qui ne peut pas sortir amputé.
+                 'addEventListener("beforeprint",function(){document.querySelectorAll("details")'
+                 '.forEach(function(d){d.dataset.o=d.open?"1":"";d.open=true})});'
+                 'addEventListener("afterprint",function(){document.querySelectorAll("details")'
+                 '.forEach(function(d){d.open=d.dataset.o==="1"})});'
+                 '})()</script>')
 
 NAV = "".join(
     f'<a href="{SILO}/{s["slug"]}/" title="{s["nom_court"]}">{s["sigle"]}</a>' for s in SERVICES)
@@ -250,7 +257,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <a class="topbar__part" href="/particuliers/">Particulier pour une vente ou une location ? →</a></div></div>
 <header class="masthead"><div class="wrap">
 <a class="brand" href="/"><img src="/assets/logo-dglm-blanc.png" alt="DGLM Expertises"
-width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
+width="47" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <nav class="nav" aria-label="Navigation principale">
 <div class="nav__grp"><a href="/diagnostics-copropriete/" title="Diagnostics de copropriété">Copropriété</a>
 <div class="nav__menu">
@@ -292,7 +299,7 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <main id="contenu" tabindex="-1">"""
     foot = f"""{SCRIPT_VOLETS}</main>
 <footer class="footer"><div class="wrap">
-<img class="mark" src="/assets/logo-dglm-blanc.png" alt="" width="164" height="52" loading="lazy">
+<img class="mark" src="/assets/logo-dglm-blanc.png" alt="" width="55" height="52" loading="lazy">
 <div class="grid grid--4">
 <div><p class="foot-titre">Avant travaux &amp; démolition</p><ul>
 <li><a href="/avant-travaux-et-demolition/">La famille chantier</a></li>
@@ -1973,6 +1980,7 @@ même maison, même exigence.</p>
 <article class="band"><div class="wrap prose">
 <p class="enclair" style="margin-top:0"><span>L'antisèche</span>{esc(c.get("antiseche", c["meta"]))}</p>
 {som}{corps}{schema_art}
+{sources_html(c)}
 <p class="maj">Publié le {c['date'].strftime('%d/%m/%Y')} · vérifié au {MAJ} ·
 rédigé par l'équipe technique de {E['nom']}</p>
 <h2>Pour approfondir</h2><ul>{liens}</ul>
@@ -2564,7 +2572,8 @@ montant global ci-dessus.</p>
 <p class="simu-manque" id="aides-manque" role="status" aria-live="polite"></p>
 </div>
 </form>
-<div id="aides-resultat" hidden>
+<p id="aides-synthese" class="sr" role="status" aria-live="polite"></p>
+<div id="aides-resultat" tabindex="-1" hidden>
 <h2 style="margin-top:2rem">Votre estimation, ligne à ligne</h2>
 <div class="simu-corps"></div>
 <div class="actions" style="margin-top:1.2rem">
@@ -2959,8 +2968,11 @@ def sitemap():
            + items + "</urlset>")
     open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(xml)
     open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(
+        # Les mentions légales doivent rester explorables : c'est par elles que
+        # Google vérifie l'identité de l'éditeur — le premier signal de confiance
+        # attendu d'un site engageant la responsabilité de ses lecteurs.
         f"User-agent: *\nAllow: /\n"
-        f"Disallow: /mentions-legales/\nDisallow: /_veille/\nDisallow: /_source/\n"
+        f"Disallow: /_veille/\nDisallow: /_source/\n"
         f"\nSitemap: {DOM}/sitemap.xml\n")
 
 

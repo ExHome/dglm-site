@@ -291,17 +291,26 @@
     rendrePieces();
   }
 
+  /* Un nom de fichier peut contenir < ou " : sans échappement, il casserait
+     le balisage de la liste. */
+  function ech(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+
   function rendrePieces() {
     var ul = document.getElementById("pieces-liste");
     var etatP = document.getElementById("pieces-etat");
     var actions = document.getElementById("pieces-actions");
     if (!ul) return;
     ul.innerHTML = pieces.map(function (p, i) {
+      var nom = ech(p.fichier.name);
       return '<li><span class="pieces__num">' + (i + 1) + '</span>' +
-        '<span class="pieces__nom">' + p.fichier.name + "</span>" +
+        '<span class="pieces__nom">' + nom + "</span>" +
         '<span class="pieces__poids">' + poids(p.fichier.size) + "</span>" +
         '<button type="button" class="pieces__x" data-id="' + p.id +
-        '" aria-label="Retirer ' + p.fichier.name + '">retirer</button></li>';
+        '" aria-label="Retirer ' + nom + '">retirer</button></li>';
     }).join("");
     var t = totalPieces();
     if (!pieces.length) {
@@ -393,8 +402,15 @@
       var b = e.target.closest(".pieces__x");
       if (!b) return;
       var id = parseInt(b.dataset.id, 10);
+      var rang = pieces.findIndex(function (p) { return p.id === id; });
       pieces = pieces.filter(function (p) { return p.id !== id; });
       rendrePieces();
+      /* Le bouton actionné vient d'être détruit : sans cela le focus retombe
+         en haut du document et il faut retraverser tout l'en-tête. */
+      var suivants = document.querySelectorAll("#pieces-liste .pieces__x");
+      var cible = suivants[Math.min(rang, suivants.length - 1)] ||
+                  document.getElementById("pieces-input");
+      if (cible) cible.focus();
     });
     document.getElementById("pieces-zip").addEventListener("click", preparerZip);
   }

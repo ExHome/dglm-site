@@ -198,6 +198,17 @@
       'de travaux éligibles, et aides locales éventuelles.</p>';
     zone.querySelector(".simu-corps").innerHTML = h;
     zone.hidden = false;
+
+    /* Un lecteur d'écran ne perçoit ni l'apparition du bloc ni le défilement :
+       on lui annonce la synthèse en une phrase — pas le tableau entier. */
+    var dit = document.getElementById("aides-synthese");
+    if (dit) dit.textContent = (r.eligible
+      ? "Copropriété éligible. "
+      : "Conditions non remplies en l'état. ") +
+      "Total des aides estimées : " + EUR(r.total) +
+      ". Reste à charge : " + EUR(r.resteACharge) +
+      ", soit " + EUR(r.parLogement) + " par logement en moyenne." +
+      (r.motifs.length ? " Motifs : " + r.motifs.join(" ") : "");
   }
 
   /* ---------- export texte (pour les études et les PV d'AG) ---------- */

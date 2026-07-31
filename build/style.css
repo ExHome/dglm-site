@@ -1045,3 +1045,45 @@ body{line-height:1.68}
 .menu__cta{background:var(--or);color:var(--vert-profond)!important;font-weight:700;
   text-align:center;border-bottom:0!important;margin-bottom:.4rem}
 .menu__cta:hover{background:var(--or-clair)}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACCESSIBILITÉ — corrections d'audit. Lighthouse donnait 100/100 :
+   aucun de ces défauts n'est détectable automatiquement.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Les champs n'avaient qu'un trait à 1,34:1 pour toute limite — on ne
+   voyait pas où écrire. Minimum exigé pour un composant : 3:1. */
+.field input,.field select,.devis textarea{border-bottom:1.5px solid #5B6A62}
+.field input:focus,.field select:focus,.devis textarea:focus{
+  border-bottom-color:var(--vert);border-bottom-width:2.5px}
+/* Les libellés étaient à 10,88px en capitales : illisibles de près. */
+.field > span{font-size:.82rem;text-transform:none;letter-spacing:.02em;
+  font-weight:600;color:#4A5A52}
+.devis__bloc h3{font-size:.86rem;letter-spacing:.1em}
+
+/* Sur tablette en paysage (>980px et sans survol), les sous-menus étaient
+   inatteignables au doigt ET au clavier : 23 liens perdus. */
+@media (hover:none){.nav__menu{display:none}}
+@media (hover:none) and (min-width:981px){
+  .nav__grp:focus-within .nav__menu{display:block}}
+
+/* « Déplier + » commande la moitié du contenu des pages mission et se
+   lisait à 2,54:1 sur 10,24px. */
+.volet__ouvrir::before{color:#8A6224;font-size:.78rem}
+details summary::after{color:#8A6224}
+.postes summary::before{color:#8A6224}
+.norme__piege strong{font-size:.8rem;color:#8A6224}
+
+/* Cible tactile de 24px minimum sur les bulles d'aide, sans grossir le
+   disque : on étend la zone sensible. */
+.info__b{position:relative}
+.info__b::after{content:"";position:absolute;inset:-4px;border-radius:50%}
+
+/* Le tableau du simulateur imposait un défilement latéral inutile alors
+   que sa colonne de détail est déjà masquée sur téléphone. */
+@media (max-width:640px){.simu-table{min-width:0}}
+
+/* Les sections repliées ne s'imprimaient pas : la feuille d'impression
+   prépare pourtant un dossier d'assemblée générale. */
+@media print{.volet[open] .volet__corps,.volet .volet__corps{display:block!important}
+  .volet__ouvrir{display:none}}
