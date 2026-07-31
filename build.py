@@ -172,13 +172,16 @@ def desc_courte(t, limite=158):
     t = " ".join(t.split())
     if len(t) <= limite:
         return t.rstrip(" ;,—")
-    tete = t[:limite + 1]
-    for fin in (". ", " — ", " : ", "? ", "! "):
+    tete = t[:limite]
+    # d'abord une phrase entière ; à défaut, un membre de phrase qui se tient,
+    # clos par un point — jamais un mot coupé suivi de points de suspension.
+    for fin, garde in ((". ", True), ("? ", True), ("! ", True),
+                       (" — ", False), (" : ", False), (" ; ", False), (", ", False)):
         coupe = tete.rfind(fin)
-        # une phrase trop courte ne dit rien : on n'accepte qu'au-delà de 60 %
-        if coupe > limite * 0.6:
-            return t[:coupe + (1 if fin == ". " else 0)].strip(" —:")
-    return t[:limite].rsplit(" ", 1)[0] + "…"
+        if coupe > limite * 0.55:
+            bout = t[:coupe + (1 if garde else 0)].strip(" —:;,")
+            return bout if bout.endswith((".", "?", "!")) else bout + "."
+    return t[:limite].rsplit(" ", 1)[0].strip(" —:;,") + "."
 
 
 def crumb_html(trail):
