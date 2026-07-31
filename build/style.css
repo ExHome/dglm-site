@@ -1014,3 +1014,34 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 /* Une fois la colonne resserrée, l'interlignage très ample n'a plus lieu
    d'être : il compensait la difficulté à retrouver la ligne suivante. */
 body{line-height:1.68}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BARRE D'ACTION MOBILE — sur téléphone, l'accueil fait 14 écrans et
+   l'ancien header masquait le bouton de devis : entre le premier et le
+   onzième écran, le visiteur n'avait plus aucun moyen de nous joindre.
+   Deux actions, toujours à portée de pouce, jamais sur grand écran.
+   ═══════════════════════════════════════════════════════════════════ */
+.barre-mob{display:none}
+@media (max-width:860px){
+  .barre-mob{display:grid;grid-template-columns:1fr 1.35fr;gap:1px;
+    position:fixed;left:0;right:0;bottom:0;z-index:90;
+    background:var(--rule-or);
+    padding-bottom:env(safe-area-inset-bottom)}
+  .barre-mob a{display:flex;align-items:center;justify-content:center;gap:.5rem;
+    min-height:3.4rem;font-family:var(--sans);font-size:.88rem;font-weight:600;
+    letter-spacing:.02em;text-decoration:none}
+  .barre-mob__tel{background:var(--creme);color:var(--vert-profond)}
+  .barre-mob__devis{background:var(--vert-profond);color:var(--creme)}
+  .barre-mob a:active{filter:brightness(.94)}
+  /* le pied de page ne doit pas passer sous la barre */
+  .footer{padding-bottom:5.5rem}
+}
+@media print{.barre-mob{display:none}}
+
+/* Le badge d'avis est le seul signal de confiance visible d'emblée :
+   il n'a pas à disparaître sur téléphone. */
+@media (max-width:640px){.topbar__avis{display:inline}}
+/* l'action principale, en tête du menu tiroir */
+.menu__cta{background:var(--or);color:var(--vert-profond)!important;font-weight:700;
+  text-align:center;border-bottom:0!important;margin-bottom:.4rem}
+.menu__cta:hover{background:var(--or-clair)}

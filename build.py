@@ -152,7 +152,10 @@ NAV = "".join(
 
 # Menu tiroir : navigation complète, lisible par un néophyte (sigle + intitulé
 # en clair), disponible sur tous les formats — téléphone, tablette, ordinateur.
-MENU = ('<a href="/">Accueil</a>'
+# L'action principale ouvre le menu : elle était auparavant en 26e position
+# sur 27, au bas d'une liste de trois mille pixels.
+MENU = ('<a class="menu__cta" href="/devis/">Demander un devis →</a>'
+        + '<a href="/">Accueil</a>'
         + '<a class="menu__groupe" href="/diagnostics-copropriete/">◆ Diagnostics de copropriété</a>'
         + '<a href="/diagnostic-technique-global/"><b>DTG</b> — Diagnostic technique global</a>'
         + '<a href="/plan-pluriannuel-de-travaux/"><b>PPPT</b> — Plan pluriannuel de travaux</a>'
@@ -243,8 +246,8 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <div class="topbar"><div class="wrap">
 <span>Diagnostiqueurs certifiés · Copropriété &amp; travaux · Bordeaux Métropole</span>
 <a class="topbar__avis" href="{E['google_avis']}" rel="noopener">★ 4,9/5 — avis Google</a>
-<a href="/particuliers/">Particulier pour une vente ou une location ? →</a>
-<a href="tel:{E['tel_raw']}">{E['tel']}</a></div></div>
+<a href="tel:{E['tel_raw']}">{E['tel']}</a>
+<a class="topbar__part" href="/particuliers/">Particulier pour une vente ou une location ? →</a></div></div>
 <header class="masthead"><div class="wrap">
 <a class="brand" href="/"><img src="/assets/logo-dglm-blanc.png" alt="DGLM Expertises"
 width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
@@ -325,7 +328,15 @@ Page à jour au {MAJ} ·
 <a href="/mentions-legales/">Mentions légales</a> ·
 <a href="/particuliers/">{E['site_a_ancre']}</a> ·
 Photos d'architecture : Bétium217, Symac — <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA</a>, via Wikimedia Commons</p>
-</div></footer>{script_navq}</body></html>"""
+</div></footer>
+<div class="barre-mob" role="group" aria-label="Nous contacter">
+<a class="barre-mob__tel" href="tel:{E['tel_raw']}">
+<svg viewBox="0 0 24 24" aria-hidden="true" width="17" height="17"><path fill="none"
+ stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+ d="M6.5 3h3l1.5 4.5-2 1.5a12 12 0 0 0 6 6l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z"/></svg>
+Appeler</a>
+<a class="barre-mob__devis" href="/devis/">Demander un devis</a>
+</div>{script_navq}</body></html>"""
     write(path, head + body + foot)
 
 
@@ -775,6 +786,13 @@ def page_service(s):
                          ancre="schema")
                    if schema else "")
 
+    # Le devis part avec la mission déjà choisie : le visiteur ne redéclare
+    # pas ce qu'il vient de lire pendant deux mille mots.
+    MISSION_DEVIS = {"reperage-amiante-avant-travaux": "raat",
+                     "reperage-amiante-avant-demolition": "raad",
+                     "diagnostic-technique-global": "dtg",
+                     "plan-pluriannuel-de-travaux": "pppt"}
+    lien_devis = "/devis/" + (f"?m={MISSION_DEVIS[s['slug']]}" if s["slug"] in MISSION_DEVIS else "")
     bouton_aides = ('<a class="btn btn--light" href="/aides-financieres-copropriete/">Simuler vos aides</a>'
                     if s["slug"] in ("diagnostic-technique-global", "plan-pluriannuel-de-travaux") else "")
     body = f"""{crumb_html(trail)}
@@ -782,7 +800,7 @@ def page_service(s):
 <p class="eyebrow eyebrow--pale">{s['sigle']} — Bordeaux Métropole</p>
 <h1>{esc(s['nom'])} à Bordeaux et en Gironde</h1>
 <p class="lede">{esc(s['accroche'])}</p>
-<div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
+<div class="actions"><a class="btn btn--light" href="{lien_devis}">Demander un devis</a>
 {bouton_aides}<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <nav class="ancres" aria-label="Chapitres"><div class="wrap">

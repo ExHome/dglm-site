@@ -170,7 +170,7 @@
   };
 
   var DELAI = { id: "delai", label: "Délai souhaité", type: "select", requis: true, options: [
-    "Urgent — sous 8 jours", "Sous 15 jours", "Sous un mois",
+    "Urgent — chantier bloqué, visite sous 72 h", "Sous 8 jours", "Sous 15 jours", "Sous un mois",
     "Avant la prochaine assemblée générale", "Pas de contrainte particulière" ] };
   var PORTEE = { id: "portee", label: "Cette demande concerne", type: "select", options: [
     "Un seul immeuble ou site", "Plusieurs immeubles d'un même portefeuille" ],
@@ -484,14 +484,30 @@
     if (encartPart) encartPart.hidden = !estPart;
   });
 
-  document.getElementById("devis-choix").addEventListener("click", function (e) {
-    var b = e.target.closest(".mission");
-    if (!b) return;
-    Array.prototype.forEach.call(this.querySelectorAll(".mission"), function (x) {
+  function choisir(b) {
+    Array.prototype.forEach.call(document.querySelectorAll(".mission"), function (x) {
       x.setAttribute("aria-pressed", x === b ? "true" : "false");
     });
     rendre(b.dataset.m);
+  }
+
+  document.getElementById("devis-choix").addEventListener("click", function (e) {
+    var b = e.target.closest(".mission");
+    if (b) choisir(b);
   });
+
+  /* Arrivée depuis une page mission : on reprend la mission qu'il vient de
+     lire plutôt que de la lui redemander. */
+  (function () {
+    var m = new URLSearchParams(location.search).get("m");
+    if (!m || !MISSIONS[m]) return;
+    var b = document.querySelector('.mission[data-m="' + m + '"]');
+    if (!b) return;
+    choisir(b);
+    var etatP = document.getElementById("devis-etat");
+    if (etatP) etatP.textContent = "Mission reprise depuis la page que vous consultiez : " +
+      MISSIONS[m].nom + ". Vous pouvez en changer ci-dessus.";
+  })();
 
   /* ---------- récapitulatif ---------- */
   function collecter() {
