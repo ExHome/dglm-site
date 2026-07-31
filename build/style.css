@@ -848,7 +848,12 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 .simu-table tfoot tr:last-child td{border-top:0;color:#5B6A62}
 .simu-avert{margin:1rem 0 0;padding-left:1.1rem;font-size:.9rem;color:#5B6A62}
 .simu-suite{margin-top:1rem;font-size:.9rem;color:#5B6A62}
-@media (max-width:640px){.simu-table td:nth-child(2){display:none}}
+.simu-table{width:100%}
+@media (max-width:640px){
+  .simu-table td:nth-child(2),.simu-table th:nth-child(2){display:none}
+  .simu-table td:first-child,.simu-table th:first-child{white-space:normal;
+    hyphens:auto;font-size:.9rem}
+  .simu-table td:last-child{font-size:.92rem}}
 @media print{#simu-aides .devis__bloc em{display:none}}
 
 /* déperditions : pulsation discrète des flèches de chaleur */

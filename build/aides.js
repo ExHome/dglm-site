@@ -124,14 +124,14 @@
     } else {
       h += '<div class="simu-verdict simu-verdict--oui"><strong>Copropriété éligible</strong> aux critères principaux de MaPrimeRénov’ Copropriété, sous réserve d’instruction du dossier par l’Anah.</div>';
     }
-    h += '<table class="tabsimple simu-table"><thead><tr><th>Poste</th><th>Détail du calcul</th><th>Montant</th></tr></thead><tbody>';
+    h += '<div class="tabwrap"><table class="tabsimple simu-table"><thead><tr><th>Poste</th><th>Détail du calcul</th><th>Montant</th></tr></thead><tbody>';
     r.lignes.forEach(function (l) {
       h += "<tr><td>" + l[0] + "</td><td>" + l[1] + "</td><td><strong>" + l[2] + "</strong></td></tr>";
     });
     h += '</tbody><tfoot>' +
       '<tr><td>Total des aides estimées</td><td></td><td><strong>' + EUR(r.total) + "</strong></td></tr>" +
       '<tr><td>Reste à charge collectif</td><td>travaux + AMO − aides</td><td><strong>' + EUR(r.resteACharge) + "</strong></td></tr>" +
-      '<tr><td>Soit par logement (moyenne)</td><td>répartition réelle aux tantièmes</td><td><strong>' + EUR(r.parLogement) + "</strong></td></tr></tfoot></table>";
+      '<tr><td>Soit par logement (moyenne)</td><td>répartition réelle aux tantièmes</td><td><strong>' + EUR(r.parLogement) + "</strong></td></tr></tfoot></table></div>";
     if (r.avertissements.length) {
       h += "<ul class='simu-avert'>" + r.avertissements.map(function (a) { return "<li>" + a + "</li>"; }).join("") + "</ul>";
     }
