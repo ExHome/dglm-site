@@ -17,6 +17,24 @@
     return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   }
 
+  /* On tape une question entière : « qui paie le diagnostic ? ». Les mots
+     outils ne figurent dans aucun index — les exiger ferait tout échouer.
+     On ne garde donc que les mots porteurs de sens. */
+  var VIDES = ("le la les un une des du de d a au aux en et ou est sont ce cet cette c " +
+    "qui que quoi quel quelle quels quelles comment pourquoi quand combien ou " +
+    "faut il elle on nous vous je tu mon ma mes votre vos notre nos leur leurs " +
+    "se sa son ses pour par sur dans avec sans plus moins tout tous toute toutes " +
+    "y ne pas ni na l s t qu aussi meme etre avoir fait faire doit dois peut " +
+    "puis alors donc mais car si oui non alors alors-que").split(" ");
+
+  function motsUtiles(q) {
+    var bruts = norm(q).split(/[^a-z0-9]+/).filter(Boolean);
+    var utiles = bruts.filter(function (m) {
+      return m.length > 1 && VIDES.indexOf(m) < 0;
+    });
+    return utiles.length ? utiles : bruts;
+  }
+
   function charger() {
     if (chargement) return chargement;
     chargement = fetch("/assets/recherche.json")
@@ -27,15 +45,28 @@
   }
 
   function chercher(q) {
-    var termes = norm(q).split(/\s+/).filter(Boolean);
+    var termes = motsUtiles(q);
     if (!termes.length) return [];
+    /* Un seul mot reconnu suffit à retenir une page : une question posée en
+       langage courant ne doit jamais tomber dans le vide. Le classement fait
+       le tri — les pages qui portent TOUS les mots passent devant.
+       Un mot rare (« mérule », « tantièmes ») en dit plus long qu'un mot
+       omniprésent (« diagnostic ») : on le pèse en conséquence. */
+    var poids = termes.map(function (t) {
+      var n = 0;
+      for (var k = 0; k < IDX.length; k++) if (IDX[k].n.indexOf(t) >= 0) n++;
+      return n ? Math.max(1, Math.log(IDX.length / n)) : 1;
+    });
     var out = [];
     for (var i = 0; i < IDX.length; i++) {
-      var e = IDX[i], s = 0, ok = 0;
+      var e = IDX[i], s = 0, ok = 0, titre = norm(e.t);
       for (var j = 0; j < termes.length; j++) {
-        if (e.n.indexOf(termes[j]) >= 0) { ok++; s += norm(e.t).indexOf(termes[j]) >= 0 ? 3 : 1; }
+        if (e.n.indexOf(termes[j]) >= 0) {
+          ok++;
+          s += poids[j] * (titre.indexOf(termes[j]) >= 0 ? 3 : 1);
+        }
       }
-      if (ok === termes.length) out.push([s, e]);
+      if (ok) out.push([ok * 100 + s, e]);
     }
     out.sort(function (a, b) { return b[0] - a[0]; });
     return out.slice(0, 7).map(function (x) { return x[1]; });

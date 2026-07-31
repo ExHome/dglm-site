@@ -1607,7 +1607,16 @@ def page_recherche(contenus):
     add("Notre équipe", "/equipe/", "Des noms, des visages, des signatures.", "diagnostiqueurs certifiés")
     add("Zones d'intervention", f"{SILO}/zones-d-intervention/",
         "Bordeaux Métropole en priorité, Gironde et Landes sur mission.", "communes secteur")
-    add("Demande de devis", "/devis/", "Devis chiffré sous deux heures ouvrées.", "contact rappel")
+    # Le site n'affiche pas de tarifs : les questions de prix mènent au devis,
+    # qui chiffre sur les caractéristiques réelles de l'immeuble.
+    add("Demande de devis", "/devis/",
+        "Chaque immeuble a son prix : surfaces, lots, accès. Devis chiffré sous deux heures ouvrées.",
+        "contact rappel prix tarif tarifs cout coute couter combien budget "
+        "honoraires facture estimation chiffrage montant")
+    add("Aides financières : le simulateur", "/aides-financieres-copropriete/",
+        "MaPrimeRénov' Copropriété : le montant estimé de vos aides, ligne à ligne.",
+        "aide aides subvention subventions financement anah maprimerenov prix cout "
+        "combien travaux renovation energetique eco-ptz cee tva")
     add("Normes et textes", "/referentiel-des-normes/",
         "Norme, arrêté et article de code applicables à chaque diagnostic.", "afnor réglementation")
     add("Bordeaux, quartier par quartier", "/bordeaux/",
@@ -1649,11 +1658,25 @@ indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques<
           "function lienQ(){const su=encodeURIComponent('Question pour vos guides pratiques');"
           "const co=encodeURIComponent('Bonjour, voici ma question : '+inp.value.trim());"
           "return '<p style=\"margin-top:1.2rem\"><a class=\"btn btn--ghost\" href=\"mailto:'+MAIL+'?subject='+su+'&body='+co+'\">Nous envoyer cette question</a></p>'}"
+          # On pose une question entière : les mots outils ne sont dans aucun
+          # index, les exiger ferait tout échouer. On garde le sens.
+          "const VIDES=new Set('le la les un une des du de d a au aux en et ou est sont ce cet cette c "
+          "qui que quoi quel quelle quels quelles comment pourquoi quand combien "
+          "faut il elle on nous vous je tu mon ma mes votre vos notre nos leur leurs "
+          "se sa son ses pour par sur dans avec sans plus moins tout tous toute toutes "
+          "y ne pas ni na l s t qu aussi meme etre avoir fait faire doit dois peut "
+          "puis alors donc mais car si oui non'.split(' '));"
+          "function mots(s){const b=norm(s).split(/[^a-z0-9]+/).filter(Boolean);"
+          "const u=b.filter(m=>m.length>1&&!VIDES.has(m));return u.length?u:b}"
           "function go(){const q=norm(inp.value.trim());rep.innerHTML='';"
           "if(q.length<2){out.innerHTML='';return}"
-          "const terms=q.split(/\\s+/).filter(Boolean);const sc=[];"
-          "for(const e of IDX){let s=0;for(const t of terms){if(e.n.includes(t))s+=(norm(e.t).includes(t)?3:1)}"
-          "if(s>=terms.length)sc.push([s,e])}"
+          "const terms=mots(inp.value);const sc=[];"
+          # un mot rare pèse plus qu'un mot omniprésent (« diagnostic »)
+          "const pds=terms.map(t=>{let n=0;for(const e of IDX)if(e.n.includes(t))n++;"
+          "return n?Math.max(1,Math.log(IDX.length/n)):1});"
+          "for(const e of IDX){let s=0,ok=0;const ti=norm(e.t);"
+          "terms.forEach((t,k)=>{if(e.n.includes(t)){ok++;s+=pds[k]*(ti.includes(t)?3:1)}});"
+          "if(ok)sc.push([ok*100+s,e])}"
           "sc.sort((a,b)=>b[0]-a[0]);"
           "let defs='';for(const k in DEFS){if(terms.includes(k)){defs+='<p><b>'+k.toUpperCase()+'</b> — '+DEFS[k]+'</p>'}}"
           "if(!sc.length){const VOC=[...new Set(IDX.flatMap(e=>e.n.split(/[^a-z0-9]+/g)))].filter(w=>w.length>3);"
