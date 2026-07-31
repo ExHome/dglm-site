@@ -19,19 +19,18 @@
 
   /* On tape une question entière : « qui paie le diagnostic ? ». Les mots
      outils ne figurent dans aucun index — les exiger ferait tout échouer.
-     On ne garde donc que les mots porteurs de sens. */
-  var VIDES = ("le la les un une des du de d a au aux en et ou est sont ce cet cette c " +
-    "qui que quoi quel quelle quels quelles comment pourquoi quand combien ou " +
-    "faut il elle on nous vous je tu mon ma mes votre vos notre nos leur leurs " +
-    "se sa son ses pour par sur dans avec sans plus moins tout tous toute toutes " +
-    "y ne pas ni na l s t qu aussi meme etre avoir fait faire doit dois peut " +
-    "puis alors donc mais car si oui non alors alors-que").split(" ");
+     On ne garde donc que les mots porteurs de sens. Les mots interrogatifs,
+     eux, restent : nos guides s'intitulent « Qui paie… », « Faut-il… »,
+     « Combien… » — ici, ce sont des mots qui portent. */
+  var VIDES = ("le la les un une des du de au aux en et ou est sont ce cet cette " +
+    "elle on nous vous je tu mon ma mes votre vos notre nos leur leurs " +
+    "sa son ses pour par sur dans avec sans plus moins tout tous toute toutes " +
+    "pas ni aussi meme etre avoir fait faire doit dois puis alors donc mais car " +
+    "oui non ils elles cela ceci celui celle").split(" ");
 
   function motsUtiles(q) {
-    var bruts = norm(q).split(/[^a-z0-9]+/).filter(Boolean);
-    var utiles = bruts.filter(function (m) {
-      return m.length > 1 && VIDES.indexOf(m) < 0;
-    });
+    var bruts = norm(q).split(/[^a-z0-9]+/).filter(function (m) { return m.length > 2; });
+    var utiles = bruts.filter(function (m) { return VIDES.indexOf(m) < 0; });
     return utiles.length ? utiles : bruts;
   }
 

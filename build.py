@@ -1660,14 +1660,14 @@ indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques<
           "return '<p style=\"margin-top:1.2rem\"><a class=\"btn btn--ghost\" href=\"mailto:'+MAIL+'?subject='+su+'&body='+co+'\">Nous envoyer cette question</a></p>'}"
           # On pose une question entière : les mots outils ne sont dans aucun
           # index, les exiger ferait tout échouer. On garde le sens.
-          "const VIDES=new Set('le la les un une des du de d a au aux en et ou est sont ce cet cette c "
-          "qui que quoi quel quelle quels quelles comment pourquoi quand combien "
-          "faut il elle on nous vous je tu mon ma mes votre vos notre nos leur leurs "
-          "se sa son ses pour par sur dans avec sans plus moins tout tous toute toutes "
-          "y ne pas ni na l s t qu aussi meme etre avoir fait faire doit dois peut "
-          "puis alors donc mais car si oui non'.split(' '));"
-          "function mots(s){const b=norm(s).split(/[^a-z0-9]+/).filter(Boolean);"
-          "const u=b.filter(m=>m.length>1&&!VIDES.has(m));return u.length?u:b}"
+          # Les mots interrogatifs restent : nos titres sont des questions.
+          "const VIDES=new Set('le la les un une des du de au aux en et ou est sont ce cet cette "
+          "elle on nous vous je tu mon ma mes votre vos notre nos leur leurs "
+          "sa son ses pour par sur dans avec sans plus moins tout tous toute toutes "
+          "pas ni aussi meme etre avoir fait faire doit dois puis alors donc mais car "
+          "oui non ils elles cela ceci celui celle'.split(' '));"
+          "function mots(s){const b=norm(s).split(/[^a-z0-9]+/).filter(m=>m.length>2);"
+          "const u=b.filter(m=>!VIDES.has(m));return u.length?u:b}"
           "function go(){const q=norm(inp.value.trim());rep.innerHTML='';"
           "if(q.length<2){out.innerHTML='';return}"
           "const terms=mots(inp.value);const sc=[];"
