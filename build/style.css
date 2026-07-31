@@ -1151,3 +1151,29 @@ dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
 .vres__condition{border-left-color:var(--or)}.vres__condition .vres__etat{color:#8A6224}
 .vres__manque{border-left-color:var(--rule)}.vres__manque .vres__etat{color:#5B6A62}
 @media (max-width:560px){.vd{gap:.5rem}.vd__date{width:100%}}
+
+/* colonne d'aide latérale : les repères restent sous les yeux pendant qu'on
+   remplit. Elle passe sous le formulaire dès que l'écran se resserre. */
+.avec-aide{display:grid;grid-template-columns:minmax(0,1fr) 21rem;gap:3rem;
+  align-items:start;margin-top:1.8rem}
+.avec-aide__principal{min-width:0}
+.aide{position:sticky;top:7rem;border-left:2px solid var(--or);padding:.2rem 0 .2rem 1.3rem;
+  max-height:calc(100vh - 9rem);overflow-y:auto}
+.aide__titre{font-family:var(--sans);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#8A6224;margin:0 0 1rem}
+.aide__bloc{border-bottom:1px solid var(--rule-fine);padding:.15rem 0}
+.aide__bloc summary{cursor:pointer;list-style:none;padding:.6rem 0;font-size:.9rem;
+  font-weight:600;color:var(--vert);line-height:1.4}
+.aide__bloc summary::-webkit-details-marker{display:none}
+.aide__bloc summary::before{content:"+ ";color:#8A6224;font-weight:700}
+.aide__bloc[open] summary::before{content:"– "}
+.aide__bloc p{font-size:.86rem;line-height:1.6;color:var(--encre);margin:.2rem 0 .9rem}
+.aide__bloc p + p{margin-top:-.4rem}
+.aide__pied{font-size:.8rem;color:#5B6A62;line-height:1.55;margin:1.2rem 0 0}
+@media (prefers-reduced-motion:no-preference){.aide__bloc[open] p{animation:deplie .2s ease-out}}
+@media (max-width:1080px){
+  .avec-aide{grid-template-columns:1fr;gap:2.2rem}
+  .aide{position:static;max-height:none;border-left:0;border-top:2px solid var(--or);
+    padding:1.4rem 0 0}
+}
+@media print{.aide{display:none}}

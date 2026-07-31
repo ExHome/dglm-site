@@ -2490,6 +2490,9 @@ veille de la signature : certains demandent une visite, et les délais de labora
 négocient pas. Le plus court de tous, l'état des risques, ne tient que six mois — c'est
 presque toujours lui qui manque.</p>
 
+<div class="avec-aide">
+<div class="avec-aide__principal">
+
 <form id="valid-form" class="devis">
 <fieldset class="devis__bloc"><legend><h3>1 · Pour quelle situation ?</h3></legend>
 <div class="vusage">
@@ -2522,6 +2525,65 @@ contenu, et non leur seule date, qui détermine ce qui reste opposable.</p>
 mais toutes les durées figurent dans
 <a href="/questions/duree-validite-diagnostics/">le guide des validités</a> et dans
 <a href="/le-tableau-des-diagnostics/">le tableau des diagnostics</a>.</p></noscript>
+
+</div>
+<aside class="aide" aria-label="Repères sur les durées de validité">
+<p class="aide__titre">Les durées, et d'où elles viennent</p>
+
+<details class="aide__bloc" open><summary>Pourquoi des durées si différentes ?</summary>
+<p>Une durée de validité n'est pas arbitraire : elle traduit la vitesse à laquelle
+l'information peut devenir fausse. Un mesurage de surface ne bouge pas tant qu'on ne
+touche pas aux murs, donc il n'expire pas. Une installation de gaz se dégrade, donc son
+contrôle se refait. Et une colonie de termites peut coloniser un immeuble en une saison :
+d'où six mois seulement.</p></details>
+
+<details class="aide__bloc"><summary>Six mois — l'état des risques</summary>
+<p>C'est le plus court de tous, et de loin le plus oublié. Il recense les risques auxquels
+la commune est exposée : inondation, mouvement de terrain, sismicité, pollution des sols,
+exposition au radon. Ces zonages sont révisés par arrêté préfectoral, parfois en cours
+d'année — d'où une validité courte. Il doit être à jour <strong>le jour de la signature</strong>,
+et non le jour de la mise en vente.</p></details>
+
+<details class="aide__bloc"><summary>Six mois — les termites</summary>
+<p>Exigé dans les zones délimitées par arrêté préfectoral, ce qui vise
+<strong>la Gironde entière</strong>. Six mois, parce qu'une infestation évolue vite et que
+le constat porte sur ce qui était visible le jour de la visite.</p></details>
+
+<details class="aide__bloc"><summary>Trois ou six ans — gaz et électricité</summary>
+<p>Ces deux contrôles ne sont exigés que si l'installation a <strong>plus de quinze ans</strong>.
+La durée dépend ensuite de l'usage : <strong>trois ans</strong> pour une vente,
+<strong>six ans</strong> pour une location. L'écart s'explique par le rythme des
+transactions : un bail se renouvelle plus souvent qu'une vente, et le législateur a évité
+d'imposer un contrôle à chaque changement de locataire.</p></details>
+
+<details class="aide__bloc"><summary>Dix ans — le DPE, avec une exception</summary>
+<p>Dix ans en principe. Mais tous les DPE établis <strong>avant le 1<sup>er</sup> juillet
+2021</strong> ont cessé d'être valables : la méthode de calcul a changé ce jour-là, et
+l'ancienne version reposait en partie sur les factures de l'occupant plutôt que sur les
+caractéristiques du logement. Un DPE de 2019 ne vaut donc plus rien, même si dix ans ne
+sont pas écoulés. <a href="/questions/qu-est-ce-que-le-dpe/">Comment se lit un DPE →</a></p></details>
+
+<details class="aide__bloc"><summary>Amiante et plomb : la logique du résultat</summary>
+<p>Ces deux constats n'ont pas de durée fixe : c'est <strong>leur conclusion</strong> qui
+décide. Un constat plomb négatif vaut sans limite de durée — le plomb n'apparaît pas
+spontanément. S'il est positif, il vaut un an pour une vente, six ans pour un bail, parce
+que c'est l'état de conservation des peintures qui doit être resuivi.</p>
+<p>Pour l'amiante, même logique, avec une réserve de taille : un repérage établi
+<strong>avant 2013</strong> doit être refait, car la liste des matériaux à rechercher a été
+élargie depuis. Un rapport ancien peut donc être « négatif » sur un champ devenu trop
+étroit. <a href="/questions/listes-a-b-c-amiante/">Les listes A, B et C →</a></p></details>
+
+<details class="aide__bloc"><summary>Ce qui périme un diagnostic avant l'heure</summary>
+<p>Une date d'échéance n'est qu'une limite haute. Trois événements rendent un rapport
+caduc plus tôt : des <strong>travaux</strong> qui modifient ce qu'il décrit, un
+<strong>changement de réglementation</strong> comme en 2021 pour le DPE, et la
+<strong>découverte d'un fait nouveau</strong> qu'il ne mentionnait pas.</p></details>
+
+<p class="aide__pied">Les durées appliquées ici sont celles du code de la construction et
+de l'habitation, telles qu'en vigueur au {MAJ}.
+<a href="/questions/duree-validite-diagnostics/">Le guide détaillé →</a></p>
+</aside>
+</div>
 </div></section>
 
 <section class="band band--pale"><div class="wrap">
