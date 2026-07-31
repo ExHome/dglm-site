@@ -1114,3 +1114,40 @@ dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
 .certif .tabsimple td:last-child,.certif .tabsimple th:last-child{
   white-space:nowrap;text-align:right;color:#5B6A62}
 @media (max-width:560px){.certif .tabsimple td,.certif .tabsimple th{font-size:.86rem}}
+
+/* simulateur de validité : cases, dates, verdicts par diagnostic */
+.vusage{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.vusage__o{display:flex;gap:.7rem;align-items:flex-start;border:1px solid var(--rule);
+  padding:.9rem 1.1rem;cursor:pointer;transition:border-color .16s,background .16s}
+.vusage__o:hover{border-color:var(--or)}
+.vusage__o:has(input:checked){border-color:var(--vert);background:var(--creme-2)}
+.vusage__o input{margin-top:.25rem;flex:0 0 auto}
+.vusage__o b{display:block;font-family:var(--display);font-size:1rem;color:var(--vert)}
+.vusage__o i{display:block;font-style:normal;font-size:.84rem;color:#5B6A62;margin-top:.15rem}
+
+.vd{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;
+  padding:.75rem 0;border-bottom:1px solid var(--rule-fine)}
+.vd__case{display:flex;gap:.65rem;align-items:center;flex:1 1 20rem;cursor:pointer;
+  font-size:.94rem;line-height:1.4}
+.vd__case input{flex:0 0 auto;width:1.1rem;height:1.1rem}
+.vd__date input{border:0;border-bottom:1.5px solid #5B6A62;background:transparent;
+  font:inherit;font-size:.9rem;padding:.35rem .2rem;color:var(--encre)}
+.vd__date input:disabled{border-bottom-color:var(--rule);opacity:.45}
+.vd__date input:focus{outline:0;border-bottom-color:var(--vert);border-bottom-width:2.5px}
+
+.vres{list-style:none;padding:0;margin:1.4rem 0 0}
+.vres li{border-left:3px solid var(--rule);padding:.9rem 0 .9rem 1.1rem;margin-bottom:1rem}
+.vres b{display:block;font-family:var(--display);font-size:1.02rem;color:var(--vert);
+  margin-top:.25rem;line-height:1.35}
+.vres i{display:block;font-style:normal;font-size:.84rem;color:#5B6A62;margin-top:.2rem}
+.vres p{margin:.45rem 0 0;font-size:.9rem;line-height:1.55}
+.vres__note{color:#5B6A62;font-size:.86rem!important}
+.vres__etat{display:inline-block;font-family:var(--sans);font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:.2rem .55rem;
+  border:1px solid currentColor}
+.vres__ok{border-left-color:#0E7A44}.vres__ok .vres__etat{color:#0E7A44}
+.vres__bientot{border-left-color:#B0731F}.vres__bientot .vres__etat{color:#8A6224}
+.vres__perime{border-left-color:#B3341F}.vres__perime .vres__etat{color:#8A3A2A}
+.vres__condition{border-left-color:var(--or)}.vres__condition .vres__etat{color:#8A6224}
+.vres__manque{border-left-color:var(--rule)}.vres__manque .vres__etat{color:#5B6A62}
+@media (max-width:560px){.vd{gap:.5rem}.vd__date{width:100%}}

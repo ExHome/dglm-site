@@ -181,6 +181,7 @@ MENU = ('<a class="menu__cta" href="/devis/">Demander un devis →</a>'
         + '<a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>'
         + f'<a href="{SILO}/simulateur-obligations-copropriete/">Simulateur : suis-je concerné ?</a>'
         + '<a href="/aides-financieres-copropriete/">Aides financières : le simulateur</a>'
+        + '<a href="/simulateur-validite-diagnostics/">Validité : mes diagnostics tiennent-ils ?</a>'
         + '<a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>'
         + '<a href="/aide-au-devis/">Aide au devis : les documents à joindre</a>'
         + '<a href="/questions/">Guides pratiques</a>'
@@ -277,7 +278,8 @@ width="47" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <div class="nav__grp"><a href="{SILO}/simulateur-obligations-copropriete/">Simulateurs</a>
 <div class="nav__menu">
 <a href="{SILO}/simulateur-obligations-copropriete/">Diagnostics : suis-je concerné ?</a>
-<a href="/aides-financieres-copropriete/">Aides financières : combien ?</a></div></div>
+<a href="/aides-financieres-copropriete/">Aides financières : combien ?</a>
+<a href="/simulateur-validite-diagnostics/">Validité : mes diagnostics tiennent-ils ?</a></div></div>
 <div class="nav__grp"><a href="/questions/">Guides</a>
 <div class="nav__menu">
 <a href="/questions/rubriques/amiante/">Amiante</a>
@@ -2462,6 +2464,96 @@ quand même : on fait avec ce que vous avez.</p>
     URLS.append((p, "0.7", "monthly"))
 
 
+# ------------------------------------------------------ simulateur de validité
+def page_validite():
+    """On coche ce qu'on a, on saisit les dates, l'outil dit ce qui tient.
+    Les durées viennent du guide des validités : une seule source."""
+    p = "/simulateur-validite-diagnostics/"
+    trail = [("Accueil", "/"), ("Vos diagnostics sont-ils encore valables ?", p)]
+
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Outil gratuit — rien n'est enregistré</p>
+<h1>Vos diagnostics sont-ils encore valables ?</h1>
+<p class="lede">Six mois pour l'état des risques, dix ans pour le DPE, et des règles
+particulières pour l'amiante et le plomb : personne ne retient tout cela. Cochez ce que
+vous avez, indiquez les dates, l'outil fait le tri.</p>
+<div class="actions"><a class="btn btn--light" href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a>
+<a class="btn btn--light" href="/devis/">Demander un devis</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<p class="eyebrow">Votre dossier</p>
+<h2>Ce que vous avez déjà</h2>
+<p class="enclair"><span>L'antisèche</span>Un diagnostic périmé ne se rattrape pas la
+veille de la signature : certains demandent une visite, et les délais de laboratoire ne se
+négocient pas. Le plus court de tous, l'état des risques, ne tient que six mois — c'est
+presque toujours lui qui manque.</p>
+
+<form id="valid-form" class="devis">
+<fieldset class="devis__bloc"><legend><h3>1 · Pour quelle situation ?</h3></legend>
+<div class="vusage">
+<label class="vusage__o"><input type="radio" name="usage" value="vente" checked>
+<span><b>Une vente</b><i>Les durées y sont plus courtes</i></span></label>
+<label class="vusage__o"><input type="radio" name="usage" value="location">
+<span><b>Une location</b><i>Gaz, électricité et plomb tiennent plus longtemps</i></span></label>
+</div></fieldset>
+
+<div class="devis__bloc"><h3>2 · Vos diagnostics et leurs dates</h3>
+<p class="postes__intro">Cochez ceux que vous possédez, puis indiquez la date figurant
+sur le rapport — celle de la visite, pas celle où vous l'avez reçu.</p>
+<div id="valid-liste"></div></div>
+
+<div class="simu-valider">
+<button type="submit" class="btn">Vérifier mes diagnostics</button>
+<p class="simu-manque" id="valid-manque" role="status" aria-live="polite"></p>
+</div>
+</form>
+
+<p id="valid-synthese" class="sr" role="status" aria-live="polite"></p>
+<div id="valid-resultat" tabindex="-1" hidden>
+<h2 style="margin-top:2.4rem">Ce qui tient, ce qui ne tient plus</h2>
+<div class="simu-corps"></div>
+<p class="maj">Analyse indicative, fondée sur les seules dates saisies et sur les durées
+en vigueur au {MAJ}. Elle ne remplace pas l'examen des rapports eux-mêmes : c'est leur
+contenu, et non leur seule date, qui détermine ce qui reste opposable.</p>
+</div>
+<noscript><p class="enclair"><span>Sans JavaScript</span>L'outil a besoin de JavaScript,
+mais toutes les durées figurent dans
+<a href="/questions/duree-validite-diagnostics/">le guide des validités</a> et dans
+<a href="/le-tableau-des-diagnostics/">le tableau des diagnostics</a>.</p></noscript>
+</div></section>
+
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Ce que l'outil ne peut pas voir</p>
+<h2>Trois raisons de refaire un diagnostic encore « valable »</h2>
+<div class="grid grid--3" style="margin-top:1.6rem">
+<div class="card"><h3>Des travaux ont eu lieu</h3><p>Un diagnostic décrit un bâtiment à
+un instant donné. Une cloison déposée, une chaudière remplacée, une toiture refaite :
+ce que le rapport décrit n'existe plus tel quel.</p></div>
+<div class="card"><h3>La réglementation a changé</h3><p>C'est ce qui est arrivé aux DPE
+d'avant juillet 2021 et aux repérages amiante d'avant 2013 : la méthode ou le champ
+du contrôle ont évolué, et les anciens rapports sont sortis du jeu.</p></div>
+<div class="card"><h3>Une anomalie est apparue</h3><p>Des cordonnets dans une cave, une
+peinture qui s'écaille, une odeur de gaz : un fait nouveau prime toujours sur une date
+d'échéance lointaine.</p></div>
+</div></div></section>
+{cta()}"""
+
+    extra = '<script src="/assets/validite.js" defer></script>'
+    shell(path=p, title="Vos diagnostics sont-ils encore valables ? — DGLM",
+          desc=desc_courte("Cochez vos diagnostics, indiquez leurs dates : l'outil dit "
+                           "lesquels tiennent encore, lesquels expirent et lesquels sont "
+                           "à refaire."),
+          body=body + extra,
+          schema=jsonld(org_schema(), breadcrumb(trail),
+                        {"@type": "WebApplication",
+                         "name": "Simulateur de validité des diagnostics",
+                         "url": DOM + p, "applicationCategory": "UtilityApplication",
+                         "operatingSystem": "Web"}))
+    URLS.append((p, "0.85", "monthly"))
+
+
 # ------------------------------------------------------- certifications et assurances
 # Données relevées sur les certificats et attestations originaux (Dropbox DGLM,
 # juillet 2026). Toute modification doit être faite pièce en main : ce sont des
@@ -3195,7 +3287,7 @@ def main():
     os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
     src = os.path.join(os.path.dirname(OUT), "build")
     shutil.copy(os.path.join(src, "style.css"), os.path.join(OUT, "assets", "style.css"))
-    for js in ("simulateur.js", "devis.js", "aides.js", "recherche.js"):
+    for js in ("simulateur.js", "devis.js", "aides.js", "recherche.js", "validite.js"):
         if os.path.exists(os.path.join(src, js)):
             shutil.copy(os.path.join(src, js), os.path.join(OUT, "assets", js))
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),
@@ -3212,6 +3304,7 @@ def main():
     page_pack()
     page_aide_devis()
     page_aides()
+    page_validite()
     page_certifications()
     page_conformite()
     for d in DIAGS_PRO:
