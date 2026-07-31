@@ -1093,3 +1093,9 @@ details summary::after{color:#8A6224}
    défilement et casserait les en-têtes et barres de chapitres collants. */
 html{overflow-x:clip}
 body{overflow-x:clip;max-width:100%}
+/* Les intitulés des fiches (dt) restaient au gris clair : 3,36:1. */
+dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
+/* Le logo était comprimé par le flex : 43px rendus pour 47 déclarés,
+   d'où un décalage à chaque chargement. */
+.brand img{flex:0 0 auto;width:47px}
+.footer .mark{width:55px;height:52px}
