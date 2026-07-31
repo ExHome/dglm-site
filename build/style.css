@@ -1197,3 +1197,12 @@ dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
 .animex__pause:hover{border-color:var(--or);color:#8A6224}
 .animex--fige *{animation-play-state:paused!important}
 @media print{.animex__pause{display:none}}
+
+/* Sur téléphone, l'image de couverture pesait autant que sur un grand écran :
+   146 Ko envoyés à 360 px de large. Variante allégée sous 760 px. */
+@media (max-width:760px){
+  .hero--photo{background-image:linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
+    url("/assets/photos/hero-immeuble-800.jpg")}
+  .hero--echoppe{background-image:linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
+    url("/assets/photos/hero-echoppe-800.jpg")}
+}
