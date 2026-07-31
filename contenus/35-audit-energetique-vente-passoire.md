@@ -1,7 +1,7 @@
 ---
 titre: Faut-il un audit énergétique pour vendre une passoire ?
 question: L'audit énergétique est-il obligatoire pour vendre une maison classée F ou G ?
-meta: Oui, l'audit énergétique réglementaire est obligatoire pour vendre une maison ou un immeuble en monopropriété classé F ou G, et depuis 2025 classé E. Ce qu'il contient.
+meta: L'audit énergétique réglementaire s'impose pour vendre une maison ou un immeuble en monopropriété classé F ou G, et depuis 2025 classé E.
 schema: dpe-vs-audit
 publication: 2026-08-10
 tags: audit énergétique | vente | passoire thermique

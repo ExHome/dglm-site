@@ -158,8 +158,27 @@ def titre(*variantes):
     return variantes[-1][:59].rsplit(" ", 1)[0] + "…"
 
 
+def phrase1(t):
+    """La première phrase entière d'un texte — jamais un fragment coupé net."""
+    t = " ".join(t.split())
+    p = t.find(". ")
+    return (t[:p + 1] if p > 0 else t).strip()
+
+
 def desc_courte(t, limite=158):
-    return t if len(t) <= limite else t[:limite].rsplit(" ", 1)[0] + "…"
+    """Une méta-description doit se terminer, pas s'interrompre. On coupe donc
+    à la dernière phrase complète qui tient ; le repli au mot près, avec des
+    points de suspension, ne sert plus que de dernier recours."""
+    t = " ".join(t.split())
+    if len(t) <= limite:
+        return t.rstrip(" ;,—")
+    tete = t[:limite + 1]
+    for fin in (". ", " — ", " : ", "? ", "! "):
+        coupe = tete.rfind(fin)
+        # une phrase trop courte ne dit rien : on n'accepte qu'au-delà de 60 %
+        if coupe > limite * 0.6:
+            return t[:coupe + (1 if fin == ". " else 0)].strip(" —:")
+    return t[:limite].rsplit(" ", 1)[0] + "…"
 
 
 def crumb_html(trail):
@@ -2342,7 +2361,7 @@ def page_quartier(q):
                       f"Diagnostics copropriété — Bordeaux {q['nom']}",
                       f"Bordeaux {q['nom']}"),
           desc=desc_courte(f"Repérage amiante avant travaux, DTG et plan pluriannuel de "
-                           f"travaux à Bordeaux {q['nom']}. {q['bati'][:70]}"),
+                           f"travaux à Bordeaux {q['nom']}. {phrase1(q['bati'])}"),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "Service", "serviceType": "Diagnostics de copropriété",

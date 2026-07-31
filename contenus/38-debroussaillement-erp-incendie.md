@@ -1,7 +1,7 @@
 ---
 titre: Débroussaillement et risque incendie : que dit l'ERP ?
 question: L'obligation de débroussaillement doit-elle figurer dans l'état des risques ?
-meta: Depuis 2023, l'état des risques indique si un bien est soumis à l'obligation de débroussaillement en zone à risque de feux de forêt. Gironde et Landes concernées.
+meta: Depuis 2023, l'état des risques indique si un bien est soumis à l'obligation de débroussaillement en zone de feux de forêt. La Gironde est concernée.
 publication: 2026-08-24
 tags: ERP | incendie | débroussaillement
 liens: /questions/qu-est-ce-que-etat-des-risques-erp/ | /questions/diagnostics-obligatoires-vente/

@@ -1,7 +1,7 @@
 ---
 titre: Quels diagnostics pour louer un logement meublé ?
 question: Les diagnostics sont-ils les mêmes pour une location meublée que pour une location vide ?
-meta: Les diagnostics d'une location meublée sont les mêmes que pour une location vide : DPE, plomb, gaz, électricité, état des risques. La différence est ailleurs, dans le mobilier.
+meta: Les diagnostics d'une location meublée sont les mêmes que pour une location vide : DPE, plomb, gaz, électricité, état des risques.
 publication: 2026-08-19
 tags: meublé | location | obligations
 liens: /questions/diagnostics-obligatoires-location/ | /questions/refaire-diagnostics-chaque-bail/

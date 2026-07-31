@@ -1,7 +1,7 @@
 ---
 titre: Fosse septique : quel contrôle au moment de vendre ?
 question: Quel document d'assainissement non collectif faut-il pour vendre un bien ?
-meta: Bien non raccordé au tout-à-l'égout : le rapport de contrôle du SPANC, daté de moins de trois ans, doit être annexé au dossier. Ce qu'il contient, qui le délivre.
+meta: Bien non raccordé au tout-à-l'égout : le rapport du SPANC, daté de moins de trois ans, doit être annexé. Ce qu'il contient, qui le délivre.
 publication: 2026-09-23
 tags: vente | assainissement | ddt
 liens: /conformite-assainissement-copropriete/ | /questions/diagnostics-obligatoires-vente/

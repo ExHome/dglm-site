@@ -1,7 +1,7 @@
 ---
 titre: Faut-il un repérage amiante avant de remplacer les fenêtres d'un immeuble ?
 question: Faut-il un repérage amiante avant travaux pour remplacer des fenêtres ?
-meta: Remplacement de menuiseries en copropriété : le repérage amiante avant travaux est obligatoire dès qu'un ouvrier peut être exposé. Ce que dit le code du travail.
+meta: Remplacer des menuiseries en copropriété : le repérage amiante avant travaux s'impose dès qu'un ouvrier peut être exposé. Ce que dit le code du travail.
 publication: 2026-07-16
 tags: RAAT | copropriété | menuiseries
 liens: /reperage-amiante-avant-travaux/ | /plan-pluriannuel-de-travaux/

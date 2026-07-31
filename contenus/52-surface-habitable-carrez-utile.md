@@ -1,7 +1,7 @@
 ---
 titre: Surface habitable, Carrez, utile : quelles différences ?
 question: Quelle est la différence entre surface habitable, surface Carrez et surface utile ?
-meta: Trois surfaces, trois définitions, trois usages : Carrez pour la cession d'un lot, habitable pour le bail, utile pour certains dispositifs. Le point, en clair.
+meta: Trois surfaces, trois définitions : Carrez pour la cession d'un lot, habitable pour le bail, utile pour certains dispositifs. Le point, en clair.
 publication: 2026-09-28
 tags: surface | loi carrez | loi boutin | pédagogie
 liens: /questions/loi-carrez-ou-loi-boutin/ | /questions/glossaire-diagnostic-immobilier/

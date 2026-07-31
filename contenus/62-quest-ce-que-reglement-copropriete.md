@@ -1,7 +1,7 @@
 ---
 titre: Qu'est-ce que le règlement de copropriété ?
 question: À quoi sert le règlement de copropriété et que contient-il ?
-meta: C'est la constitution de l'immeuble : il fixe la frontière communes/privatives, les tantièmes et les règles de vie. Le document que toute mission consulte d'abord.
+meta: C'est la constitution de l'immeuble : il fixe la frontière communes-privatives, les tantièmes et les règles de vie. Toute mission le consulte.
 publication: 2026-10-19
 tags: copropriété | définitions | pédagogie
 liens: /questions/parties-communes-privatives/ | /questions/tantiemes-millemes-comment-ca-marche/

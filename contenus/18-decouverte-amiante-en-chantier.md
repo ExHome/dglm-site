@@ -1,7 +1,7 @@
 ---
 titre: Que se passe-t-il si on découvre de l'amiante en cours de chantier ?
 question: Que faire en cas de découverte d'amiante pendant les travaux ?
-meta: Découverte d'amiante en cours de chantier : arrêt immédiat, mise en sécurité, repérage complémentaire et reprise dans le bon régime. Comment l'éviter, et comment réagir.
+meta: Amiante découvert en cours de chantier : arrêt immédiat, mise en sécurité, repérage complémentaire, reprise dans le bon régime. Comment réagir.
 publication: 2026-07-23
 tags: amiante | chantier | RAAT
 liens: /reperage-amiante-avant-travaux/ | /questions/qui-paie-reperage-copropriete/

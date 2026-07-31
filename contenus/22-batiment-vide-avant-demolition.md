@@ -1,7 +1,7 @@
 ---
 titre: Le bâtiment doit-il être vidé avant un repérage amiante avant démolition ?
 question: Faut-il vider le bâtiment avant un repérage amiante avant démolition ?
-meta: Oui : un repérage avant démolition suppose un bâtiment libéré, réseaux consignés et accès à tous les volumes. Pourquoi, et comment l'anticiper dans le planning.
+meta: Un repérage avant démolition suppose un bâtiment libéré, réseaux consignés, tous volumes accessibles. Pourquoi, et comment l'anticiper.
 schema: arbre-reperage
 publication: 2026-07-24
 tags: RAAD | démolition | amiante
