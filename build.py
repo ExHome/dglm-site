@@ -2373,7 +2373,7 @@ Ils sont revalorisés chaque année — c'est l'AMO qui les vérifie au dépôt 
 Ne comptez ici que les <strong>propriétaires occupants</strong> : les bailleurs relèvent
 d'un autre régime.""")
 
-    formulaire = f"""<form id="simu-aides" class="devis" onsubmit="return false">
+    formulaire = f"""<form id="simu-aides" class="devis">
 <div class="devis__bloc"><h3>1 · La copropriété</h3>
 {champ_n("a_lots", "Nombre de lots d'habitation", "", bulle=B_LOTS)}
 {champ_n("a_rp", "dont résidences principales", "", bulle=B_RP)}
@@ -2409,6 +2409,10 @@ montant global ci-dessus.</p>
 <div class="devis__bloc"><h3>3 · Les ménages (primes individuelles)</h3>
 {champ_n("a_tm", "Propriétaires occupants très modestes", "", requis=False, bulle=B_REVENUS)}
 {champ_n("a_m", "Propriétaires occupants modestes", "", requis=False)}
+</div>
+<div class="simu-valider">
+<button type="submit" class="btn" id="aides-valider">Estimer mes aides</button>
+<p class="simu-manque" id="aides-manque" role="status" aria-live="polite"></p>
 </div>
 </form>
 <div id="aides-resultat" hidden>

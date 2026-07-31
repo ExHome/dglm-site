@@ -196,20 +196,8 @@
     h += '<p class="simu-suite">Pour financer le reste à charge : éco-PTZ (voir le guide ci-dessous), ' +
       'CEE cumulables (valorisation variable, sur devis), TVA à 5,5 % déjà appliquée sur les factures ' +
       'de travaux éligibles, et aides locales éventuelles.</p>';
-    var premierAffichage = zone.hidden;
     zone.querySelector(".simu-corps").innerHTML = h;
     zone.hidden = false;
-    /* à la première estimation seulement : on amène le résultat à l'écran,
-       sinon chaque frappe ferait sauter la page sous les doigts. */
-    if (premierAffichage) {
-      var r = zone.getBoundingClientRect();
-      if (r.top > window.innerHeight - 80) {
-        zone.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-          block: "start"
-        });
-      }
-    }
   }
 
   /* ---------- export texte (pour les études et les PV d'AG) ---------- */
@@ -248,8 +236,44 @@
     champ.focus();
   })();
 
-  form.addEventListener("input", rendre);
-  form.addEventListener("change", rendre);
+  /* Le bouton est le déclencheur explicite : il calcule, dit ce qui manque
+     plutôt que de rester muet, et amène la réponse à l'écran. Une fois la
+     première estimation affichée, tout se recalcule en direct à la frappe. */
+  var estime = false;
+
+  function valider() {
+    var d = lire();
+    var sommePostes = d.postes ? POSTES.reduce(function (n, p) {
+      return n + (d.postes[p.cle] || 0); }, 0) : 0;
+    var manque = [];
+    if (!(d.lots > 0)) manque.push("le nombre de lots d'habitation");
+    if (!(d.travaux > 0) && sommePostes <= 0) manque.push("le montant des travaux");
+    var zoneManque = document.getElementById("aides-manque");
+
+    if (manque.length) {
+      zoneManque.textContent = "Il nous manque " + manque.join(" et ") +
+        " pour estimer vos aides.";
+      zoneManque.className = "simu-manque simu-manque--warn";
+      var premierVide = document.getElementById(!(d.lots > 0) ? "a_lots" : "a_travaux");
+      if (premierVide) premierVide.focus();
+      return;
+    }
+    zoneManque.textContent = "";
+    zoneManque.className = "simu-manque";
+    estime = true;
+    rendre();
+    var r = zone.getBoundingClientRect();
+    if (r.top < 0 || r.top > window.innerHeight - 80) {
+      zone.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start"
+      });
+    }
+  }
+
+  form.addEventListener("submit", function (e) { e.preventDefault(); valider(); });
+  form.addEventListener("input", function () { if (estime) rendre(); });
+  form.addEventListener("change", function () { if (estime) rendre(); });
 
   /* ---------- bulles d'explication (AMO, revenus modestes…) ----------
      Un seul dépliant ouvert à la fois ; le clavier et la touche Échap

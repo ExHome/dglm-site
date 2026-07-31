@@ -891,6 +891,11 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 @media (max-width:640px){.info__c{position:fixed;left:1rem;right:1rem;width:auto;
   top:auto;bottom:1rem}}
 
+/* simulateur d'aides : le bouton de validation et ce qui manque */
+.simu-valider{border-top:1px solid var(--vert);padding-top:1.8rem;margin-top:.4rem}
+.simu-manque{margin:.9rem 0 0;font-size:.9rem;color:#5B6A62}
+.simu-manque--warn{color:#8A3A2A;font-weight:600}
+
 /* passerelle entre les deux simulateurs */
 .suite{margin-top:1.8rem;border-top:1px solid var(--rule);padding-top:1.4rem}
 .suite h3{margin:.3rem 0 .6rem;font-size:1.15rem}
