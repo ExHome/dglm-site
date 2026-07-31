@@ -833,6 +833,10 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 
 /* accessibilite : gris lisible pour les textes porteurs (Lighthouse) */
 .maj,.photo figcaption,.signature,.mesh--plain,.sources p{color:#5B6A62}
+/* libellés de formulaire et fil d'Ariane : mêmes gris lisibles (contraste AA) */
+.field > span,.field em,.devis__bloc h3,.crumb,.crumb a{color:#5B6A62}
+/* l'étiquette or des encarts : assombrie pour rester lisible en petit corps */
+.enclair span{color:#8A6224}
 
 /* simulateur d'aides : verdict, tableau de calcul, avertissements */
 .simu-verdict{border-left:3px solid var(--or);padding:.9rem 1.1rem;margin:0 0 1.4rem;
