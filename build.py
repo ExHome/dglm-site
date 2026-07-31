@@ -261,6 +261,11 @@ width="140" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>
 <a href="/aide-au-devis/">Aide au devis : les documents</a>
 <a href="/recherche/">Rechercher dans le site</a></div></div>
+<a class="nav__loupe" href="/recherche/" title="Rechercher dans le site">
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="17" height="17">
+<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+<circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></g></svg>
+<span>Rechercher</span></a>
 <a class="btn" href="/devis/">Demander un devis</a></nav>
 <details class="menu"><summary aria-label="Ouvrir le menu">Menu</summary>
 <nav class="menu__list" aria-label="Menu complet">{MENU}</nav></details></div></header>

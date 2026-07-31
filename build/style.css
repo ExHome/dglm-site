@@ -127,8 +127,16 @@ p:last-child{margin-bottom:0}
   .nav__grp:hover .nav__menu,.nav__grp:focus-within .nav__menu{animation:deplie .16s ease-out}}
 @media (hover:none){.nav__menu{display:none!important}}
 
-@media (max-width:980px){.nav a:not(.btn){display:none}.nav__grp{display:none}
-  .brand span{display:none}}
+/* la loupe reste visible partout, y compris sur mobile */
+.nav__loupe{display:inline-flex;align-items:center;gap:.45rem;
+  border:1px solid var(--rule-or);padding:.42rem .85rem;border-radius:2px}
+.nav__loupe:hover{border-color:var(--or);color:var(--or-clair)}
+.nav__loupe svg{flex:0 0 auto}
+
+@media (max-width:980px){.nav a:not(.btn):not(.nav__loupe){display:none}
+  .nav__grp{display:none}.brand span{display:none}}
+@media (max-width:520px){.nav__loupe span{display:none}
+  .nav__loupe{padding:.42rem .6rem}}
 
 .btn{display:inline-flex;align-items:center;gap:.55rem;background:transparent;
   color:var(--vert-profond);text-decoration:none;font-weight:600;font-size:.92rem;
