@@ -298,48 +298,53 @@ _R = ('<svg class="picto picto--rub" viewBox="0 0 64 64" aria-hidden="true" focu
       '<g fill="none" stroke="currentColor" stroke-width="2.2" '
       'stroke-linecap="round" stroke-linejoin="round">{}</g></svg>')
 
+# Mêmes règles que les pictos de mission : zone 44×44, centre (32, 32),
+# masse de tracé homogène. Sans cela, la grille des six rubriques donne
+# l'impression que certaines pèsent plus que d'autres.
 RUBRIQUE_PICTOS = {
-    # Amiante : la plaque de fibrociment cadrée + l'étiquette d'échantillon
-    # (chaque doute devient un prélèvement référencé).
+    # Amiante — la plaque de fibres-ciment et son étiquette d'échantillon :
+    # chaque doute devient un prélèvement référencé.
     "Amiante": _R.format(
-        '<path d="M10,26 L54,26 L54,50 L10,50 Z"/>'
-        '<path d="M10,34 Q14,29 18,34 T26,34 T34,34 T42,34 T50,34"/>'
-        '<path d="M10,43 Q14,38 18,43 T26,43 T34,43 T42,43 T50,43"/>'
-        '<rect x="41" y="9" width="12" height="8"/>'
-        '<line x1="47" y1="17" x2="51" y2="26"/>'),
-    # Copropriété, DTG & PPPT : l'immeuble entier, un lot allumé — votre lot
-    # dans la copropriété, parties communes autour.
+        '<path d="M11,28 L53,28 L53,52 L11,52 Z"/>'
+        '<path d="M11,36 Q15,31 19,36 T27,36 T35,36 T43,36 T51,36"/>'
+        '<path d="M11,45 Q15,40 19,45 T27,45 T35,45 T43,45 T51,45"/>'
+        '<rect x="38" y="11" width="13" height="9"/>'
+        '<line x1="44" y1="20" x2="47" y2="28"/>'),
+    # Copropriété — l'immeuble entier, un lot allumé au milieu des communes.
     "Copropriété, DTG & PPPT": _R.format(
-        '<line x1="8" y1="55" x2="56" y2="55"/>'
-        '<path d="M14,55 L14,11 L50,11 L50,55"/>'
-        '<line x1="12" y1="11" x2="52" y2="11"/>'
-        '<path d="M28,55 L28,46 L36,46 L36,55"/>'
-        '<rect x="19" y="17" width="6" height="7"/><rect x="30" y="17" width="6" height="7"/>'
-        '<rect x="41" y="17" width="6" height="7"/>'
-        '<rect x="19" y="29" width="6" height="7"/><rect x="41" y="29" width="6" height="7"/>'
-        '<rect x="19" y="40" width="6" height="7"/><rect x="41" y="40" width="6" height="7"/>'
-        '<rect x="30" y="29" width="6" height="7" fill="currentColor" stroke="none"/>'),
-    # Performance énergétique : les trois flèches d'étiquette, de plus en plus
-    # longues — la silhouette DPE reconnaissable entre toutes.
+        '<line x1="15" y1="52" x2="49" y2="52"/>'
+        '<path d="M16,52 L16,13 L48,13 L48,52"/>'
+        '<line x1="14" y1="13" x2="50" y2="13"/>'
+        '<path d="M28,52 L28,44 L36,44 L36,52"/>'
+        '<rect x="21" y="20" width="5" height="6"/><rect x="38" y="20" width="5" height="6"/>'
+        '<rect x="21" y="32" width="5" height="6"/><rect x="38" y="32" width="5" height="6"/>'
+        '<rect x="29" y="20" width="6" height="6" fill="currentColor" stroke="none"/>'),
+    # Performance énergétique — les flèches d'étiquette, de plus en plus
+    # longues : la silhouette du DPE, reconnaissable entre toutes.
     "Performance énergétique": _R.format(
-        '<path d="M10,12 L30,12 L36,17 L30,22 L10,22 Z"/>'
-        '<path d="M10,27 L38,27 L44,32 L38,37 L10,37 Z"/>'
-        '<path d="M10,42 L48,42 L54,47 L48,52 L10,52 Z"/>'),
-    # Vente & location : le contrat au coin plié + la clé du logement.
+        '<path d="M11,13 L30,13 L36,18 L30,23 L11,23 Z"/>'
+        '<path d="M11,27 L38,27 L44,32 L38,37 L11,37 Z"/>'
+        '<path d="M11,41 L46,41 L52,46 L46,51 L11,51 Z"/>'),
+    # Vente & location — le contrat et la clé, côte à côte.
     "Vente & location": _R.format(
-        '<path d="M16,8 L38,8 L46,16 L46,56 L16,56 Z"/>'
-        '<path d="M38,8 L38,16 L46,16"/>'
-        '<circle cx="27" cy="28" r="5"/>'
-        '<line x1="27" y1="33" x2="27" y2="46"/>'
-        '<line x1="27" y1="42" x2="31" y2="42"/><line x1="27" y1="46" x2="32" y2="46"/>'),
-    # Plomb, gaz & risques : le triangle de vigilance, exclamation affirmée.
+        '<path d="M11,12 L29,12 L36,19 L36,52 L11,52 Z"/>'
+        '<path d="M29,12 L29,19 L36,19"/>'
+        '<line x1="17" y1="28" x2="30" y2="28"/><line x1="17" y1="36" x2="30" y2="36"/>'
+        '<line x1="17" y1="44" x2="26" y2="44"/>'
+        '<circle cx="46" cy="24" r="6"/>'
+        '<line x1="46" y1="30" x2="46" y2="48"/>'
+        '<line x1="46" y1="38" x2="51" y2="38"/><line x1="46" y1="44" x2="50" y2="44"/>'),
+    # Plomb, gaz & risques — le triangle de vigilance à double bordure, comme
+    # les panneaux de danger : le signe universel, sans jargon.
     "Plomb, gaz & risques": _R.format(
-        '<path d="M32,10 L55,50 L9,50 Z"/>'
-        '<line x1="32" y1="24" x2="32" y2="37"/>'
-        '<circle cx="32" cy="44" r="2.4" fill="currentColor" stroke="none"/>'),
-    # Repères & définitions : le livre ouvert, marque-page dans la page.
+        '<path d="M32,11 L54,53 L10,53 Z"/>'
+        '<path d="M32,20 L46,48 L18,48 Z"/>'
+        '<line x1="32" y1="29" x2="32" y2="39"/>'
+        '<circle cx="32" cy="44" r="1.9" fill="currentColor" stroke="none"/>'),
+    # Repères & définitions — le livre ouvert et son marque-page.
     "Repères & définitions": _R.format(
         '<path d="M32,17 C27,12 17,12 11,15 L11,49 C17,46 27,46 32,51 C37,46 47,46 53,49 L53,15 C47,12 37,12 32,17 Z"/>'
         '<line x1="32" y1="17" x2="32" y2="51"/>'
-        '<path d="M44,14 L44,25 L47.5,21.5 L51,25 L51,15"/>'),
+        '<line x1="16" y1="23" x2="27" y2="22"/><line x1="16" y1="31" x2="27" y2="30"/>'
+        '<line x1="37" y1="22" x2="48" y2="23"/><line x1="37" y1="30" x2="48" y2="31"/>'),
 }
