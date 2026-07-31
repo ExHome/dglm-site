@@ -226,6 +226,8 @@ MENU = ('<a class="menu__cta" href="/devis/">Demander un devis →</a>'
         + '<a href="/aides-financieres-copropriete/">Aides financières : le simulateur</a>'
         + '<a href="/simulateur-validite-diagnostics/">Validité : mes diagnostics tiennent-ils ?</a>'
         + '<a href="/pack-conseil-syndical/">Le pack du conseil syndical</a>'
+        + '<a href="/conseil-syndical/">Conseil syndical : comprendre et décider</a>'
+        + '<a href="/particulier-travaux/">Particulier : je fais des travaux</a>'
         + '<a href="/aide-au-devis/">Aide au devis : les documents à joindre</a>'
         + '<a href="/questions/">Guides pratiques</a>'
         + '<a href="/questions/glossaire-diagnostic-immobilier/">Lexique : les sigles en clair</a>'
@@ -648,10 +650,11 @@ de neuf missions collectives, du DPE collectif à l'assainissement.</p>
 
 <section class="parcours"><div class="wrap">
 <span class="parcours__label">À chacun son parcours</span>
-<a href="{SILO}/syndics-de-copropriete/">Je suis syndic ou conseil syndical</a>
+<a href="{SILO}/syndics-de-copropriete/">Je suis syndic professionnel</a>
+<a href="/conseil-syndical/">Je suis au conseil syndical</a>
 <a href="{SILO}/bailleurs-et-maitres-d-ouvrage/">Je suis bailleur ou maître d'ouvrage</a>
 <a href="{SILO}/entreprises-de-travaux/">Je suis une entreprise de travaux</a>
-<a href="{SILO}/reperage-amiante-avant-travaux/">Je suis un particulier qui fait des travaux</a>
+<a href="/particulier-travaux/">Je fais des travaux chez moi</a>
 <a href="/particuliers/">Je vends ou je loue mon logement</a>
 </div></section>
 
@@ -2579,6 +2582,280 @@ quand même : on fait avec ce que vous avez.</p>
     URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
+# --------------------------------------------------- portes d'entrée dédiées
+# L'audit UX a montré deux visiteurs mal accueillis : le conseiller syndical
+# bénévole, envoyé sur la page écrite pour les syndics professionnels, et le
+# particulier en travaux, renvoyé vers l'autre site alors qu'il est notre client.
+def page_conseil_syndical():
+    p = "/conseil-syndical/"
+    trail = [("Accueil", "/"), ("Conseil syndical", p)]
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Pour les élus bénévoles</p>
+<h1>Conseil syndical : comprendre et décider</h1>
+<p class="lede">Vous êtes bénévole, et l'on vous demande de vous prononcer sur des études
+techniques que vous n'avez pas rédigées. Voici de quoi les lire, et les questions à poser
+en séance.</p>
+<div class="actions"><a class="btn btn--light" href="/pack-conseil-syndical/">Les check-lists à imprimer</a>
+<a class="btn btn--light" href="{SILO}/simulateur-obligations-copropriete/">Ce que doit votre copropriété</a></div>
+</div></section>
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Vous êtes au conseil syndical</p>
+    <p>Vous n'avez pas choisi ce vocabulaire. Personne ne vous a formé au bâtiment : vous êtes bénévole, élu par vos voisins, et on vous demande de vous prononcer sur des documents que vous n'avez pas rédigés. Plan pluriannuel, diagnostic technique global, DPE collectif, repérage avant travaux : quatre sigles, quatre budgets, et souvent une seule séance pour trancher.</p>
+    <p>Cette page est écrite pour vous, pas pour votre syndic. Elle ne cherche pas à faire de vous un technicien : elle vous donne de quoi comprendre ce que chaque document est censé apporter, et de quoi poser les questions qui séparent une étude sérieuse d'un document de façade.</p>
+    <p>Nous écrivons ces études au quotidien et nous lisons celles des autres. Nous savons donc où elles se relâchent.</p>
+  </div>
+</section>
+
+<section class="band band--pale">
+  <div class="wrap">
+    <p class="eyebrow">Le programme de l'année</p>
+    <h2>Ce qu'on va vous demander de comprendre</h2>
+    <p>Quatre sujets reviennent dans presque toutes les assemblées. Voici ce qu'il faut en retenir avant d'ouvrir le rapport.</p>
+
+    <div class="grid grid--2">
+      <div class="card">
+        <h3>Le plan pluriannuel de travaux</h3>
+        <p>C'est la liste des travaux à envisager sur les dix années à venir, avec une estimation et un ordre de priorité. Il concerne les immeubles à destination totale ou partielle d'habitation dont le permis de construire remonte à plus de quinze ans. Voter le plan, ce n'est ni voter les travaux, ni engager une dépense immédiate.</p>
+        <p><a href="/plan-pluriannuel-de-travaux/">La mission PPPT</a> · <a href="/questions/voter-pppt-assemblee/">Voter le plan en assemblée</a> · <a href="/questions/validite-pppt/">Combien de temps reste-t-il valable ?</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Le diagnostic technique global</h3>
+        <p>C'est l'état des lieux complet de l'immeuble : structure, équipements, situation réglementaire, performance énergétique. Plus large que le plan de travaux, il lui sert souvent de socle. Selon les cas, il est obligatoire ou seulement soumis au vote de l'assemblée.</p>
+        <p><a href="/diagnostic-technique-global/">La mission DTG</a> · <a href="/questions/dtg-ou-pppt/">DTG ou PPPT, lequel d'abord ?</a> · <a href="/questions/dtg-petite-copropriete/">Le cas des petites copropriétés</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Le DPE collectif</h3>
+        <p>C'est le diagnostic de performance énergétique de l'immeuble entier, et non de chaque logement. Il donne une étiquette au bâtiment et alimente la réflexion sur les travaux d'économie d'énergie. Le calendrier d'obligation dépend de la taille de la copropriété.</p>
+        <p><a href="/dpe-collectif-copropriete/">Le DPE collectif</a> · <a href="/questions/qu-est-ce-que-le-dpe/">Ce que mesure un DPE</a> · <a href="/audit-energetique-copropriete/">L'audit énergétique</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Les repérages amiante avant travaux</h3>
+        <p>Dès qu'un chantier touche la matière du bâtiment — toiture, façade, canalisations, sols — un repérage amiante doit précéder les travaux dans les immeubles dont le permis de construire a été délivré avant le 1<sup>er</sup> juillet 1997. Ce n'est pas une formalité : c'est ce qui protège les intervenants.</p>
+        <p><a href="/reperage-amiante-avant-travaux/">Le repérage avant travaux</a> · <a href="/questions/raat-ou-raad/">Avant travaux ou avant démolition ?</a> · <a href="/questions/qui-paie-reperage-copropriete/">Qui le paie ?</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Votre vrai levier</p>
+    <h2>Les questions à poser en séance</h2>
+    <p>Vous n'avez pas à juger la technique ; vous pouvez vérifier la méthode, et c'est là que tout se joue. Un plan bâti sur une visite rapide se vote aussi facilement qu'un autre ; il se paie à la première toiture.</p>
+
+    <div class="grid grid--2">
+      <div class="card">
+        <h3>Sur quoi s'appuie exactement ce document ?</h3>
+        <p>Combien de temps le diagnostiqueur est-il resté sur place, quels locaux a-t-il ouverts, a-t-il consulté les archives et le carnet d'entretien ? Si les toitures, les vides sanitaires ou les colonnes en parties privatives n'ont pas été vus, le chiffrage repose sur des hypothèses — acceptable, à condition que ce soit écrit.</p>
+      </div>
+
+      <div class="card">
+        <h3>Qui a signé, et dans quel domaine est-il certifié ?</h3>
+        <p>Les certifications sont nominatives et par domaine : amiante, DPE, plomb, termites. Un signataire certifié pour le DPE ne l'est pas pour autant pour l'amiante. Demandez le nom, l'organisme, la date de validité et l'attestation d'assurance.</p>
+        <p><a href="/questions/qui-realise-reperage-amiante-travaux/">Qui peut réaliser un repérage</a> · <a href="/certifications-et-assurances/">Nos certifications</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Qu'est-ce qui a été constaté, et qu'est-ce qui a été supposé ?</h3>
+        <p>Un rapport sérieux distingue ce que l'intervenant a vu de ce qu'il a déduit. Un document sans aucune réserve, sans zone non visitée, sans incertitude signalée n'en est pas plus sûr : il est à interroger.</p>
+      </div>
+
+      <div class="card">
+        <h3>Des sondages ont-ils été faits, ou seulement des observations ?</h3>
+        <p>En amiante, certains matériaux ne s'identifient pas à l'œil : il faut prélever et faire analyser en laboratoire. Demandez combien de prélèvements ont été réalisés et sur quels matériaux. Un repérage avant travaux sans aucun prélèvement mérite une explication.</p>
+        <p><a href="/questions/listes-a-b-c-amiante/">Les listes A, B et C</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Et si on découvre de l'amiante en cours de chantier ?</h3>
+        <p>Cela arrive, même après un repérage correct. Ce qui compte, c'est que la conduite à tenir soit prévue avant le début des travaux : arrêt du chantier, analyse, avenant. Une copropriété qui n'y a pas pensé subit l'arrêt au lieu de le piloter.</p>
+        <p><a href="/questions/decouverte-amiante-en-chantier/">La découverte en chantier</a></p>
+      </div>
+
+      <div class="card">
+        <h3>À quelle majorité vote-t-on, et que finance le fonds de travaux ?</h3>
+        <p>La majorité applicable change la nature du débat, et le fonds de travaux peut déjà couvrir une partie de la dépense. Ces deux points se vérifient avant la séance, pas pendant.</p>
+        <p><a href="/questions/majorites-vote-travaux-assemblee/">Les majorités</a> · <a href="/questions/fonds-de-travaux/">Le fonds de travaux</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--pale">
+  <div class="wrap">
+    <p class="eyebrow">Mise au point</p>
+    <h2>Ce que vous n'avez pas à faire</h2>
+    <p>Beaucoup de conseillers syndicaux s'épuisent à endosser un rôle qui n'est pas le leur.</p>
+    <ul>
+      <li><strong>Vous n'avez pas à devenir technicien.</strong> Vous n'êtes pas censé lire un rapport de repérage ni évaluer une charpente, mais vérifier que quelqu'un de compétent l'a fait, et l'a écrit.</li>
+      <li><strong>Vous n'avez pas à arbitrer seul.</strong> Le conseil syndical assiste et contrôle le syndic ; il ne décide pas à la place de l'assemblée générale.</li>
+      <li><strong>Vous n'avez pas à porter seul le choix retenu.</strong> Votre mission est bénévole et consultative : c'est l'assemblée qui décide et qui engage la copropriété. Ce qui vous protège, c'est la traçabilité : demandez que vos questions et les réponses figurent au compte rendu.</li>
+      <li><strong>Vous n'avez pas à faire le travail du syndic.</strong> Réunir les devis, transmettre les rapports, tenir le carnet d'entretien relèvent de sa mission. Vous pouvez exiger les pièces sans aller les chercher.</li>
+      <li><strong>Vous n'avez pas à tout comprendre, tout de suite.</strong> Demander un report de vote faute d'éléments n'est pas un aveu de faiblesse. C'est souvent la décision la plus économique de l'année.</li>
+    </ul>
+    <p><a href="/questions/carnet-entretien-copropriete/">Le carnet d'entretien</a> · <a href="/questions/copropriete-sans-pppt/">Si la copropriété n'a pas de PPPT</a></p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Gratuit, sans inscription</p>
+    <h2>Les outils qui vous servent vraiment</h2>
+    <p>Nous les avons construits pour une séance de conseil syndical : un dossier ouvert, une heure devant soi.</p>
+
+    <div class="grid grid--3">
+      <div class="card">
+        <h3>Simulateur d'obligations</h3>
+        <p>Ce qui vous est réellement imposé, en quelques questions.</p>
+        <p><a href="/simulateur-obligations-copropriete/">Ouvrir le simulateur</a></p>
+      </div>
+      <div class="card">
+        <h3>Simulateur de validité</h3>
+        <p>Vos rapports existants sont-ils encore utilisables ?</p>
+        <p><a href="/simulateur-validite-diagnostics/">Vérifier vos rapports</a></p>
+      </div>
+      <div class="card">
+        <h3>Le tableau des diagnostics</h3>
+        <p>À quoi sert chaque diagnostic, et combien de temps il vaut.</p>
+        <p><a href="/le-tableau-des-diagnostics/">Consulter le tableau</a></p>
+      </div>
+      <div class="card">
+        <h3>Aides financières</h3>
+        <p>Les dispositifs mobilisables avant de chiffrer un reste à charge.</p>
+        <p><a href="/aides-financieres-copropriete/">Voir les aides</a></p>
+      </div>
+      <div class="card">
+        <h3>Pack conseil syndical</h3>
+        <p>Les pièces à réunir et une trame de questions pour la séance.</p>
+        <p><a href="/pack-conseil-syndical/">Obtenir le pack</a></p>
+      </div>
+      <div class="card">
+        <h3>Aide au devis</h3>
+        <p>Comparer des propositions à périmètre égal, et comprendre un écart.</p>
+        <p><a href="/aide-au-devis/">Comparer des devis</a></p>
+      </div>
+    </div>
+
+    <p class="enclair"><span>L'antisèche</span> Votre rôle n'est pas d'expertiser, il est de contrôler. Trois réflexes suffisent : demander sur quoi s'appuie l'étude, qui l'a signée et pour quel domaine, et que les zones non vues et les hypothèses soient écrites noir sur blanc. Si les réponses tardent, ce n'est pas votre compétence qui est en cause — c'est le document.</p>
+
+    <p>Une question précise sur un rapport que vous avez sous les yeux ? Nous répondons aux conseils syndicaux même lorsqu'ils ne sont pas nos clients : <a href="/questions/glossaire-diagnostic-immobilier/">le glossaire</a> lève déjà bien des malentendus, et <a href="/equipe/">l'équipe</a> répond au reste.</p>
+  </div>
+</section>
+{cta()}"""
+    shell(path=p, title="Conseil syndical : comprendre et décider — DGLM",
+          desc=desc_courte("Plan pluriannuel, diagnostic global, DPE collectif, repérage "
+                           "amiante : ce qu'un conseiller syndical bénévole doit en "
+                           "comprendre, et les questions à poser."),
+          body=body, schema=jsonld(org_schema(), breadcrumb(trail),
+                                   {"@type": "WebPage", "url": DOM + p,
+                                    "name": "Conseil syndical"}))
+    URLS.append((p, "0.85", "monthly", MAJ_STRUCTURE))
+
+
+def page_particulier_travaux():
+    p = "/particulier-travaux/"
+    trail = [("Accueil", "/"), ("Vous rénovez votre logement", p)]
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Particuliers — travaux et rénovation</p>
+<h1>Vous rénovez votre logement</h1>
+<p class="lede">Salle de bain, cloisons, sols, toiture : dès qu'on ouvre la matière d'un
+logement d'avant 1997, un repérage amiante s'impose. Cela vaut aussi chez un particulier —
+et c'est vous que cela protège.</p>
+<div class="actions"><a class="btn btn--light" href="/devis/#m-raat">Demander un devis</a>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div>
+</div></section>
+<section class="band"><div class="wrap prose">
+<p style="font-size:1.12rem">Vous refaites une salle de bain, vous abattez une cloison, vous changez vos fenêtres — et vous ne trouvez que des pages qui parlent d'immeubles et de syndics. Vous êtes pourtant au bon endroit. Le repérage amiante avant travaux n'est réservé ni aux grandes opérations ni aux professionnels : un propriétaire qui fait faire des travaux chez lui est le donneur d'ordre de son chantier, comme un bailleur ou un promoteur.</p>
+
+<h2>Un diagnostic qui ne sert pas à vendre</h2>
+<p>Le mot « diagnostic » évoque presque toujours la vente : le dossier remis au notaire, qu'on ne relit jamais. Le repérage avant travaux obéit à une autre logique. Il ne renseigne pas un acheteur sur l'état d'un bien : il protège les personnes qui vont ouvrir les murs — l'artisan, et vous qui vivez sur place pendant le chantier.</p>
+<p>C'est aussi pourquoi un repérage amiante déjà présent dans vos papiers ne suffit pas. Le constat établi lors d'une vente, comme le <a href="/dossier-technique-amiante/">dossier technique amiante</a> d'un immeuble, décrit ce qui est visible et accessible, sans sondage destructif : il ne couvre pas le périmètre de vos travaux, rien de ce qui se trouve sous votre carrelage. Notre guide <a href="/questions/dta-ou-dapp/">DTA ou DAPP</a> détaille la distinction.</p>
+
+<h2>Quand le repérage s'impose chez un particulier</h2>
+<p>Deux conditions se cumulent. La première tient à l'âge du bâtiment : le permis de construire doit avoir été délivré avant le 1<sup>er</sup> juillet 1997. La seconde tient à la nature des travaux : dès que l'opération est susceptible d'exposer des travailleurs à l'amiante, c'est-à-dire dès qu'on ouvre, perce, découpe, dépose ou démolit.</p>
+<p class="enclair"><span>À retenir</span>Le critère n'est pas l'ampleur du chantier, mais le fait de toucher à la matière. Percer un mur pour passer une évacuation suffit à poser la question.</p>
+<p>Dans un logement, les points de contact sont toujours les mêmes :</p>
+<ul class="checklist">
+<li>les colles de carrelage et de revêtement de sol, souvent noires et bitumineuses</li>
+<li>les dalles de sol plastiques anciennes, souvent de format carré</li>
+<li>les enduits, ragréages et doublages de cloisons</li>
+<li>les mastics de vitrage et les joints d'huisserie</li>
+<li>les plaques ondulées en fibres-ciment d'un appentis, d'un garage ou d'un abri de jardin</li>
+<li>les conduits de fumée, les calorifugeages et les tresses d'étanchéité d'une vieille chaudière</li>
+</ul>
+</div></section>
+
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Chantiers domestiques</p>
+<h2>Des travaux ordinaires, qui déclenchent l'obligation</h2>
+<p class="narrow">Aucun de ces chantiers n'est spectaculaire. Tous supposent d'ouvrir quelque chose dans un logement qui a pu être bâti avec des matériaux amiantés.</p>
+<div class="grid grid--2" style="margin-top:1.6rem">
+<div class="card"><h3>Refaire une salle de bain</h3><p>Dépose de la faïence, du carrelage et de sa colle, parfois d'un ancien revêtement resté sous le nouveau. C'est l'un des chantiers où l'on rencontre le plus souvent des matériaux amiantés.</p></div>
+<div class="card"><h3>Déposer un revêtement de sol collé</h3><p>Les dalles plastiques et leur colle sont deux matériaux distincts : les premières peuvent être saines et la seconde amiantée. C'est l'arrachage qui libère les fibres, pas la présence du sol.</p></div>
+<div class="card"><h3>Abattre une cloison</h3><p>Ouvrir une cuisine sur un séjour reste une démolition. Enduits, doublages et plaques de la cloison entrent dans le périmètre du repérage.</p></div>
+<div class="card"><h3>Changer les fenêtres</h3><p>On y pense rarement : le mastic de vitrage et les joints ont longtemps contenu de l'amiante. Notre guide <a href="/questions/raat-remplacement-fenetres/">RAAT et remplacement de fenêtres</a> détaille ce point.</p></div>
+<div class="card"><h3>Refaire une toiture d'appentis</h3><p>Les plaques ondulées en fibres-ciment d'un garage ou d'un abri de jardin sont un cas d'école. Les découper ou les casser pour les évacuer est ce qu'il ne faut pas faire à l'aveugle.</p></div>
+<div class="card"><h3>Isoler des combles</h3><p>Avant de souffler une isolation, on circule, on fixe, on traverse des conduits. Les calorifugeages anciens méritent d'être identifiés avant.</p></div>
+</div></div></section>
+
+<section class="band"><div class="wrap prose">
+<h2>Pourquoi ce repérage vous protège, vous</h2>
+<p>L'obligation pèse sur le donneur d'ordre, celui qui commande les travaux : dans votre logement, c'est vous. Le Code du travail, à ses articles R. 4412-97 et suivants, et l'arrêté du 16 juillet 2019 relatif aux immeubles bâtis ne prévoient pas de transfert de cette responsabilité vers l'entreprise qui intervient. Notre guide <a href="/questions/qui-realise-reperage-amiante-travaux/">qui doit faire réaliser le repérage</a> le détaille.</p>
+<p>Un artisan sérieux vous le demandera, et il a raison. Sans repérage, il travaille sans savoir ce qu'il ouvre : son assureur peut lui opposer ce défaut, et beaucoup d'entreprises refusent de démarrer.</p>
+<p>L'argument suivant est économique. Une découverte d'amiante en cours de chantier arrête tout : l'intervention est suspendue, il faut faire appel à une entreprise certifiée pour le retrait, orienter les déchets vers une filière dédiée et reprogrammer les corps d'état déjà planifiés. Le repérage préalable évite cette séquence. Nous la décrivons dans <a href="/questions/decouverte-amiante-en-chantier/">découverte d'amiante en chantier</a>, et les deux régimes d'intervention dans <a href="/questions/amiante-sous-section-3-et-4/">sous-section 3 et sous-section 4</a>.</p>
+<p>Une nuance, parce qu'elle est réelle : le texte vise l'exposition de travailleurs. Si vous démontez vous-même une cloison un dimanche, aucun salarié n'est exposé et l'obligation, au sens strict, ne vous vise pas. Vous respirez pourtant la même poussière, dans la pièce où vous dormirez le soir. Faire analyser un matériau avant de le casser reste la seule façon de savoir.</p>
+</div></section>
+
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Déroulé</p>
+<h2>Comment cela se passe chez vous</h2>
+<ol class="steps">
+<li><h3>Nous partons de votre projet</h3><p>Décrivez ce que vous allez ouvrir : la pièce, les surfaces déposées, les percements. Le repérage se cale sur ce périmètre, pas sur une trame standard.</p></li>
+<li><h3>La visite</h3><p>Un diagnostiqueur certifié se déplace. Il n'inspecte pas tout le logement, seulement votre périmètre de travaux. Les sondages destructifs — soulever une plinthe, déposer un carreau, ouvrir une trappe — sont réalisés avec votre accord.</p></li>
+<li><h3>Les prélèvements et le laboratoire</h3><p>Chaque doute est levé par prélèvement et analyse en laboratoire accrédité COFRAC. Aucun matériau n'est classé « présumé amianté » par confort : cette facilité vous coûterait un désamiantage peut-être inutile.</p></li>
+<li><h3>Le rapport</h3><p>Vous recevez un rapport localisant chaque matériau, avec photographies, croquis et conclusions. C'est le document que vous remettez à votre artisan avant qu'il ne chiffre.</p></li>
+<li><h3>Les délais</h3><p>Nous intervenons généralement sous 72 heures ouvrées sur Bordeaux Métropole et remettons le rapport sous 48 heures après réception des résultats d'analyse. Le délai du laboratoire reste la seule variable que nous ne maîtrisons pas.</p></li>
+</ol>
+</div></section>
+
+<section class="band"><div class="wrap prose">
+<h2>Si votre projet est de vendre ou de louer</h2>
+<p>Autant le dire tout de suite : nous ne réalisons pas les diagnostics de vente ou de mise en location. C'est une autre équipe du groupe qui s'en charge, sur <a href="/particuliers/">la page dédiée aux particuliers</a>. Notre travail commence quand les travaux commencent.</p>
+<p>La frontière est parfois moins nette : on rénove souvent un logement avant de le remettre en location, ou juste après l'avoir acheté. Les deux besoins coexistent alors sans se remplacer : le diagnostic de la transaction ne vaut pas repérage avant travaux, et l'inverse est vrai aussi.</p>
+<h2>Pour aller plus loin</h2>
+<ul class="mesh">
+<li><a href="/reperage-amiante-avant-travaux/">La mission de repérage avant travaux</a></li>
+<li><a href="/questions/raat-ou-raad/">Repérage avant travaux ou avant démolition ?</a></li>
+<li><a href="/questions/listes-a-b-c-amiante/">Les listes A, B et C des matériaux</a></li>
+<li><a href="/le-tableau-des-diagnostics/">Le tableau des diagnostics</a></li>
+<li><a href="/questions/qu-est-ce-que-le-diagnostic-plomb/">Le diagnostic plomb dans un logement ancien</a></li>
+<li><a href="/questions/glossaire-diagnostic-immobilier/">Le glossaire, si un sigle vous échappe</a></li>
+</ul>
+</div></section>
+
+<section class="cta"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Un chantier chez vous</p>
+<h2>Décrivez-nous vos travaux, nous vous dirons ce qui est nécessaire.</h2>
+<p>Un appel suffit souvent à cadrer le périmètre. Si un repérage ne s'impose pas dans votre situation, nous vous le dirons aussi.</p>
+<div class="actions"><a class="btn btn--light" href="tel:+33607351505">Appeler le 06 07 35 15 05</a>
+<a class="btn btn--light" href="/devis/">Demander un devis</a></div></div></section>
+{cta()}"""
+    shell(path=p, title="Vous rénovez votre logement : le repérage amiante — DGLM",
+          desc=desc_courte("Refaire une salle de bain, déposer un sol, abattre une "
+                           "cloison : quand un repérage amiante avant travaux s'impose "
+                           "chez un particulier, et pourquoi."),
+          body=body, schema=jsonld(org_schema(), breadcrumb(trail),
+                                   {"@type": "WebPage", "url": DOM + p,
+                                    "name": "Particulier en travaux"}))
+    URLS.append((p, "0.85", "monthly", MAJ_STRUCTURE))
+
+
 # ------------------------------------------------------ simulateur de validité
 def page_validite():
     """On coche ce qu'on a, on saisit les dates, l'outil dit ce qui tient.
@@ -3509,6 +3786,8 @@ def main():
     page_pack()
     page_aide_devis()
     page_aides()
+    page_conseil_syndical()
+    page_particulier_travaux()
     page_validite()
     page_certifications()
     page_conformite()
