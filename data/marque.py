@@ -91,27 +91,30 @@ LIENS_MAX_VERS_SITE_A = 1
 # davantage qu'une page « à propos ». Le site A n'a rien de tel.
 # ---------------------------------------------------------------------------
 EQUIPE = [
-    dict(photo="portrait-1", nom="Aude de Gentile", role="Co-gérante — direction financière et développement",
+    dict(photo="portrait-1", nom="Aude de Gentile",
+         role="Cogérante, diagnostiqueuse immobilière — direction financière et développement",
          bio="Cofondatrice de DGLM Expertises en 2020. Pilote le développement du pôle "
              "copropriété et travaux et la relation avec les syndics et administrateurs "
-             "de biens.", cert=""),
-    dict(photo="portrait-2", nom="Thibault Le Moine", role="Co-gérant — directeur conformité",
+             "de biens.", cert="Titre professionnel de diagnostiqueur immobilier, enregistré au RNCP"),
+    dict(photo="portrait-2", nom="Thibault Le Moine",
+         role="Cogérant, diagnostiqueur immobilier — directeur conformité",
          bio="Cofondateur. Garant de la conformité des méthodes, des certifications et "
-             "des rapports remis.", cert=""),
-    dict(photo="portrait-4", nom="Amaury Molinier", role="Directeur opérationnel technique et diagnostiqueur",
+             "des rapports remis.", cert="Titre professionnel RNCP · certifié LCC Qualixpert C3284 — amiante, termites, gaz, électricité"),
+    dict(photo="portrait-4", nom="Amaury Molinier",
+         role="Directeur opérationnel technique — diagnostiqueur certifié",
          bio="Encadre les équipes terrain et les missions techniques complexes : "
              "repérages avant travaux et avant démolition, diagnostics techniques globaux.",
-         cert=""),
+         cert="Certifié LCC Qualixpert C2936 — amiante avec mention, audit énergétique, DPE tous bâtiments, termites, plomb, gaz, électricité"),
     dict(photo="portrait-5", nom="Nicolas Louvet", role="Diagnostiqueur certifié",
          bio="Interventions amiante, plomb, termites et performance énergétique sur "
              "Bordeaux Métropole.",
-         cert="Certifié LCC Qualixpert — amiante, plomb, termites, DPE"),
+         cert="Certifié LCC Qualixpert C3596 — amiante, DPE, plomb, électricité, gaz, termites"),
     dict(photo="portrait-6", nom="Nicolas Péré", role="Diagnostiqueur certifié",
          bio="Missions de repérage et de diagnostic sur immeubles collectifs et "
-             "patrimoines gérés.", cert=""),
+             "patrimoines gérés.", cert="Certifié LCP Certification n° 2456 — amiante, DPE, électricité, gaz, plomb, termites"),
     dict(photo="portrait-7", nom="Virgile Poulain", role="Diagnostiqueur certifié",
          bio="Missions de repérage avant travaux et de diagnostic sur bâti ancien et "
-             "copropriétés.", cert=""),
+             "copropriétés.", cert="Certifié WE-CERT C2022-SE09-041 — DPE avec mention, amiante, plomb, gaz, électricité"),
     dict(photo="portrait-3", nom="Isabelle Doussau de Bazignan", role="Assistante de direction",
          bio="Planification des interventions, suivi des rapports et interface avec les "
              "conseils syndicaux.", cert=""),

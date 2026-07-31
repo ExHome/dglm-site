@@ -354,8 +354,10 @@ details p{margin-top:.78rem;font-size:.97rem;color:var(--encre-2);max-width:68ch
 .team h3{font-size:1.05rem;color:var(--vert);margin-bottom:.18rem}
 .team .role{font-size:.85rem;color:var(--or);font-weight:600;margin-bottom:.55rem}
 .team p{font-size:.9rem;color:var(--encre-2);margin:0}
-.team .cert{font-family:var(--mono);font-size:.71rem;color:#5B6A62;margin-top:.65rem;
-  padding-top:.65rem;border-top:1px solid var(--rule)}
+/* la ligne des domaines certifiés : c'est une phrase, pas un numéro — le mono
+   la transformait en pavé gris illisible dès qu'elle dépassait deux mots. */
+.team .cert{font-size:.78rem;line-height:1.5;color:#5B6A62;margin-top:.7rem;
+  padding-top:.7rem;border-top:1px solid var(--rule)}
 
 /* ---------- fraîcheur : signal de mise à jour automatique ---------- */
 .maj{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);
@@ -557,6 +559,21 @@ main{counter-reset:planche}
 .sources ul{list-style:none;padding:0;margin:0 0 1.1rem}
 .sources li{font-size:.88rem;padding:.35rem 0;border-bottom:1px solid var(--rule-fine)}
 .sources p{font-size:.8rem;color:#5B6A62;max-width:58ch}
+
+/* ---------- responsabilité éditoriale ---------- */
+/* Ce qui fait la preuve, ce n'est pas le ton du texte : c'est un nom que l'on
+   peut relier à un visage et à un certificat vérifiable. Les deux liens sont
+   là pour ça. Discret par construction — il vient après les sources. */
+.relu{border-top:1px solid var(--rule-fine);margin-top:1.8rem;padding-top:1.1rem}
+.relu__d{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);
+  font-size:.71rem;letter-spacing:.08em;color:#5B6A62;margin:0}
+.relu__d::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--or)}
+.relu__r{font-size:.86rem;line-height:1.65;color:#5B6A62;max-width:58ch;margin:.7rem 0 0}
+.relu__r > span{display:block;font-family:var(--sans);font-size:.66rem;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:#8A6224;margin-bottom:.15rem}
+.relu__r b{font-family:var(--display);font-size:1.02rem;font-weight:600;color:var(--encre)}
+.relu__r a{color:var(--vert);text-decoration:none;border-bottom:1px solid var(--or)}
+.relu__r a:hover b,.relu__r a:hover{color:var(--or-fonce,#8A6224)}
 
 /* ---------- référentiel des normes ---------- */
 .sommaire ol{columns:2 17rem;column-gap:2.6rem;margin:1rem 0 0;padding-left:1.1rem}

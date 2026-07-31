@@ -595,6 +595,57 @@ GUIDES_MISSION = {
 PUBLIES = {}
 
 
+# ------------------------------------------------------------- relecture signée
+# Un guide n'engage vraiment que s'il est signé. Les deux cofondateurs relisent
+# selon leur domaine : c'est une validation technique, pas une signature de
+# complaisance — le champ schema.org employé est donc « reviewedBy » et non
+# « author », qui reviendrait à s'attribuer une rédaction.
+RELECTEURS = {
+    "thibault": {
+        "nom": "Thibault Le Moine",
+        "qualite": "cofondateur, diagnostiqueur immobilier",
+        "detail": "titre professionnel enregistré au RNCP, certifié amiante, "
+                  "termites, gaz et électricité (certificat C3284)",
+        # ce qu'il relit : son périmètre de certification
+        "tags": {"amiante", "chantier", "RAAT", "RAAD", "DTA", "DAPP", "démolition",
+                 "termites", "gaz", "électricité", "PEMD", "déchets", "parasitaire",
+                 "menuiseries", "sécurité", "travaux"},
+    },
+    "aude": {
+        "nom": "Aude de Gentile",
+        "qualite": "cofondatrice, diagnostiqueuse immobilière",
+        "detail": "titre professionnel de diagnostiqueur immobilier enregistré au RNCP",
+        "tags": set(),   # relit tout le reste
+    },
+}
+
+
+def relecteur_de(tags):
+    """Qui valide ce guide, selon son domaine."""
+    if set(tags) & RELECTEURS["thibault"]["tags"]:
+        return RELECTEURS["thibault"]
+    return RELECTEURS["aude"]
+
+
+def signature_html(r, date_pub):
+    """Qui répond de ce texte, depuis quand, et où le vérifier."""
+    return (
+        '<div class="relu">'
+        f'<p class="relu__d">Publié le {date_pub.strftime("%d/%m/%Y")} · '
+        f'vérifié au {MAJ}</p>'
+        '<p class="relu__r"><span>Relu et validé par</span> '
+        f'<a href="/equipe/"><b>{esc(r["nom"])}</b></a>, {esc(r["qualite"])} — '
+        f'{esc(r["detail"])}. '
+        '<a href="/certifications-et-assurances/">Voir les certificats</a>.</p></div>')
+
+
+def relecteur_schema(r):
+    """La même personne, en données structurées, pour le reviewedBy de l'Article."""
+    return {"@type": "Person", "name": r["nom"], "jobTitle": r["qualite"],
+            "description": r["detail"], "url": DOM + "/equipe/",
+            "worksFor": {"@id": DOM + "/#organisation"}}
+
+
 def guides_lies(slug):
     """Les guides parus qui répondent aux questions de cette mission."""
     voulus = GUIDES_MISSION.get(slug, [])
@@ -1992,17 +2043,21 @@ def page_equipe():
                 "worksFor": {"@id": DOM + "/#organisation"},
                 "image": DOM + f"/assets/equipe/{m['photo']}.png"}
         if m.get("cert"):
-            pers["hasCredential"] = {"@type": "EducationalOccupationalCredential",
-                                     "credentialCategory": "certification",
-                                     "name": m["cert"]}
+            # un titre professionnel n'est pas une certification de personne :
+            # les deux se disent, mais pas sous la même étiquette.
+            pers["hasCredential"] = {
+                "@type": "EducationalOccupationalCredential",
+                "credentialCategory": ("certification" if "ertifié" in m["cert"]
+                                       else "titre professionnel"),
+                "name": m["cert"]}
         personnes.append(pers)
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Sept personnes, quatre diagnostiqueurs certifiés</p>
+<p class="eyebrow eyebrow--pale">Sept personnes, quatre diagnostiqueurs certifiés sur le terrain</p>
 <h1>Des noms, des visages, et des signatures au bas des rapports.</h1>
 <p class="lede">Fondée en 2020 par Aude de Gentile et Thibault Le Moine, la maison réunit sept
-personnes, dont quatre diagnostiqueurs certifiés. Chaque rapport est signé par celui
-qui l'a établi.</p></div></section>
+personnes, dont quatre diagnostiqueurs certifiés qui interviennent sur le terrain.
+Chaque rapport est signé par celui qui l'a établi.</p></div></section>
 <section class="band"><div class="wrap">
 <p class="eyebrow">L'équipe</p><h2>Celles et ceux qui interviennent</h2>
 <div class="team">{fiches}</div>
@@ -2122,6 +2177,7 @@ même maison, même exigence.</p>
         f'<a class="card card--link" href="/questions/{o["slug"]}/"><h3>{esc(o["titre"])}</h3>'
         f'<span class="more">Lire →</span></a>' for o in voisins[:3])
     tags = "".join(f'<li><span class="mesh--plain">{esc(t)}</span></li>' for t in c["tags"])
+    rel = relecteur_de(c["tags"])
 
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
@@ -2131,8 +2187,7 @@ même maison, même exigence.</p>
 <p class="enclair" style="margin-top:0"><span>L'antisèche</span>{esc(c.get("antiseche", c["meta"]))}</p>
 {som}{corps}{schema_art}
 {sources_html(c)}
-<p class="maj">Publié le {c['date'].strftime('%d/%m/%Y')} · vérifié au {MAJ} ·
-rédigé par l'équipe technique de {E['nom']}</p>
+{signature_html(rel, c['date'])}
 <h2>Pour approfondir</h2><ul>{liens}</ul>
 </div></article>
 <section class="band band--pale"><div class="wrap">
@@ -2149,6 +2204,7 @@ rédigé par l'équipe technique de {E['nom']}</p>
          "speakable": {"@type": "SpeakableSpecification",
                        "cssSelector": ["h1", ".prose > p:first-of-type"]},
          "author": {"@id": DOM + "/#organisation"},
+         "reviewedBy": relecteur_schema(rel),
          "publisher": {"@id": DOM + "/#organisation"},
          "mainEntityOfPage": {"@type": "WebPage", "@id": DOM + p},
          "citation": [{"@type": "CreativeWork", "name": s.split("~")[0],
@@ -3136,11 +3192,16 @@ est opposable sur un rapport.</p>
 <div class="card"><h3>Aude de Gentile</h3>
 <p><strong>Titre professionnel de diagnostiqueur immobilier</strong>, enregistré au
 répertoire national des certifications professionnelles (RNCP), niveau 5 du cadre européen
-— délivré par ODI Formation en août 2020.</p></div>
+— délivré par ODI Formation en août 2020.</p>
+<p>Elle ne signe pas de mission soumise à certification : ce titre lui donne la lecture
+technique des dossiers et la relecture des guides publiés ici, pas le droit d'établir un
+rapport. C'est le métier appris, énoncé sans l'arrondir.</p></div>
 <div class="card"><h3>Thibault Le Moine</h3>
 <p><strong>Titre professionnel de diagnostiqueur immobilier</strong>, enregistré au
 répertoire national des certifications professionnelles (RNCP), niveau 5 du cadre européen
-— délivré par ODI Formation en août 2020.</p></div>
+— délivré par ODI Formation en août 2020.</p>
+<p>Il est en outre <strong>certifié</strong> en amiante, termites, gaz et électricité :
+sa fiche et ses dates figurent ci-dessus.</p></div>
 </div>
 <p class="maj">Les fondateurs se sont formés au métier avant de créer le cabinet, et non
 l'inverse. C'est aussi ce qui explique le parti pris du site : expliquer plutôt que vendre.</p>
