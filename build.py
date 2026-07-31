@@ -2645,6 +2645,32 @@ en fait la valeur.</p>
 </div></section>
 
 <section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Les titres</p>
+<h2>Titre professionnel et certification : deux choses différentes</h2>
+<p class="narrow">On les confond souvent, et la nuance mérite d'être connue avant de
+commander une mission. Le <strong>titre professionnel</strong> sanctionne une formation
+qualifiante : il s'obtient une fois, à l'issue d'un parcours complet, et atteste d'un
+niveau de qualification. La <strong>certification de compétences</strong>, elle, autorise à
+exercer un domaine précis : elle est délivrée pour un cycle, contrôlée pendant sa durée
+par des audits sur dossiers réels, et doit être renouvelée.</p>
+<p class="narrow">Autrement dit : le titre dit qu'on a appris le métier, la certification
+dit qu'on a le droit de l'exercer aujourd'hui. Les deux sont utiles ; seule la seconde
+est opposable sur un rapport.</p>
+<div class="grid grid--2" style="margin-top:1.6rem">
+<div class="card"><h3>Aude de Gentile</h3>
+<p><strong>Titre professionnel de diagnostiqueur immobilier</strong>, enregistré au
+répertoire national des certifications professionnelles (RNCP), niveau 5 du cadre européen
+— délivré par ODI Formation en août 2020.</p></div>
+<div class="card"><h3>Thibault Le Moine</h3>
+<p><strong>Titre professionnel de diagnostiqueur immobilier</strong>, enregistré au
+répertoire national des certifications professionnelles (RNCP), niveau 5 du cadre européen
+— délivré par ODI Formation en août 2020.</p></div>
+</div>
+<p class="maj">Les fondateurs se sont formés au métier avant de créer le cabinet, et non
+l'inverse. C'est aussi ce qui explique le parti pris du site : expliquer plutôt que vendre.</p>
+</div></section>
+
+<section class="band"><div class="wrap">
 <p class="eyebrow">L'organisme</p>
 <h2>Qui nous certifie, et qui le contrôle</h2>
 <p class="narrow">Nos diagnostiqueurs sont certifiés par trois organismes distincts, tous
@@ -2664,7 +2690,7 @@ dont ceux qui précèdent travaux et démolition — c'est le cœur de notre act
 tout type de bâtiment, immeuble collectif compris, et non seulement sur un logement.</p>
 </div></section>
 
-<section class="band"><div class="wrap">
+<section class="band band--pale"><div class="wrap">
 <p class="eyebrow">La responsabilité</p>
 <h2>Assurance et veille</h2>
 <div class="grid grid--2" style="margin-top:1.6rem">
@@ -2687,7 +2713,7 @@ de désaccord qui ne se règle pas avec nous, vous disposez d'un recours gratuit
 action judiciaire.</p></div>
 </div></section>
 
-<section class="band band--pale"><div class="wrap">
+<section class="band"><div class="wrap">
 <p class="eyebrow">Ce que ça change</p>
 <h2>Pourquoi nous publions tout cela</h2>
 <p class="narrow">Un rapport de diagnostic engage celui qui le signe, et il engage aussi
