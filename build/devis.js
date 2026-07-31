@@ -32,9 +32,42 @@
     { id: "annee", label: "Année de construction", type: "select", requis: true, options: [
       "Avant 1949", "De 1949 à 1975", "De 1976 à 1988",
       "De 1989 au 30 juin 1997", "Après le 1er juillet 1997", "Je ne sais pas" ] },
-    { id: "niveaux", label: "Nombre de niveaux", type: "number", min: 1, max: 40 },
+    { id: "lots", label: "Nombre de lots d'habitation", type: "number", min: 1, max: 5000 },
+    { id: "batiments", label: "Nombre de bâtiments", type: "number", min: 1, max: 60 },
+    { id: "niveaux", label: "Nombre de niveaux hors sous-sol", type: "number", min: 1, max: 40,
+      aide: "Rez-de-chaussée compris" },
     { id: "occupe", label: "Le bâtiment est-il occupé ?", type: "select", options: [
       "Occupé", "Partiellement occupé", "Vide" ] }
+  ];
+
+  /* Le bâti en détail : ces éléments déterminent le temps passé sur place,
+     donc le chiffrage. Volet replié — on le remplit si on les connaît. */
+  var BATI = [
+    { id: "surface_pc", label: "Surface des parties communes (m²)", type: "number", min: 1,
+      aide: "Halls, circulations, escaliers, caves, locaux techniques — même approximative" },
+    { id: "surface_totale", label: "Surface totale de l'immeuble (m²)", type: "number", min: 1,
+      aide: "Surface de plancher, toutes parties confondues" },
+    { id: "cages", label: "Nombre de cages d'escalier", type: "number", min: 1, max: 60 },
+    { id: "sous_sol", label: "Niveaux de sous-sol", type: "select", options: [
+      "Aucun", "Un niveau", "Deux niveaux", "Trois niveaux ou plus" ] },
+    { id: "combles", label: "Combles", type: "select", options: [
+      "Perdus, accessibles", "Perdus, difficiles d'accès", "Aménagés",
+      "Toiture-terrasse (sans combles)", "Je ne sais pas" ] },
+    { id: "toiture", label: "Couverture", type: "select", options: [
+      "Tuiles", "Ardoise", "Zinc ou bac acier", "Fibrociment", "Toiture-terrasse",
+      "Mixte", "Je ne sais pas" ] },
+    { id: "acces_hauteur", label: "Accès aux parties hautes", type: "select", options: [
+      "Trappe ou lucarne depuis les communs", "Échelle suffisante",
+      "Échafaudage déjà prévu", "Nacelle nécessaire", "À déterminer ensemble" ] },
+    { id: "equipements", label: "Équipements et locaux communs", type: "checks", options: [
+      "Ascenseur", "Chaufferie collective", "Parking souterrain", "Local vélos ou poussettes",
+      "Local poubelles", "Ventilation mécanique", "Cour intérieure", "Espaces verts",
+      "Loge de gardien", "Piscine ou local technique spécifique" ],
+      aide: "Chaque local commun est un point de visite supplémentaire" },
+    { id: "commerces", label: "Commerces ou activités en pied d'immeuble", type: "select", options: [
+      "Aucun", "Un ou deux", "Trois et plus" ] },
+    { id: "travaux_passes", label: "Travaux notables déjà réalisés", type: "textarea",
+      aide: "Ravalement, toiture, changement de menuiseries, désamiantage… avec les années si possible" }
   ];
 
   /* ---------- questions propres à chaque mission ---------- */
@@ -64,7 +97,6 @@
         { id: "nature", label: "Nature de l'opération", type: "select", requis: true, options: [
           "Démolition totale", "Démolition partielle", "Curage avant restructuration" ] },
         { id: "surface", label: "Surface de plancher à démolir (m²)", type: "number", requis: true, min: 1 },
-        { id: "batiments", label: "Nombre de bâtiments", type: "number", min: 1 },
         { id: "coupe", label: "Le bâtiment est-il vidé et les fluides coupés ?", type: "select",
           requis: true, options: [
           "Oui, entièrement", "Coupure prévue avant intervention", "Non, encore en service" ],
@@ -81,13 +113,9 @@
         { id: "motif", label: "Motif de la demande", type: "select", requis: true, options: [
           "Mise en copropriété", "Procédure de péril", "Décision volontaire de l'AG",
           "Préparation d'un plan de travaux", "Projet de rénovation énergétique" ] },
-        { id: "lots", label: "Nombre total de lots", type: "number", requis: true, min: 2 },
         { id: "lots_princ", label: "dont lots principaux (logements, commerces)", type: "number", min: 1 },
-        { id: "batiments", label: "Nombre de bâtiments", type: "number", min: 1 },
-        { id: "cages", label: "Nombre de cages d'escalier", type: "number", min: 1 },
-        { id: "equip", label: "Équipements communs présents", type: "checks", options: [
-          "Chauffage collectif", "Ascenseur", "Parking souterrain", "Espaces verts",
-          "Local vélos ou poussettes", "Ventilation mécanique", "Portail motorisé" ] },
+        { id: "desordres", label: "Désordres déjà constatés", type: "textarea",
+          aide: "Fissures, infiltrations, humidité en sous-sol, réseaux vétustes, façade dégradée…" },
         { id: "docs", label: "Documents disponibles", type: "checks", options: [
           "Règlement de copropriété", "Carnet d'entretien", "Dossier technique amiante",
           "DPE collectif", "Derniers procès-verbaux d'AG", "Plans", "Devis de travaux récents" ] }
@@ -96,14 +124,12 @@
     pppt: {
       nom: "Plan pluriannuel de travaux",
       champs: [
-        { id: "lots", label: "Nombre total de lots", type: "number", requis: true, min: 2 },
-        { id: "batiments", label: "Nombre de bâtiments", type: "number", min: 1 },
         { id: "dtg_fait", label: "Un DTG a-t-il déjà été réalisé ?", type: "select", options: [
           "Oui, de moins de 10 ans", "Oui, plus ancien", "Non" ],
           aide: "Un DTG récent et complet peut valoir plan pluriannuel" },
-        { id: "equip", label: "Équipements communs présents", type: "checks", options: [
-          "Chauffage collectif", "Ascenseur", "Parking souterrain", "Ventilation mécanique",
-          "Toiture-terrasse", "Façades en pierre", "Menuiseries d'origine" ] },
+        { id: "fonds", label: "Montant du fonds de travaux (€), si connu", type: "number", min: 0 },
+        { id: "energie", label: "Étiquette énergie de l'immeuble, si connue", type: "select", options: [
+          "A ou B", "C", "D", "E", "F", "G", "Jamais évaluée" ] },
         { id: "ag", label: "Date de la prochaine assemblée générale", type: "date",
           aide: "Pour caler notre délai sur votre calendrier de vote" },
         { id: "travaux", label: "Travaux déjà envisagés", type: "textarea",
@@ -113,10 +139,14 @@
     dpe: {
       nom: "DPE collectif de copropriété",
       champs: [
-        { id: "lots", label: "Nombre total de lots", type: "number", requis: true, min: 2 },
-        { id: "batiments", label: "Nombre de bâtiments", type: "number", min: 1 },
         { id: "chauffage", label: "Mode de chauffage", type: "select", options: [
           "Chauffage collectif", "Chauffages individuels", "Mixte", "Je ne sais pas" ] },
+        { id: "energie_type", label: "Énergie principale", type: "select", options: [
+          "Gaz", "Électricité", "Réseau de chaleur urbain", "Fioul", "Bois ou granulés",
+          "Pompe à chaleur", "Je ne sais pas" ] },
+        { id: "isolation", label: "Isolation déjà réalisée", type: "checks", options: [
+          "Murs", "Toiture ou combles", "Planchers bas", "Menuiseries remplacées",
+          "Aucune à notre connaissance" ] },
         { id: "motif", label: "Motif de la demande", type: "select", options: [
           "Échéance réglementaire", "Projet de rénovation énergétique",
           "Demande de l'assemblée générale", "Autre" ] },
@@ -403,11 +433,23 @@
            champs.map(champ).join("") + "</div>";
   }
 
+  /* Volet replié : le détail du bâti. Facultatif, mais c'est lui qui permet
+     de chiffrer sans rappel — on l'annonce comme tel plutôt que d'imposer
+     vingt champs à qui veut juste un ordre de grandeur. */
+  function blocBati() {
+    return '<details class="postes bati"><summary>Le bâti en détail — surfaces, ' +
+      'équipements, accès (facultatif, mais c\'est ce qui évite un rappel)</summary>' +
+      '<p class="postes__intro">Ces éléments déterminent le temps passé sur place, ' +
+      'donc le prix. Renseignez ce que vous connaissez : nous complétons le reste ' +
+      'avec vous.</p>' + BATI.map(champ).join("") + "</details>";
+  }
+
   function rendre(cle) {
     choix = cle;
     var m = MISSIONS[cle];
     zoneMission.innerHTML =
-      bloc("2 · Le bien concerné", BIEN) +
+      '<div class="devis__bloc"><h3>2 · Le bien concerné</h3>' +
+      BIEN.map(champ).join("") + blocBati() + "</div>" +
       bloc("3 · " + m.nom, m.champs) +
       bloc("4 · Délai et compléments", [DELAI, PORTEE, NOTE]);
     zoneMission.hidden = false;
@@ -455,7 +497,7 @@
   function collecter() {
     var out = [], vus = {};
     var libelle = {};
-    [CONTACT, BIEN, MISSIONS[choix].champs, [DELAI, PORTEE, NOTE]].forEach(function (g) {
+    [CONTACT, BIEN, BATI, MISSIONS[choix].champs, [DELAI, PORTEE, NOTE]].forEach(function (g) {
       g.forEach(function (c) { libelle[c.id] = c.label; });
     });
     Array.prototype.forEach.call(form.elements, function (el) {
