@@ -1177,3 +1177,13 @@ dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
     padding:1.4rem 0 0}
 }
 @media print{.aide{display:none}}
+
+/* maillage : les guides liés à une mission */
+.liens-guides{list-style:none;padding:0;margin:1.6rem 0 0;
+  columns:2 19rem;column-gap:2.4rem}
+.liens-guides li{break-inside:avoid;padding:.55rem 0;
+  border-bottom:1px solid var(--rule-fine)}
+.liens-guides a{color:var(--encre);text-decoration:none;font-size:.94rem;
+  line-height:1.45;display:block;transition:color .16s}
+.liens-guides a:hover{color:var(--vert)}
+.liens-guides a::before{content:"→ ";color:var(--or)}

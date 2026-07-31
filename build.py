@@ -43,7 +43,13 @@ E["nom"] = MARQUE["nom_long"]
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site")
 DOM = E["domaine"]
-URLS = []  # (path, priority, changefreq)
+# Date de la dernière évolution structurelle du site. Le sitemap ne doit PAS
+# annoncer une modification quotidienne : un lastmod qui bouge alors que rien
+# n'a changé perd toute valeur aux yeux des moteurs. À mettre à jour lors
+# d'une vraie refonte de gabarit ou d'un changement de contenu transverse.
+MAJ_STRUCTURE = "2026-07-31"
+
+URLS = []  # (chemin, priorité, fréquence, date de dernière modification)
 
 
 # ------------------------------------------------------------------ helpers
@@ -480,6 +486,73 @@ CARNETS_TITRE = {
 }
 
 
+# ------------------------------------------------------------- maillage éditorial
+# Les pages de mission n'envoyaient qu'un seul lien vers les guides : l'autorité
+# accumulée par les 70 guides ne circulait pas jusqu'aux pages qui vendent, ni
+# l'inverse. Chaque mission désigne ici les questions qu'on lui pose vraiment.
+GUIDES_MISSION = {
+    "reperage-amiante-avant-travaux": [
+        "raat-ou-raad", "qui-realise-reperage-amiante-travaux",
+        "qui-paie-reperage-copropriete", "raat-remplacement-fenetres",
+        "decouverte-amiante-en-chantier", "amiante-sous-section-3-et-4"],
+    "reperage-amiante-avant-demolition": [
+        "raat-ou-raad", "batiment-vide-avant-demolition",
+        "decouverte-amiante-en-chantier", "diagnostic-pemd-obligatoire-renovation",
+        "listes-a-b-c-amiante"],
+    "diagnostic-technique-global": [
+        "dtg-ou-pppt", "dtg-petite-copropriete", "carnet-entretien-copropriete",
+        "majorites-vote-travaux-assemblee", "fonds-de-travaux"],
+    "plan-pluriannuel-de-travaux": [
+        "voter-pppt-assemblee", "validite-pppt", "copropriete-sans-pppt",
+        "dtg-ou-pppt", "fonds-de-travaux", "majorites-vote-travaux-assemblee"],
+    "dossier-technique-amiante": [
+        "dta-ou-dapp", "dta-ancien-encore-valable", "listes-a-b-c-amiante",
+        "fiche-recapitulative-dta"],
+    "amiante-parties-privatives": [
+        "dta-ou-dapp", "listes-a-b-c-amiante", "amiante-chez-moi-que-faire"],
+    "crep-parties-communes": [
+        "crep-parties-communes-obligatoire", "qu-est-ce-que-le-diagnostic-plomb",
+        "unite-diagnostic-plomb"],
+    "dpe-collectif-copropriete": [
+        "qu-est-ce-que-le-dpe", "duree-validite-dpe", "qu-est-ce-qu-une-passoire-thermique",
+        "calcul-etiquette-dpe"],
+    "audit-energetique-copropriete": [
+        "qu-est-ce-qu-une-passoire-thermique", "qu-est-ce-que-le-dpe",
+        "dtg-dpe-audit-lequel"],
+    "diagnostic-pemd": [
+        "diagnostic-pemd-obligatoire-renovation", "recolement-pemd",
+        "batiment-vide-avant-demolition"],
+    "etat-parasitaire-avant-travaux": [
+        "diagnostic-termites-obligatoire", "termites-gironde"],
+    "installations-collectives-gaz-electricite": [
+        "diagnostic-gaz-obligatoire", "diagnostic-electricite-obligatoire"],
+    "conformite-assainissement-copropriete": ["fosse-septique-controle-vente"],
+}
+
+# Slugs réellement publiés à la date du build — un lien vers un guide à paraître
+# serait une 404 bloquante. Rempli par main() dès le chargement des contenus.
+PUBLIES = {}
+
+
+def guides_lies(slug):
+    """Les guides parus qui répondent aux questions de cette mission."""
+    voulus = GUIDES_MISSION.get(slug, [])
+    dispo = [s for s in voulus if s in PUBLIES]
+    if not dispo:
+        return ""
+    items = "".join(
+        f'<li><a href="/questions/{s}/">{esc(PUBLIES[s])}</a></li>' for s in dispo)
+    return (f'<section class="band band--pale"><div class="wrap">'
+            f'<p class="eyebrow">Les questions qu\'on nous pose</p>'
+            f'<h2>Pour aller au fond du sujet</h2>'
+            f'<p class="narrow">Nos réponses détaillées, écrites à partir des situations '
+            f'que nous rencontrons en mission et sourcées sur les textes en vigueur.</p>'
+            f'<ul class="liens-guides">{items}</ul>'
+            f'<p class="maj"><a href="/referentiel-des-normes/">Le référentiel des normes '
+            f'et des textes applicables</a> · <a href="/questions/">Tous les guides '
+            f'pratiques</a></p></div></section>')
+
+
 def carnets_band(slug):
     items = CARNETS.get(slug)
     if not items:
@@ -646,7 +719,7 @@ Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à v
                         {"@type": "WebSite", "@id": DOM + "/#site", "url": DOM + "/",
                          "name": E["nom"], "inLanguage": "fr-FR",
                          "publisher": {"@id": DOM + "/#organisation"}}))
-    URLS.append(("/", "1.0", "weekly"))
+    URLS.append(("/", "1.0", "weekly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ simulateur
@@ -763,7 +836,7 @@ Le résultat s'affiche immédiatement, ici même.</p></div>
                          "operatingSystem": "Tout navigateur web", "inLanguage": "fr-FR",
                          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
                          "publisher": {"@id": DOM + "/#organisation"}}))
-    URLS.append((p, "0.9", "monthly"))
+    URLS.append((p, "0.9", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ prestation
@@ -828,6 +901,7 @@ def page_service(s):
 {'<p class="enclair" style="margin-top:1.6rem"><span>Vous êtes un particulier ?</span>Pour des travaux dans votre propre maison ou votre appartement, vous êtes exactement au bon endroit : ce repérage vaut pour tout donneur d\'ordre — y compris vous.</p>' if s['sigle'] in ('RAAT', 'RAAD') else ''}
 </div></section>
 {carnets_band(s['slug'])}
+{guides_lies(s['slug'])}
 {volet("Réglementation", "Ce que dit la réglementation",
        f'<dl class="legal">{cadre}</dl>', pale=True, ancre="reglementation", ouvert=True)}
 {volet("Notre méthode", "Comment nous menons la mission",
@@ -863,7 +937,7 @@ détaille les typologies rencontrées localement et les points d'attention qui e
                          "provider": {"@id": DOM + "/#organisation"},
                          "areaServed": [{"@type": "City", "name": c["nom"]} for c in COMMUNES],
                          "description": s["intro"]}))
-    URLS.append((p, "0.9", "monthly"))
+    URLS.append((p, "0.9", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ prestation × commune
@@ -1033,7 +1107,7 @@ Bordeaux Métropole sous 72 heures.</p>
                          "description": c["enjeu"]}),
           robots="index,follow" if c["slug"] in METRO_SLUGS else "noindex,follow")
     if c["slug"] in METRO_SLUGS:
-        URLS.append((p, "0.8", "monthly"))
+        URLS.append((p, "0.8", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ zones
@@ -1062,7 +1136,7 @@ bordelaise et une large part de la Gironde.</p></div></section>
           desc="RAAT, RAAD, DTG et PPPT dans les 28 communes de Bordeaux Métropole et en "
                "Gironde. Intervention sous 72 h.",
           body=body, schema=jsonld(org_schema(), breadcrumb(trail)))
-    URLS.append((p, "0.7", "monthly"))
+    URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ pages métier
@@ -1167,7 +1241,7 @@ def page_audience(a):
                               f"{a['titre']} : RAAT, DTG, PPPT | DGLM",
                               f"{a['titre']} — Bordeaux | DGLM"),
           desc=desc_courte(a["desc"]), body=body, schema=jsonld(org_schema(), breadcrumb(trail)))
-    URLS.append((p, "0.7", "monthly"))
+    URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ contact
@@ -1199,7 +1273,7 @@ année de construction, surface concernée, échéance.</p>
                            f"à Bordeaux. Demander un devis ouvrées. {E['tel']}."),
           body=body, schema=jsonld(org_schema(), breadcrumb(trail),
                                    {"@type": "ContactPage", "url": DOM + p}))
-    URLS.append((p, "0.8", "yearly"))
+    URLS.append((p, "0.8", "yearly", MAJ_STRUCTURE))
 
 
 def page_mentions():
@@ -1299,6 +1373,7 @@ def page_diag_pro(d):
 {fiche_html(d.get('fiche'))}
 </div></section>
 {carnets_band(d['slug'])}
+{guides_lies(d['slug'])}
 {volet("Réglementation", "Ce que dit la réglementation", ancre="reglementation",
        corps=f'''<dl class="legal">{cadre}</dl>
 <h3 style="margin-top:2.2rem;color:var(--vert)">Une pratique distincte du diagnostic de transaction</h3>
@@ -1327,7 +1402,7 @@ marché de travaux, non pour être classés dans un dossier de compromis.</p>'''
                          "name": d["nom"], "provider": {"@id": DOM + "/#organisation"},
                          "areaServed": [{"@type": "City", "name": c["nom"]} for c in COMMUNES],
                          "description": d["intro"]}))
-    URLS.append((p, "0.85", "monthly"))
+    URLS.append((p, "0.85", "monthly", MAJ_STRUCTURE))
 
 
 
@@ -1383,7 +1458,7 @@ c'est la famille copropriété qui s'en charge.</p>
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "CollectionPage", "url": DOM + p,
                          "name": "Avant travaux et démolition"}))
-    URLS.append((p, "0.9", "weekly"))
+    URLS.append((p, "0.9", "weekly", MAJ_STRUCTURE))
 
 
 def page_tableau():
@@ -1472,7 +1547,7 @@ cadre — nos <a href="/questions/">réponses détaillées</a> les couvrent, et 
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "Table", "about": "Diagnostics de copropriété",
                          "name": "Le tableau des diagnostics de copropriété"}))
-    URLS.append((p, "0.9", "weekly"))
+    URLS.append((p, "0.9", "weekly", MAJ_STRUCTURE))
 
 
 def page_conformite():
@@ -1534,7 +1609,7 @@ demande.</p>
                            "sans déclaration — seulement des faits."),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail)))
-    URLS.append((p, "0.6", "weekly"))
+    URLS.append((p, "0.6", "weekly", MAJ_STRUCTURE))
 
 
 def page_pack():
@@ -1588,7 +1663,7 @@ oublier. Imprimez-les, cochez-les, faites-les circuler.</p>
                            "calendrier type de mission."),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail)))
-    URLS.append((p, "0.8", "monthly"))
+    URLS.append((p, "0.8", "monthly", MAJ_STRUCTURE))
 
 
 def _norm_recherche(s):
@@ -1831,7 +1906,7 @@ jamais du repérage avant travaux : dès qu'un chantier s'ouvre, on change de fa
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "CollectionPage", "url": DOM + p,
                          "name": "Diagnostics de copropriété"}))
-    URLS.append((p, "0.9", "weekly"))
+    URLS.append((p, "0.9", "weekly", MAJ_STRUCTURE))
 
 
 
@@ -1897,7 +1972,7 @@ par l'analyse.</p>
                            "créée en 2020."),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail), *personnes))
-    URLS.append((p, "0.7", "monthly"))
+    URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
 
@@ -2021,7 +2096,8 @@ rédigé par l'équipe technique de {E['nom']}</p>
                                "text": strip_tags(corps)[:900]}}]})
     shell(path=p, title=titre(c["titre"], c["titre"][:58], c["tags"][0] if c["tags"] else "Question"),
           desc=desc_courte(c["meta"]), body=body, schema=schema)
-    URLS.append((p, "0.75", "monthly"))
+    # Un guide porte sa vraie date de parution : c'est le seul lastmod honnête.
+    URLS.append((p, "0.75", "monthly", c["date"].isoformat()))
 
 
 def strip_tags(h):
@@ -2147,7 +2223,7 @@ def page_hub_contenus(contenus):
               body=rbody,
               schema=jsonld(org_schema(), breadcrumb(rtrail),
                             {"@type": "CollectionPage", "url": DOM + rp, "name": nom}))
-        URLS.append((rp, "0.7", "weekly"))
+        URLS.append((rp, "0.7", "weekly", MAJ_STRUCTURE))
 
     rubriques = (f'<section class="band"><div class="wrap">'
                  f'<p class="eyebrow">Le sommaire</p><h2>Choisissez votre rubrique.</h2>'
@@ -2170,7 +2246,7 @@ nous préférons ne pas écrire la page.</p></div></section>
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "CollectionPage", "url": DOM + p,
                          "name": "Guides pratiques", "dateModified": ISO}))
-    URLS.append((p, "0.85", "daily"))
+    URLS.append((p, "0.85", "daily", MAJ_STRUCTURE))
 
 
 
@@ -2233,7 +2309,7 @@ def page_quartier(q):
                                         "containedInPlace": {"@type": "City",
                                                              "name": "Bordeaux"}},
                          "description": q["enjeu"][:280]}))
-    URLS.append((p, "0.75", "monthly"))
+    URLS.append((p, "0.75", "monthly", MAJ_STRUCTURE))
 
 
 def page_hub_bordeaux():
@@ -2260,7 +2336,7 @@ grandeur budgétaire. Nous documentons chaque quartier pour lui-même.</p></div>
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "CollectionPage", "url": DOM + p, "name": "Bordeaux"}))
-    URLS.append((p, "0.9", "monthly"))
+    URLS.append((p, "0.9", "monthly", MAJ_STRUCTURE))
 
 
 # --- Quartiers hors Bordeaux (Mérignac, Pessac) : mêmes gabarits, ville paramétrée ---
@@ -2318,7 +2394,7 @@ def page_quartier_ville(q, ville):
                                         "containedInPlace": {"@type": "City",
                                                              "name": vnom}},
                          "description": q["enjeu"][:280]}))
-    URLS.append((p, "0.7", "monthly"))
+    URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
 def page_hub_ville(ville):
@@ -2347,7 +2423,7 @@ quartier de {esc(vnom)} pour lui-même.</p></div></section>
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail),
                         {"@type": "CollectionPage", "url": DOM + p, "name": vnom}))
-    URLS.append((p, "0.85", "monthly"))
+    URLS.append((p, "0.85", "monthly", MAJ_STRUCTURE))
 
 
 
@@ -2461,7 +2537,7 @@ quand même : on fait avec ce que vous avez.</p>
                            "À imprimer et à joindre."),
           body=body,
           schema=jsonld(org_schema(), breadcrumb(trail)))
-    URLS.append((p, "0.7", "monthly"))
+    URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------ simulateur de validité
@@ -2613,7 +2689,7 @@ d'échéance lointaine.</p></div>
                          "name": "Simulateur de validité des diagnostics",
                          "url": DOM + p, "applicationCategory": "UtilityApplication",
                          "operatingSystem": "Web"}))
-    URLS.append((p, "0.85", "monthly"))
+    URLS.append((p, "0.85", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------- certifications et assurances
@@ -2809,7 +2885,7 @@ elle vous parviendra le jour même.</p>
                            "couverts, leurs dates de validité, notre assurance de "
                            "responsabilité civile et notre veille."),
           body=body, schema=schema)
-    URLS.append((p, "0.8", "monthly"))
+    URLS.append((p, "0.8", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ aides financières
@@ -3038,7 +3114,7 @@ Le détail se copie tel quel dans une étude ou un procès-verbal.</p>
                         {"@type": "WebApplication", "name": "Simulateur d'aides — copropriétés",
                          "url": DOM + p, "applicationCategory": "FinanceApplication",
                          "operatingSystem": "Web"}))
-    URLS.append((p, "0.85", "monthly"))
+    URLS.append((p, "0.85", "monthly", MAJ_STRUCTURE))
 
 
 def page_devis():
@@ -3147,7 +3223,7 @@ même ancien, ou des plans, réduisent le temps d'intervention — et le prix.</
                            "DTG ou un plan pluriannuel de travaux. Réponse sous deux "
                            "heures ouvrées."),
           body=body + extra, schema=schema)
-    URLS.append((p, "0.95", "monthly"))
+    URLS.append((p, "0.95", "monthly", MAJ_STRUCTURE))
 
 
 
@@ -3218,7 +3294,7 @@ juridique. Pour une situation précise, faites-la confirmer.</p>
                          "author": {"@id": DOM + "/#organisation"},
                          "publisher": {"@id": DOM + "/#organisation"},
                          "mainEntityOfPage": {"@type": "WebPage", "@id": DOM + p}}))
-    URLS.append((p, "0.9", "monthly"))
+    URLS.append((p, "0.9", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ plan du site
@@ -3289,7 +3365,7 @@ de questions, en un coup d'œil. Un clic pour trouver ce que vous cherchez.</p>
           desc=desc_courte("Plan du site DGLM Expertises : prestations, diagnostics de "
                            "copropriété, simulateur, zones et bibliothèque de questions."),
           body=body, schema=jsonld(org_schema(), breadcrumb(trail)))
-    URLS.append((p, "0.5", "monthly"))
+    URLS.append((p, "0.5", "monthly", MAJ_STRUCTURE))
 
 
 # ------------------------------------------------------------------ pont vers le site particuliers
@@ -3319,9 +3395,9 @@ site dédié aux particuliers.</p>
 # ------------------------------------------------------------------ build
 def sitemap():
     items = "".join(
-        f"<url><loc>{DOM}{u}</loc><lastmod>{ISO}</lastmod>"
+        f"<url><loc>{DOM}{u}</loc><lastmod>{lm}</lastmod>"
         f"<changefreq>{cf}</changefreq><priority>{pr}</priority></url>"
-        for u, pr, cf in URLS)
+        for u, pr, cf, lm in URLS)
     xml = ('<?xml version="1.0" encoding="UTF-8"?>'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
            + items + "</urlset>")
@@ -3381,6 +3457,8 @@ def main():
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),
                     dirs_exist_ok=True)
     contenus = charger_contenus()
+    # slug -> titre des guides déjà parus : seuls ceux-là peuvent être liés
+    PUBLIES.update({c["slug"]: c["titre"] for c in contenus})
     # En premier : l'index de recherche fixe son empreinte, que toutes les
     # pages suivantes citent dans l'URL du fichier (invalidation du cache).
     page_recherche(contenus)
