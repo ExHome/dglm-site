@@ -2339,8 +2339,7 @@ au moins <strong>65 %</strong> des lots pour une copropriété de 20 lots ou moi
 inscrite au <strong>registre national des copropriétés</strong>, et ses données mises à
 jour chaque année par le syndic. Sans immatriculation à jour, aucune aide publique n'est
 versée. Le numéro figure sur les documents de la copropriété — sinon, demandez-le au
-syndic. <a href="/questions/registre-national-coproprietes/">Notre guide sur le
-registre →</a>""")
+syndic.""")
     B_AMO = info("l'AMO", """L'<strong>assistance à maîtrise d'ouvrage</strong> est
 l'accompagnateur obligatoire du projet : un professionnel indépendant qui aide la
 copropriété à définir le programme, consulter les entreprises, monter le dossier de
@@ -2356,8 +2355,8 @@ En deçà de 35 %, aucune aide collective.""")
     B_PASSOIRE = info("une passoire thermique", """Une <strong>passoire thermique</strong>
 est un logement classé <strong>F ou G</strong> au diagnostic de performance énergétique.
 Si les travaux font passer l'immeuble à la classe <strong>D ou mieux</strong>, l'aide est
-majorée de 10 points. <a href="/questions/quest-ce-quune-passoire-thermique/">Notre guide
-sur les passoires →</a>""")
+majorée de 10 points. <a href="/questions/qu-est-ce-qu-une-passoire-thermique/">Notre
+guide sur les passoires →</a>""")
     B_FRAGILE = info("une copropriété fragile", """L'Anah qualifie de
 <strong>fragile</strong> une copropriété dont le taux d'impayés dépasse un seuil
 réglementaire, et de <strong>en difficulté</strong> celle qui fait l'objet d'un plan de
