@@ -515,7 +515,8 @@
   /* Arrivée depuis une page mission : on reprend la mission qu'il vient de
      lire plutôt que de la lui redemander. */
   (function () {
-    var m = new URLSearchParams(location.search).get("m");
+    var h = (location.hash || "").replace(/^#m-/, "");
+    var m = MISSIONS[h] ? h : new URLSearchParams(location.search).get("m");
     if (!m || !MISSIONS[m]) return;
     var b = document.querySelector('.mission[data-m="' + m + '"]');
     if (!b) return;

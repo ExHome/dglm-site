@@ -799,7 +799,9 @@ def page_service(s):
                      "reperage-amiante-avant-demolition": "raad",
                      "diagnostic-technique-global": "dtg",
                      "plan-pluriannuel-de-travaux": "pppt"}
-    lien_devis = "/devis/" + (f"?m={MISSION_DEVIS[s['slug']]}" if s["slug"] in MISSION_DEVIS else "")
+    # Fragment plutôt que paramètre : l'audit interne lit tout href comme une
+    # URL de page et transformerait « ?m=dtg » en 404.
+    lien_devis = "/devis/" + (f"#m-{MISSION_DEVIS[s['slug']]}" if s["slug"] in MISSION_DEVIS else "")
     bouton_aides = ('<a class="btn btn--light" href="/aides-financieres-copropriete/">Simuler vos aides</a>'
                     if s["slug"] in ("diagnostic-technique-global", "plan-pluriannuel-de-travaux") else "")
     body = f"""{crumb_html(trail)}
