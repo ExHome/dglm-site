@@ -51,50 +51,61 @@ SKYLINE = """<svg class="skyline" viewBox="0 0 1200 250" aria-hidden="true" focu
 </g></svg>"""
 
 # ---------------------------------------------------------------- pictos mission
-# Un trait, une idée. stroke=currentColor pour hériter de l'or des cartes.
+# SYSTÈME D'ICÔNES — règles mesurables, vérifiées par getBBox et getTotalLength :
+#   · grille 64, zone active 44×44 dans x/y ∈ [10, 54] ;
+#   · centre optique commun (32, 32) à ±1,5 près, sinon les pictos ne
+#     s'alignent pas quand ils se suivent sur une ligne de cartes ;
+#   · masse de tracé homogène (280 ± 40) : sans cela, l'un paraît gras et
+#     l'autre maigre à la même taille ;
+#   · trait 2,2 partout, extrémités et jonctions arrondies ;
+#   · un objet architectural + un seul signe de la mission. Jamais deux idées.
 _P = ('<svg class="picto" viewBox="0 0 64 64" aria-hidden="true" focusable="false">'
       '<g fill="none" stroke="currentColor" stroke-width="2.2" '
       'stroke-linecap="round" stroke-linejoin="round">{}</g></svg>')
 
 PICTOS = {
-    # RAAT : le mur en coupe, la loupe centrée dessus — on regarde DANS le mur
-    # avant d'ouvrir. Les deux points : les fibres qu'on cherche.
+    # RAAT — le mur ausculté. Coupe verticale : deux parements, une âme
+    # hachurée, et la loupe posée dessus. On regarde DANS le mur avant
+    # d'ouvrir ; les deux points sont ce que l'on y cherche.
     "RAAT": _P.format(
-        '<line x1="25" y1="9" x2="25" y2="55"/><line x1="39" y1="9" x2="39" y2="55"/>'
-        '<line x1="32" y1="9" x2="32" y2="55" stroke-dasharray="2.5 3.5"/>'
-        '<circle cx="32" cy="30" r="13"/>'
-        '<line x1="41.2" y1="39.2" x2="51" y2="49"/>'
-        '<circle cx="28" cy="26" r="1.8" fill="currentColor" stroke="none"/>'
-        '<circle cx="36" cy="34" r="1.8" fill="currentColor" stroke="none"/>'),
-    # RAAD : la déconstruction bloc à bloc — le coin de l'immeuble est déjà
-    # démonté, les blocs partent proprement (pas de boule : on repère AVANT).
+        '<line x1="11" y1="11" x2="11" y2="53"/><line x1="27" y1="11" x2="27" y2="53"/>'
+        '<line x1="11" y1="11" x2="27" y2="11"/><line x1="11" y1="53" x2="27" y2="53"/>'
+        '<line x1="13" y1="24" x2="25" y2="15"/><line x1="13" y1="33" x2="25" y2="24"/>'
+        '<line x1="13" y1="42" x2="25" y2="33"/><line x1="13" y1="51" x2="25" y2="42"/>'
+        '<circle cx="38" cy="30" r="12"/>'
+        '<line x1="46.5" y1="38.5" x2="53" y2="45"/>'
+        '<circle cx="35" cy="27" r="1.7" fill="currentColor" stroke="none"/>'
+        '<circle cx="41" cy="33" r="1.7" fill="currentColor" stroke="none"/>'),
+    # RAAD — la déconstruction ordonnée. Le haut du bâtiment se défait en
+    # blocs nets qui s'éloignent : on démonte en sachant, pas en cassant.
     "RAAD": _P.format(
-        '<line x1="8" y1="55" x2="56" y2="55"/>'
-        '<path d="M12,55 L12,25 L28,25 L28,33 L36,33 L36,55"/>'
-        '<line x1="10" y1="25" x2="30" y2="25"/>'
-        '<rect x="16" y="31" width="6" height="7"/><rect x="16" y="43" width="6" height="7"/>'
-        '<rect x="26" y="43" width="6" height="7"/>'
-        '<rect x="33" y="14" width="7" height="7"/><rect x="43" y="20" width="6" height="6"/>'
-        '<rect x="48" y="9" width="5" height="5"/>'),
-    # DTG : l'immeuble sous la cote d'architecte — on prend la mesure complète
-    # du bâti, du sol au toit.
+        '<line x1="11" y1="53" x2="43" y2="53"/>'
+        '<path d="M15,53 L15,27 L31,27 L31,35 L39,35 L39,53"/>'
+        '<line x1="13" y1="27" x2="33" y2="27"/>'
+        '<rect x="19" y="33" width="6" height="7"/><rect x="19" y="44" width="6" height="7"/>'
+        '<rect x="33" y="41" width="6" height="7"/>'
+        '<rect x="34" y="18" width="8" height="8"/>'
+        '<rect x="46" y="23" width="7" height="7"/>'
+        '<rect x="45" y="11" width="6" height="6"/>'),
+    # DTG — l'immeuble mesuré. La cote d'architecte prend la hauteur du bâti,
+    # du sol au faîte : le diagnostic global relève tout, poste par poste.
     "DTG": _P.format(
-        '<line x1="10" y1="55" x2="44" y2="55"/>'
-        '<path d="M14,55 L14,13 L38,13 L38,55"/>'
-        '<line x1="12" y1="13" x2="40" y2="13"/>'
-        '<rect x="18" y="19" width="5" height="6"/><rect x="29" y="19" width="5" height="6"/>'
-        '<rect x="18" y="31" width="5" height="6"/><rect x="29" y="31" width="5" height="6"/>'
-        '<rect x="18" y="43" width="5" height="6"/><rect x="29" y="43" width="5" height="6"/>'
-        '<line x1="50" y1="13" x2="50" y2="55"/>'
-        '<path d="M47,17 L50,13 L53,17"/><path d="M47,51 L50,55 L53,51"/>'),
-    # PPPT : l'immeuble au pied de l'escalier du plan — des marches qui montent
-    # vers la flèche : les travaux s'échelonnent, l'immeuble progresse.
+        '<line x1="15" y1="52" x2="41" y2="52"/>'
+        '<path d="M17,52 L17,12 L39,12 L39,52"/>'
+        '<line x1="15" y1="12" x2="41" y2="12"/>'
+        '<rect x="21" y="19" width="5" height="5"/><rect x="30" y="19" width="5" height="5"/>'
+        '<rect x="21" y="33" width="5" height="5"/><rect x="30" y="33" width="5" height="5"/>'
+        '<line x1="49" y1="12" x2="49" y2="52"/>'
+        '<path d="M46,16 L49,12 L52,16"/><path d="M46,48 L49,52 L52,48"/>'),
+    # PPPT — la trajectoire des dix ans. L'immeuble au départ, les travaux qui
+    # montent marche après marche, et le cap donné par la flèche.
     "PPPT": _P.format(
-        '<path d="M10,55 L10,27 L26,27 L26,55"/>'
-        '<line x1="8" y1="27" x2="28" y2="27"/>'
-        '<rect x="14" y="33" width="5" height="6"/><rect x="14" y="45" width="5" height="6"/>'
-        '<path d="M8,55 L38,55 L38,45 L45,45 L45,35 L52,35 L52,25"/>'
-        '<path d="M48,29 L52,25 L56,29"/>'),
+        '<line x1="10" y1="51" x2="54" y2="51"/>'
+        '<path d="M14,51 L14,15 L28,15 L28,51"/>'
+        '<line x1="12" y1="15" x2="30" y2="15"/>'
+        '<rect x="18" y="22" width="6" height="7"/><rect x="18" y="34" width="6" height="7"/>'
+        '<path d="M32,51 L32,43 L40,43 L40,33 L48,33 L48,13"/>'
+        '<path d="M44,17 L48,13 L52,17"/>'),
 }
 
 # ---------------------------------------------------------------- échoppe
