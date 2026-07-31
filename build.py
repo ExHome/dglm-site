@@ -53,8 +53,33 @@ URLS = []  # (chemin, priorité, fréquence, date de dernière modification)
 
 
 # ------------------------------------------------------------------ helpers
+import re as _re
+
+# Typographie française. Sur un site dont l'identité repose sur un serif de
+# titrage, « l'immeuble » avec un tiret vertical de machine à écrire est le
+# détail qui trahit tout. On corrige à la source, une fois pour toutes.
+_APOS = _re.compile(r"(?<=\w)'(?=\w)")
+# Espace fine insécable avant ; ? ! et insécable avant : — mais uniquement si
+# le signe est suivi d'un blanc ou d'une fin : sans quoi on abîmerait les URLs
+# (« http://… », « ?page=2 ») que cette fonction voit passer aussi.
+_PONCT_FINE = _re.compile(r"(?<=[^\s])\s?([;?!])(?=\s|$)")
+_PONCT_DEUX = _re.compile(r"(?<=[^\s])\s?(:)(?=\s|$)")
+_GUILL_O = _re.compile(r"«\s?(?=\S)")
+_GUILL_F = _re.compile(r"(?<=\S)\s?»")
+
+
+def typo_fr(s):
+    """Apostrophes typographiques et espaces insécables devant la ponctuation."""
+    s = _APOS.sub("’", s)
+    s = _PONCT_FINE.sub(" \\1", s)
+    s = _PONCT_DEUX.sub(" \\1", s)
+    s = _GUILL_O.sub("« ", s)
+    s = _GUILL_F.sub(" »", s)
+    return s
+
+
 def esc(s):
-    return html.escape(s, quote=True)
+    return html.escape(typo_fr(s), quote=True)
 
 
 def org_schema():
@@ -2012,7 +2037,9 @@ def sommaire_article(corps):
 def page_contenu(c, voisins):
     p = f"/questions/{c['slug']}/"
     trail = [("Accueil", "/"), ("Guides pratiques", "/questions/"), (c["titre"], p)]
-    corps = md_vers_html(c["corps"])
+    # même typographie que le reste du site : le corps des guides est le
+    # texte le plus lu, il ne peut pas rester en apostrophes de machine à écrire.
+    corps = typo_fr(md_vers_html(c["corps"]))
     corps, som = sommaire_article(corps)
     # Glossaire : chaque terme reçoit une ancre, et un index cliquable
     # remplace le sommaire — la porte d'entrée du lexique.
