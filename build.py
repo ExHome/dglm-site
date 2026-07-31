@@ -2437,6 +2437,7 @@ complètement, vous nous évitez un rappel préalable : nous chiffrons directeme
 </div></section>
 
 <section class="band"><div class="wrap">
+<h2>Votre demande</h2>
 <form id="devis" class="devis" novalidate>
 <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
  style="position:absolute;left:-9999px">
