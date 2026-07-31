@@ -1187,3 +1187,13 @@ dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
   line-height:1.45;display:block;transition:color .16s}
 .liens-guides a:hover{color:var(--vert)}
 .liens-guides a::before{content:"→ ";color:var(--or)}
+
+/* commande d'arrêt des animations (WCAG 2.2.2, niveau A) */
+.animex{position:relative}
+.animex__pause{position:absolute;right:.6rem;bottom:.6rem;
+  font-family:var(--sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;color:#5B6A62;background:var(--blanc);border:1px solid var(--rule);
+  padding:.42rem .75rem;cursor:pointer;border-radius:0;transition:border-color .16s,color .16s}
+.animex__pause:hover{border-color:var(--or);color:#8A6224}
+.animex--fige *{animation-play-state:paused!important}
+@media print{.animex__pause{display:none}}

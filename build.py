@@ -183,6 +183,18 @@ SCRIPT_VOLETS = ('<script>(function(){function o(h){try{var e=h&&document.queryS
                  '.forEach(function(d){d.dataset.o=d.open?"1":"";d.open=true})});'
                  'addEventListener("afterprint",function(){document.querySelectorAll("details")'
                  '.forEach(function(d){d.open=d.dataset.o==="1"})});'
+                 # WCAG 2.2.2 : toute animation qui dure plus de cinq secondes doit
+                 # pouvoir être arrêtée. Le réglage système « moins d'animations »
+                 # est déjà respecté, mais il ne remplace pas une commande visible.
+                 'document.querySelectorAll(".animex").forEach(function(f,i){'
+                 'var b=document.createElement("button");b.type="button";'
+                 'b.className="animex__pause";b.setAttribute("aria-pressed","false");'
+                 'b.textContent="Suspendre l’animation";'
+                 'b.addEventListener("click",function(){'
+                 'var p=f.classList.toggle("animex--fige");'
+                 'b.setAttribute("aria-pressed",p?"true":"false");'
+                 'b.textContent=p?"Reprendre l’animation":"Suspendre l’animation"});'
+                 'f.appendChild(b)});'
                  '})()</script>')
 
 NAV = "".join(
