@@ -356,6 +356,39 @@ CARNETS = {
          "à l'époque, ce ciment était souvent armé d'amiante. Tant qu'on n'y touche "
          "pas, il ne libère rien — mais avant des travaux, on prélève et on fait "
          "analyser en laboratoire. C'est exactement ça, un repérage."),
+        ("terrain-fibro-toiture.jpg", 1100, 521, "amiante",
+         "Couverture — plaques ondulées en fibres-ciment",
+         "les grandes plaques ondulées grises d'un appentis, avec leur gouttière.",
+         "c'est la silhouette la plus reconnaissable du fibres-ciment ancien. Intacte "
+         "et à l'air libre, elle ne présente pas de danger immédiat ; percée, découpée "
+         "ou déposée sans précaution, elle libère des fibres. D'où le repérage avant "
+         "d'engager le moindre outil."),
+        ("terrain-fibro-bardage.jpg", 1100, 521, "amiante",
+         "Mur — plaques planes en fibres-ciment",
+         "un habillage de plaques planes grises, sous une charpente.",
+         "on ne pense qu'aux toitures, mais le fibres-ciment servait aussi en bardage, "
+         "en cloison de local technique ou en coffrage de gaine. Un repérage sérieux "
+         "regarde les murs autant que les toits."),
+    ],
+    "dossier-technique-amiante": [
+        ("terrain-fibro-bardage.jpg", 1100, 521, "amiante",
+         "Parties communes — plaques planes en fibres-ciment",
+         "un habillage de plaques grises dans un local commun.",
+         "le dossier technique amiante recense ces matériaux immeuble par immeuble, "
+         "les localise et note leur état de conservation. C'est ce document que "
+         "l'on tend à toute entreprise avant qu'elle n'intervienne."),
+        ("terrain-conduits.jpg", 960, 1280, "amiante", "Toiture — conduits en fibres-ciment",
+         "des conduits gris courant en toiture.",
+         "conduits, descentes et gaines techniques figurent parmi les matériaux "
+         "les plus fréquemment retrouvés dans les immeubles d'avant 1997."),
+    ],
+    "amiante-parties-privatives": [
+        ("terrain-fibro-toiture.jpg", 1100, 521, "amiante",
+         "Annexes privatives — plaques ondulées",
+         "une couverture ondulée en fibres-ciment sur une annexe.",
+         "l'amiante des parties privatives ne s'arrête pas au logement : garages, "
+         "appentis, caves et celliers en contiennent souvent davantage que les pièces "
+         "de vie."),
     ],
     "diagnostic-technique-global": [
         ("terrain-solive.jpg", 1200, 568, "copropriete", "Plancher — solive ancienne, renfort récent",
@@ -388,6 +421,18 @@ CARNETS = {
 THEME_RUB = {"amiante": "Amiante", "copropriete": "Copropriété, DTG & PPPT",
              "energie": "Performance énergétique", "risques": "Plomb, gaz & risques"}
 
+# Le titre de la rubrique photo, propre à chaque mission : on annonce ce que
+# le lecteur va voir plutôt qu'un générique « Vu en mission ».
+CARNETS_TITRE = {
+    "reperage-amiante-avant-travaux": "L'amiante, tel qu'on le rencontre avant un chantier",
+    "reperage-amiante-avant-demolition": "Avant démolition : là où personne ne regarde",
+    "dossier-technique-amiante": "L'amiante des parties communes, en images",
+    "amiante-parties-privatives": "L'amiante chez soi : garages, caves, annexes",
+    "diagnostic-technique-global": "Ce que le diagnostic global regarde vraiment",
+    "plan-pluriannuel-de-travaux": "L'immeuble tel qu'il vieillit",
+    "etat-parasitaire-avant-travaux": "Insectes et champignons : les signes qui alertent",
+}
+
 
 def carnets_band(slug):
     items = CARNETS.get(slug)
@@ -402,8 +447,14 @@ def carnets_band(slug):
         f'<p class="photo__theme"><a href="/questions/rubriques/{th}/">'
         f'Tous nos guides « {esc(THEME_RUB.get(th, th))} » →</a></p></figure>'
         for f, w, h, th, cap, v, p in items)
+    titre = CARNETS_TITRE.get(slug, "Vu en mission")
+    n = len(items)
+    intro = ("" if n < 2 else
+             f'<p class="narrow" style="margin-top:.9rem">{n} situations rencontrées '
+             f'sur le terrain, expliquées simplement — ce que nous voyons, et pourquoi '
+             f'cela change quelque chose pour vous.</p>')
     return (f'<section id="terrain" class="band"><div class="wrap">'
-            f'<p class="eyebrow">Carnets de terrain</p><h2>Vu en mission</h2>'
+            f'<p class="eyebrow">Carnets de terrain</p><h2>{esc(titre)}</h2>{intro}'
             f'<div class="grid grid--2" style="margin-top:1.8rem">{figs}</div></div></section>')
 
 
