@@ -1,29 +1,6 @@
 [
  {
   "date": "2026-07-30",
-  "pages": 347,
-  "indexables": 231,
-  "mots_moyen": 746,
-  "mots_total": 172291,
-  "poids_moyen_ko": 19.6,
-  "poids_max_ko": 71.8,
-  "profondeur_max": 3,
-  "orphelines": [],
-  "profondes": [],
-  "inatteignables": [],
-  "lourdes": [
-   [
-    71,
-    "/recherche/"
-   ]
-  ],
-  "minces": [],
-  "sans_schema": [],
-  "titres_doublons": [],
-  "desc_doublons": []
- },
- {
-  "date": "2026-07-30",
   "pages": 348,
   "indexables": 232,
   "mots_moyen": 750,
@@ -1229,6 +1206,24 @@
   "indexables": 247,
   "mots_moyen": 992,
   "mots_total": 245070,
+  "poids_moyen_ko": 25.3,
+  "poids_max_ko": 50.8,
+  "profondeur_max": 3,
+  "orphelines": [],
+  "profondes": [],
+  "inatteignables": [],
+  "lourdes": [],
+  "minces": [],
+  "sans_schema": [],
+  "titres_doublons": [],
+  "desc_doublons": []
+ },
+ {
+  "date": "2026-07-31",
+  "pages": 363,
+  "indexables": 247,
+  "mots_moyen": 992,
+  "mots_total": 245013,
   "poids_moyen_ko": 25.3,
   "poids_max_ko": 50.8,
   "profondeur_max": 3,
