@@ -1087,3 +1087,9 @@ details summary::after{color:#8A6224}
    prépare pourtant un dossier d'assemblée générale. */
 @media print{.volet[open] .volet__corps,.volet .volet__corps{display:block!important}
   .volet__ouvrir{display:none}}
+
+/* Aucune page ne doit défiler latéralement, quelle que soit la largeur.
+   « clip » plutôt que « hidden » : hidden créerait un conteneur de
+   défilement et casserait les en-têtes et barres de chapitres collants. */
+html{overflow-x:clip}
+body{overflow-x:clip;max-width:100%}
