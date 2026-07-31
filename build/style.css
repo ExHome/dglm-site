@@ -879,12 +879,14 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
   width:1.15rem;height:1.15rem;border-radius:50%;font-size:.68rem;line-height:1;
   font-family:var(--sans);padding:0;vertical-align:.08em;margin-left:.3rem}
 .info__b:hover,.info__b[aria-expanded=true]{background:var(--or);color:#fff}
-.info__c{display:none;position:absolute;z-index:70;left:0;top:calc(100% + .45rem);
+/* .field span{display:block} s'appliquerait aussi ici : on reprend la main. */
+.info .info__c{display:none;position:absolute;z-index:70;left:0;top:calc(100% + .45rem);
   width:min(23rem,78vw);background:var(--blanc);border:1px solid var(--rule);
   border-left:2px solid var(--or);padding:.85rem 1rem;font-size:.86rem;line-height:1.5;
   color:var(--encre);text-transform:none;letter-spacing:normal;font-weight:400;
   box-shadow:0 2px 14px rgba(9,63,48,.09)}
-.info__b[aria-expanded=true] + .info__c{display:block}
+.info .info__b[aria-expanded=true] + .info__c{display:block}
+.info .info__b{display:inline-block}
 .info__c strong{color:var(--vert)}
 @media (max-width:640px){.info__c{position:fixed;left:1rem;right:1rem;width:auto;
   top:auto;bottom:1rem}}

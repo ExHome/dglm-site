@@ -260,10 +260,6 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") fermerBulles(null);
   });
-  /* le libellé du champ ne doit pas capter le clic destiné à la bulle */
-  document.querySelectorAll(".info").forEach(function (i) {
-    i.addEventListener("click", function (e) { e.stopPropagation(); }, true);
-  });
 
   var bCopie = document.getElementById("aides-copier");
   if (bCopie) bCopie.addEventListener("click", function () {
