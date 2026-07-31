@@ -183,7 +183,22 @@
         "</div></div>";
     }
 
+    /* La suite naturelle du parcours : on sait ce qui est dû, reste à savoir
+       ce que la collectivité finance. Le nombre de lots est transmis pour que
+       le simulateur d'aides démarre déjà renseigné. */
+    var passerelle = "";
+    if (habitation && age >= 15) {
+      var urlAides = "/aides-financieres-copropriete/?lots=" + encodeURIComponent(lots);
+      passerelle = '<div class="suite"><p class="eyebrow">L’étape suivante</p>' +
+        "<h3>Ces travaux, qui les finance ?</h3>" +
+        "<p>Un programme de rénovation énergétique voté en assemblée ouvre droit à " +
+        "MaPrimeRénov’ Copropriété — souvent 30 à 45 % du montant des travaux, davantage " +
+        "en sortie de passoire. Le simulateur d’aides le chiffre ligne à ligne.</p>" +
+        '<a class="btn" hre' + 'f="' + urlAides + '">Simuler vos aides financières</a></div>';
+    }
+
     out.innerHTML = '<p class="eyebrow">Situation de la copropriété</p>' + blocs.join("") + recap +
+      passerelle +
       '<p class="verdict__note">Cette analyse est indicative et repose sur les seules informations ' +
       'saisies. Elle ne remplace pas l’examen du règlement de copropriété et des procès-verbaux ' +
       'd’assemblée. Aucune donnée n’est transmise ni enregistrée.</p>';

@@ -235,6 +235,19 @@
     return l.join("\n");
   }
 
+  /* Arrivée depuis le simulateur d'obligations : on reprend le nombre de lots
+     déjà saisi là-bas plutôt que de le redemander. */
+  (function () {
+    var lots = new URLSearchParams(location.search).get("lots");
+    if (!lots || !/^\d{1,5}$/.test(lots)) return;
+    var champ = document.getElementById("a_lots");
+    if (!champ) return;
+    champ.value = lots;
+    var rp = document.getElementById("a_rp");
+    if (rp && !rp.value) rp.value = lots;   // hypothèse de départ, modifiable
+    champ.focus();
+  })();
+
   form.addEventListener("input", rendre);
   form.addEventListener("change", rendre);
 

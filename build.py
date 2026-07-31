@@ -588,7 +588,9 @@ def page_simulateur():
 <p class="eyebrow eyebrow--pale">Outil gratuit — sans inscription</p>
 <h1>Simulateur d'obligations de copropriété</h1>
 <p class="lede">PPPT, DTG, DPE collectif, repérage amiante : six questions suffisent à
-savoir ce que votre copropriété doit à la réglementation, et depuis quand.</p></div></section>
+savoir ce que votre copropriété doit à la réglementation, et depuis quand.</p>
+<div class="actions"><a class="btn btn--light" href="/aides-financieres-copropriete/">Simuler vos aides financières</a>
+<a class="btn btn--light" href="/devis/">Demander un devis</a></div></div></section>
 
 <section class="band band--pale"><div class="wrap">
 <p class="eyebrow">Échéancier réglementaire</p>

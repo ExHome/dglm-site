@@ -891,6 +891,11 @@ span.menu__groupe{display:block;padding:.9rem 0 .5rem}
 @media (max-width:640px){.info__c{position:fixed;left:1rem;right:1rem;width:auto;
   top:auto;bottom:1rem}}
 
+/* passerelle entre les deux simulateurs */
+.suite{margin-top:1.8rem;border-top:1px solid var(--rule);padding-top:1.4rem}
+.suite h3{margin:.3rem 0 .6rem;font-size:1.15rem}
+.suite p{color:#5B6A62;font-size:.94rem;line-height:1.6;margin:0 0 1.1rem;max-width:38rem}
+
 /* simulateur : détail des postes de travaux */
 .postes{margin:1.6rem 0 0;border-top:1px solid var(--rule);padding-top:1rem}
 .postes summary{cursor:pointer;font-family:var(--sans);font-size:.86rem;font-weight:600;
