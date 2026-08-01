@@ -1004,7 +1004,7 @@ def page_service(s):
 {bouton_aides}<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <nav class="ancres" aria-label="Chapitres"><div class="wrap">
-<a href="#fiche">L'essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(s['slug']) else ''}<a href="#reglementation">Réglementation</a><a href="#methode">Méthode</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a><a href="#communes">Votre commune</a>
+<a href="#fiche">L’essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(s['slug']) else ''}<a href="#reglementation">Réglementation</a><a href="#methode">Méthode</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a><a href="#communes">Votre commune</a>
 </div></nav>
 <section id="fiche" class="band"><div class="wrap">
 <p class="eyebrow">L'antisèche</p>
@@ -1477,7 +1477,7 @@ def page_diag_pro(d):
   if d["slug"] in ("dpe-collectif-copropriete", "audit-energetique-copropriete") else "")}<a class="btn btn--light" href="tel:{E['tel_raw']}">{E['tel']}</a></div></div></section>
 
 <nav class="ancres" aria-label="Chapitres"><div class="wrap">
-<a href="#fiche">L'essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(d['slug']) else ''}<a href="#reglementation">Réglementation</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a>
+<a href="#fiche">L’essentiel</a>{'<a href="#terrain">Sur le terrain</a>' if CARNETS.get(d['slug']) else ''}<a href="#reglementation">Réglementation</a>{'<a href="#schema">Le schéma</a>' if schema else ''}<a href="#faq">Questions</a>
 </div></nav>
 <section id="fiche" class="band"><div class="wrap">
 <p class="eyebrow">L'antisèche</p>
