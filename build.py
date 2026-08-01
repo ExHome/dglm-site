@@ -5,6 +5,10 @@ import json, os, shutil, sys, html, datetime, locale, hashlib
 # Empreinte de l'index de recherche, fixée par page_recherche() dès le début
 # du build : elle sert de numéro de version dans l'URL du fichier.
 IDX_V = "0"
+# Même mécanique pour la feuille de style, fixée par main() à la copie.
+# Sans elle, un visiteur déjà venu garde l'ancienne feuille en cache et ne voit
+# aucune correction de mise en page — constaté en production le 01/08/2026.
+CSS_V = "0"
 
 AUJ = datetime.date.today()
 ANNEE = AUJ.year
@@ -313,7 +317,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <link rel="icon" href="/assets/logo-dglm-vert.png">
 <meta name="geo.region" content="FR-33"><meta name="geo.placename" content="Bordeaux">
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/style.css?v={CSS_V}">
 {head_extra}
 {schema}
 {jsonld(page_schema(canon, title))}
@@ -4093,6 +4097,11 @@ def main():
     os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
     src = os.path.join(os.path.dirname(OUT), "build")
     shutil.copy(os.path.join(src, "style.css"), os.path.join(OUT, "assets", "style.css"))
+    # L'empreinte de la feuille de style part dans l'URL : une correction de
+    # mise en page atteint alors les visiteurs déjà venus, au lieu de rester
+    # invisible derrière leur cache.
+    globals()["CSS_V"] = hashlib.md5(
+        open(os.path.join(src, "style.css"), "rb").read()).hexdigest()[:8]
     for js in ("simulateur.js", "devis.js", "aides.js", "recherche.js", "validite.js"):
         if os.path.exists(os.path.join(src, js)):
             shutil.copy(os.path.join(src, js), os.path.join(OUT, "assets", js))
