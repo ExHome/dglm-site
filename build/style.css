@@ -874,6 +874,17 @@ details[open]>p{animation:deplie .3s ease}
    le masthead recouvrir 16px de la barre de chapitres, soit un tiers. */
 .masthead{--h-bandeau:4.95rem}
 .ancres{position:sticky;top:4.95rem;z-index:30}
+/* Sur téléphone, une barre qui s'enroule devient un pavé : mesuré à 381 px et
+   huit lignes sur le glossaire, soit la moitié de l'écran — et elle est
+   collante, donc elle resterait là pendant toute la lecture. Une seule ligne
+   qui défile au doigt, le chapitre coupé au bord signalant qu'il y en a
+   d'autres. */
+@media (max-width:640px){
+  .ancres .wrap{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    scroll-snap-type:x proximity;padding-block:.7rem}
+  .ancres .wrap::-webkit-scrollbar{display:none}
+  .ancres a{white-space:nowrap;scroll-snap-align:start}
+}
 :target,[id]{scroll-margin-top:7.8rem}
 @media (max-width:640px){.topbar__avis{display:none}.topbar .wrap{justify-content:space-between}}
 
