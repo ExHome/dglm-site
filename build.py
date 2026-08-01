@@ -1526,7 +1526,7 @@ def page_contact():
     trail = [("Accueil", "/"), ("Contact", p)]
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Demander un devis ouvrées</p>
+<p class="eyebrow eyebrow--pale">Réponse sous deux heures ouvrées</p>
 <h1>Décrivez votre opération, nous chiffrons.</h1>
 <p class="lede">Un appel suffit le plus souvent à cadrer la mission : nature des travaux,
 année de construction, surface concernée, échéance.</p>
@@ -1546,7 +1546,8 @@ année de construction, surface concernée, échéance.</p>
 </div></section>{cta()}"""
     shell(path=p, title="Contact et devis — DGLM Expertises Bordeaux",
           desc=desc_courte(f"Contactez DGLM Expertises pour un RAAT, RAAD, DTG ou PPPT "
-                           f"à Bordeaux. Demander un devis ouvrées. {E['tel']}."),
+                           f"à Bordeaux. Devis chiffré sous deux heures ouvrées. "
+                           f"{E['tel']}."),
           body=body, schema=jsonld(org_schema(), breadcrumb(trail),
                                    {"@type": "ContactPage", "url": DOM + p}), chapitres=False)
     URLS.append((p, "0.8", "yearly", MAJ_STRUCTURE))

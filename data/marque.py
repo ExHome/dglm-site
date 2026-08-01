@@ -37,7 +37,7 @@ MARQUE = dict(
     diagadvisor="https://www.diagadvisor.fr/avis-dglm-expertises-33000.html",
 
     societe="DGLM Expertises",
-    siret="89128707000017",
+    siret="89128707000025",
     rcs="891 287 070 R.C.S. Bordeaux",
     depuis="2020",
     federation="Alliance du Diagnostic Immobilier",
