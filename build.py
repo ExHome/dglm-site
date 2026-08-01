@@ -10,6 +10,82 @@ IDX_V = "0"
 # aucune correction de mise en page — constaté en production le 01/08/2026.
 CSS_V = "0"
 
+# Nom court des chapitres et ancre lisible, par section. La clé est le titre
+# ramené à sa forme simple (_slug_ancre) : les h2 s'écrivent tantôt avec une
+# apostrophe droite dans le code, tantôt courbe après typo_fr, et le slug est
+# identique dans les deux cas.
+CHAPITRES_COURTS = {
+    # hub des diagnostics de copropriété
+    "un-immeuble-occupe-ne-se-diagnostique-pas-comme-un-logement-": ("Une pratique distincte", "pratique"),
+    "le-tandem-qui-pilote-l-immeuble": ("Les missions phares", "phares"),
+    "le-dpe-collectif-constate-l-audit-decide": ("Énergie de l’immeuble", "energie"),
+    "les-documents-que-l-immeuble-doit-tenir-a-jour": ("Santé et conformité", "sante"),
+    "gaz-et-electricite-des-parties-communes-vers-qui-se-tourner": ("Gaz et électricité", "gaz"),
+    # aides financières
+    "estimez-vos-aides": ("Le simulateur", "simulateur"),
+    "maprimerenov-copropriete-en-clair": ("MaPrimeRénov’", "mpr"),
+    "eco-ptz-financer-le-reste-a-charge": ("L’éco-PTZ", "ecoptz"),
+    "tva-a-5-5-cee-et-aides-locales": ("Les compléments", "complements"),
+    "du-diagnostic-au-dossier-le-circuit": ("Méthode", "circuit"),
+    # simulateur d'obligations
+    "le-plan-pluriannuel-de-travaux-s-applique-desormais-a-l-ense": ("L’échéancier", "echeancier"),
+    "votre-copropriete-en-six-questions": ("Le simulateur", "simulateur"),
+    "comprendre-le-resultat": ("Questions", "faq"),
+    # équipe
+    "celles-et-ceux-qui-interviennent": ("Qui intervient", "equipe"),
+    "une-maison-a-taille-humaine": ("À taille humaine", "maison"),
+    "certifications-et-assurances": ("Nos garanties", "garanties"),
+    # certifications et assurances
+    "cinq-diagnostiqueurs-certifies": ("Les personnes", "personnes"),
+    "titre-professionnel-et-certification-deux-choses-differentes": ("Titre ou certification", "titres"),
+    "qui-nous-certifie-et-qui-le-controle": ("Qui nous certifie", "organisme"),
+    "assurance-et-veille": ("Assurance et veille", "assurance"),
+    "pourquoi-nous-publions-tout-cela": ("Ce que ça change", "pourquoi"),
+    # certificat de conformité
+    "controles-passes-avec-succes": ("L’état du jour", "etat"),
+    "les-huit-controles-quotidiens": ("Les huit contrôles", "controles"),
+    "ce-que-ce-certificat-ne-dit-pas": ("Ce qu’il ne dit pas", "limites"),
+    # méthode éditoriale
+    "qui-ecrit-et-qui-relit": ("Qui écrit et relit", "auteurs"),
+    "d-ou-viennent-les-faits": ("Sources", "sources"),
+    "ce-que-nous-ne-publions-pas": ("Ce qu’on refuse", "refus"),
+    "si-vous-trouvez-une-erreur": ("Signaler une erreur", "erreur"),
+    # conseil syndical
+    "ce-qu-on-va-vous-demander-de-comprendre": ("Les quatre sujets", "sujets"),
+    "les-questions-a-poser-en-seance": ("Questions à poser", "questions"),
+    "ce-que-vous-n-avez-pas-a-faire": ("Votre rôle exact", "role"),
+    "les-outils-qui-vous-servent-vraiment": ("Les outils gratuits", "outils"),
+    # particulier qui fait des travaux
+    "un-diagnostic-qui-ne-sert-pas-a-vendre": ("Pas pour la vente", "pas-la-vente"),
+    "des-travaux-ordinaires-qui-declenchent-l-obligation": ("Les travaux visés", "travaux"),
+    "pourquoi-ce-reperage-vous-protege-vous": ("Ce qui vous protège", "protection"),
+    "comment-cela-se-passe-chez-vous": ("Méthode", "methode"),
+    "si-votre-projet-est-de-vendre-ou-de-louer": ("Vendre ou louer", "vendre-louer"),
+    # pack du conseil syndical
+    "1-les-documents-a-reunir-avant-l-assemblee": ("Les documents", "documents"),
+    "2-les-questions-a-poser-a-un-diagnostiqueur-avant-de-le-rete": ("Questions à poser", "questions"),
+    "3-le-calendrier-type-d-une-mission-bien-menee": ("Le calendrier", "calendrier"),
+    # aide au devis — la barre sert de sélecteur de mission
+    "pour-toute-demande": ("Pour toute demande", "toute-demande"),
+    "reperage-amiante-avant-travaux-raat": ("Avant travaux", "raat"),
+    "reperage-amiante-avant-demolition-raad": ("Avant démolition", "raad"),
+    "diagnostic-technique-global-dtg": ("Le DTG", "dtg"),
+    "plan-pluriannuel-de-travaux-pppt": ("Le PPPT", "pppt"),
+    "diagnostics-de-l-immeuble-dta-dapp-plomb-assainissement": ("Diagnostics d’immeuble", "diagnostics-immeuble"),
+}
+# Sections qui ne sont pas du contenu : renvois, rappels, invitations. Une
+# barre de chapitres annonce ce qu'on va lire, pas les boutons de la page.
+# Les deux passerelles entre hubs en font partie : sans elles ici, le hub des
+# travaux affichait une barre dont le dernier chapitre était un bouton.
+CHAPITRES_EXCLUS = {
+    "vous-engagez-des-travaux-sur-l-immeuble",
+    "besoin-de-la-vision-d-ensemble-de-l-immeuble",
+    "comprendre-chaque-dispositif",
+    "federation-professionnelle",
+    "analyses-en-laboratoire",
+    "pour-aller-plus-loin",
+}
+
 AUJ = datetime.date.today()
 ANNEE = AUJ.year
 MOIS_FR = ["janvier","février","mars","avril","mai","juin","juillet","août",
@@ -275,8 +351,14 @@ def og_pour(path):
     return OG.get(path.strip("/").split("/")[0], "default")
 
 
-def shell(*, path, title, desc, body, schema="", robots="index,follow", head_extra=""):
+def shell(*, path, title, desc, body, schema="", robots="index,follow", head_extra="",
+          chapitres=True):
     canon = DOM + path
+    # La barre de chapitres est posée ici pour toutes les pages : une seule
+    # règle, et le lecteur retrouve le même repère partout. Les pages qui sont
+    # elles-mêmes un sommaire (accueil, plan du site) passent chapitres=False.
+    if chapitres:
+        body = chapitrer(body, CHAPITRES_COURTS, CHAPITRES_EXCLUS)
     # Barre de recherche du bandeau : on tape sa question directement.
     # Absente de la page /recherche/ elle-même, qui a déjà son champ.
     sur_recherche = path == "/recherche/"
@@ -439,6 +521,74 @@ def cta(titre="Un chantier à cadrer ? Parlons-en aujourd'hui.",
 <h2>{esc(titre)}</h2><p>{esc(texte)}</p>
 <div class="actions"><a class="btn btn--light" href="tel:{E['tel_raw']}">Appeler le {E['tel']}</a>
 <a class="btn btn--light" href="/devis/">Demander un devis</a></div></div></section>"""
+
+
+def chapitrer(body, libelles=None, exclure=(), mini=3):
+    """Pose la barre de chapitres d'une page composée de sections.
+
+    Elle lit le corps déjà rendu plutôt que d'obliger chaque page à se décrire :
+    chaque section reçoit une ancre tirée de son titre, et la barre s'insère
+    après le héros. `libelles` donne le nom court d'un chapitre quand son h2
+    est trop long pour un chip ; `exclure` écarte les sections qui ne sont pas
+    du contenu (l'appel à l'action de fin, par exemple).
+    Sans effet si la page a déjà sa barre ou compte moins de `mini` chapitres.
+    """
+    import re as _re
+    if 'class="ancres"' in body:
+        return body
+    libelles = libelles or {}
+    exclus = {_slug_ancre(x) for x in exclure}
+
+    # les sections de premier niveau, dans l'ordre du document
+    bornes = [m for m in _re.finditer(r"<(section|article)\b([^>]*)>", body)]
+    chapitres, vus, inserts = [], set(), []
+    for i, m in enumerate(bornes):
+        attrs = m.group(2)
+        if "hero" in attrs or "cta" in attrs:
+            continue
+        fin = bornes[i + 1].start() if i + 1 < len(bornes) else len(body)
+        bloc = body[m.start():fin]
+        t = _re.search(r"<h2[^>]*>(.*?)</h2>", bloc, _re.S)
+        if not t:
+            continue
+        titre = _re.sub(r"\s+", " ", strip_tags(t.group(1))).strip()
+        if not titre:
+            continue
+        cle = _slug_ancre(titre)
+        if cle in exclus:
+            continue
+        # le dictionnaire donne le nom court du chapitre et, s'il y tient,
+        # une ancre lisible : #garanties plutôt que #certifications-et-assur…
+        court = libelles.get(titre) or libelles.get(cle)
+        anc_voulue = ""
+        if isinstance(court, tuple):
+            court, anc_voulue = court
+        # une section peut déjà porter son ancre : on la respecte
+        deja = _re.search(r'id="([^"]+)"', attrs)
+        anc = deja.group(1) if deja else (anc_voulue or cle)
+        while anc in vus:
+            anc += "-b"
+        vus.add(anc)
+        if not deja:
+            inserts.append((m.start() + len(m.group(1)) + 1, f' id="{anc}"'))
+        if not court:
+            # à défaut d'un nom court fourni, on coupe à la première rupture
+            court = _re.split(r"\s*[:—]\s*", titre)[0]
+            if len(court) > 30:
+                court = titre[:28].rsplit(" ", 1)[0] + "…"
+        chapitres.append((anc, court))
+
+    if len(chapitres) < mini:
+        return body
+    for pos, txt in reversed(inserts):          # en partant de la fin :
+        body = body[:pos] + txt + body[pos:]    # les positions restent valides
+
+    barre = ('<nav class="ancres" aria-label="Chapitres"><div class="wrap">'
+             + "".join(f'<a href="#{a}">{esc(t)}</a>' for a, t in chapitres)
+             + "</div></nav>")
+    # juste après le héros, comme sur les pages mission
+    h = _re.search(r'<section[^>]*class="[^"]*hero[^"]*".*?</section>', body, _re.S)
+    return body[:h.end()] + barre + body[h.end():] if h else barre + body
 
 
 def volet(eyebrow, h2, corps, ouvert=False, pale=False, dark=False, ancre=""):
@@ -836,7 +986,7 @@ Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à v
           schema=jsonld(org_schema(),
                         {"@type": "WebSite", "@id": DOM + "/#site", "url": DOM + "/",
                          "name": E["nom"], "inLanguage": "fr-FR",
-                         "publisher": {"@id": DOM + "/#organisation"}}))
+                         "publisher": {"@id": DOM + "/#organisation"}}), chapitres=False)
     URLS.append(("/", "1.0", "weekly", MAJ_STRUCTURE))
 
 
@@ -894,6 +1044,8 @@ achevé : toute copropriété d'habitation de plus de quinze ans y est soumise.<
 </div></div></section>
 
 <section class="band"><div class="wrap sim">
+<p class="eyebrow">Le simulateur</p>
+<h2>Votre copropriété en six questions</h2>
 <form class="sim__form" id="sim" novalidate>
 <label class="field"><span>Destination de l'immeuble</span>
 <select name="destination">
@@ -1390,7 +1542,7 @@ année de construction, surface concernée, échéance.</p>
           desc=desc_courte(f"Contactez DGLM Expertises pour un RAAT, RAAD, DTG ou PPPT "
                            f"à Bordeaux. Demander un devis ouvrées. {E['tel']}."),
           body=body, schema=jsonld(org_schema(), breadcrumb(trail),
-                                   {"@type": "ContactPage", "url": DOM + p}))
+                                   {"@type": "ContactPage", "url": DOM + p}), chapitres=False)
     URLS.append((p, "0.8", "yearly", MAJ_STRUCTURE))
 
 
@@ -1423,7 +1575,7 @@ d'un droit d'accès, de rectification et de suppression en écrivant à {E['emai
 </div></section>"""
     shell(path=p, title=f"Mentions légales — {E['nom']}",
           desc="Mentions légales de DGLM Expertises.", body=body,
-          schema=jsonld(org_schema()), robots="noindex,follow")
+          schema=jsonld(org_schema()), robots="noindex,follow", chapitres=False)
 
 
 
@@ -1856,6 +2008,8 @@ oublier. Imprimez-les, cochez-les, faites-les circuler.</p>
 <li>Les procès-verbaux des trois dernières assemblées</li>
 <li>Les contrats d'exploitation en cours (chauffage, ascenseur, entretien)</li>
 </ul>
+</div></section>
+<section class="band band--pale"><div class="wrap prose">
 <h2>2. Les questions à poser à un diagnostiqueur avant de le retenir</h2>
 <ul class="checklist">
 <li>Êtes-vous certifié, par un organisme accrédité COFRAC, pour chaque mission proposée ?</li>
@@ -1865,6 +2019,8 @@ oublier. Imprimez-les, cochez-les, faites-les circuler.</p>
 <li>Présentez-vous vos conclusions devant le conseil syndical ou l'assemblée ?</li>
 <li>Quels sont vos délais d'intervention et de remise du rapport ?</li>
 </ul>
+</div></section>
+<section class="band"><div class="wrap prose">
 <h2>3. Le calendrier type d'une mission bien menée</h2>
 <ul class="checklist">
 <li>J−90 : demande de devis, comparaison, vérification des certifications</li>
@@ -2050,7 +2206,7 @@ indisponible — retrouvez tout dans <a href="/questions/">les guides pratiques<
                "quartiers couverts par DGLM Expertises.",
           body=body + js + cta(),
           schema=jsonld(org_schema(), breadcrumb(trail)),
-          robots="noindex,follow")
+          robots="noindex,follow", chapitres=False)
 
 
 def page_hub_diags():
@@ -2806,7 +2962,7 @@ répond en six questions.</p>
 </div></section>"""
     shell(path="/404", title="Page introuvable — DGLM Expertises",
           desc="La page demandée n'existe pas ou a été déplacée.",
-          body=body, robots="noindex,follow")
+          body=body, robots="noindex,follow", chapitres=False)
 
 
 
@@ -2873,10 +3029,15 @@ def page_aide_devis():
     p = "/aide-au-devis/"
     trail = [("Accueil", "/"), ("Aide au devis", p)]
     BLOCS = DOCS_DEVIS
+    # Une bande par mission plutôt qu'une seule pour toutes : la barre de
+    # chapitres devient alors un sélecteur de mission, et c'est l'usage réel
+    # de cette page — on y vient pour SA mission, pas pour les six.
     sections = "".join(
+        f'<section class="band{" band--pale" if i % 2 else ""}"><div class="wrap prose">'
         f'<h2>{esc(titre_bloc)}</h2><ul class="checklist">'
-        + "".join(f"<li>{esc(x)}</li>" for x in items) + "</ul>"
-        for titre_bloc, items in BLOCS)
+        + "".join(f"<li>{esc(x)}</li>" for x in items)
+        + "</ul></div></section>"
+        for i, (titre_bloc, items) in enumerate(BLOCS))
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">Aide au devis — à imprimer ou à garder sous la main</p>
@@ -2891,7 +3052,9 @@ souvent sans même un rappel préalable. Cochez, réunissez, joignez.</p>
 ci-dessous, puis joignez les fichiers à l'e-mail que le formulaire de devis prépare pour
 vous — ils arrivent directement dans notre boîte contact. Rien sous la main ? Envoyez
 quand même : on fait avec ce que vous avez.</p>
+</div></section>
 {sections}
+<section class="band band--pale"><div class="wrap prose">
 <p class="maj">Établi par l'équipe DGLM Expertises — vérifié en {MAJ}</p>
 </div></section>
 {cta()}"""
@@ -4008,7 +4171,7 @@ de questions, en un coup d'œil. Un clic pour trouver ce que vous cherchez.</p>
     shell(path=p, title="Plan du site — DGLM Expertises",
           desc=desc_courte("Plan du site DGLM Expertises : prestations, diagnostics de "
                            "copropriété, simulateur, zones et bibliothèque de questions."),
-          body=body, schema=jsonld(org_schema(), breadcrumb(trail)))
+          body=body, schema=jsonld(org_schema(), breadcrumb(trail)), chapitres=False)
     URLS.append((p, "0.5", "monthly", MAJ_STRUCTURE))
 
 
@@ -4033,7 +4196,7 @@ site dédié aux particuliers.</p>
           title="Particuliers, vente et location — DGLM Expertises",
           desc="Vous êtes un particulier ? Accédez à notre site dédié aux diagnostics de "
                "vente et de location.",
-          body=body, schema="", robots="noindex,follow")
+          body=body, schema="", robots="noindex,follow", chapitres=False)
 
 
 # ------------------------------------------------------------------ build
