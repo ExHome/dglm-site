@@ -46,7 +46,8 @@ def sources_html(meta):
         verif = f" — vérifié le {p[2]}" if len(p) > 2 else ""
         lis.append(f'<li><a href="{url}" rel="noopener">{nom}</a>{verif}</li>'
                    if url else f"<li>{nom}{verif}</li>")
-    return ('<div class="sources"><h2>Sources</h2><ul>' + "".join(lis) +
+    # id="sources" : cible de la barre de chapitres des guides
+    return ('<div class="sources" id="sources"><h2>Sources</h2><ul>' + "".join(lis) +
             "</ul><p>Cette page s'appuie sur les textes en vigueur à la date "
             "indiquée. La réglementation évolue : en cas de doute sur une "
             "situation particulière, faites-la confirmer.</p></div>")

@@ -2207,12 +2207,14 @@ def _slug_ancre(t):
 
 
 def sommaire_article(corps):
-    """Ancre chaque h2 et rend un sommaire cliquable (navigation au clic).
-    Retourne (corps_avec_ancres, html_du_sommaire)."""
+    """Ancre chaque h2 du guide et rend la liste des chapitres.
+    Retourne (corps_avec_ancres, [(ancre, titre), ...]) — la barre de
+    chapitres est construite par page_contenu, qui connaît aussi les blocs
+    de fin (schéma, vidéo, sources) à y ajouter."""
     import re as _re
     titres = _re.findall(r"<h2>(.*?)</h2>", corps)
-    if len(titres) < 3:
-        return corps, ""
+    if len(titres) < 2:
+        return corps, []
     vus, items = set(), []
     def _remp(m):
         t = m.group(1)
@@ -2223,10 +2225,7 @@ def sommaire_article(corps):
         items.append((a, t))
         return f'<h2 id="{a}">{t}</h2>'
     corps = _re.sub(r"<h2>(.*?)</h2>", _remp, corps)
-    liens = "".join(f'<li><a href="#{a}">{t}</a></li>' for a, t in items)
-    som = (f'<nav class="sommaire-art" aria-label="Sommaire">'
-           f'<p class="eyebrow">Dans cette page</p><ol>{liens}</ol></nav>')
-    return corps, som
+    return corps, items
 
 
 def page_contenu(c, voisins):
@@ -2236,8 +2235,9 @@ def page_contenu(c, voisins):
     # texte le plus lu, il ne peut pas rester en apostrophes de machine à écrire.
     corps = typo_fr(md_vers_html(c["corps"]))
     corps, som = sommaire_article(corps)
-    # Glossaire : chaque terme reçoit une ancre, et un index cliquable
-    # remplace le sommaire — la porte d'entrée du lexique.
+    index_glossaire = ""
+    # Glossaire : chaque terme reçoit une ancre, et un index alphabétique
+    # s'ajoute en tête — la porte d'entrée du lexique.
     if c["slug"].startswith("glossaire"):
         import re as _re
         termes = []
@@ -2251,9 +2251,10 @@ def page_contenu(c, voisins):
         if termes:
             chips = "".join(f'<li><a href="#{a}">{esc(t)}</a></li>'
                             for t, a in sorted(termes, key=lambda x: x[0].lower()))
-            som = (f'<nav class="sommaire-art" aria-label="Index des termes">'
-                   f'<p class="eyebrow">Index — {len(termes)} termes, de A à Z</p>'
-                   f'<ul class="mesh">{chips}</ul></nav>')
+            index_glossaire = (
+                f'<nav class="sommaire-art" id="index" aria-label="Index des termes">'
+                f'<p class="eyebrow">Index — {len(termes)} termes, de A à Z</p>'
+                f'<ul class="mesh">{chips}</ul></nav>')
     # Un article peut embarquer un schéma : champ « schema: » du frontmatter.
     schema_art = rendre_schema(c.get("schema", ""))
     VL = {"vente", "location", "ddt", "loi carrez", "loi boutin", "surface",
@@ -2282,17 +2283,43 @@ même maison, même exigence.</p>
     tags = "".join(f'<li><span class="mesh--plain">{esc(t)}</span></li>' for t in c["tags"])
     rel = relecteur_de(c["tags"])
 
+    # La barre de chapitres des pages mission, portée aux guides : le lecteur
+    # voit la structure avant de lire, et va droit au passage qui le concerne.
+    # Elle remplace l'ancien sommaire encadré — deux tables des matières sur
+    # la même page, c'est une de trop.
+    film = video_html(c["slug"])
+    # les titres viennent du corps : déjà typographiés et échappés, on ne les
+    # repasse pas par esc() — on retire seulement le gras ou l'italique.
+    chapitres = [("essentiel", "L’essentiel")]
+    if index_glossaire:
+        chapitres.append(("index", "L’index A-Z"))
+    chapitres += [(a, strip_tags(t)) for a, t in som]
+    if schema_art:
+        chapitres.append(("schema", "Le schéma"))
+    if film:
+        chapitres.append(("video", "En vidéo"))
+    if c.get("sources"):
+        chapitres.append(("sources", "Sources"))
+    if liens:
+        chapitres.append(("approfondir", "Pour approfondir"))
+    barre = ""
+    if som or index_glossaire:   # sous deux chapitres, une barre n'apprend rien
+        barre = ('<nav class="ancres" aria-label="Chapitres"><div class="wrap">'
+                 + "".join(f'<a href="#{a}">{t}</a>' for a, t in chapitres)
+                 + "</div></nav>")
+
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">Question fréquente</p>
 <h1>{esc(c['titre'])}</h1></div></section>
+{barre}
 <article class="band"><div class="wrap prose">
-<p class="enclair" style="margin-top:0"><span>L'antisèche</span>{esc(c.get("antiseche", c["meta"]))}</p>
-{som}{corps}{schema_art}
-{video_html(c['slug'])}
+<p class="enclair" id="essentiel" style="margin-top:0"><span>L'antisèche</span>{esc(c.get("antiseche", c["meta"]))}</p>
+{index_glossaire}{corps}{f'<div id="schema">{schema_art}</div>' if schema_art else ''}
+{film}
 {sources_html(c)}
 {signature_html(rel, c['date'])}
-<h2>Pour approfondir</h2><ul>{liens}</ul>
+<h2 id="approfondir">Pour approfondir</h2><ul>{liens}</ul>
 </div></article>
 <section class="band band--pale"><div class="wrap">
 <p class="eyebrow">Dans le même champ</p><h2>Autres réponses</h2>
@@ -2399,7 +2426,7 @@ def video_html(slug):
     b = f"/assets/video/{v['fichier']}"
     lignes = "".join(f"<div><dt>{_mmss(t)}</dt><dd>{esc(txt)}</dd></div>"
                      for t, txt in v["transcription"])
-    return f"""<figure class="film">
+    return f"""<figure class="film" id="video">
 <h3 class="film__t">{esc(v['titre'])}</h3>
 <div class="film__cadre">
 <video controls preload="none" playsinline width="720" height="1280"
