@@ -551,10 +551,16 @@ def chapitrer(body, libelles=None, exclure=(), mini=3):
         t = _re.search(r"<h2[^>]*>(.*?)</h2>", bloc, _re.S)
         if not t:
             continue
-        titre = _re.sub(r"\s+", " ", strip_tags(t.group(1))).strip()
+        titre = _re.sub(r"\s+", " ", html.unescape(strip_tags(t.group(1)))).strip()
         if not titre:
             continue
-        cle = _slug_ancre(titre)
+        # Un titre écrit en dur garde l'apostrophe droite ; le même passé par
+        # esc() reçoit la courbe, que _slug_ancre supprime au lieu d'en faire
+        # un tiret. Sans cette mise à plat, les deux ne donnent pas la même clé
+        # et le chapitre retombe sur un libellé tronqué.
+        plat = (titre.replace("’", "'").replace(" ", " ")
+                     .replace(" ", " ").replace("‑", "-"))
+        cle = _slug_ancre(plat)
         if cle in exclus:
             continue
         # le dictionnaire donne le nom court du chapitre et, s'il y tient,
