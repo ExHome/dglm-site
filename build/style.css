@@ -1318,3 +1318,10 @@ h3{font-size:1.3rem;letter-spacing:-.008em}          /* 20,8 px — 1,27× le co
 .certif h3,.suite h3,.aide__bloc summary{font-size:1.16rem}   /* 18,6 px en grille */
 details summary{font-size:1.08rem}
 .devis__bloc h3{font-size:.86rem}                    /* étiquette d'étape, pas un titre */
+
+/* Signature de marque, sous le logo du pied de page. Discrete mais
+   toujours la : c est la phrase de l entreprise, pas un argument. */
+.footer .slogan{margin:.5rem 0 1.6rem;font-family:var(--titre,Lora,serif);
+  font-style:italic;font-size:1.05rem;letter-spacing:.02em;
+  color:var(--or,#c9a227);opacity:.95}
+@media(min-width:900px){.footer .slogan{margin-top:.35rem}}

@@ -469,6 +469,7 @@ width="47" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
     foot = f"""{SCRIPT_VOLETS}</main>
 <footer class="footer"><div class="wrap">
 <img class="mark" src="/assets/logo-dglm-blanc.png" alt="" width="55" height="52" loading="lazy">
+<p class="slogan">{esc(E["signature"])}</p>
 <div class="grid grid--4">
 <div><p class="foot-titre">Avant travaux &amp; démolition</p><ul>
 <li><a href="/avant-travaux-et-demolition/">La famille chantier</a></li>
@@ -1025,7 +1026,7 @@ Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à v
 </div></section>
 {cta()}"""
 
-    shell(path="/", title="Diagnostic immobilier en copropriété à Bordeaux — DGLM",
+    shell(path="/", title="Diagnostics de copropriété à Bordeaux — DGLM Expertises",
           head_extra='<link rel="preload" as="image" href="/assets/photos/hero-immeuble.jpg">',
           desc="Repérage amiante avant travaux et avant démolition, diagnostic technique "
                "global, plan pluriannuel de travaux. Bordeaux Métropole, devis sous 2 h.",

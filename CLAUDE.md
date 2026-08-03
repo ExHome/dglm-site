@@ -13,7 +13,7 @@ diagnostics immobiliers à Bordeaux.
 Le site cible le segment **copropriété, travaux et démolition**, distinct du segment
 vente/location traité par un autre site (voir § « Deux sites »).
 
-**Domaine cible :** `https://www.dglmexpertises.fr` (détenu par la cliente, aucune
+**Domaine cible :** `https://www.dglmexpertises.fr` (détenu par Aude, aucune
 page indexée à ce jour, à déployer sur GitHub Pages).
 
 ---
@@ -35,7 +35,7 @@ Un code de sortie non nul signale une régression : la corriger, ne pas la conto
 
 ## Contraintes non négociables
 
-Ces règles ont été posées avec la cliente. Ne pas les assouplir sans lui demander.
+Ces règles ont été posées avec Aude. Ne pas les assouplir sans lui demander.
 
 1. **Zéro requête externe.** Pas de Google Fonts, pas de CDN, pas de framework, pas de
    script tiers, pas d'iframe Meta ou YouTube. Lora est auto-hébergée en woff
@@ -154,7 +154,7 @@ La réponse dès la première phrase. C'est ce que reprennent les moteurs IA.
 
 ⚠️ **Seuls deux articles sur douze ont été vérifiés à la source.** Les autres ont été
 rédigés de mémoire et doivent être repris fiche par fiche avant publication. La
-réglementation du diagnostic est un domaine où une erreur engage la cliente.
+réglementation du diagnostic est un domaine où une erreur engage Aude et son entreprise.
 
 ---
 

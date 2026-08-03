@@ -100,18 +100,29 @@ def main():
                 and not COMMERCIAL.search(t + " " + h1):
             continue
 
+        accueil = u.rstrip("/") == ""
         for kw in RESERVE_DIAGNOSTICS:
-            for champ in (t, h1):
-                if not champ.startswith(kw):
+            for nom, champ in (("titre", t), ("h1", h1)):
+                # La requête compte PARTOUT dans le champ, et plus seulement en
+                # tête. « Bordeaux : diagnostic immobilier » disputait la même
+                # page de résultats qu'un titre commençant par la requête, et
+                # passait pourtant sans être vu.
+                if kw not in champ:
                     continue
-                # la requête redevient légitime si elle est qualifiée
-                if any(q in champ for q in QUALIFICATIFS):
+                # Un qualificatif de copropriété rend la requête légitime —
+                # SAUF dans le titre de la page d'accueil. C'est la page la
+                # plus forte du site : elle concourt sur le générique même
+                # qualifiée. Tant que le site A est sous contrat, l'accueil
+                # n'a droit à aucune requête réservée dans son titre.
+                if not (accueil and nom == "titre")                         and any(q in champ for q in QUALIFICATIFS):
                     continue
-                fuites.append((u, kw))
+                fuites.append((u, f"{kw} — dans le {nom}"))
                 break
     if fuites:
         for u, kw in fuites:
-            print(f"    FUITE  {u} cible « {kw} », réservé au second silo")
+            print(f"    FUITE  {u} cible « {kw} », réservé au site A")
+            print( "           → reformuler avec un mot de copropriété "
+                   "(collectif, parties communes, syndic, avant travaux…)")
             err += 1
     else:
         print(f"    OK — aucune des {len(pages)} pages ne cible une des "
