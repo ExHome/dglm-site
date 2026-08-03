@@ -3054,6 +3054,7 @@ def page_quartier(q):
 <h2>Ce que cela implique pour nos missions</h2><p>{esc(q['enjeu'])}</p>
 <dl class="legal"><dt>Point de vigilance à {esc(q['nom'])}</dt>
 <dd>{esc(q['vigilance'])}</dd></dl>
+{fond}
 </div></section>
 
 <section class="band band--pale"><div class="wrap">
@@ -3160,6 +3161,21 @@ def page_quartier_ville(q, ville):
         f'<li><a href="/{vslug}/{v}/">{esc(qmap[v]["nom"])}</a></li>'
         for v in q["voisins"] if v in qmap)
 
+    # Ce que nous pouvons affirmer à partir de ce bâti : la conduite de la
+    # mission, les points de contrôle, le cadre applicable. Aucun fait local
+    # nouveau n'y figure — voir data/quartiers_textes.py.
+    fond = []
+    if q.get("methode"):
+        fond.append("<h2>Comment la mission se conduit à " + esc(q["nom"])
+                    + "</h2><p>" + esc(q["methode"]) + "</p>")
+    if q.get("points"):
+        pts = "".join("<li>" + esc(x) + "</li>" for x in q["points"])
+        fond.append("<h2>Les points de contrôle appelés par ce bâti</h2>"
+                    "<ul>" + pts + "</ul>")
+    if q.get("cadre"):
+        fond.append("<h2>Le cadre réglementaire applicable</h2><p>"
+                    + esc(q["cadre"]) + "</p>")
+    fond = "".join(fond)
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">{esc(vnom)} · {esc(q['nom'])}</p>

@@ -798,3 +798,12 @@ QUARTIERS_PAR_VILLE = [
     dict(nom="Gradignan", slug="gradignan", quartiers=QUARTIERS_GRADIGNAN),
     dict(nom="Floirac", slug="floirac", quartiers=QUARTIERS_FLOIRAC),
 ]
+
+# Les textes de conduite de mission (méthode, points de contrôle, cadre
+# réglementaire) vivent dans un module séparé : ils ont été rédigés et vérifiés
+# à part, et les garder ici rendrait ce fichier illisible.
+from data.quartiers_textes import TEXTES as _TEXTES
+
+for _v in [dict(slug="bordeaux", quartiers=QUARTIERS_BORDEAUX)] + QUARTIERS_PAR_VILLE:
+    for _q in _v["quartiers"]:
+        _q.update(_TEXTES.get(_v["slug"] + "/" + _q["slug"], {}))
