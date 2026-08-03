@@ -5,6 +5,11 @@ import json, os, shutil, sys, html, datetime, locale, hashlib
 # Empreinte de l'index de recherche, fixée par page_recherche() dès le début
 # du build : elle sert de numéro de version dans l'URL du fichier.
 IDX_V = "0"
+# Nombre de dossiers clos, relevé dans le logiciel de suivi de l'entreprise le
+# 03/08/2026 (6 736 exactement, arrondi à la centaine inférieure pour ne jamais
+# annoncer plus que le réel). Tous diagnostics confondus : c'est dit comme tel
+# partout où le chiffre apparaît, la copropriété étant une activité récente.
+MISSIONS_FAITES = "6 700"
 # Clé IndexNow — publique par construction (voir main()).
 INDEXNOW_KEY = "edf67dcafdd8f3778243f8d9c952894a"
 # Codes de vérification de propriété. ⚠️ Ne jamais les retirer : la validation
@@ -950,6 +955,22 @@ il va voir.</p></figure>
 <p class="eyebrow">Le déroulé</p>
 <h2>Une mission, quatre temps.</h2>
 {ANIM_MISSION}
+</div></section>
+
+<section class="band"><div class="wrap">
+<p class="eyebrow">Ce que nous avons déjà fait</p>
+<h2>{MISSIONS_FAITES} missions menées à leur terme.</h2>
+<p class="narrow">Le chiffre est celui de notre logiciel de suivi, arrêté au
+{MAJ_JOUR} : {MISSIONS_FAITES} dossiers clos depuis 2021, tous diagnostics
+confondus — vente, location, copropriété, avant travaux.</p>
+<p class="narrow"><strong>Disons les choses comme elles sont :</strong> la copropriété
+est notre développement le plus récent. Nous ne prétendons pas avoir signé des
+centaines de diagnostics techniques globaux. Ce que nous apportons à un conseil
+syndical, c'est {MISSIONS_FAITES} interventions de terrain, cinq diagnostiqueurs
+certifiés, et un métier appris avant d'être vendu.</p>
+<div class="actions" style="margin-top:1.5rem">
+<a class="btn btn--light" href="/certifications-et-assurances/">Nos certifications, nominatives</a>
+<a class="btn btn--light" href="/equipe/">Qui intervient</a></div>
 </div></section>
 
 <section class="band band--dark"><div class="wrap">
