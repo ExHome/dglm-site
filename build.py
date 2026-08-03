@@ -409,7 +409,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <meta name="robots" content="{robots},max-snippet:-1,max-image-preview:large">
-<link rel="canonical" href="{canon}">
+<link rel="alternate" type="application/rss+xml" title="Questions de copropriété — DGLM Expertises" href="/rss.xml">\n<link rel="canonical" href="{canon}">
 <meta property="og:type" content="website"><meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="{esc(E['nom'])}">
 <meta property="og:title" content="{esc(title)}">
@@ -4645,6 +4645,51 @@ immeuble.</p>
 
 
 # ------------------------------------------------------------------ build
+def flux_rss(contenus):
+    """Le flux de syndication de la bibliothèque.
+
+    Le site n'en avait aucun. C'est pourtant le signal de fraîcheur le plus
+    direct qu'un site puisse émettre : agrégateurs, lecteurs de flux et
+    assistants qui parcourent le web s'en servent pour savoir qu'un site vit.
+
+    On y met les fiches, les plus récentes d'abord. Pas les pages de structure :
+    un flux qui annonce des pages qui ne changent jamais n'annonce rien.
+    """
+    tries = sorted(contenus, key=lambda c: c.get("publication", ""), reverse=True)
+    items = []
+    for c in tries[:50]:
+        lien = DOM + "/questions/" + c["slug"] + "/"
+        pub = c.get("publication", "")
+        # RFC 822, ce qu'attend un lecteur de flux.
+        try:
+            d = datetime.datetime.strptime(pub, "%Y-%m-%d")
+            pubdate = d.strftime("%a, %d %b %Y 09:00:00 +0100")
+        except (ValueError, TypeError):
+            pubdate = ""
+        items.append(
+            "<item>"
+            f"<title>{esc(c.get('question') or c['titre'])}</title>"
+            f"<link>{lien}</link>"
+            f"<guid isPermaLink=\"true\">{lien}</guid>"
+            + (f"<pubDate>{pubdate}</pubDate>" if pubdate else "")
+            + f"<description>{esc(c.get('meta', ''))}</description>"
+            "</item>")
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
+        f"<title>{esc(E['nom'])} — questions de copropriété et de travaux</title>"
+        f"<link>{DOM}/questions/</link>"
+        "<description>Les repères réglementaires et techniques de la copropriété, "
+        "des travaux et de la démolition, expliqués par des diagnostiqueurs "
+        "certifiés de Bordeaux Métropole.</description>"
+        "<language>fr-FR</language>"
+        f'<atom:link href="{DOM}/rss.xml" rel="self" type="application/rss+xml"/>'
+        + "".join(items) +
+        "</channel></rss>")
+    with open(os.path.join(OUT, "rss.xml"), "w", encoding="utf-8") as f:
+        f.write(xml)
+
+
 def sitemap():
     items = "".join(
         f"<url><loc>{DOM}{u}</loc><lastmod>{lm}</lastmod>"
@@ -4774,6 +4819,7 @@ def main():
     page_avis()
     page_404()
     sitemap()
+    flux_rss(contenus)
     ecrire_llms(contenus)
     # Domaine personnalisé GitHub Pages : réécrit à chaque build pour ne pas être perdu.
     open(os.path.join(OUT, "CNAME"), "w", encoding="utf-8").write("www.dglmexpertises.fr\n")
