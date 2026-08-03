@@ -186,6 +186,18 @@ def org_schema():
                        "Ne réalise pas de diagnostic de vente ou de location.",
         "url": DOM + "/",
         "telephone": E["tel_raw"],
+        # Deux lignes, une seule entreprise. Le second numéro est celui qui
+        # figure sur l'autre site du groupe : le déclarer ici indique aux
+        # moteurs qu'il s'agit bien de la même structure, et la réputation
+        # attachée à l'une profite à l'autre. Rien ne change à l'écran.
+        "contactPoint": [
+            {"@type": "ContactPoint", "telephone": E["tel_raw"],
+             "contactType": "customer service", "areaServed": "FR",
+             "availableLanguage": "French"},
+            {"@type": "ContactPoint", "telephone": "+33672700338",
+             "contactType": "customer service", "areaServed": "FR",
+             "availableLanguage": "French"},
+        ],
         "email": E["email"],
         "foundingDate": E["depuis"],
         "priceRange": "€€",
@@ -1032,7 +1044,14 @@ Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à v
 {cta()}"""
 
     shell(path="/", title="Diagnostics de copropriété à Bordeaux — DGLM Expertises",
-          head_extra='<link rel="preload" as="image" href="/assets/photos/hero-immeuble.jpg">',
+          # Le préchargement doit suivre la même règle que la feuille de style,
+          # sinon le téléphone télécharge la grande image EN PLUS de la petite :
+          # 145 Ko pour rien. L'attribut media rend le preload conditionnel.
+          head_extra=(
+              '<link rel="preload" as="image" media="(min-width:761px)" '
+              'href="/assets/photos/hero-immeuble.jpg">'
+              '<link rel="preload" as="image" media="(max-width:760px)" '
+              'href="/assets/photos/hero-immeuble-800.jpg">'),
           desc="Repérage amiante avant travaux et avant démolition, diagnostic technique "
                "global, plan pluriannuel de travaux. Bordeaux Métropole, devis sous 2 h.",
           body=body,
