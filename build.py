@@ -9,7 +9,7 @@ IDX_V = "0"
 INDEXNOW_KEY = "edf67dcafdd8f3778243f8d9c952894a"
 # Code de vérification de la Search Console : il suffira de le coller ici, la
 # balise apparaîtra alors sur les 248 pages. Vide = aucune balise émise.
-GOOGLE_VERIF = ""
+GOOGLE_VERIF = "kl7ROmpLgrYx6tsJfwytZgAs4TNMeZgMDoHiXYZ0_zw"
 # Même mécanique pour la feuille de style, fixée par main() à la copie.
 # Sans elle, un visiteur déjà venu garde l'ancienne feuille en cache et ne voit
 # aucune correction de mise en page — constaté en production le 01/08/2026.
