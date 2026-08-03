@@ -1647,8 +1647,9 @@ Téléphone : {E['tel']} — Courriel : {E['email']}.</p>
 copropriété, de travaux et de démolition : repérage amiante avant travaux et avant
 démolition, diagnostic technique global, plan pluriannuel de travaux.</p>
 <p>Les diagnostics obligatoires de vente et de location (DPE, amiante, plomb, termites,
-gaz, électricité, mesurage) sont réalisés par {E['site_a_nom']}, sous une marque et un
-site distincts : <a href="{E['site_a_url']}">{E['site_a_url']}</a>.</p>
+gaz, électricité, mesurage) relèvent de notre activité auprès des particuliers, présentée
+sur un site distinct. Pour savoir lesquels s'appliquent à votre logement,
+<a href="/particuliers/">six questions suffisent</a> — et nous établissons le dossier.</p>
 <h2>Certifications et assurance</h2><p>Diagnostiqueurs certifiés par LCC Qualixpert,
 organisme accrédité par le COFRAC sous le numéro 4-0094. Responsabilité civile
 professionnelle souscrite auprès de Markel Insurance SE. Numéros de certification,
@@ -4586,28 +4587,61 @@ de questions, en un coup d'œil. Un clic pour trouver ce que vous cherchez.</p>
     URLS.append((p, "0.5", "monthly", MAJ_STRUCTURE))
 
 
-# ------------------------------------------------------------------ pont vers le site particuliers
-# Page-relais (noindex) : les particuliers atterrissant ici sont redirigés vers le
-# site de vente/location. Un seul point du site référence le domaine A ; le pare-feu
-# reste intact car la page n'est pas indexée.
+# ------------------------------------------------------------------ particuliers
+# Cette page expédiait le visiteur vers l'autre site de l'entreprise au bout de
+# quatre secondes : nous perdions un particulier avant même de lui avoir
+# répondu. Elle répond désormais elle-même, par un simulateur bâti sur nos deux
+# fiches publiées, puis donne le moyen de nous joindre.
+#
+# Elle reste NON INDEXÉE. Elle ne vise aucune requête : elle retient ceux qui
+# sont déjà là. C'est ce qui la rend compatible avec le pare-feu tout en
+# supprimant la fuite.
 def page_particuliers():
     p = "/particuliers/"
-    body = f"""<section class="band"><div class="wrap prose" style="min-height:44vh">
-<p class="eyebrow">Vous êtes un particulier ?</p>
-<h1>Diagnostics de vente et de location</h1>
-<p>Ce site est dédié à la <strong>copropriété, aux travaux et à la démolition</strong>.
-Pour un diagnostic destiné à une <strong>vente ou une location</strong> — performance
-énergétique, amiante, plomb, gaz, électricité, mesurage — nous vous orientons vers notre
-site dédié aux particuliers.</p>
-<p><a class="btn" href="{E['site_a_url']}">Continuer vers le site particuliers →</a></p>
-<p class="mesh--plain" style="margin-top:1.4rem">Redirection automatique en cours…</p>
+    trail = [("Accueil", "/"), ("Vous êtes un particulier", p)]
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Vous êtes un particulier</p>
+<h1>De quels diagnostics avez-vous besoin ?</h1>
+<p class="lede">Onze documents peuvent composer un dossier de vente, six un
+dossier de location. Aucun logement ne les réunit tous : chacun se déclenche
+selon l'âge du bâtiment, sa localisation ou ses équipements. Six questions
+suffisent à faire le tri.</p></div></section>
+
+<section class="band"><div class="wrap prose">
+<div id="simu-part" class="simu"></div>
 </div></section>
-<script>setTimeout(function(){{window.location.href="{E['site_a_url']}"}},4000);</script>"""
+
+<section class="band band--pale"><div class="wrap prose">
+<h2>Pour aller plus loin</h2>
+<p>Nos deux fiches détaillent chaque document, sa condition de déclenchement et
+sa durée de validité :</p>
+<ul>
+<li><a href="/questions/diagnostics-obligatoires-vente/">Quels diagnostics sont
+obligatoires pour vendre un logement ?</a></li>
+<li><a href="/questions/diagnostics-obligatoires-location/">Quels diagnostics
+sont obligatoires pour louer un logement ?</a></li>
+<li><a href="/questions/duree-validite-diagnostics/">Combien de temps chaque
+diagnostic reste-t-il valable ?</a></li>
+</ul>
+<h2>Et si votre bien est en copropriété</h2>
+<p>Les obligations de l'immeuble ne sont pas celles du logement. Le
+<a href="/diagnostics-copropriete/">volet collectif</a> — plan pluriannuel de
+travaux, diagnostic technique global, dossier technique amiante des parties
+communes — relève du syndicat des copropriétaires, et notre
+<a href="{SILO}/simulateur-obligations-copropriete/">simulateur d'obligations
+de copropriété</a> vous dit en six questions ce qui s'applique à votre
+immeuble.</p>
+</div></section>
+{cta()}"""
     shell(path=p,
-          title="Particuliers, vente et location — DGLM Expertises",
-          desc="Vous êtes un particulier ? Accédez à notre site dédié aux diagnostics de "
-               "vente et de location.",
-          body=body, schema="", robots="noindex,follow", chapitres=False)
+          title="De quels diagnostics avez-vous besoin ? — DGLM Expertises",
+          desc="Six questions pour savoir quels documents composent votre "
+               "dossier, et pourquoi chacun est dû.",
+          body=body, schema="", robots="noindex,follow", chapitres=False,
+          head_extra=('<script>window.DGLM_PART={"tel":"'+E["tel"]+'",'
+                      '"tel_raw":"'+E["tel_raw"]+'","email":"'+E["email"]+'"};</script>'
+                      '<script src="/particuliers.js?v='+CSS_V+'" defer></script>'))
 
 
 # ------------------------------------------------------------------ build
@@ -4676,7 +4710,7 @@ def main():
     # invisible derrière leur cache.
     globals()["CSS_V"] = hashlib.md5(
         open(os.path.join(src, "style.css"), "rb").read()).hexdigest()[:8]
-    for js in ("simulateur.js", "devis.js", "aides.js", "recherche.js", "validite.js"):
+    for js in ("simulateur.js", "particuliers.js", "devis.js", "aides.js", "recherche.js", "validite.js"):
         if os.path.exists(os.path.join(src, js)):
             shutil.copy(os.path.join(src, js), os.path.join(OUT, "assets", js))
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),

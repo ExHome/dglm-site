@@ -52,7 +52,7 @@ Ces règles ont été posées avec Aude. Ne pas les assouplir sans lui demander.
 
 ## Deux sites — le pare-feu de requêtes
 
-La cliente est liée jusqu'au **27 août 2028** à un contrat portant un autre site,
+Aude est liée jusqu'au **27 août 2028** à un contrat portant un autre site,
 `dglm-expertises.com`, qui cible les requêtes de **vente et location**.
 
 Tant que ce site est en ligne, celui-ci ne doit **pas** cibler ses requêtes : deux

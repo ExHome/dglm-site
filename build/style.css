@@ -1325,3 +1325,84 @@ details summary{font-size:1.08rem}
   font-style:italic;font-size:1.05rem;letter-spacing:.02em;
   color:var(--or,#c9a227);opacity:.95}
 @media(min-width:900px){.footer .slogan{margin-top:.35rem}}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIMULATEUR PARTICULIERS — /particuliers/
+
+   Une question à la fois, une réponse d'un geste. Le visiteur qui arrive
+   ici cherche une réponse, pas un formulaire : chaque écran ne pose qu'une
+   question, l'explique en une ligne, et propose son détail à qui le veut.
+   ═══════════════════════════════════════════════════════════════════ */
+.simu{max-width:46rem;margin:0 auto;min-height:26rem}
+.simu--entre{animation:simu-entre .34s cubic-bezier(.2,.7,.3,1) both}
+@keyframes simu-entre{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.simu--entre{animation:none}}
+
+.simu__barre{height:2px;background:var(--rule-fine);border-radius:2px;
+  overflow:hidden;margin-bottom:2.2rem}
+.simu__barre i{display:block;height:100%;background:var(--or);
+  transition:width .42s cubic-bezier(.2,.7,.3,1)}
+
+.simu__etape{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gris);margin:0 0 .55rem}
+.simu__titre{font-family:var(--display);font-size:clamp(1.5rem,3.4vw,2.05rem);
+  line-height:1.2;margin:0 0 .7rem;color:var(--vert)}
+.simu .simu__aide{color:var(--encre-2);margin:0 0 1.9rem;font-size:1.02rem}
+
+/* Les options. Grandes, franches, cliquables d'un pouce. */
+.simu__choix{display:grid;gap:.7rem;margin-bottom:1.8rem}
+.simu__opt{display:flex;align-items:center;gap:1rem;width:100%;
+  padding:1.15rem 1.35rem;background:var(--blanc);
+  border:1px solid var(--rule);border-radius:14px;cursor:pointer;
+  text-align:left;font:inherit;color:var(--encre);
+  transition:border-color .18s,box-shadow .18s,transform .18s,background .18s}
+.simu__opt:hover,.simu__opt:focus-visible{border-color:var(--or);
+  box-shadow:0 3px 18px rgba(9,63,48,.09);transform:translateY(-1px);outline:none}
+.simu__opt:active{transform:translateY(0) scale(.994)}
+.simu__opt-t{font-size:1.06rem;font-weight:600;flex:1 1 auto}
+.simu__opt-s{font-size:.86rem;color:var(--gris);flex:0 0 auto;text-align:right}
+.simu__opt-fl{flex:0 0 auto;color:var(--or);font-size:1.1rem;
+  opacity:0;transform:translateX(-5px);transition:opacity .18s,transform .18s}
+.simu__opt:hover .simu__opt-fl,.simu__opt:focus-visible .simu__opt-fl{
+  opacity:1;transform:none}
+@media(max-width:38rem){
+  .simu__opt{flex-wrap:wrap;gap:.2rem}
+  .simu__opt-s{text-align:left;flex:1 0 100%}
+  .simu__opt-fl{display:none}
+}
+
+/* L'aide longue : disponible, jamais imposée. */
+.simu__pourquoi{border-top:1px solid var(--rule-fine);padding-top:1rem;margin-bottom:.4rem}
+.simu__pourquoi summary{cursor:pointer;color:var(--vert);font-size:.94rem;
+  font-weight:600;list-style:none;padding:.3rem 0}
+.simu__pourquoi summary::-webkit-details-marker{display:none}
+.simu__pourquoi summary::before{content:"＋ ";color:var(--or);font-weight:400}
+.simu__pourquoi[open] summary::before{content:"− "}
+.simu__pourquoi p{color:var(--encre-2);font-size:.96rem;margin:.5rem 0 .2rem;
+  line-height:1.62}
+
+.simu__retour{background:none;border:0;color:var(--gris);cursor:pointer;
+  font:inherit;font-size:.92rem;padding:.5rem 0;margin-top:.6rem}
+.simu__retour:hover{color:var(--vert)}
+
+/* Le résultat. */
+.simu__sous{font-family:var(--display);font-size:1.12rem;color:var(--vert);
+  margin:2rem 0 .8rem}
+.simu__liste{list-style:none;padding:0;margin:0;display:grid;gap:.6rem}
+.simu__item{display:grid;gap:.2rem;padding:1rem 1.2rem;border-radius:12px;
+  border:1px solid var(--rule-fine);background:var(--creme)}
+.simu__item-t{font-weight:600;color:var(--encre)}
+.simu__item-c{font-size:.92rem;color:var(--encre-2)}
+.simu__item-e{font-size:.9rem;color:var(--gris);line-height:1.6;margin-top:.25rem}
+.simu--du{border-left:3px solid var(--or);background:var(--blanc)}
+.simu--selon{border-left:3px solid var(--rule)}
+.simu--hors{opacity:.62}
+.simu--hors .simu__item-t{font-weight:400;text-decoration:line-through;
+  text-decoration-color:var(--rule)}
+
+.simu__fin{margin-top:2.4rem;padding:1.6rem 1.5rem;background:var(--vert);
+  color:var(--creme);border-radius:16px}
+.simu__fin-t{font-family:var(--display);font-size:1.28rem;margin:0 0 .5rem;
+  color:var(--or-clair)}
+.simu__fin p{color:rgba(250,248,243,.9)}
+.simu__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.2rem 0 0}
