@@ -31,6 +31,21 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site")
 RESERVE_DIAGNOSTICS = REQUETES_SITE_A
 
 
+def neutre(s):
+    """Une forme comparable, insensible à la typographie.
+
+    Le générateur applique typo_fr() avant de publier : apostrophes
+    courbes, espaces insécables, guillemets français. Comparer le texte
+    source au texte affiché sans neutraliser cela revient à comparer deux
+    alphabets.
+    """
+    s = s.replace("\u2019", "'").replace("\u2018", "'")
+    s = s.replace("\u00a0", " ").replace("\u202f", " ").replace("\u2009", " ")
+    s = s.replace("\u00ab", '"').replace("\u00bb", '"')
+    s = s.replace("\u201c", '"').replace("\u201d", '"')
+    s = s.replace("\u2013", "-").replace("\u2014", "-")
+    return re.sub(r"\s+", " ", s).strip()
+
 def txt(h):
     h = re.sub(r"<script.*?</script>|<style.*?</style>", " ", h, flags=re.S)
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h))
@@ -272,9 +287,10 @@ def main():
         if p is None:
             absents += 1
             continue
-        # Un fragment franc, sans les accents ni les espaces qui varient.
-        frag = re.sub(r"\s+", " ", _texte)[:70]
-        corps = re.sub(r"\s+", " ", html.unescape(txt(p["html"])))
+        # Des deux côtés la même forme neutre : le générateur pose les
+        # apostrophes courbes et les espaces insécables au moment de publier.
+        frag = neutre(_texte)[:70]
+        corps = neutre(html.unescape(txt(p["html"])))
         if frag not in corps:
             perdus.append((_u, _quoi))
 
