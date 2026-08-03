@@ -202,7 +202,12 @@ def main():
     for u, p in pages.items():
         if p["noindex"]:
             continue  # les mentions légales doivent citer l'éditeur
-        n = len(re.findall(re.escape(dom_a), p["html"]))
+        # On ne compte QUE les liens de navigation. La déclaration
+        # d'identité en données structurées (sameAs) n'envoie personne
+        # ailleurs : elle dit à Google que c'est la même entreprise.
+        sans_ld = re.sub(r'<script[^>]*application/ld+json[^>]*>.*?</script>',
+                         "", p["html"], flags=re.S)
+        n = len(re.findall(re.escape(dom_a), sans_ld))
         if n > LIENS_MAX_VERS_SITE_A:
             trop.append((u, n))
     ancres = set(re.findall(r'href="' + re.escape(dom_a) + r'[^"]*"[^>]*>(.*?)</a>',

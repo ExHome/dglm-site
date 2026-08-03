@@ -206,8 +206,13 @@ def org_schema():
                      "name": "Alliance du Diagnostic Immobilier"},
         "founder": [{"@type": "Person", "name": "Aude de Gentile"},
                     {"@type": "Person", "name": "Thibault Le Moine"}],
+        # Le site A est déclaré ici, et NULLE PART ailleurs comme lien de
+        # navigation : c'est la même entreprise, et le dire à Google fait
+        # profiter au site B l'ancienneté accumulée par le site A. Le jour où
+        # le contrat prend fin, le transfert d'autorité est déjà préparé.
         "sameAs": [E["google_avis"], E["diagadvisor"],
-                   "https://www.facebook.com/dglmexpertises/"],
+                   "https://www.facebook.com/dglmexpertises/",
+                   E["site_a_url"].rstrip("/")],
         "openingHoursSpecification": [{
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
