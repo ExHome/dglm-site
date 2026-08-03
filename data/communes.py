@@ -350,3 +350,6 @@ ZONE_ELARGIE = [
 ]
 
 SLUG_TO_NOM = {c["slug"]: c["nom"] for c in COMMUNES}
+# Acces direct a la fiche complete depuis un slug : les pages de ville
+# affichent le parc, les enjeux et la copropriete locale.
+PAR_SLUG = {c["slug"]: c for c in COMMUNES}

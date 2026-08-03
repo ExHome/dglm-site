@@ -105,7 +105,7 @@ MAJ = f"{MOIS_FR[AUJ.month-1]} {ANNEE}"
 MAJ_JOUR = f"{AUJ.day} {MOIS_FR[AUJ.month-1]} {ANNEE}"
 ISO = AUJ.isoformat()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data.communes import COMMUNES as METROPOLE, ZONE_ELARGIE
+from data.communes import COMMUNES as METROPOLE, ZONE_ELARGIE, PAR_SLUG as COMMUNES_PAR_SLUG
 from data.territoires import GIRONDE_ELARGIE, LANDES
 from data.diagnostics_pro import DIAGS_PRO
 from data.contenus import charger as charger_contenus, en_attente, md_vers_html, sources_html
@@ -3079,7 +3079,12 @@ def page_hub_bordeaux():
 <p class="lede">Une échoppe de Nansouty, un chai des Chartrons et une barre du Grand Parc ne
 relèvent ni des mêmes sondages, ni du même plan de repérage, ni du même ordre de
 grandeur budgétaire. Nous documentons chaque quartier pour lui-même.</p></div></section>
-<section class="band"><div class="wrap">
+<section class="band"><div class="wrap prose">
+{fond}
+</div></section>
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Les quartiers de {esc(vnom)}</p>
+<h2>Le bâti change d'un quartier à l'autre.</h2>
 <div class="grid grid--3">{cards}</div></div></section>
 {cta()}"""
     shell(path=p, title="Diagnostics de copropriété à Bordeaux, quartier par quartier",
@@ -3159,6 +3164,27 @@ def page_hub_ville(ville):
         f'<a class="card card--link" href="/{vslug}/{q["slug"]}/">'
         f'<h3>{esc(q["nom"])}</h3><p>{esc(q["intro"][:135])}…</p>'
         f'<span class="more">Découvrir le quartier →</span></a>' for q in quartiers)
+    # La page de ville n'affichait qu'une grille de vignettes : 160 mots, et
+    # rien à apprendre. Elle porte désormais ce que nous savons de la commune —
+    # son parc, ce qu'il implique pour les missions collectives, la forme que
+    # prend la copropriété sur place, et les repères de terrain.
+    c = COMMUNES_PAR_SLUG.get(vslug, {})
+    blocs = []
+    if c.get("parc"):
+        blocs.append("<h2>Le parc bâti de " + esc(vnom) + "</h2><p>"
+                     + esc(c["parc"]) + "</p>")
+    if c.get("enjeu"):
+        blocs.append("<h2>Ce que ce parc implique pour les missions collectives</h2>"
+                     "<p>" + esc(c["enjeu"]) + "</p>")
+    if c.get("copro"):
+        blocs.append("<h2>La copropriété à " + esc(vnom) + "</h2><p>"
+                     + esc(c["copro"]) + "</p>")
+    if c.get("reperes"):
+        items = "".join("<li>" + esc(x) + "</li>" for x in c["reperes"])
+        blocs.append("<h2>Nos repères de terrain à " + esc(vnom) + "</h2>"
+                     "<ul>" + items + "</ul>")
+    fond = "".join(blocs)
+
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">{len(quartiers)} quartiers</p>
