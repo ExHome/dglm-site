@@ -3065,6 +3065,34 @@ def page_quartier(q):
     URLS.append((p, "0.75", "monthly", MAJ_STRUCTURE))
 
 
+def fond_commune(slug, nom):
+    """Le contenu de fond d'une page de ville.
+
+    Ces pages n'affichaient qu'un titre et une grille de vignettes : 160 mots,
+    et rien à apprendre. C'est le schéma que les moteurs sanctionnent le plus
+    durement. Elles portent désormais ce que nous savons de la commune.
+
+    Les champs copro et reperes sont optionnels : une commune qui ne les a pas
+    encore rend simplement les deux sections qui la concernent.
+    """
+    c = COMMUNES_PAR_SLUG.get(slug, {})
+    blocs = []
+    if c.get("parc"):
+        blocs.append("<h2>Le parc bâti de " + esc(nom) + "</h2><p>"
+                     + esc(c["parc"]) + "</p>")
+    if c.get("enjeu"):
+        blocs.append("<h2>Ce que ce parc implique pour les missions collectives</h2>"
+                     "<p>" + esc(c["enjeu"]) + "</p>")
+    if c.get("copro"):
+        blocs.append("<h2>La copropriété à " + esc(nom) + "</h2><p>"
+                     + esc(c["copro"]) + "</p>")
+    if c.get("reperes"):
+        items = "".join("<li>" + esc(x) + "</li>" for x in c["reperes"])
+        blocs.append("<h2>Nos repères de terrain à " + esc(nom) + "</h2>"
+                     "<ul>" + items + "</ul>")
+    return "".join(blocs)
+
+
 def page_hub_bordeaux():
     p = "/bordeaux/"
     trail = [("Accueil", "/"), ("Bordeaux", p)]
@@ -3072,6 +3100,7 @@ def page_hub_bordeaux():
         f'<a class="card card--link" href="/bordeaux/{q["slug"]}/">'
         f'<h3>{esc(q["nom"])}</h3><p>{esc(q["intro"][:135])}…</p>'
         f'<span class="more">Découvrir le quartier →</span></a>' for q in QUARTIERS_BORDEAUX)
+    fond = fond_commune("bordeaux", "Bordeaux")
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page hero--echoppe"><div class="wrap">
 <p class="eyebrow eyebrow--pale">{len(QUARTIERS_BORDEAUX)} quartiers</p>
@@ -3083,7 +3112,7 @@ grandeur budgétaire. Nous documentons chaque quartier pour lui-même.</p></div>
 {fond}
 </div></section>
 <section class="band band--pale"><div class="wrap">
-<p class="eyebrow">Les quartiers de {esc(vnom)}</p>
+<p class="eyebrow">Les quartiers de Bordeaux</p>
 <h2>Le bâti change d'un quartier à l'autre.</h2>
 <div class="grid grid--3">{cards}</div></div></section>
 {cta()}"""
@@ -3164,26 +3193,7 @@ def page_hub_ville(ville):
         f'<a class="card card--link" href="/{vslug}/{q["slug"]}/">'
         f'<h3>{esc(q["nom"])}</h3><p>{esc(q["intro"][:135])}…</p>'
         f'<span class="more">Découvrir le quartier →</span></a>' for q in quartiers)
-    # La page de ville n'affichait qu'une grille de vignettes : 160 mots, et
-    # rien à apprendre. Elle porte désormais ce que nous savons de la commune —
-    # son parc, ce qu'il implique pour les missions collectives, la forme que
-    # prend la copropriété sur place, et les repères de terrain.
-    c = COMMUNES_PAR_SLUG.get(vslug, {})
-    blocs = []
-    if c.get("parc"):
-        blocs.append("<h2>Le parc bâti de " + esc(vnom) + "</h2><p>"
-                     + esc(c["parc"]) + "</p>")
-    if c.get("enjeu"):
-        blocs.append("<h2>Ce que ce parc implique pour les missions collectives</h2>"
-                     "<p>" + esc(c["enjeu"]) + "</p>")
-    if c.get("copro"):
-        blocs.append("<h2>La copropriété à " + esc(vnom) + "</h2><p>"
-                     + esc(c["copro"]) + "</p>")
-    if c.get("reperes"):
-        items = "".join("<li>" + esc(x) + "</li>" for x in c["reperes"])
-        blocs.append("<h2>Nos repères de terrain à " + esc(vnom) + "</h2>"
-                     "<ul>" + items + "</ul>")
-    fond = "".join(blocs)
+    fond = fond_commune(vslug, vnom)
 
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
@@ -3192,7 +3202,12 @@ def page_hub_ville(ville):
 <p class="lede">D'un quartier à l'autre, le bâti change : le plan de repérage, l'ampleur des
 sondages et l'ordre de grandeur budgétaire ne sont pas les mêmes. Nous documentons chaque
 quartier de {esc(vnom)} pour lui-même.</p></div></section>
-<section class="band"><div class="wrap">
+<section class="band"><div class="wrap prose">
+{fond}
+</div></section>
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Les quartiers de {esc(vnom)}</p>
+<h2>Le bâti change d'un quartier à l'autre.</h2>
 <div class="grid grid--3">{cards}</div></div></section>
 {cta()}"""
     shell(path=p, title=f"Diagnostics copropriété à {vnom}, par quartier",
