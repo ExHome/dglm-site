@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_veille/
+Disallow: /_source/
+
+Sitemap: https://www.dglmexpertises.fr/sitemap.xml

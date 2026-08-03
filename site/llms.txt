@@ -1,0 +1,65 @@
+# DGLM Expertises — diagnostics de copropriété et travaux
+
+> Cabinet de diagnostics techniques du bâtiment à Bordeaux Métropole, spécialisé en copropriété, travaux et démolition : repérage amiante avant travaux (RAAT) et avant démolition (RAAD), diagnostic technique global (DTG), plan pluriannuel de travaux (PPPT) et diagnostics collectifs. Ne réalise pas de diagnostics de vente ni de location.
+
+## Prestations
+- [Repérage amiante avant travaux](https://www.dglmexpertises.fr/reperage-amiante-avant-travaux/): Le repérage qui conditionne le démarrage de votre chantier.
+- [Repérage amiante avant démolition](https://www.dglmexpertises.fr/reperage-amiante-avant-demolition/): Le repérage exhaustif, sans zone d'ombre, avant de faire tomber le bâtiment.
+- [Diagnostic technique global](https://www.dglmexpertises.fr/diagnostic-technique-global/): L'état réel de la copropriété, avant de voter le moindre budget.
+- [Plan pluriannuel de travaux](https://www.dglmexpertises.fr/plan-pluriannuel-de-travaux/): Dix ans de travaux, chiffrés et hiérarchisés, votables en une assemblée.
+
+## Diagnostics de copropriété
+- [Dossier technique amiante des parties communes](https://www.dglmexpertises.fr/dossier-technique-amiante/)
+- [Amiante des parties privatives (DAPP)](https://www.dglmexpertises.fr/amiante-parties-privatives/)
+- [Diagnostic produits, équipements, matériaux et déchets](https://www.dglmexpertises.fr/diagnostic-pemd/)
+- [DPE collectif de copropriété](https://www.dglmexpertises.fr/dpe-collectif-copropriete/)
+- [Audit énergétique de copropriété](https://www.dglmexpertises.fr/audit-energetique-copropriete/)
+- [Constat plomb des parties communes](https://www.dglmexpertises.fr/crep-parties-communes/)
+- [État parasitaire et termites avant travaux](https://www.dglmexpertises.fr/etat-parasitaire-avant-travaux/)
+- [Contrôle des installations collectives de gaz et d'électricité](https://www.dglmexpertises.fr/installations-collectives-gaz-electricite/)
+- [Conformité assainissement en copropriété](https://www.dglmexpertises.fr/conformite-assainissement-copropriete/)
+
+## Guides pratiques
+- [Termites : pourquoi toute la Gironde est concernée](https://www.dglmexpertises.fr/questions/termites-gironde/): Toute la Gironde est classée zone termites par arrêté préfectoral : ce que ce classement change pour les propriétaires et copropriétés.
+- [On me demande de voter le PPPT : qu'est-ce que ça engage ?](https://www.dglmexpertises.fr/questions/voter-pppt-assemblee/): Voter le plan pluriannuel de travaux, ce n'est ni voter des travaux, ni payer tout de suite. Ce que le vote adopte vraiment, et ce qu'il n'engage pas.
+- [Qu'est-ce qu'une passoire thermique ?](https://www.dglmexpertises.fr/questions/qu-est-ce-qu-une-passoire-thermique/): Une passoire thermique est un logement classé F ou G au DPE. La loi Climat en interdit progressivement la location : G en 2025, F en 2028, E en 2034.
+- [Quand un diagnostic amiante est-il exigé pour vendre ?](https://www.dglmexpertises.fr/questions/quand-diagnostic-amiante-vente/): L’état d’amiante est exigé à la vente pour tout bien d’avant juillet 1997. Ce qu’il couvre, et pourquoi il ne remplace pas un repérage avant travaux.
+- [Faut-il refaire les diagnostics à chaque nouveau bail ?](https://www.dglmexpertises.fr/questions/refaire-diagnostics-chaque-bail/): Non : on ne refait que les diagnostics dont la validité a expiré, ou si des travaux ont modifié le logement. Le point sur les durées en location.
+- [Qu'est-ce que le diagnostic plomb (CREP) ?](https://www.dglmexpertises.fr/questions/qu-est-ce-que-le-diagnostic-plomb/): Le CREP recherche le plomb dans les peintures des logements construits avant 1949. Obligatoire en vente et location, il protège surtout les jeunes enfants.
+- [Faut-il un diagnostic électricité pour vendre ou louer ?](https://www.dglmexpertises.fr/questions/diagnostic-electricite-obligatoire/): Le diagnostic électricité s'impose quand l'installation a plus de quinze ans. Valable trois ans en vente, six en location. Sécurité, pas confort.
+- [Le diagnostic termites est-il obligatoire ?](https://www.dglmexpertises.fr/questions/diagnostic-termites-obligatoire/): Le diagnostic termites s'impose à la vente dans les zones délimitées par arrêté préfectoral. Valable six mois. Toute la Gironde est concernée.
+- [Qu'est-ce que l'état des risques (ERP) ?](https://www.dglmexpertises.fr/questions/qu-est-ce-que-etat-des-risques-erp/): L’ERP informe acquéreur ou locataire des risques naturels, miniers, technologiques, sismiques et radon. Obligatoire en zone concernée, valable 6 mois.
+- [Faut-il un diagnostic gaz pour vendre ou louer ?](https://www.dglmexpertises.fr/questions/diagnostic-gaz-obligatoire/): Le diagnostic gaz est obligatoire quand l'installation intérieure a plus de 15 ans. Valable 3 ans pour la vente, 6 ans pour la location. Ce qu'il vérifie.
+- [Qu'est-ce que le DPE, et comment lire son étiquette ?](https://www.dglmexpertises.fr/questions/qu-est-ce-que-le-dpe/): Le DPE note un logement de A à G selon l'énergie qu'il consomme et les gaz à effet de serre qu'il émet. Comment lire les deux étiquettes, simplement.
+- [Combien de temps un DPE est-il valable ?](https://www.dglmexpertises.fr/questions/duree-validite-dpe/): Un DPE est valable dix ans, sauf travaux modifiant la performance du logement. Les DPE anciens d'avant la réforme de 2021 ne sont, eux, plus valables.
+- [Loi Carrez ou loi Boutin : quelle différence ?](https://www.dglmexpertises.fr/questions/loi-carrez-ou-loi-boutin/): La loi Carrez mesure la surface privative pour la vente d'un lot de copropriété, la loi Boutin la surface habitable pour la location. Deux calculs différents.
+- [Le DTG est-il obligatoire pour une petite copropriété ?](https://www.dglmexpertises.fr/questions/dtg-petite-copropriete/): Le DTG ne dépend pas du nombre de lots : il s'impose dans des cas précis, quelle que soit la taille. Une petite copropriété reste concernée.
+- [Le bâtiment doit-il être vidé avant un repérage amiante avant démolition ?](https://www.dglmexpertises.fr/questions/batiment-vide-avant-demolition/): Un repérage avant démolition suppose un bâtiment libéré, réseaux consignés, tous volumes accessibles. Pourquoi, et comment l'anticiper.
+- [Que se passe-t-il si on découvre de l'amiante en cours de chantier ?](https://www.dglmexpertises.fr/questions/decouverte-amiante-en-chantier/): Amiante découvert en cours de chantier : arrêt immédiat, mise en sécurité, repérage complémentaire, reprise dans le bon régime. Comment réagir.
+- [Le carnet d'entretien de copropriété est-il obligatoire ?](https://www.dglmexpertises.fr/questions/carnet-entretien-copropriete/): Oui, le carnet d’entretien est obligatoire depuis 2001, tenu à jour par le syndic. Contenu exigé et rôle dans le diagnostic technique global.
+- [Quelle majorité pour voter des travaux en assemblée générale ?](https://www.dglmexpertises.fr/questions/majorites-vote-travaux-assemblee/): Entretien à l’article 24, amélioration à l’article 25, actes lourds à l’article 26 : quelle majorité s’applique à quels travaux, avant l’assemblée.
+- [Dossier technique amiante ou diagnostic des parties privatives : lequel, pour qui ?](https://www.dglmexpertises.fr/questions/dta-ou-dapp/): Le DTA relève du syndic pour les parties communes, le DAPP du propriétaire pour son logement. Deux obligations distinctes, deux responsables, deux périmètres.
+- [Le constat plomb des parties communes est-il obligatoire ?](https://www.dglmexpertises.fr/questions/crep-parties-communes-obligatoire/): Oui, dans les parties communes des immeubles d'habitation construits avant 1949. Une obligation ancienne, souvent oubliée, réveillée par les travaux.
+- [Qui peut réaliser un repérage amiante avant travaux ?](https://www.dglmexpertises.fr/questions/qui-realise-reperage-amiante-travaux/): Un opérateur certifié amiante « avec mention », indépendant de l'entreprise de travaux. Ce que le donneur d'ordre doit vérifier avant de commander.
+- [Le diagnostic PEMD est-il obligatoire pour une rénovation ?](https://www.dglmexpertises.fr/questions/diagnostic-pemd-obligatoire-renovation/): Le diagnostic PEMD s'impose avant démolition, et avant rénovation significative au-delà de 1 000 m² ou en présence de substances dangereuses.
+- [Amiante : quelle différence entre sous-section 3 et sous-section 4 ?](https://www.dglmexpertises.fr/questions/amiante-sous-section-3-et-4/): La sous-section 3 couvre le retrait et l’encapsulage d’amiante, la 4 les interventions sur matériaux amiantés. Ce qui les sépare, en clair.
+- [Quels diagnostics sont obligatoires pour louer un logement ?](https://www.dglmexpertises.fr/questions/diagnostics-obligatoires-location/): Le dossier de diagnostic technique remis au locataire, les trois cas où le DPE n'est pas exigé, et le statut particulier de l'amiante en location.
+- [Combien de temps chaque diagnostic immobilier reste-t-il valable ?](https://www.dglmexpertises.fr/questions/duree-validite-diagnostics/): Durées de validité des diagnostics immobiliers, et les trois cas où un diagnostic devient caduc avant son terme.
+- [Fonds de travaux : comment se calcule-t-il réellement ?](https://www.dglmexpertises.fr/questions/fonds-de-travaux/): Le fonds de travaux se dimensionne par référence au plan pluriannuel, pas au forfait. Comment le calculer pour qu'il couvre réellement les travaux à venir.
+- [Que risque une copropriété qui n'a pas de plan pluriannuel de travaux ?](https://www.dglmexpertises.fr/questions/copropriete-sans-pppt/): Absence de PPPT en copropriété : il n'y a pas d'amende automatique, mais quatre conséquences concrètes que les conseils syndicaux découvrent trop tard.
+- [Quels diagnostics sont obligatoires pour vendre un logement ?](https://www.dglmexpertises.fr/questions/diagnostics-obligatoires-vente/): La liste officielle des diagnostics du dossier de diagnostic technique en vente, maison et appartement, avec la condition qui déclenche chacun d'eux.
+- [Qui paie le repérage amiante avant travaux en copropriété ?](https://www.dglmexpertises.fr/questions/qui-paie-reperage-copropriete/): Parties communes, parties privatives, travaux d'intérêt collectif : qui commande et qui finance le repérage amiante avant travaux en copropriété.
+- [Combien de temps un plan pluriannuel de travaux est-il valable ?](https://www.dglmexpertises.fr/questions/validite-pppt/): Le PPPT couvre dix ans mais se réactualise tous les dix ans et se met à jour avant chaque vote de travaux. Ce que doit surveiller un conseil syndical.
+- [DTG ou PPPT : que faut-il voter en assemblée générale ?](https://www.dglmexpertises.fr/questions/dtg-ou-pppt/): DTG et PPPT ne répondent pas à la même question et ne se votent pas dans les mêmes conditions. Comment présenter le choix au conseil syndical.
+- [Amiante : ce que recouvrent vraiment les listes A, B et C](https://www.dglmexpertises.fr/questions/listes-a-b-c-amiante/): Listes A, B et C des matériaux amiantés : à quoi correspond chaque liste, quel repérage les couvre, et pourquoi la confusion coûte cher en copropriété.
+- [Notre dossier technique amiante date de 2005 : est-il encore valable ?](https://www.dglmexpertises.fr/questions/dta-ancien-encore-valable/): Un DTA ancien reste formellement en vigueur mais son évaluation de l'état des matériaux est périmée. Ce qu'un syndic doit vérifier et faire réévaluer.
+- [Glossaire du diagnostic immobilier : sigles expliqués](https://www.dglmexpertises.fr/questions/glossaire-diagnostic-immobilier/): DTG, PPPT, RAAT, RAAD, DTA, DAPP, PEMD, DPE, CREP, ERP, COFRAC… Tous les sigles du diagnostic immobilier expliqués en langage simple, sans jargon.
+- [Faut-il un repérage amiante avant de remplacer les fenêtres d'un immeuble ?](https://www.dglmexpertises.fr/questions/raat-remplacement-fenetres/): Remplacer des menuiseries en copropriété : le repérage amiante avant travaux s'impose dès qu'un ouvrier peut être exposé. Ce que dit le code du travail.
+- [RAAT ou RAAD : quel repérage amiante pour quel chantier ?](https://www.dglmexpertises.fr/questions/raat-ou-raad/): RAAT ou RAAD : la différence tient au périmètre et au caractère exhaustif du repérage, pas au volume du chantier. Comment choisir sans se tromper.
+
+## Ressources
+- [Simulateur d'obligations de copropriété](https://www.dglmexpertises.fr/simulateur-obligations-copropriete/)
+- [Référentiel des normes et des textes](https://www.dglmexpertises.fr/referentiel-des-normes/)
+- [Notre équipe de diagnostiqueurs certifiés](https://www.dglmexpertises.fr/equipe/)
+- [Notre méthode éditoriale : qui écrit, quelles sources, quels refus](https://www.dglmexpertises.fr/notre-methode-editoriale/)
+- [Plan du site](https://www.dglmexpertises.fr/plan-du-site/)

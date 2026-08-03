@@ -6,7 +6,7 @@ Contrôle principal : la cannibalisation. Deux pages qui visent la même requêt
 se neutralisent. Ce script détecte les collisions AVANT la mise en ligne, y
 compris avec le silo « diagnostics » qui reste à produire.
 """
-import glob, itertools, os, re, sys, collections
+import glob, html, itertools, os, re, sys, collections
 
 # Une page informationnelle pose une question ou explique. Une page commerciale
 # nomme une commune, un prix ou une intention d'achat. Ce ne sont pas les mêmes
@@ -238,6 +238,60 @@ def main():
         print("    À FAIRE — ligne dédiée copro acquise mais non renseignée "
               "(MARQUE['tel_copro']), l'attribution des appels n'est pas traçable.")
         warn += 1
+
+    # ------------------------------------------------------------------
+    # [9] LIVRAISON DU CONTENU
+    # Les huit contrôles précédents vérifient que les pages produites sont
+    # correctes. Aucun ne vérifiait qu'elles contiennent bien ce qui avait
+    # été écrit pour elles. Le 3 août 2026, 20 687 mots de textes ont été
+    # écrits, validés, poussés — et ne sont jamais arrivés dans une page :
+    # deux fonctions partageaient un gabarit, l'une affichait un bloc qu'elle
+    # ne construisait pas, l'autre construisait un bloc qu'elle n'affichait
+    # pas. La chaîne était au vert. Ce contrôle ferme cette faille.
+    # ------------------------------------------------------------------
+    print("\n[9] Livraison du contenu — les textes écrits arrivent-ils dans les pages ?")
+    attendus = []
+    try:
+        from data.communes_textes import TEXTES as _TC
+        for _slug, _t in _TC.items():
+            attendus.append((f"/{_slug}/", "commune " + _slug, _t.get("parc", "")))
+    except ImportError:
+        print("    (pas de textes de communes)")
+    try:
+        from data.quartiers_textes import TEXTES as _TQ
+        for _cle, _t in _TQ.items():
+            attendus.append((f"/{_cle}/", "quartier " + _cle, _t.get("methode", "")))
+    except ImportError:
+        print("    (pas de textes de quartiers)")
+
+    perdus, absents = [], 0
+    for _u, _quoi, _texte in attendus:
+        if not _texte:
+            continue
+        p = pages.get(_u)
+        if p is None:
+            absents += 1
+            continue
+        # Un fragment franc, sans les accents ni les espaces qui varient.
+        frag = re.sub(r"\s+", " ", _texte)[:70]
+        corps = re.sub(r"\s+", " ", html.unescape(txt(p["html"])))
+        if frag not in corps:
+            perdus.append((_u, _quoi))
+
+    if perdus:
+        for _u, _quoi in perdus[:12]:
+            print(f"    PERDU  {_quoi} : son texte n'apparaît pas sur {_u}")
+        if len(perdus) > 12:
+            print(f"    … et {len(perdus) - 12} autres")
+        print("           → un gabarit ne rend pas les données qui lui sont "
+              "destinées.")
+        err += len(perdus)
+    else:
+        print(f"    OK — les {len(attendus) - absents} textes déclarés arrivent "
+              f"tous dans leur page")
+    if absents:
+        print(f"    {absents} texte(s) sans page correspondante (à vérifier)")
+        warn += absents
 
     print("\n" + "=" * 62)
     print(f"{err} erreur(s) bloquante(s), {warn} avertissement(s)\n")
