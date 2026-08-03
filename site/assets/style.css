@@ -1,0 +1,1327 @@
+@font-face{
+  font-family:"Fraunces";
+  src:url("/assets/fonts/fraunces-italic.woff2") format("woff2");
+  font-weight:400 700;
+  font-style:italic;
+  font-display:swap;
+  unicode-range:U+0000-017F,U+2013-2014,U+2018-201D,U+2026,U+20AC;
+}
+@font-face{
+  font-family:"Fraunces";
+  src:url("/assets/fonts/fraunces.woff2") format("woff2");
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
+  unicode-range:U+0000-017F,U+2013-2014,U+2018-201D,U+2026,U+20AC;
+}
+
+/* DGLM Expertises — pôle copropriété & travaux
+   Charte relevée sur les documents de la marque :
+   vert #093F30 (logo), vert profond #002924 (supports), or #C09048 (accents),
+   titrage sérif Lora comme la plaquette. Le filet doré est le liant graphique. */
+
+:root{
+  --vert:#093F30;
+  --vert-profond:#002924;
+  --or:#C09048;
+  --or-clair:#D9B778;
+  --or-pale:#EBD9B8;
+  --creme:#FAF8F3;
+  --creme-2:#F4F1E9;
+  --blanc:#FFFFFF;
+  --encre:#1E2E28;
+  --encre-2:#41544C;
+  --gris:#7C8B84;
+  --rule:rgba(9,63,48,.16);
+  --rule-fine:rgba(9,63,48,.09);
+  --rule-or:rgba(192,144,72,.4);
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --wrap:79rem;
+  --gut:clamp(1.25rem,5vw,4.5rem);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+body{
+  margin:0;background:var(--creme);color:var(--encre);
+  font-family:var(--sans);font-size:1.02rem;line-height:1.78;
+  letter-spacing:.002em;
+  font-synthesis-weight:none;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--vert);text-underline-offset:.18em;text-decoration-thickness:.06em}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:2.5px solid var(--or);outline-offset:3px;border-radius:0}
+
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.2;
+  letter-spacing:-.008em;margin:0;text-wrap:balance;
+  font-variant-ligatures:common-ligatures contextual}
+h1{font-size:clamp(2.2rem,5.6vw,4.1rem);font-weight:500;letter-spacing:-.022em;
+  line-height:1.04;word-spacing:-.012em}
+h2{font-size:clamp(1.6rem,3.4vw,2.5rem);font-weight:500;letter-spacing:-.017em;
+  line-height:1.14;margin-block:0 .8em;max-width:22ch}
+h3{font-size:clamp(1.02rem,1.7vw,1.18rem);font-weight:600;letter-spacing:-.002em}
+p{margin:0 0 1.05em;text-wrap:pretty}
+p:last-child{margin-bottom:0}
+
+.wrap{width:min(100% - var(--gut)*2,var(--wrap));margin-inline:auto}
+.narrow{width:min(100%,58ch)}
+
+.eyebrow{
+  font-family:var(--sans);font-size:.655rem;font-weight:500;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--encre-2);
+  display:flex;align-items:center;gap:.8rem;margin:0 0 1.15rem;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule);max-width:none}
+.eyebrow--pale{color:rgba(250,248,243,.62)}
+.eyebrow--pale::after{background:rgba(250,248,243,.22)}
+
+
+/* ---------- en-tête ---------- */
+.topbar{background:var(--vert-profond);color:var(--creme);font-size:.81rem}
+.topbar .wrap{display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;align-items:center;
+  justify-content:space-between;padding-block:.5rem}
+.topbar a{color:var(--or-clair);text-decoration:none;font-family:var(--mono);letter-spacing:.03em}
+.topbar a:hover{text-decoration:underline}
+.topbar span{color:rgba(250,248,243,.7)}
+
+.masthead{position:sticky;top:0;z-index:40;background:var(--vert);
+  box-shadow:0 1px 0 rgba(192,144,72,.32)}
+.masthead .wrap{display:flex;align-items:center;gap:1.5rem;
+  justify-content:space-between;padding-block:.65rem}
+.brand{display:flex;align-items:center;gap:.9rem;text-decoration:none;color:var(--blanc)}
+.brand img{height:44px;width:auto}
+.brand span{font-family:var(--mono);font-size:.61rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--or-clair);border-left:1px solid var(--rule-or);
+  padding-left:.9rem;line-height:1.45;max-width:8.5rem}
+.nav{display:flex;flex-wrap:wrap;gap:.35rem 1.15rem;align-items:center}
+.nav a{font-size:.9rem;color:var(--creme);text-decoration:none;font-weight:500;
+  transition:color .16s}
+.nav a:hover{color:var(--or-clair)}
+
+/* rubriques à sous-menu : la hiérarchie se déplie sous le bandeau */
+.nav__grp{position:relative}
+.nav__grp > a{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 0}
+.nav__grp > a::after{content:"";width:.42rem;height:.42rem;border-right:1.4px solid currentColor;
+  border-bottom:1.4px solid currentColor;transform:rotate(45deg) translateY(-.1rem);
+  opacity:.75;transition:transform .18s}
+.nav__menu{position:absolute;top:100%;left:-1rem;z-index:60;min-width:17rem;
+  background:var(--vert-profond);border:1px solid var(--rule-or);
+  padding:.5rem 0;display:none}
+.nav__menu a{display:block;padding:.52rem 1.2rem;font-size:.86rem;font-weight:400;
+  line-height:1.35;border-left:2px solid transparent}
+.nav__menu a b{font-weight:600;color:var(--or-clair)}
+.nav__menu a:hover,.nav__menu a:focus-visible{background:rgba(255,255,255,.05);
+  border-left-color:var(--or)}
+.nav__grp:hover .nav__menu,.nav__grp:focus-within .nav__menu{display:block}
+.nav__grp:hover > a::after,.nav__grp:focus-within > a::after{transform:rotate(-135deg) translateY(-.1rem)}
+@media (prefers-reduced-motion:no-preference){
+  .nav__grp:hover .nav__menu,.nav__grp:focus-within .nav__menu{animation:deplie .16s ease-out}}
+@media (hover:none){.nav__menu{display:none!important}}
+
+/* barre de recherche du bandeau : on tape sa question directement */
+.navq{position:relative;display:flex;align-items:center;gap:.5rem;
+  border:1px solid var(--rule-or);border-radius:0;padding:.34rem .7rem;
+  transition:border-color .18s;min-width:14rem}
+.navq:focus-within{border-color:var(--or)}
+.navq__l{display:flex;align-items:center;color:var(--or-clair);cursor:pointer}
+.navq input{background:0;border:0;color:var(--creme);font:inherit;font-size:.86rem;
+  padding:.16rem 0;width:100%;min-width:0}
+.navq input::placeholder{color:rgba(250,248,243,.55)}
+.navq input:focus{outline:0}
+.navq input::-webkit-search-cancel-button{filter:invert(1);opacity:.5}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+  white-space:nowrap}
+
+.navsug{position:absolute;top:calc(100% + .5rem);right:0;z-index:80;
+  width:min(30rem,88vw);background:var(--blanc);border:1px solid var(--rule);
+  border-top:2px solid var(--or);box-shadow:0 6px 28px rgba(9,63,48,.16);
+  max-height:min(28rem,70vh);overflow-y:auto}
+.navsug__item{display:flex;gap:.8rem;align-items:flex-start;padding:.7rem .95rem;
+  border-bottom:1px solid var(--rule);text-decoration:none;color:var(--encre)}
+.navsug__item:hover,.navsug__item:focus-visible{background:var(--creme-2);outline:0}
+.navsug__item b{display:block;font-family:var(--display);font-size:.94rem;
+  font-weight:600;color:var(--vert);line-height:1.3}
+.navsug__item i{display:block;font-style:normal;font-size:.8rem;color:#5B6A62;
+  margin-top:.2rem;line-height:1.4}
+.navsug__item img{width:3.4rem;height:2.6rem;object-fit:cover;flex:0 0 auto}
+.navsug__tous{display:block;padding:.75rem .95rem;font-size:.85rem;font-weight:600;
+  color:var(--vert);text-decoration:none;background:var(--creme-2)}
+.navsug__tous:hover{color:#8A6224}
+.navsug__vide{margin:0;padding:.95rem;font-size:.87rem;color:#5B6A62;line-height:1.5}
+
+@media (max-width:980px){.nav a:not(.btn){display:none}
+  .nav__grp{display:none}.brand span{display:none}
+  .navq{min-width:0;flex:1 1 8rem;max-width:16rem}}
+@media (max-width:560px){.navq{padding:.3rem .55rem}
+  .navsug{position:fixed;left:.6rem;right:.6rem;width:auto;top:auto}}
+
+.btn{display:inline-flex;align-items:center;gap:.55rem;background:transparent;
+  color:var(--vert-profond);text-decoration:none;font-weight:600;font-size:.92rem;
+  padding:.7rem 1.25rem;border-radius:0;border:1px solid var(--or);cursor:pointer;
+  transition:background .18s,border-color .18s,transform .18s}
+.btn{border:1px solid var(--vert);color:var(--vert);border-radius:0;
+  font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  padding:.95rem 1.6rem;transition:background .22s,color .22s}
+.btn:hover{background:var(--vert);color:var(--creme)}
+.btn--ghost{background:transparent;color:var(--vert);border-color:var(--rule)}
+.btn--ghost:hover{background:var(--vert);color:var(--creme);border-color:var(--vert)}
+.btn--light{background:transparent;color:var(--creme);border-color:rgba(250,248,243,.42)}
+.btn--light:hover{background:var(--creme);color:var(--vert-profond);border-color:var(--creme)}
+
+/* ---------- hero ---------- */
+.hero{background:var(--vert-profond);color:var(--creme);
+  padding-block:clamp(3rem,7vw,5.25rem);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-30%;right:-12%;width:52%;height:160%;opacity:.35;
+  background:radial-gradient(ellipse at center,rgba(192,144,72,.13),transparent 62%);
+  pointer-events:none}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;
+  background:linear-gradient(90deg,var(--or) 0,rgba(192,144,72,0) 62%)}
+.hero .wrap{position:relative}
+.hero h1{color:var(--blanc);max-width:17ch}
+.hero .lede{font-family:var(--display);font-style:italic;font-weight:400;
+  font-size:clamp(1.1rem,2vw,1.42rem);line-height:1.52;letter-spacing:-.004em;
+  color:rgba(250,248,243,.88);max-width:54ch;margin-top:1.5rem}
+.hero .actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.8rem}
+.hero--page h1{max-width:24ch}
+
+.refbar{display:flex;flex-wrap:wrap;gap:0;margin-top:3rem;border-top:1px solid var(--rule-or)}
+.refbar div{flex:1 1 13rem;padding:1.1rem 1.2rem 1.1rem 0;
+  border-right:1px solid rgba(250,248,243,.12)}
+.refbar div:last-child{border-right:0}
+.refbar dt{font-family:var(--mono);font-size:.67rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--or);margin-bottom:.38rem}
+.refbar dd{margin:0;font-size:.88rem;color:rgba(250,248,243,.84);line-height:1.5}
+
+/* ---------- sections ---------- */
+.band{padding-block:clamp(4.2rem,9vw,8rem);position:relative}
+.band + .band{border-top:1px solid var(--rule-fine)}
+.band--pale{background:var(--creme-2)}
+.band--dark{background:var(--vert);color:var(--creme)}
+.band--dark h2,.band--dark h3{color:var(--blanc)}
+.band--dark p{color:rgba(250,248,243,.84)}
+.band--dark a{color:var(--or-clair)}
+
+.grid{display:grid;gap:2.4rem 2.6rem}
+.grid--2{grid-template-columns:repeat(auto-fit,minmax(19rem,1fr))}
+.grid--3{grid-template-columns:repeat(auto-fit,minmax(15.5rem,1fr))}
+.grid--4{grid-template-columns:repeat(auto-fit,minmax(12rem,1fr))}
+
+.card{background:transparent;border:0;border-top:1px solid var(--vert);
+  border-radius:0;padding:1.55rem 1.45rem;display:flex;flex-direction:column;gap:.6rem}
+.card h3{color:var(--vert)}
+.card p{font-size:.95rem;color:var(--encre-2)}
+.card .sigle{font-family:var(--mono);font-size:.69rem;letter-spacing:.16em;color:var(--or)}
+.card--link{text-decoration:none;color:inherit;transition:box-shadow .2s,transform .2s}
+.card--link:hover{background:var(--blanc)}
+.card{border-radius:0;padding:1.5rem 1.4rem 1.7rem 0;transition:background .22s}
+.card h3{font-size:1.06rem;margin-bottom:.5rem}
+.card .sigle{display:block;margin-bottom:.9rem;font-size:.63rem;letter-spacing:.22em;
+  color:#5B6A62;font-family:var(--sans);font-weight:500}
+.card .more{display:inline-block;margin-top:1rem;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--vert);border-bottom:1px solid var(--rule);
+  padding-bottom:.2rem}
+.card--link:hover .more{border-bottom-color:var(--vert)}
+.card--link .more{margin-top:auto;padding-top:.55rem;font-weight:600;font-size:.88rem;color:var(--or)}
+
+/* ---------- corps rédactionnel ---------- */
+.prose{max-width:68ch}
+.prose > p:first-of-type{font-family:var(--display);font-style:italic;font-weight:400;
+  font-size:1.16rem;line-height:1.6;color:var(--encre);letter-spacing:-.003em;
+  margin-bottom:1.6em}
+.prose p{hyphens:auto;-webkit-hyphens:auto}
+.prose h2{margin-top:2.5rem;color:var(--vert)}
+.prose h2:first-child{margin-top:0}
+.prose h3{margin:1.9rem 0 .55rem;color:var(--vert)}
+.prose ul{padding-left:1.15rem;margin:0 0 1.1em}
+.prose li{margin-bottom:.45em}
+
+.legal{border-left:2px solid var(--or);padding:.2rem 0 .2rem 1.2rem;margin:1.5rem 0}
+.legal dt{font-family:var(--display);font-style:italic;font-size:.95rem;font-weight:600;
+  color:var(--vert);margin-bottom:.3rem;letter-spacing:-.002em}
+.legal dd{margin:0 0 1.15rem;font-size:.95rem;color:var(--encre-2)}
+.legal dd:last-child{margin-bottom:0}
+
+.steps{counter-reset:s;list-style:none;padding:0;margin:1.6rem 0 0}
+.steps li{counter-increment:s;position:relative;padding:0 0 1.55rem 3.1rem;
+  border-left:1px solid var(--rule);margin-left:.85rem}
+.steps li:last-child{border-left-color:transparent;padding-bottom:0}
+.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:-.85rem;top:0;
+  width:1.7rem;height:1.7rem;display:grid;place-items:center;background:var(--vert);
+  color:var(--or-clair);border-radius:50%;font-family:var(--mono);font-size:.67rem}
+.steps h3{font-size:1.05rem;margin-bottom:.3rem;color:var(--vert)}
+.steps p{font-size:.95rem;color:var(--encre-2)}
+
+.frise{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:0;
+  margin-top:1.9rem;border-top:2px solid var(--or)}
+/* Le polissage de la frise vit plus bas, sur `.frise > *`. Cibler `.frise div`
+   ici l'emportait par spécificité et la frise changeait d'aspect selon la
+   balise employée dans le HTML. */
+.frise b{display:block;font-family:var(--mono);font-size:.94rem;color:var(--vert)}
+.frise span{display:block;font-size:.9rem;color:var(--encre-2);margin-top:.32rem}
+
+details{border-bottom:1px solid var(--rule);padding:1.05rem 0}
+details summary{cursor:pointer;font-weight:600;font-family:var(--display);font-size:1.03rem;
+  color:var(--vert);list-style:none;display:flex;justify-content:space-between;
+  gap:1rem;align-items:baseline}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";font-family:var(--mono);color:var(--or);font-size:1.15rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin-top:.78rem;font-size:.97rem;color:var(--encre-2);max-width:68ch}
+
+/* Les communes se lisent en colonnes (voir plus bas). L'ancien rendu en
+   pastilles flex empêchait `columns` de s'appliquer — flex l'ignore. */
+.mesh a{text-decoration:none;color:var(--encre);transition:color .16s}
+.mesh a:hover{color:var(--vert)}
+.band--dark .mesh a{background:rgba(255,255,255,.05);border-color:rgba(192,144,72,.28);color:var(--creme)}
+.band--dark .mesh a:hover{background:var(--or);color:var(--vert-profond);border-color:var(--or)}
+.mesh--plain{color:#5B6A62;font-size:.88rem}
+
+.crumb{font-size:.82rem;color:#5B6A62;padding-block:.9rem}
+.crumb a{color:#5B6A62}
+.crumb ol{list-style:none;display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0}
+.crumb li+li::before{content:"›";margin-right:.45rem;color:var(--or)}
+
+.cta{background:var(--vert);color:var(--creme);padding-block:clamp(2.5rem,5vw,3.6rem);
+  border-top:3px solid var(--or)}
+.cta h2{color:var(--blanc)}
+.cta p{color:rgba(250,248,243,.87);max-width:52ch}
+.cta .actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.65rem}
+
+.footer{background:var(--vert-profond);color:rgba(250,248,243,.74);
+  padding-block:2.9rem 1.75rem;font-size:.9rem}
+.footer .mark{height:52px;width:auto;margin-bottom:1.6rem}
+.footer h4{font-family:var(--display);color:var(--or-clair);font-size:.95rem;
+  margin-bottom:.75rem;font-weight:600}
+.footer a{color:rgba(250,248,243,.74);text-decoration:none}
+.footer a:hover{color:var(--blanc);text-decoration:underline}
+.footer ul{list-style:none;padding:0;margin:0;display:grid;gap:.38rem}
+.footer .legalline{margin-top:2.1rem;padding-top:1.25rem;border-top:1px solid rgba(192,144,72,.24);
+  font-family:var(--mono);font-size:.71rem;letter-spacing:.02em;color:rgba(250,248,243,.5)}
+
+/* ---------- simulateur ---------- */
+.sim{display:grid;gap:2rem;grid-template-columns:minmax(18rem,22rem) 1fr;align-items:start}
+@media (max-width:900px){.sim{grid-template-columns:1fr}}
+.sim__form{background:var(--blanc);border:1px solid var(--rule);border-top:2px solid var(--or);
+  border-radius:0;padding:1.55rem 1.45rem;position:sticky;top:5.5rem}
+@media (max-width:900px){.sim__form{position:static}}
+.field{display:block;margin-bottom:1.05rem}
+.field span{display:block;font-size:.8rem;font-weight:600;margin-bottom:.34rem;color:var(--vert)}
+.field em{display:block;font-style:normal;font-size:.75rem;color:#5B6A62;margin-top:.24rem}
+.field input,.field select{width:100%;font:inherit;font-size:.95rem;padding:.58rem .68rem;
+  border:1px solid var(--rule);border-radius:0;background:var(--creme-2);color:var(--encre)}
+.field input:focus,.field select:focus{outline:2.5px solid var(--or);outline-offset:1px}
+
+.verdict{background:var(--blanc);border:1px solid var(--rule);border-left:3px solid var(--gris);
+  border-radius:0;padding:1.2rem 1.3rem;margin-bottom:.85rem}
+.verdict h3{font-size:1.05rem;margin-bottom:.35rem;color:var(--vert)}
+.verdict p{font-size:.94rem;color:var(--encre-2);margin-bottom:0}
+.verdict__tag{font-family:var(--mono);font-size:.65rem;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:.48rem!important}
+.verdict__act{margin-top:.62rem!important;padding-top:.62rem;border-top:1px dashed var(--rule);
+  font-size:.89rem!important}
+.verdict--ko{border-left-color:#8A3A2A}
+.verdict--ko .verdict__tag{color:#8A3A2A}
+.verdict--warn{border-left-color:var(--or)}
+.verdict--warn .verdict__tag{color:#8A6320}
+.verdict--ok{border-left-color:var(--vert)}
+.verdict--ok .verdict__tag{color:var(--vert)}
+.verdict--info{border-left-color:#5B6A62}
+.verdict--info .verdict__tag{color:#5B6A62}
+.verdict__empty{color:#5B6A62;font-size:.95rem}
+.verdict__note{font-size:.8rem;color:#5B6A62;margin-top:1.25rem;max-width:60ch}
+
+.recap{background:var(--vert-profond);color:var(--creme);border-radius:0;
+  border-top:2px solid var(--or);padding:1.45rem 1.4rem;margin-top:1.35rem}
+.recap ol{margin:0;padding-left:1.15rem;font-size:.95rem}
+.recap li{margin-bottom:.42rem}
+.recap__act{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.25rem}
+.recap__act .btn--ghost{color:var(--creme);border-color:rgba(192,144,72,.45)}
+.recap__act .btn--ghost:hover{background:var(--or);color:var(--vert-profond);border-color:var(--or)}
+
+/* ---------- équipe ---------- */
+.team{display:grid;gap:1.15rem;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));margin-top:2rem}
+/* Fiches sans encadré : seul un filet supérieur les sépare (voir plus bas).
+   L'ancien cadre complet n'était surchargé que sur son bord haut, et les trois
+   autres côtés survivaient — d'où un encadré fantôme sur la page équipe. */
+.team article{padding:1.4rem 1.35rem 1.4rem 0}
+.team h3{font-size:1.05rem;color:var(--vert);margin-bottom:.18rem}
+.team .role{font-size:.85rem;color:var(--or);font-weight:600;margin-bottom:.55rem}
+.team p{font-size:.9rem;color:var(--encre-2);margin:0}
+/* la ligne des domaines certifiés : c'est une phrase, pas un numéro — le mono
+   la transformait en pavé gris illisible dès qu'elle dépassait deux mots. */
+.team .cert{font-size:.78rem;line-height:1.5;color:#5B6A62;margin-top:.7rem;
+  padding-top:.7rem;border-top:1px solid var(--rule)}
+
+/* ---------- fraîcheur : signal de mise à jour automatique ---------- */
+.maj{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);
+  font-size:.71rem;letter-spacing:.08em;color:#5B6A62;margin-top:1.6rem}
+.maj::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--or)}
+
+
+/* ---------- accessibilité ---------- */
+.skip{position:absolute;left:-9999px;top:0;background:var(--or);color:var(--vert-profond);
+  padding:.7rem 1.2rem;font-weight:600;z-index:100;text-decoration:none}
+.skip:focus{left:0}
+[aria-current="page"]{color:var(--or-clair)!important;text-decoration:underline}
+
+/* ---------- 404 ---------- */
+.err404{min-height:52vh;display:grid;place-items:center;text-align:center}
+.err404 .code{font-family:var(--mono);font-size:.8rem;letter-spacing:.24em;color:var(--or)}
+
+/* ---------- volet humain ---------- */
+.humain{display:grid;gap:2.5rem;grid-template-columns:1fr auto;align-items:center}
+@media (max-width:860px){.humain{grid-template-columns:1fr}}
+.humain h2{color:var(--vert)}
+.humain p{max-width:56ch}
+.trombine{display:grid;grid-template-columns:repeat(4,76px);gap:.7rem;list-style:none;
+  padding:0;margin:0}
+@media (max-width:860px){.trombine{grid-template-columns:repeat(auto-fit,76px)}}
+.trombine img{border-radius:50%;background:var(--vert);
+  box-shadow:0 0 0 2px var(--or-pale),0 4px 14px rgba(9,63,48,.14)}
+.team .portrait{border-radius:50%;background:var(--vert);margin-bottom:.9rem;
+  box-shadow:0 0 0 2px var(--or-pale)}
+
+
+/* ---------- calligraphie : citations et respirations ---------- */
+.cite{font-family:var(--display);font-style:italic;font-weight:400;
+  font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.5;color:var(--vert);
+  border-left:2px solid var(--or);padding-left:1.4rem;margin:2.2rem 0;max-width:52ch;
+  letter-spacing:-.004em}
+.band--dark .cite{color:var(--creme);border-left-color:var(--or)}
+.signature{font-family:var(--display);font-style:italic;font-size:.95rem;
+  color:#5B6A62;margin-top:.7rem}
+.humain h2{letter-spacing:-.014em}
+.team h3{letter-spacing:-.004em}
+.frise b{font-family:var(--display);font-style:italic;font-weight:600;font-size:1rem}
+
+/* ---------- demande de devis ---------- */
+.devis{max-width:44rem}
+.devis__bloc{background:var(--blanc);border:1px solid var(--rule);border-top:2px solid var(--or);
+  border-radius:0;padding:1.6rem 1.5rem;margin-bottom:1.2rem}
+.devis__bloc h3{color:var(--vert);margin-bottom:1.1rem;font-size:1.1rem}
+.missions{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr))}
+.mission{font:inherit;text-align:left;cursor:pointer;background:var(--creme-2);
+  border:1px solid var(--rule);border-radius:0;padding:.85rem 1rem;color:var(--encre);
+  transition:border-color .16s,background .16s}
+.mission:hover{border-color:var(--or)}
+.mission b{font-family:var(--display);font-size:1rem;color:var(--vert);font-weight:600}
+.mission[aria-pressed="true"]{background:var(--vert);border-color:var(--vert)}
+.mission[aria-pressed="true"] b{color:var(--creme)}
+.devis textarea{width:100%;font:inherit;font-size:.95rem;padding:.58rem .68rem;
+  border:1px solid var(--rule);border-radius:0;background:var(--creme-2);
+  color:var(--encre);resize:vertical}
+.devis textarea:focus{outline:2.5px solid var(--or);outline-offset:1px}
+fieldset.checks{border:0;padding:0;margin:0 0 1.05rem}
+fieldset.checks legend{font-size:.8rem;font-weight:600;color:var(--vert);
+  margin-bottom:.45rem;padding:0}
+.check{display:flex;align-items:center;gap:.55rem;font-size:.92rem;padding:.22rem 0;
+  cursor:pointer}
+.check input{width:1.05rem;height:1.05rem;accent-color:var(--vert);flex:none}
+fieldset.checks em{display:block;font-style:normal;font-size:.75rem;color:#5B6A62;
+  margin-top:.3rem}
+.devis__etat{font-size:.92rem;color:var(--encre-2);margin-bottom:.9rem;min-height:1.4em}
+.devis__etat--warn{color:#8A6320}
+.devis__rgpd{font-size:.8rem;color:#5B6A62;margin-top:1.1rem;max-width:52ch}
+.devis__succes{background:var(--vert);color:var(--creme);border-top:3px solid var(--or);
+  border-radius:0;padding:2.2rem 2rem;max-width:44rem}
+.devis__succes h2{color:var(--blanc)}
+.devis__succes p{color:rgba(250,248,243,.88)}
+.devis__succes a{color:var(--or-clair)}
+.lien{background:none;border:0;padding:0;font:inherit;color:var(--vert);
+  text-decoration:underline;cursor:pointer}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   REGISTRE PLANCHE D'ARCHITECTE
+   Numérotation de section, filets de marge, repères de cadre.
+   Aucun ornement : uniquement des traits qui structurent la lecture.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+main{counter-reset:planche}
+
+/* index de section, comme un numéro de feuille */
+.band > .wrap{position:relative}
+.band:not(.hero):not(.band--nonum) > .wrap::before{
+  counter-increment:planche;
+  content:counter(planche,decimal-leading-zero);
+  position:absolute;left:-3.2rem;top:.15rem;
+  font-family:var(--sans);font-size:.66rem;font-weight:500;letter-spacing:.1em;
+  color:#5B6A62;
+}
+@media (max-width:1180px){.band:not(.hero) > .wrap::before{display:none}}
+
+/* filet de marge continu, à la manière d'un cartouche */
+.band--pale{background:var(--creme-2)}
+.band--rule > .wrap{border-left:1px solid var(--rule-fine);padding-left:2.2rem}
+@media (max-width:860px){.band--rule > .wrap{border-left:0;padding-left:0}}
+
+/* titres : filet fin au-dessus, comme un trait de coupe */
+.band h2{position:relative;padding-top:1.4rem}
+.band h2::before{content:"";position:absolute;top:0;left:0;width:3.2rem;height:1px;
+  background:var(--vert)}
+.band--dark h2::before{background:var(--or)}
+
+/* liens de texte : soulignement fin, décalé */
+.prose a,.humain a:not(.btn){color:var(--vert);text-decoration:none;
+  border-bottom:1px solid var(--rule);padding-bottom:.06em;
+  transition:border-color .2s}
+.prose a:hover,.humain a:not(.btn):hover{border-bottom-color:var(--vert)}
+
+/* tableaux de référence : filets seuls, aucun fond */
+.refbar{border-top:1px solid rgba(250,248,243,.2);margin-top:4rem;gap:0}
+.refbar div{border-right:1px solid rgba(250,248,243,.12);padding:1.5rem 1.6rem 0 0}
+.refbar dt{font-size:.62rem;letter-spacing:.2em;color:rgba(250,248,243,.55);
+  font-family:var(--sans);font-weight:500;text-transform:uppercase}
+.refbar dd{font-size:.86rem;margin-top:.5rem}
+
+/* mesh : liste de communes en colonnes fines, sans puces */
+.mesh{display:block;columns:4 11rem;column-gap:2.2rem;list-style:none;padding:0;margin:1.4rem 0 0}
+.mesh li{break-inside:avoid;padding:.34rem 0;border-bottom:1px solid var(--rule-fine)}
+.mesh a{font-size:.88rem;color:var(--encre-2);text-decoration:none}
+.mesh a:hover{color:var(--vert)}
+.mesh--plain{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#5B6A62}
+
+/* frise : jalons alignés sur un filet */
+.frise{border-top:1px solid var(--rule);padding-top:0;margin-top:2.4rem;
+  display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr))}
+.frise > *{border-right:1px solid var(--rule-fine);padding:1.5rem 1.4rem 1.5rem 0}
+.frise > *:last-child{border-right:0}
+
+/* équipe : grille de fiches sans encadré */
+.team{display:grid;gap:3rem 2.6rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));
+  margin-top:2.6rem}
+.team article{border-top:1px solid var(--vert);padding-top:1.6rem}
+.team .portrait{box-shadow:none;border:0;margin-bottom:1.2rem}
+.team .role{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#5B6A62;margin:.35rem 0 .9rem}
+.team .cert{font-size:.8rem;color:#5B6A62;border-top:1px solid var(--rule-fine);
+  padding-top:.7rem;margin-top:.9rem}
+
+/* pied de page : cartouche */
+.foot{border-top:1px solid rgba(250,248,243,.16)}
+.foot .wrap{padding-block:clamp(3rem,6vw,5rem)}
+
+/* fil d'Ariane discret */
+.crumb{font-size:.68rem;letter-spacing:.1em;color:#5B6A62;padding-block:1.4rem}
+.crumb a{color:#5B6A62;text-decoration:none}
+.crumb a:hover{color:var(--vert)}
+
+/* schémas : cadre de planche */
+.schema{margin:2.8rem 0;background:var(--blanc);border:1px solid var(--rule-fine);
+  border-radius:0;overflow:hidden}
+.schema svg{width:100%;height:auto;display:block}
+.schema figcaption{font-family:var(--sans);font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:#5B6A62;padding:.95rem 1.2rem;
+  border-top:1px solid var(--rule-fine)}
+
+/* citation : sans filet gauche, en retrait, italique de titrage */
+.cite{border-left:0;padding-left:0;margin:2.8rem 0;max-width:44ch;
+  font-size:clamp(1.2rem,2.4vw,1.62rem);line-height:1.42;color:var(--vert);
+  font-weight:400}
+.cite::before{content:"";display:block;width:3.2rem;height:1px;background:var(--or);
+  margin-bottom:1.5rem}
+
+/* formulaire : champs à filet inférieur seul */
+.devis__bloc{background:transparent;border:0;border-top:1px solid var(--vert);
+  border-radius:0;padding:1.8rem 0 2.6rem}
+.devis__bloc h3{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#5B6A62;font-family:var(--sans);font-weight:500;margin-bottom:1.8rem}
+.field input,.field select,.devis textarea{background:transparent;border:0;
+  border-bottom:1px solid var(--rule);border-radius:0;padding:.7rem 0;font-size:1rem}
+.field input:focus,.field select:focus,.devis textarea:focus{outline:0;
+  border-bottom-color:var(--vert);border-bottom-width:1.5px}
+.field > span{font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;
+  color:#5B6A62}
+.mission{background:transparent;border:0;border-top:1px solid var(--rule);
+  border-radius:0;padding:1.1rem 0 1.2rem}
+.mission:hover{border-top-color:var(--vert)}
+.mission[aria-pressed="true"]{background:transparent;border-top-color:var(--vert);
+  border-top-width:2px}
+.mission[aria-pressed="true"] b{color:var(--vert)}
+.mission b{font-family:var(--sans);font-size:.86rem;font-weight:500;letter-spacing:.01em}
+.missions{gap:0 2.4rem}
+
+/* volet humain : trombinoscope aligné sur un filet */
+.trombine img{box-shadow:none;border:0}
+.humain{gap:4rem}
+
+/* ---------- sources ---------- */
+.sources{border-top:1px solid var(--vert);margin-top:3rem;padding-top:1.6rem}
+.sources h2{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#5B6A62;font-family:var(--sans);font-weight:500;padding-top:0;margin-bottom:1rem}
+.sources h2::before{display:none}
+.sources ul{list-style:none;padding:0;margin:0 0 1.1rem}
+.sources li{font-size:.88rem;padding:.35rem 0;border-bottom:1px solid var(--rule-fine)}
+.sources p{font-size:.8rem;color:#5B6A62;max-width:58ch}
+
+/* ---------- vidéo : les épisodes ---------- */
+/* Tournés au format vertical, pour le téléphone. Sur un écran large, le cadre
+   est donc plafonné : une colonne de 22rem, et le texte garde sa pleine mesure
+   en dessous — l'inverse (texte à côté de la vidéo) donnerait un ruban de
+   trente caractères, exactement le défaut que le reste de la feuille combat.
+   Fond vert profond dans le cadre : sans lui, le lecteur pose ses bandes
+   noires système autour de l'image. */
+.film{margin:2.8rem 0;max-width:50rem}
+.film__t{margin:0 0 .7rem;font-size:1.16rem}
+.film__cadre{width:min(100%,22rem);background:var(--vert-profond);
+  border:1px solid var(--rule-fine)}
+.film video{display:block;width:100%;height:auto;aspect-ratio:9/16}
+/* la règle globale de focus ne couvre que a, button et summary */
+.film video:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.film__d{font-size:.94rem;line-height:1.65;color:var(--encre-2);max-width:60ch;
+  margin:1rem 0 0}
+.film__a{font-size:.86rem;line-height:1.6;color:#5B6A62;max-width:60ch;margin:.7rem 0 0}
+.film__x{margin-top:1rem}
+.film__l{display:grid;grid-template-columns:4.2rem 1fr;gap:.4rem 1rem;margin:.9rem 0 0}
+.film__l dt{font-family:var(--mono);font-size:.74rem;color:#5B6A62;padding-top:.2rem}
+.film__l dd{margin:0;font-size:.92rem;line-height:1.55}
+.film figcaption{margin-top:1.2rem;padding-top:.6rem;border-top:1px solid var(--rule-fine);
+  font-family:var(--sans);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#5B6A62}
+@media (max-width:520px){
+  .film__l{grid-template-columns:3.6rem 1fr;gap:.35rem .7rem}
+}
+
+/* ---------- le doigt, pas la souris ---------- */
+/* Un audit a relevé 88 zones cliquables sous 44 px de haut. La cible de ce
+   site — conseils syndicaux, souvent au-delà de 55 ans — clique au doigt sur
+   un téléphone. On ne change ni la taille du texte ni la mise en page : on
+   agrandit la surface atteignable. */
+@media (pointer:coarse){
+  .ancres a{padding-block:.72rem}
+  .crumb a,.crumb span{display:inline-block;padding-block:.45rem}
+  .legalline a,.foot a,.sources a,.relu__r a{display:inline-block;padding-block:.35rem}
+  .sommaire-art a,.sommaire a,.mesh a,.mesh--plain{display:inline-block;padding-block:.4rem}
+  .film__x summary,.volet summary,details summary{padding-block:.5rem}
+  .navq button,.navq input{min-height:44px}
+}
+
+/* ---------- avis clients ---------- */
+/* Des citations, pas des étoiles décoratives : c'est le texte qui convainc un
+   conseil syndical, et le filet d'or suffit à les distinguer du corps. */
+.avis__l{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));
+  margin-top:2rem}
+.avis{margin:0;border-top:1px solid var(--vert);padding-top:1.1rem}
+.avis blockquote{margin:0}
+.avis__t{font-family:var(--display);font-size:1.05rem;font-weight:600;color:var(--vert);
+  margin:0 0 .5rem}
+.avis blockquote p:last-child{font-size:.92rem;line-height:1.6;color:var(--encre-2);margin:0}
+.avis figcaption{margin-top:.8rem;font-family:var(--sans);font-size:.72rem;
+  letter-spacing:.1em;text-transform:uppercase;color:#5B6A62}
+
+/* le panneau de repli du formulaire : ce qu'on voit quand l'envoi échoue */
+.repli__t{font-family:var(--display);font-size:1.12rem;margin:0 0 .5rem}
+.repli__d{margin:.5rem 0 0;font-size:.93rem}
+.repli__tel{margin:.3rem 0 .2rem}
+.repli__tel a{font-family:var(--display);font-size:1.7rem;font-weight:600;
+  color:var(--vert);text-decoration:none;border-bottom:2px solid var(--or)}
+.repli__b{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0 0}
+.repli__x{margin-top:.9rem}
+.repli__r{white-space:pre-wrap;font-size:.82rem;line-height:1.5;margin:.6rem 0 0;
+  max-height:16rem;overflow:auto;background:var(--blanc);padding:.8rem;
+  border:1px solid var(--rule-fine)}
+
+/* ---------- responsabilité éditoriale ---------- */
+/* Ce qui fait la preuve, ce n'est pas le ton du texte : c'est un nom que l'on
+   peut relier à un visage et à un certificat vérifiable. Les deux liens sont
+   là pour ça. Discret par construction — il vient après les sources. */
+.relu{border-top:1px solid var(--rule-fine);margin-top:1.8rem;padding-top:1.1rem}
+.relu__d{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);
+  font-size:.71rem;letter-spacing:.08em;color:#5B6A62;margin:0}
+.relu__d::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--or)}
+.relu__r{font-size:.86rem;line-height:1.65;color:#5B6A62;max-width:58ch;margin:.7rem 0 0}
+.relu__r > span{display:block;font-family:var(--sans);font-size:.66rem;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:#8A6224;margin-bottom:.15rem}
+.relu__r b{font-family:var(--display);font-size:1.02rem;font-weight:600;color:var(--encre)}
+.relu__r a{color:var(--vert);text-decoration:none;border-bottom:1px solid var(--or)}
+.relu__r a:hover b,.relu__r a:hover{color:var(--or-fonce,#8A6224)}
+
+/* ---------- référentiel des normes ---------- */
+.sommaire ol{columns:2 17rem;column-gap:2.6rem;margin:1rem 0 0;padding-left:1.1rem}
+.sommaire li{break-inside:avoid;padding:.3rem 0;font-size:.9rem}
+.sommaire a{color:var(--encre-2);text-decoration:none}
+.sommaire a:hover{color:var(--vert)}
+.normes{max-width:56rem}
+.norme{border-top:1px solid var(--vert);padding:1.8rem 0 2.4rem;scroll-margin-top:5rem}
+.norme header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.7rem 1rem;
+  margin-bottom:.9rem}
+.norme header h3{flex:1 1 16rem;font-size:1.24rem;font-weight:400;
+  font-family:var(--display)}
+.norme .sigle{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;
+  color:#5B6A62}
+.badge{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:.32rem .6rem;border:1px solid var(--rule);color:#5B6A62;white-space:nowrap}
+.badge--ok{border-color:var(--vert);color:var(--vert)}
+.badge--attention{border-color:#8A6320;color:#8A6320}
+.norme__titre{font-family:var(--display);font-style:italic;color:var(--encre-2);
+  max-width:60ch;margin:.2rem 0 1.2rem}
+.norme__refs{display:grid;grid-template-columns:8.5rem 1fr;gap:.5rem 1.4rem;
+  margin:0 0 1.3rem;padding:1.1rem 0;border-block:1px solid var(--rule-fine)}
+.norme__refs dt{font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#5B6A62;padding-top:.15rem}
+.norme__refs dd{margin:0;font-size:.93rem}
+@media (max-width:620px){.norme__refs{grid-template-columns:1fr;gap:.15rem}
+  .norme__refs dd{margin-bottom:.7rem}}
+.norme__piege{background:var(--creme-2);border-left:2px solid var(--or);
+  padding:1rem 1.2rem;margin-top:1.2rem}
+.norme__piege strong{display:block;font-size:.62rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--or);margin-bottom:.45rem;font-weight:600}
+.norme__piege p{margin:0;font-size:.94rem}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   POLISSAGE — ajouts additifs (aucune règle existante modifiée)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* sélection de texte aux teintes de la marque */
+::selection{background:var(--or-pale);color:var(--vert-profond)}
+
+/* bandeau provisoire : site en construction */
+.chantier{background:var(--or-pale);color:var(--vert-profond);font-size:.85rem;
+  padding-block:.55rem;border-bottom:1px solid var(--rule-or)}
+.chantier span{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:600}
+@media print{.chantier{display:none!important}}
+
+/* ---------- fiche pratique : la mission résumée, lisible sur tout écran ---------- */
+.fiche{margin:2.2rem 0 0;border-top:1px solid var(--vert)}
+.fiche>div{display:grid;grid-template-columns:minmax(8rem,13rem) 1fr;gap:.4rem 2rem;
+  padding:.9rem 0;border-bottom:1px solid var(--rule-fine)}
+.fiche dt{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#5B6A62;padding-top:.25rem}
+.fiche dd{margin:0;font-size:.97rem;color:var(--encre)}
+@media (max-width:640px){.fiche>div{grid-template-columns:1fr;gap:.2rem}}
+
+/* ---------- volet : bandeau à tiroir, révélé au clic (details natif) ---------- */
+.volet{border-bottom:0;padding:0}
+.volet>summary{display:block;cursor:pointer;list-style:none;position:relative}
+.volet>summary::-webkit-details-marker{display:none}
+.volet>summary::after{content:none}
+.volet>summary h2{margin-bottom:0}
+.volet__ouvrir{display:inline-block;margin-top:1.1rem;font-size:0;
+  border-bottom:1px solid var(--rule-or);padding-bottom:.25rem}
+.volet__ouvrir::before{content:"Déplier +";font-size:.64rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--or);font-family:var(--sans);font-weight:600}
+.volet[open] .volet__ouvrir::before{content:"Replier –"}
+.volet>summary:hover .volet__ouvrir::before{color:var(--vert)}
+.band--dark .volet>summary:hover .volet__ouvrir::before{color:var(--or-clair)}
+.volet__corps{margin-top:2.1rem}
+/* neutralise le style « réponse de FAQ » hérité de details p sur les volets */
+.volet__corps>p{font-size:inherit;color:inherit;margin-top:0}
+.volet__corps .humain p{font-size:inherit;color:inherit;margin-top:0}
+
+/* ---------- menu tiroir : navigation complète sur téléphone et tablette ---------- */
+.menu{display:none}
+.menu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;
+  gap:.55rem;color:var(--creme);font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:500;
+  border:1px solid rgba(250,248,243,.42);padding:.62rem 1.05rem}
+.menu>summary::-webkit-details-marker{display:none}
+.menu>summary::after{content:"≡";font-size:1.1rem;line-height:1}
+.menu[open]>summary::after{content:"×"}
+.menu__list{position:absolute;left:0;right:0;top:100%;z-index:60;
+  background:var(--vert-profond);border-top:1px solid var(--rule-or);
+  border-bottom:2px solid var(--or);display:grid;
+  padding:.6rem var(--gut) 1.2rem;max-height:calc(100vh - 8rem);overflow:auto}
+.menu__list a{color:var(--creme);text-decoration:none;padding:.9rem 0;font-size:.98rem;
+  border-bottom:1px solid rgba(250,248,243,.12)}
+.menu__list a:last-child{border-bottom:0}
+.menu__list a b{color:var(--or-clair);font-family:var(--mono);font-weight:500;
+  font-size:.82em;letter-spacing:.08em}
+@media (max-width:980px){.menu{display:block}}
+/* Sous 640px la navigation cède la place au tiroir — mais JAMAIS la barre de
+   recherche : sur téléphone, c'est la porte d'entrée principale du site. */
+@media (max-width:640px){.masthead .nav > :not(.navq){display:none}
+  .masthead .nav{flex:1 1 auto;justify-content:flex-end}}
+@media print{.menu{display:none!important}}
+
+/* décalage d'ancre : les liens #section ne passent plus sous l'en-tête collant */
+:target,[id]{scroll-margin-top:5.5rem}
+
+/* ---------- tableau maître : la bible en une page ---------- */
+.tabmaitre{width:100%;border-collapse:collapse;margin-top:.6rem}
+.tabmaitre th{text-align:left;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#5B6A62;font-weight:600;padding:.7rem .9rem .7rem 0;border-bottom:2px solid var(--vert)}
+.tabmaitre td{vertical-align:top;font-size:.92rem;padding:.95rem .9rem .95rem 0;
+  border-bottom:1px solid var(--rule-fine)}
+.tabmaitre td a{text-decoration:none;color:var(--vert)}
+.tabmaitre td a:hover b{color:var(--or)}
+.tabmaitre td b{font-family:var(--display);font-size:1.02rem}
+.tabmaitre td span{display:block;font-size:.8rem;color:#5B6A62;margin-top:.15rem}
+@media (max-width:760px){
+  .tabmaitre thead{display:none}
+  .tabmaitre,.tabmaitre tbody,.tabmaitre tr,.tabmaitre td{display:block;width:100%}
+  .tabmaitre tr{border-top:2px solid var(--vert);padding:.6rem 0 .9rem;margin-top:1.2rem}
+  .tabmaitre td{border-bottom:0;padding:.35rem 0}
+  .tabmaitre td::before{content:attr(data-l);display:block;font-size:.62rem;
+    letter-spacing:.16em;text-transform:uppercase;color:#5B6A62;margin-bottom:.15rem}
+}
+
+/* ---------- sommaire d'article : navigation au clic ---------- */
+.sommaire-art{border:1px solid var(--rule);border-left:3px solid var(--or);
+  padding:1.1rem 1.3rem;margin:0 0 2.2rem;background:var(--blanc)}
+.sommaire-art .eyebrow{margin-bottom:.6rem}
+.sommaire-art ol{margin:0;padding-left:1.15rem;columns:2 16rem;column-gap:2rem}
+.sommaire-art li{font-size:.92rem;padding:.22rem 0;break-inside:avoid}
+.sommaire-art a{color:var(--encre-2);text-decoration:none;border-bottom:1px solid var(--rule)}
+.sommaire-art a:hover{color:var(--vert);border-bottom-color:var(--vert)}
+
+/* ---------- topbar allégée sur téléphone ---------- */
+@media (max-width:640px){.topbar span{display:none}}
+
+/* ---------- transitions douces (FAQ, menu) ---------- */
+details[open]>p{animation:deplie .3s ease}
+.menu__list{animation:deplie .22s ease}
+@keyframes deplie{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .menu__list,details[open]>p{animation:none}}
+
+/* ---------- illustrations au trait ---------- */
+.hero .wrap{z-index:1}
+.hero .skyline{position:absolute;right:-2%;bottom:-4px;width:min(540px,58%);
+  opacity:.28;pointer-events:none;z-index:0}
+.card .picto{display:block;width:40px;height:40px;color:var(--or);margin-bottom:.5rem}
+.illu-echoppe{display:block;width:min(210px,55%);margin:1.6rem 0 .4rem;opacity:.85}
+
+/* schémas et figures : jamais pleine page, une largeur de lecture */
+.schema{max-width:50rem}
+
+/* ---------- hero photographique : la pierre bordelaise, voilée de vert ---------- */
+.hero--photo{background:
+  linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
+  url("/assets/photos/hero-immeuble.jpg") center 30%/cover no-repeat var(--vert-profond)}
+.hero--photo .skyline{display:none}
+.hero--echoppe{background:
+  linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
+  url("/assets/photos/hero-echoppe.jpg") center 42%/cover no-repeat var(--vert-profond)}
+
+/* ---------- réponse express (recherche) ---------- */
+.repexp{background:var(--blanc);border:1px solid var(--rule);
+  border-left:3px solid var(--or);padding:1.6rem 1.7rem;max-width:56rem}
+.repexp h3{color:var(--vert);font-size:1.3rem;margin:.5rem 0 .6rem}
+.repexp ul{padding-left:1.1rem;margin:.3rem 0 0}
+.repexp li{padding:.15rem 0}
+
+/* ---------- explainer animé : micro motion-design ---------- */
+.animex{max-width:50rem;margin-top:1.6rem;background:var(--blanc);
+  border:1px solid var(--rule-fine)}
+.animex svg{width:100%;height:auto;display:block}
+.animex .ax{opacity:0;animation:ax 12s infinite}
+.animex .ax2{animation-delay:3s}.animex .ax3{animation-delay:6s}.animex .ax4{animation-delay:9s}
+@keyframes ax{0%{opacity:0;transform:translateY(8px)}4%,24%{opacity:1;transform:none}
+  30%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  .animex .ax{opacity:1;animation:none;transform:none}}
+
+/* ---------- parcours : à chacun son entrée ---------- */
+.parcours{background:var(--vert);border-top:1px solid var(--rule-or);
+  border-bottom:3px solid var(--or)}
+.parcours .wrap{display:flex;flex-wrap:wrap;gap:.7rem 1.1rem;align-items:center;
+  padding-block:1.05rem}
+.parcours__label{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--or-clair);margin-right:.4rem}
+.parcours a{color:var(--creme);text-decoration:none;font-size:.9rem;
+  border:1px solid rgba(250,248,243,.32);padding:.55rem 1rem;
+  transition:background .18s,color .18s,border-color .18s}
+.parcours a:hover{background:var(--or);color:var(--vert-profond);border-color:var(--or)}
+
+/* ---------- ferronnerie : motif propriétaire en texture du bandeau devis ---------- */
+.cta{position:relative;overflow:hidden}
+.cta .wrap{position:relative;z-index:1}
+.cta::before{content:"";position:absolute;top:0;bottom:0;right:0;
+  width:min(340px,32%);opacity:.16;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cg fill='none' stroke='%23C09048' stroke-width='1'%3E%3Cpath d='M23 1 45 23 23 45 1 23Z'/%3E%3Ccircle cx='23' cy='23' r='6.5'/%3E%3C/g%3E%3C/svg%3E")}
+@media print{.cta::before{display:none}}
+
+/* ---------- schémas : les traits se dessinent au défilement ---------- */
+@supports (animation-timeline: view()) {
+  .schema svg :is(path,line){stroke-dasharray:900;stroke-dashoffset:900;
+    animation:tracer linear both;animation-timeline:view();
+    animation-range:entry 5% entry 70%}
+  @keyframes tracer{to{stroke-dashoffset:0}}
+}
+@media (prefers-reduced-motion:reduce),print{
+  .schema svg :is(path,line){animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+
+/* ---------- photos de terrain ---------- */
+.photo{margin:0;max-width:30rem}
+.photo img{width:100%;height:auto;display:block;border:1px solid var(--rule);
+  aspect-ratio:4/3;object-fit:cover}
+.photo figcaption{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:#5B6A62;padding:.8rem 0;border-bottom:1px solid var(--rule-fine)}
+
+/* impression : dossier net pour l'assemblée générale, sans chrome ni aplats sombres */
+@media print{
+  .topbar,.masthead,.skip,.nav,.cta,.crumb,.mesh,.actions{display:none!important}
+  .hero::before,.hero::after{display:none!important}
+  body{background:#fff;color:#111;font-size:11pt;line-height:1.5}
+  .hero,.band--dark,.footer,.cta{background:#fff!important;color:#111!important}
+  .hero h1,.band--dark h2,.band--dark h3,.footer h4,.cta h2{color:#111!important}
+  .hero .lede,.band--dark p,.footer a{color:#333!important}
+  a{color:#111;text-decoration:underline}
+  .band,section{padding-block:1.1rem!important;break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .schema{border:1px solid #999}
+  .footer .legalline{color:#555!important}
+}
+
+.photo__lecon{font-size:.9rem;color:var(--encre-2);margin:.7rem 0 0;max-width:60ch}
+.photo__lecon b{color:var(--vert)}
+
+.animex .grow{transform-origin:60px center;transform:scaleX(0);animation:axgrow 12s infinite}
+.animex .g1{animation-delay:.35s}.animex .g2{animation-delay:.7s}.animex .g3{animation-delay:1.05s}
+.animex .g4{animation-delay:1.4s}.animex .g5{animation-delay:1.75s}.animex .g6{animation-delay:2.1s}
+@keyframes axgrow{0%{transform:scaleX(0)}7%,90%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
+.animex .axin{opacity:0;animation:axin 12s infinite}
+@keyframes axin{0%,20%{opacity:0}30%,90%{opacity:1}97%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.animex .grow,.animex .axin{animation:none;transform:none;opacity:1}}
+
+/* barre de chapitres : la page se choisit au clic */
+.ancres{background:var(--creme-2);border-bottom:1px solid var(--rule-fine)}
+.ancres .wrap{display:flex;flex-wrap:wrap;gap:.45rem .5rem;padding-block:.85rem}
+.ancres a{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--encre-2);text-decoration:none;border:1px solid var(--rule);padding:.42rem .85rem;transition:border-color .16s,color .16s}
+.ancres a:hover{border-color:var(--or);color:var(--vert)}
+@media print{.ancres{display:none!important}}
+
+/* cartes sur bandeau sombre : declinaison premium (or, numerotation, survol subtil) */
+.band--dark .grid{counter-reset:dest}
+.band--dark .card--link::before{counter-increment:dest;content:counter(dest,decimal-leading-zero);font-family:var(--sans);font-size:.64rem;font-weight:500;letter-spacing:.22em;color:var(--or);display:block;margin-bottom:.7rem}
+.band--dark .card{border-top:1px solid var(--rule-or)}
+.band--dark .card--link:hover{background:rgba(255,255,255,.055)}
+.band--dark .card h3{color:var(--blanc)}
+.band--dark .card p{color:rgba(250,248,243,.78)}
+.band--dark .card .more{color:var(--or-clair);border-bottom-color:rgba(192,144,72,.45)}
+.band--dark .card--link:hover .more{border-bottom-color:var(--or-clair)}
+
+/* en francais courant : la vulgarisation en tete de fiche */
+.enclair{font-family:var(--display);font-style:italic;font-size:clamp(1.12rem,2vw,1.35rem);line-height:1.55;color:var(--vert);max-width:56ch;margin:1.6rem 0 .4rem;border-left:2px solid var(--or);padding-left:1.3rem}
+.enclair span{display:block;font-family:var(--sans);font-style:normal;font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:.55rem}
+
+/* accessibilite : contrastes et affordances (audit Lighthouse) */
+.card .sigle{color:var(--encre-2)}
+.card--link .more{color:var(--vert)}
+.footer .foot-titre{font-family:var(--display);color:var(--or-clair);font-size:.95rem;margin:0 0 .75rem;font-weight:600}
+.footer .legalline a{text-decoration:underline}
+
+/* barre de chapitres collante + topbar mobile compacte */
+/* Hauteur réelle du bandeau, mesurée : 78,8px. L'ancien « top:63px » laissait
+   le masthead recouvrir 16px de la barre de chapitres, soit un tiers. */
+.masthead{--h-bandeau:4.95rem}
+.ancres{position:sticky;top:4.95rem;z-index:30}
+/* Une barre collante qui s'enroule devient un pavé : mesuré sur le glossaire,
+   8 lignes et 381 px à 375 px de large, 4 lignes et 191 px sur tablette — la
+   moitié de l'écran, et en permanence puisqu'elle est collante. Elle tient
+   donc sur UNE ligne à toute largeur et défile si les chapitres débordent, le
+   dernier coupé au bord signalant qu'il y en a d'autres. Hauteur constante :
+   c'est ce qui permet de régler le décalage d'ancrage juste en dessous. */
+.ancres .wrap{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+  scroll-snap-type:x proximity}
+.ancres .wrap::-webkit-scrollbar{display:none}
+.ancres a{white-space:nowrap;scroll-snap-align:start}
+/* Sur une page à barre de chapitres, le titre visé doit arriver SOUS elle :
+   sinon le clic dépose le lecteur sur un titre à moitié caché. 4,95rem de
+   position + 3,7rem de barre + une ligne de respiration. */
+body:has(.ancres) [id]{scroll-margin-top:9.9rem}
+:target,[id]{scroll-margin-top:7.8rem}
+@media (max-width:640px){.topbar__avis{display:none}.topbar .wrap{justify-content:space-between}}
+
+/* check-lists imprimables du pack conseil syndical */
+.checklist{list-style:none;padding:0;margin:1.2rem 0 2.2rem}
+.checklist li{position:relative;padding:.55rem 0 .55rem 2.1rem;border-bottom:1px solid var(--rule-fine);font-size:.97rem}
+.checklist li::before{content:"";position:absolute;left:0;top:.75rem;width:1rem;height:1rem;border:1.5px solid var(--vert)}
+@media print{.checklist li{break-inside:avoid}}
+
+/* tableaux d articles */
+.tabwrap{overflow-x:auto;margin:1.4rem 0 1.8rem}
+.tabsimple{width:100%;border-collapse:collapse;font-size:.9rem;min-width:34rem}
+.tabsimple th{text-align:left;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#5B6A62;font-weight:600;padding:.5rem .8rem .5rem 0;border-bottom:1.5px solid var(--vert)}
+.tabsimple td{padding:.6rem .8rem .6rem 0;border-bottom:1px solid var(--rule-fine);vertical-align:top}
+.tabsimple td:first-child{font-weight:600;color:var(--vert)}
+
+/* rubriques : cartes illustrees et pages dediees */
+.card--photo img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--rule);margin-bottom:.85rem;display:block}
+.photo--rub{max-width:34rem;margin:2rem 0 0}
+.photo--rub img{aspect-ratio:16/9;object-fit:cover}
+.rub-titre{display:flex;align-items:center;gap:1.1rem}
+.rub-titre .picto--rub{width:52px;height:52px;flex:none;color:var(--or-clair)}
+.picto--rub{color:var(--or)}
+@media (max-width:640px){.rub-titre{gap:.8rem}.rub-titre .picto--rub{width:40px;height:40px}}
+
+/* carte rubrique sans photo : grand picto DGLM sur fond creme */
+.card-picto{aspect-ratio:16/9;background:var(--creme-2);border:1px solid var(--rule);display:grid;place-items:center;margin-bottom:.85rem}
+.card-picto .picto--rub{width:56px;height:56px;color:var(--or)}
+
+/* familles : groupes du menu tiroir et sous-groupes accueil */
+.menu__list .menu__groupe{margin-top:.9rem;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or-clair);border-bottom:1px solid rgba(192,144,72,.35);padding-bottom:.5rem;font-weight:600}
+span.menu__groupe{display:block;padding:.9rem 0 .5rem}
+.famille{margin-top:2.6rem;color:var(--vert);font-size:1.05rem;letter-spacing:.01em;border-left:3px solid var(--or);padding-left:.9rem}
+.famille:first-of-type{margin-top:1.8rem}
+.fam-lien{margin-top:1rem}
+.fam-lien a{font-size:.85rem;color:var(--vert)}
+
+/* lien theme sous chaque carnet de terrain */
+.photo__theme{margin-top:.55rem;font-size:.8rem}
+.photo__theme a{color:var(--vert);border-bottom:1px solid var(--rule-or);text-decoration:none;padding-bottom:.15rem}
+.photo__theme a:hover{border-bottom-color:var(--vert)}
+
+/* accessibilite : gris lisible pour les textes porteurs (Lighthouse) */
+.maj,.photo figcaption,.signature,.mesh--plain,.sources p{color:#5B6A62}
+/* libellés de formulaire et fil d'Ariane : mêmes gris lisibles (contraste AA) */
+.field > span,.field em,.devis__bloc h3,.crumb,.crumb a{color:#5B6A62}
+/* l'étiquette or des encarts : assombrie pour rester lisible en petit corps */
+.enclair span{color:#8A6224}
+
+/* devis — pièces jointes : dépôt, liste, mémo des documents utiles */
+.pieces__intro{color:#5B6A62;font-size:.92rem;margin:0 0 1.2rem;max-width:44rem}
+.devis__bloc .pieces{max-width:44rem}
+.pieces__zone{border:1px dashed var(--rule);padding:1.6rem 1.2rem;text-align:center;
+  transition:border-color .18s,background .18s}
+.pieces__zone--survol{border-color:var(--or);background:var(--creme-2)}
+.pieces__zone input[type=file]{position:absolute;width:1px;height:1px;opacity:0;
+  overflow:hidden;clip:rect(0 0 0 0)}
+.pieces__btn{display:inline-block;border:1px solid var(--or);padding:.6rem 1.15rem;
+  cursor:pointer;font-weight:600;font-size:.92rem;color:var(--vert-profond);
+  border-radius:0;transition:background .18s}
+.pieces__btn:hover{background:var(--creme-2)}
+.pieces__zone input[type=file]:focus-visible + .pieces__aide,
+.pieces__zone:focus-within .pieces__btn{outline:2px solid var(--vert);outline-offset:2px}
+.pieces__aide{font-size:.84rem;color:#5B6A62;margin:.8rem 0 0;line-height:1.5}
+.pieces__liste{list-style:none;margin:1.1rem 0 0;padding:0}
+.pieces__liste li{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;
+  border-bottom:1px solid var(--rule);font-size:.9rem}
+.pieces__num{width:1.5rem;height:1.5rem;flex:0 0 auto;border:1px solid var(--or);
+  display:grid;place-items:center;font-size:.72rem;color:#8A6224}
+.pieces__nom{flex:1;word-break:break-word}
+.pieces__poids{color:#5B6A62;font-size:.82rem;white-space:nowrap}
+.pieces__x{background:0;border:0;cursor:pointer;color:#8A3A2A;font-size:.78rem;
+  text-decoration:underline;padding:.2rem .3rem;font-family:inherit}
+.pieces__etat{font-size:.88rem;color:#5B6A62;margin:.9rem 0 0}
+.pieces__etat--warn{color:#8A3A2A}
+.pieces__memo{margin-top:1.6rem;border-left:2px solid var(--or);padding:.2rem 0 .2rem 1.1rem;
+  max-width:44rem}
+.pieces__memo-titre{font-family:var(--sans);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#8A6224;margin:0 0 .6rem}
+.pieces__memo ul{margin:0;padding-left:1.1rem}
+.pieces__memo li{font-size:.88rem;color:#5B6A62;margin:.3rem 0;line-height:1.45}
+.pieces__memo-lien{margin:.8rem 0 0;font-size:.86rem}
+@media print{.pieces__zone,.pieces__x,#pieces-actions{display:none}}
+
+/* infobulles pédagogiques : un mot compliqué, une explication au clic */
+.info{position:relative;display:inline-block}
+.info__b{background:0;border:1px solid var(--or);color:#8A6224;cursor:pointer;
+  width:1.15rem;height:1.15rem;border-radius:50%;font-size:.68rem;line-height:1;
+  font-family:var(--sans);padding:0;vertical-align:.08em;margin-left:.3rem}
+.info__b:hover,.info__b[aria-expanded=true]{background:var(--or);color:#fff}
+/* .field span{display:block} s'appliquerait aussi ici : on reprend la main. */
+.info .info__c{display:none;position:absolute;z-index:70;left:0;top:calc(100% + .45rem);
+  width:min(23rem,78vw);background:var(--blanc);border:1px solid var(--rule);
+  border-left:2px solid var(--or);padding:.85rem 1rem;font-size:.86rem;line-height:1.5;
+  color:var(--encre);text-transform:none;letter-spacing:normal;font-weight:400;
+  box-shadow:0 2px 14px rgba(9,63,48,.09)}
+.info .info__b[aria-expanded=true] + .info__c{display:block}
+.info .info__b{display:inline-block}
+.info__c strong{color:var(--vert)}
+@media (max-width:640px){.info__c{position:fixed;left:1rem;right:1rem;width:auto;
+  top:auto;bottom:1rem}}
+
+/* recherche : les carnets de terrain apparaissent avec leur vignette */
+.card--photo{padding-top:0;overflow:hidden}
+.card--photo .vign{display:block;width:calc(100% + 2px);margin:-1px -1px 1.1rem;
+  height:8.5rem;object-fit:cover;filter:saturate(.92)}
+.card--photo h3{font-size:1rem}
+
+/* simulateur d'aides : le bouton de validation et ce qui manque */
+.simu-valider{border-top:1px solid var(--vert);padding-top:1.8rem;margin-top:.4rem}
+.simu-manque{margin:.9rem 0 0;font-size:.9rem;color:#5B6A62}
+.simu-manque--warn{color:#8A3A2A;font-weight:600}
+
+/* passerelle entre les deux simulateurs */
+.suite{margin-top:1.8rem;border-top:1px solid var(--rule);padding-top:1.4rem}
+.suite h3{margin:.3rem 0 .6rem;font-size:1.15rem}
+.suite p{color:#5B6A62;font-size:.94rem;line-height:1.6;margin:0 0 1.1rem;max-width:38rem}
+
+/* simulateur : détail des postes de travaux */
+.postes{margin:1.6rem 0 0;border-top:1px solid var(--rule);padding-top:1rem}
+.postes summary{cursor:pointer;font-family:var(--sans);font-size:.86rem;font-weight:600;
+  color:var(--vert);list-style:none;padding:.3rem 0}
+.postes summary::-webkit-details-marker{display:none}
+.postes summary::before{content:"+ ";color:var(--or);font-weight:700}
+.postes[open] summary::before{content:"– "}
+.postes__intro{font-size:.88rem;color:#5B6A62;margin:.7rem 0 1.2rem;max-width:44rem;
+  line-height:1.55}
+.postes__groupe{font-family:var(--sans);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#8A6224;margin:1.6rem 0 .5rem;
+  border-bottom:1px solid var(--rule-or);padding-bottom:.4rem}
+.postes__groupe--non{color:#8A3A2A;border-bottom-color:var(--rule)}
+.postes .field{margin-top:.9rem}
+@media (prefers-reduced-motion:no-preference){.postes[open] .field{animation:deplie .2s ease-out}}
+
+/* simulateur d'aides : verdict, tableau de calcul, avertissements */
+.simu-verdict{border-left:3px solid var(--or);padding:.9rem 1.1rem;margin:0 0 1.4rem;
+  background:var(--creme-2)}
+.simu-verdict strong{font-family:var(--display)}
+.simu-verdict ul{margin:.5rem 0 0;padding-left:1.1rem}
+.simu-verdict li{font-size:.92rem;color:#5B6A62;margin:.25rem 0}
+.simu-verdict--non{border-left-color:#8A3A2A}
+.simu-verdict--oui{border-left-color:#0E7A44}
+.simu-table td:last-child,.simu-table th:last-child{text-align:right;white-space:nowrap}
+.simu-table td:nth-child(2){font-size:.84rem;color:#5B6A62}
+.simu-table tfoot td{border-top:1.5px solid var(--vert);font-size:1rem}
+.simu-table tfoot tr:last-child td{border-top:0;color:#5B6A62}
+.simu-avert{margin:1rem 0 0;padding-left:1.1rem;font-size:.9rem;color:#5B6A62}
+.simu-suite{margin-top:1rem;font-size:.9rem;color:#5B6A62}
+.simu-table{width:100%}
+@media (max-width:640px){
+  .simu-table td:nth-child(2),.simu-table th:nth-child(2){display:none}
+  .simu-table td:first-child,.simu-table th:first-child{white-space:normal;
+    hyphens:auto;font-size:.9rem}
+  .simu-table td:last-child{font-size:.92rem}}
+@media print{#simu-aides .devis__bloc em{display:none}}
+
+/* déperditions : pulsation discrète des flèches de chaleur */
+.animex .depflux{animation:depflux 3.2s ease-in-out infinite}
+@keyframes depflux{0%,100%{opacity:1}50%{opacity:.55}}
+@media (prefers-reduced-motion:reduce){.animex .depflux{animation:none;opacity:1}}
+
+/* devis : aide au choix de mission + encart particulier */
+.mission i{display:block;font-style:normal;font-size:.8rem;font-weight:400;
+  color:#5B6A62;margin-top:.3rem;letter-spacing:0}
+.mission[aria-pressed="true"] i{color:var(--vert)}
+.devis .enclair{margin-top:1.2rem}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MESURE DE LECTURE — la correction la plus structurante du site.
+   Avant : 21 blocs de texte sur 26 dépassaient 75 caractères par ligne,
+   avec une médiane à 85 et des pointes à 187 (mesuré sur la page DTG).
+   Au-delà de ~75, l'œil perd la ligne au retour chariot : on balaie au
+   lieu de lire. On pose une largeur de lecture unique, sur le conteneur
+   plutôt que composant par composant, pour qu'aucun bloc n'y échappe.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{--mesure:42rem}
+.band .wrap > p,
+.band .wrap > ul:not(.mesh):not(.ancres ul),
+.band .wrap > ol,
+.legal dd,.steps p,.fiche dd,.card p,.checklist li,
+.norme__piege p,.norme p,.recap ol,.postes__intro,.pieces__intro,
+.simu-suite,.simu-avert li,.verdict p,.enclair p,.repexp p{
+  max-width:var(--mesure)}
+/* Une fois la colonne resserrée, l'interlignage très ample n'a plus lieu
+   d'être : il compensait la difficulté à retrouver la ligne suivante. */
+body{line-height:1.68}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BARRE D'ACTION MOBILE — sur téléphone, l'accueil fait 14 écrans et
+   l'ancien header masquait le bouton de devis : entre le premier et le
+   onzième écran, le visiteur n'avait plus aucun moyen de nous joindre.
+   Deux actions, toujours à portée de pouce, jamais sur grand écran.
+   ═══════════════════════════════════════════════════════════════════ */
+.barre-mob{display:none}
+@media (max-width:860px){
+  .barre-mob{display:grid;grid-template-columns:1fr 1.35fr;gap:1px;
+    position:fixed;left:0;right:0;bottom:0;z-index:90;
+    background:var(--rule-or);
+    padding-bottom:env(safe-area-inset-bottom)}
+  .barre-mob a{display:flex;align-items:center;justify-content:center;gap:.5rem;
+    min-height:3.4rem;font-family:var(--sans);font-size:.88rem;font-weight:600;
+    letter-spacing:.02em;text-decoration:none}
+  .barre-mob__tel{background:var(--creme);color:var(--vert-profond)}
+  .barre-mob__devis{background:var(--vert-profond);color:var(--creme)}
+  .barre-mob a:active{filter:brightness(.94)}
+  /* le pied de page ne doit pas passer sous la barre */
+  .footer{padding-bottom:5.5rem}
+}
+@media print{.barre-mob{display:none}}
+
+/* Le badge d'avis est le seul signal de confiance visible d'emblée :
+   il n'a pas à disparaître sur téléphone. */
+@media (max-width:640px){.topbar__avis{display:inline}}
+/* l'action principale, en tête du menu tiroir */
+.menu__cta{background:var(--or);color:var(--vert-profond)!important;font-weight:700;
+  text-align:center;border-bottom:0!important;margin-bottom:.4rem}
+.menu__cta:hover{background:var(--or-clair)}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACCESSIBILITÉ — corrections d'audit. Lighthouse donnait 100/100 :
+   aucun de ces défauts n'est détectable automatiquement.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Les champs n'avaient qu'un trait à 1,34:1 pour toute limite — on ne
+   voyait pas où écrire. Minimum exigé pour un composant : 3:1. */
+.field input,.field select,.devis textarea{border-bottom:1.5px solid #5B6A62}
+.field input:focus,.field select:focus,.devis textarea:focus{
+  border-bottom-color:var(--vert);border-bottom-width:2.5px}
+/* Les libellés étaient à 10,88px en capitales : illisibles de près. */
+.field > span{font-size:.82rem;text-transform:none;letter-spacing:.02em;
+  font-weight:600;color:#4A5A52}
+.devis__bloc h3{font-size:.86rem;letter-spacing:.1em}
+
+/* Sur tablette en paysage (>980px et sans survol), les sous-menus étaient
+   inatteignables au doigt ET au clavier : 23 liens perdus. */
+@media (hover:none){.nav__menu{display:none}}
+@media (hover:none) and (min-width:981px){
+  .nav__grp:focus-within .nav__menu{display:block}}
+
+/* « Déplier + » commande la moitié du contenu des pages mission et se
+   lisait à 2,54:1 sur 10,24px. */
+.volet__ouvrir::before{color:#8A6224;font-size:.78rem}
+details summary::after{color:#8A6224}
+.postes summary::before{color:#8A6224}
+.norme__piege strong{font-size:.8rem;color:#8A6224}
+
+/* Cible tactile de 24px minimum sur les bulles d'aide, sans grossir le
+   disque : on étend la zone sensible. */
+.info__b{position:relative}
+.info__b::after{content:"";position:absolute;inset:-4px;border-radius:50%}
+
+/* Le tableau du simulateur imposait un défilement latéral inutile alors
+   que sa colonne de détail est déjà masquée sur téléphone. */
+@media (max-width:640px){.simu-table{min-width:0}}
+
+/* Les sections repliées ne s'imprimaient pas : la feuille d'impression
+   prépare pourtant un dossier d'assemblée générale. */
+@media print{.volet[open] .volet__corps,.volet .volet__corps{display:block!important}
+  .volet__ouvrir{display:none}}
+
+/* Aucune page ne doit défiler latéralement, quelle que soit la largeur.
+   « clip » plutôt que « hidden » : hidden créerait un conteneur de
+   défilement et casserait les en-têtes et barres de chapitres collants. */
+html{overflow-x:clip}
+body{overflow-x:clip;max-width:100%}
+/* Les intitulés des fiches (dt) restaient au gris clair : 3,36:1. */
+dt,.fiche dt,.legal dt,.norme__refs dt{color:#5B6A62}
+/* Le logo était comprimé par le flex : 43px rendus pour 47 déclarés,
+   d'où un décalage à chaque chargement. */
+.brand img{flex:0 0 auto;width:47px}
+.footer .mark{width:55px;height:52px}
+/* Le titre « Sources » — la preuve la plus visible de notre sérieux —
+   se lisait à 3,36:1 sur 10,88px. */
+.sources h2{color:var(--vert);font-size:.8rem;letter-spacing:.14em}
+.sources li a{color:var(--vert);text-decoration:underline;text-underline-offset:.18em}
+
+/* fiches de certification : une personne, un numéro, ses domaines datés */
+.certif{border-top:1px solid var(--vert);padding:1.6rem 0 .6rem;margin-top:1.8rem}
+.certif h3{margin:0;font-size:1.25rem}
+.certif__role{margin:.2rem 0 0;font-size:.9rem;color:#5B6A62}
+.certif__num{margin:.5rem 0 1.1rem;font-family:var(--mono);font-size:.82rem;
+  letter-spacing:.04em;color:#8A6224}
+.certif .tabsimple{min-width:0}
+.certif .tabsimple td:last-child,.certif .tabsimple th:last-child{
+  white-space:nowrap;text-align:right;color:#5B6A62}
+@media (max-width:560px){.certif .tabsimple td,.certif .tabsimple th{font-size:.86rem}}
+
+/* simulateur de validité : cases, dates, verdicts par diagnostic */
+.vusage{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.vusage__o{display:flex;gap:.7rem;align-items:flex-start;border:1px solid var(--rule);
+  padding:.9rem 1.1rem;cursor:pointer;transition:border-color .16s,background .16s}
+.vusage__o:hover{border-color:var(--or)}
+.vusage__o:has(input:checked){border-color:var(--vert);background:var(--creme-2)}
+.vusage__o input{margin-top:.25rem;flex:0 0 auto}
+.vusage__o b{display:block;font-family:var(--display);font-size:1rem;color:var(--vert)}
+.vusage__o i{display:block;font-style:normal;font-size:.84rem;color:#5B6A62;margin-top:.15rem}
+
+.vd{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;
+  padding:.75rem 0;border-bottom:1px solid var(--rule-fine)}
+.vd__case{display:flex;gap:.65rem;align-items:center;flex:1 1 20rem;cursor:pointer;
+  font-size:.94rem;line-height:1.4}
+.vd__case input{flex:0 0 auto;width:1.1rem;height:1.1rem}
+.vd__date input{border:0;border-bottom:1.5px solid #5B6A62;background:transparent;
+  font:inherit;font-size:.9rem;padding:.35rem .2rem;color:var(--encre)}
+.vd__date input:disabled{border-bottom-color:var(--rule);opacity:.45}
+.vd__date input:focus{outline:0;border-bottom-color:var(--vert);border-bottom-width:2.5px}
+
+.vres{list-style:none;padding:0;margin:1.4rem 0 0}
+.vres li{border-left:3px solid var(--rule);padding:.9rem 0 .9rem 1.1rem;margin-bottom:1rem}
+.vres b{display:block;font-family:var(--display);font-size:1.02rem;color:var(--vert);
+  margin-top:.25rem;line-height:1.35}
+.vres i{display:block;font-style:normal;font-size:.84rem;color:#5B6A62;margin-top:.2rem}
+.vres p{margin:.45rem 0 0;font-size:.9rem;line-height:1.55}
+.vres__note{color:#5B6A62;font-size:.86rem!important}
+.vres__etat{display:inline-block;font-family:var(--sans);font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:.2rem .55rem;
+  border:1px solid currentColor}
+.vres__ok{border-left-color:#0E7A44}.vres__ok .vres__etat{color:#0E7A44}
+.vres__bientot{border-left-color:#B0731F}.vres__bientot .vres__etat{color:#8A6224}
+.vres__perime{border-left-color:#8A3A2A}.vres__perime .vres__etat{color:#8A3A2A}
+.vres__condition{border-left-color:var(--or)}.vres__condition .vres__etat{color:#8A6224}
+.vres__manque{border-left-color:var(--rule)}.vres__manque .vres__etat{color:#5B6A62}
+@media (max-width:560px){.vd{gap:.5rem}.vd__date{width:100%}}
+
+/* colonne d'aide latérale : les repères restent sous les yeux pendant qu'on
+   remplit. Elle passe sous le formulaire dès que l'écran se resserre. */
+.avec-aide{display:grid;grid-template-columns:minmax(0,1fr) 21rem;gap:3rem;
+  align-items:start;margin-top:1.8rem}
+.avec-aide__principal{min-width:0}
+.aide{position:sticky;top:7rem;border-left:2px solid var(--or);padding:.2rem 0 .2rem 1.3rem;
+  max-height:calc(100vh - 9rem);overflow-y:auto}
+.aide__titre{font-family:var(--sans);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#8A6224;margin:0 0 1rem}
+.aide__bloc{border-bottom:1px solid var(--rule-fine);padding:.15rem 0}
+.aide__bloc summary{cursor:pointer;list-style:none;padding:.6rem 0;font-size:.9rem;
+  font-weight:600;color:var(--vert);line-height:1.4}
+.aide__bloc summary::-webkit-details-marker{display:none}
+.aide__bloc summary::before{content:"+ ";color:#8A6224;font-weight:700}
+.aide__bloc[open] summary::before{content:"– "}
+.aide__bloc p{font-size:.86rem;line-height:1.6;color:var(--encre);margin:.2rem 0 .9rem}
+.aide__bloc p + p{margin-top:-.4rem}
+.aide__pied{font-size:.8rem;color:#5B6A62;line-height:1.55;margin:1.2rem 0 0}
+@media (prefers-reduced-motion:no-preference){.aide__bloc[open] p{animation:deplie .2s ease-out}}
+@media (max-width:1080px){
+  .avec-aide{grid-template-columns:1fr;gap:2.2rem}
+  .aide{position:static;max-height:none;border-left:0;border-top:2px solid var(--or);
+    padding:1.4rem 0 0}
+}
+@media print{.aide{display:none}}
+
+/* maillage : les guides liés à une mission */
+.liens-guides{list-style:none;padding:0;margin:1.6rem 0 0;
+  columns:2 19rem;column-gap:2.4rem}
+.liens-guides li{break-inside:avoid;padding:.55rem 0;
+  border-bottom:1px solid var(--rule-fine)}
+.liens-guides a{color:var(--encre);text-decoration:none;font-size:.94rem;
+  line-height:1.45;display:block;transition:color .16s}
+.liens-guides a:hover{color:var(--vert)}
+.liens-guides a::before{content:"→ ";color:var(--or)}
+
+/* commande d'arrêt des animations (WCAG 2.2.2, niveau A) */
+.animex{position:relative}
+.animex__pause{position:absolute;right:.6rem;bottom:.6rem;
+  font-family:var(--sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;color:#5B6A62;background:var(--blanc);border:1px solid var(--rule);
+  padding:.42rem .75rem;cursor:pointer;border-radius:0;transition:border-color .16s,color .16s}
+.animex__pause:hover{border-color:var(--or);color:#8A6224}
+.animex--fige *{animation-play-state:paused!important}
+@media print{.animex__pause{display:none}}
+
+/* Sur téléphone, l'image de couverture pesait autant que sur un grand écran :
+   146 Ko envoyés à 360 px de large. Variante allégée sous 760 px. */
+@media (max-width:760px){
+  .hero--photo{background-image:linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
+    url("/assets/photos/hero-immeuble-800.jpg")}
+  .hero--echoppe{background-image:linear-gradient(rgba(0,41,36,.84),rgba(0,41,36,.9)),
+    url("/assets/photos/hero-echoppe-800.jpg")}
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ÉCHELLE TYPOGRAPHIQUE — le niveau h3 n'existait pas visuellement :
+   16,96 px pour un corps de texte à 16,32 px, soit 4 % d'écart. Un
+   lecteur ne pouvait pas percevoir la structure d'une page sans la
+   lire. Trois paliers nets, et une seule valeur par usage au lieu de
+   quatre tailles voisines selon le composant.
+   ═══════════════════════════════════════════════════════════════════ */
+h3{font-size:1.3rem;letter-spacing:-.008em}          /* 20,8 px — 1,27× le corps */
+.card h3,.steps h3,.verdict h3,.team h3,
+.certif h3,.suite h3,.aide__bloc summary{font-size:1.16rem}   /* 18,6 px en grille */
+details summary{font-size:1.08rem}
+.devis__bloc h3{font-size:.86rem}                    /* étiquette d'étape, pas un titre */
+
+/* Signature de marque, sous le logo du pied de page. Discrete mais
+   toujours la : c est la phrase de l entreprise, pas un argument. */
+.footer .slogan{margin:.5rem 0 1.6rem;font-family:var(--titre,Lora,serif);
+  font-style:italic;font-size:1.05rem;letter-spacing:.02em;
+  color:var(--or,#c9a227);opacity:.95}
+@media(min-width:900px){.footer .slogan{margin-top:.35rem}}

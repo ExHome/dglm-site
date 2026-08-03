@@ -3029,6 +3029,30 @@ ces guides sont écrits</a></div></div></section>
 Q_BY_SLUG = {q["slug"]: q for q in QUARTIERS_BORDEAUX}
 
 
+def fond_quartier(q):
+    """Ce que nous pouvons affirmer à partir du bâti décrit.
+
+    Les pages de quartier s'arrêtaient à la description du bâti : environ
+    290 mots, et rien sur la conduite de la mission. Ce bloc porte la
+    méthode, les points de contrôle et le cadre applicable.
+
+    Les trois champs sont optionnels : un quartier qui ne les a pas encore
+    rend simplement les sections qu'il possède. Voir data/quartiers_textes.py.
+    """
+    blocs = []
+    if q.get("methode"):
+        blocs.append("<h2>Comment la mission se conduit à " + esc(q["nom"])
+                     + "</h2><p>" + esc(q["methode"]) + "</p>")
+    if q.get("points"):
+        pts = "".join("<li>" + esc(x) + "</li>" for x in q["points"])
+        blocs.append("<h2>Les points de contrôle appelés par ce bâti</h2>"
+                     "<ul>" + pts + "</ul>")
+    if q.get("cadre"):
+        blocs.append("<h2>Le cadre réglementaire applicable</h2><p>"
+                     + esc(q["cadre"]) + "</p>")
+    return "".join(blocs)
+
+
 def page_quartier(q):
     p = f"/bordeaux/{q['slug']}/"
     trail = [("Accueil", "/"), ("Bordeaux", "/bordeaux/"), (q["nom"], p)]
@@ -3041,6 +3065,7 @@ def page_quartier(q):
         f'<li><a href="/bordeaux/{v}/">{esc(Q_BY_SLUG[v]["nom"])}</a></li>'
         for v in q["voisins"] if v in Q_BY_SLUG)
 
+    fond = fond_quartier(q)
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">Bordeaux · {esc(q['nom'])}</p>
@@ -3161,21 +3186,8 @@ def page_quartier_ville(q, ville):
         f'<li><a href="/{vslug}/{v}/">{esc(qmap[v]["nom"])}</a></li>'
         for v in q["voisins"] if v in qmap)
 
-    # Ce que nous pouvons affirmer à partir de ce bâti : la conduite de la
-    # mission, les points de contrôle, le cadre applicable. Aucun fait local
-    # nouveau n'y figure — voir data/quartiers_textes.py.
-    fond = []
-    if q.get("methode"):
-        fond.append("<h2>Comment la mission se conduit à " + esc(q["nom"])
-                    + "</h2><p>" + esc(q["methode"]) + "</p>")
-    if q.get("points"):
-        pts = "".join("<li>" + esc(x) + "</li>" for x in q["points"])
-        fond.append("<h2>Les points de contrôle appelés par ce bâti</h2>"
-                    "<ul>" + pts + "</ul>")
-    if q.get("cadre"):
-        fond.append("<h2>Le cadre réglementaire applicable</h2><p>"
-                    + esc(q["cadre"]) + "</p>")
-    fond = "".join(fond)
+    fond = fond_quartier(q)
+
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
 <p class="eyebrow eyebrow--pale">{esc(vnom)} · {esc(q['nom'])}</p>
@@ -3189,6 +3201,7 @@ def page_quartier_ville(q, ville):
 <h2>Ce que cela implique pour nos missions</h2><p>{esc(q['enjeu'])}</p>
 <dl class="legal"><dt>Point de vigilance à {esc(q['nom'])}</dt>
 <dd>{esc(q['vigilance'])}</dd></dl>
+{fond}
 </div></section>
 
 <section class="band band--pale"><div class="wrap">
