@@ -55,20 +55,6 @@ jobs:
           git diff --staged --quiet || git commit -m "veille SEO $(date +%F)"
           git push || true
 
-      - name: Ping des moteurs (IndexNow, en masse)
-        continue-on-error: true
-        run: |
-          # La clé est publique (elle est servie à la racine du site) : le
-          # secret n'est qu'un moyen de la surcharger, pas une condition.
-          KEY="${{ secrets.INDEXNOW_KEY }}"
-          if [ -z "$KEY" ]; then KEY="edf67dcafdd8f3778243f8d9c952894a"; fi
-          URLS=$(grep -oP '(?<=<loc>)[^<]+' site/sitemap.xml | head -1000)
-          LIST=$(printf '"%s",' $URLS | sed 's/,$//')
-          curl -s -X POST "https://api.indexnow.org/indexnow" \
-            -H "Content-Type: application/json" \
-            --data "{\"host\":\"www.dglmexpertises.fr\",\"key\":\"$KEY\",\"keyLocation\":\"https://www.dglmexpertises.fr/${KEY}.txt\",\"urlList\":[$LIST]}" \
-            -o /dev/null -w "IndexNow: HTTP %{http_code}\n" || true
-
       - uses: actions/upload-pages-artifact@v3
         with: { path: site }
 
@@ -81,3 +67,29 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      # APRÈS la mise en ligne, et pas avant : IndexNow vérifie la clé en
+      # allant la lire sur le site. Tant que cette étape précédait le
+      # déploiement, elle annonçait des pages en s'appuyant sur un fichier-clé
+      # pas encore publié — d'où un refus systématique.
+      - name: Ping des moteurs (IndexNow, en masse)
+        continue-on-error: true
+        run: |
+          # La clé est publique (elle est servie à la racine du site) : le
+          # secret n'est qu'un moyen de la surcharger, pas une condition.
+          KEY="${{ secrets.INDEXNOW_KEY }}"
+          if [ -z "$KEY" ]; then KEY="edf67dcafdd8f3778243f8d9c952894a"; fi
+          HOTE="www.dglmexpertises.fr"
+          curl -s "https://$HOTE/sitemap.xml" \
+            | grep -oP '(?<=<loc>)[^<]+' > urls.txt
+          echo "$(wc -l < urls.txt) adresses au plan du site"
+          # par lots de 100 : une soumission unique de 249 adresses est refusée
+          split -l 100 urls.txt lot_
+          for f in lot_*; do
+            LIST=$(sed 's/.*/"&"/' "$f" | paste -sd,)
+            curl -s -X POST "https://api.indexnow.org/indexnow" \
+              -H "Content-Type: application/json; charset=utf-8" \
+              --data "{\"host\":\"$HOTE\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOTE/${KEY}.txt\",\"urlList\":[$LIST]}" \
+              -o /dev/null -w "  $f : HTTP %{http_code}\n" || true
+            sleep 20
+          done
