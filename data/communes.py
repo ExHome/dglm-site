@@ -349,6 +349,14 @@ ZONE_ELARGIE = [
     "Lège-Cap-Ferret", "Langon", "Créon", "Podensac", "Blaye",
 ]
 
+# Les textes de fond (parc, enjeu, copropriété locale, repères de terrain)
+# vivent dans un module séparé : ils ont été rédigés et vérifiés à part, et les
+# garder ici rendrait ce fichier illisible. La fusion écrase parc et enjeu,
+# et ajoute copro et reperes.
+from data.communes_textes import TEXTES as _TEXTES
+for _c in COMMUNES:
+    _c.update(_TEXTES.get(_c["slug"], {}))
+
 SLUG_TO_NOM = {c["slug"]: c["nom"] for c in COMMUNES}
 # Acces direct a la fiche complete depuis un slug : les pages de ville
 # affichent le parc, les enjeux et la copropriete locale.
