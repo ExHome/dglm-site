@@ -4641,7 +4641,7 @@ immeuble.</p>
           body=body, schema="", robots="noindex,follow", chapitres=False,
           head_extra=('<script>window.DGLM_PART={"tel":"'+E["tel"]+'",'
                       '"tel_raw":"'+E["tel_raw"]+'","email":"'+E["email"]+'"};</script>'
-                      '<script src="/particuliers.js?v='+CSS_V+'" defer></script>'))
+                      '<script src="/assets/particuliers.js?v='+CSS_V+'" defer></script>'))
 
 
 # ------------------------------------------------------------------ build
