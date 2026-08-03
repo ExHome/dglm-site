@@ -3232,6 +3232,61 @@ def page_quartier_ville(q, ville):
     URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
+def page_commune(c):
+    """La page d'une commune sans découpage par quartier.
+
+    Dix-sept communes disposaient de textes rédigés et vérifiés sans aucune
+    page pour les porter : elles n'ont pas de quartiers, elles n'entraient
+    donc dans aucune boucle. Eysines, siège de l'entreprise, répondait 404.
+    """
+    slug, nom = c["slug"], c["nom"]
+    p = f"/{slug}/"
+    trail = [("Accueil", "/"), (nom, p)]
+    fond = fond_commune(slug, nom)
+    missions = "".join(
+        f'<a class="card card--link" href="{SILO}/{s["slug"]}/{slug}/">'
+        f'<span class="sigle">{s["sigle"]}</span><h3>{esc(s["nom"])}</h3>'
+        f'<p>{esc(s["accroche"])}</p><span class="more">Découvrir la mission →</span></a>'
+        for s in SERVICES)
+    voisins = "".join(
+        f'<li><a href="/{v}/">{esc(SLUG_TO_NOM[v])}</a></li>'
+        for v in c.get("voisins", []) if v in SLUG_TO_NOM)
+
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">{esc(c["cp"])} · Bordeaux Métropole</p>
+<h1>Diagnostics de copropriété à {esc(nom)}</h1>
+<p class="lede">Repérage amiante avant travaux, diagnostic technique global et
+plan pluriannuel de travaux sur les immeubles collectifs de {esc(nom)}.</p>
+<div class="actions"><a class="btn btn--light" href="/devis/">Demander un devis</a>
+<a class="btn btn--light" href="tel:{E['tel_raw']}">{E["tel"]}</a></div></div></section>
+
+<section class="band"><div class="wrap prose">
+{fond}
+</div></section>
+
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Nos interventions</p><h2>Les quatre missions à {esc(nom)}</h2>
+<div class="grid grid--2" style="margin-top:1.7rem">{missions}</div></div></section>
+
+<section class="band"><div class="wrap">
+<p class="eyebrow">À proximité</p><h2>Les communes voisines</h2>
+<ul class="cols">{voisins}</ul></div></section>
+{cta()}"""
+
+    shell(path=p,
+          title=f"Diagnostics de copropriété à {nom} — DGLM Expertises",
+          desc=desc_courte(f"Repérage amiante avant travaux, DTG et plan pluriannuel de travaux sur les copropriétés de {nom} ({c['cp']})."),
+          body=body,
+          schema=jsonld(org_schema(), breadcrumb(trail),
+                        {"@type": "Place", "name": nom,
+                         "address": {"@type": "PostalAddress",
+                                     "addressLocality": nom,
+                                     "postalCode": c["cp"],
+                                     "addressCountry": "FR"}}))
+    URLS.append((p, "0.8", "monthly", MAJ_STRUCTURE))
+
+
 def page_hub_ville(ville):
     vslug, vnom = ville["slug"], ville["nom"]
     quartiers = ville["quartiers"]
@@ -4648,6 +4703,14 @@ def main():
         page_hub_ville(ville)
         for q in ville["quartiers"]:
             page_quartier_ville(q, ville)
+
+    # Les communes sans découpage par quartier n'entraient dans aucune boucle :
+    # leurs textes existaient sans page pour les porter, et /eysines/ — le
+    # siège — répondait 404.
+    _avec_quartiers = {v["slug"] for v in QUARTIERS_PAR_VILLE} | {"bordeaux"}
+    for c in METROPOLE:
+        if c["slug"] not in _avec_quartiers:
+            page_commune(c)
     if contenus:
         page_hub_contenus(contenus)
         for i, c in enumerate(contenus):
