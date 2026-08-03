@@ -1453,11 +1453,25 @@ Bordeaux Métropole sous 72 heures.</p>
 
 
 # ------------------------------------------------------------------ zones
+def lien_commune(c):
+    """Le nom de la commune, lié à sa page quand elle en a une.
+
+    COMMUNES dépasse la métropole : la Gironde élargie et les Landes y
+    figurent sans page dédiée. Un lien vers une page inexistante casserait
+    le maillage aussi sûrement qu'une page orpheline.
+    """
+    if c["slug"] in METRO_SLUGS:
+        return ('<a href="/' + c['slug'] + '/">' + esc(c['nom']) + '</a>')
+    return esc(c["nom"])
+
 def page_zones():
     p = f"{SILO}/zones-d-intervention/"
     trail = [("Accueil", "/"), ("Zones d'intervention", p)]
+    # Le nom de la commune mène désormais à sa page : sans ce lien, les
+    # pages de commune resteraient orphelines, et le contrôle de maillage
+    # bloquerait le déploiement — à juste titre.
     lignes = "".join(f"""<div class="card"><span class="sigle">{c['cp']}</span>
-<h3>{esc(c['nom'])}</h3><p>{esc(c['parc'][:180])}…</p>
+<h3>{lien_commune(c)}</h3><p>{esc(c['parc'][:180])}…</p>
 <ul class="mesh" style="margin-top:.6rem">
 {"".join(f'<li><a href="{SILO}/{s["slug"]}/{c["slug"]}/">{s["sigle"]}</a></li>' for s in SERVICES)}
 </ul></div>""" for c in COMMUNES)
