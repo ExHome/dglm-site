@@ -58,8 +58,10 @@ jobs:
       - name: Ping des moteurs (IndexNow, en masse)
         continue-on-error: true
         run: |
+          # La clé est publique (elle est servie à la racine du site) : le
+          # secret n'est qu'un moyen de la surcharger, pas une condition.
           KEY="${{ secrets.INDEXNOW_KEY }}"
-          if [ -z "$KEY" ]; then echo "Pas de clé IndexNow — étape ignorée."; exit 0; fi
+          if [ -z "$KEY" ]; then KEY="edf67dcafdd8f3778243f8d9c952894a"; fi
           URLS=$(grep -oP '(?<=<loc>)[^<]+' site/sitemap.xml | head -1000)
           LIST=$(printf '"%s",' $URLS | sed 's/,$//')
           curl -s -X POST "https://api.indexnow.org/indexnow" \

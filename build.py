@@ -5,6 +5,11 @@ import json, os, shutil, sys, html, datetime, locale, hashlib
 # Empreinte de l'index de recherche, fixée par page_recherche() dès le début
 # du build : elle sert de numéro de version dans l'URL du fichier.
 IDX_V = "0"
+# Clé IndexNow — publique par construction (voir main()).
+INDEXNOW_KEY = "edf67dcafdd8f3778243f8d9c952894a"
+# Code de vérification de la Search Console : il suffira de le coller ici, la
+# balise apparaîtra alors sur les 248 pages. Vide = aucune balise émise.
+GOOGLE_VERIF = ""
 # Même mécanique pour la feuille de style, fixée par main() à la copie.
 # Sans elle, un visiteur déjà venu garde l'ancienne feuille en cache et ne voit
 # aucune correction de mise en page — constaté en production le 01/08/2026.
@@ -398,6 +403,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <meta name="theme-color" content="#093F30">
 <link rel="icon" href="/assets/logo-dglm-vert.png">
 <meta name="geo.region" content="FR-33"><meta name="geo.placename" content="Bordeaux">
+{f'<meta name="google-site-verification" content="{GOOGLE_VERIF}">' if GOOGLE_VERIF else ''}
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/style.css?v={CSS_V}">
 {head_extra}
@@ -4329,11 +4335,14 @@ def main():
     ecrire_llms(contenus)
     # Domaine personnalisé GitHub Pages : réécrit à chaque build pour ne pas être perdu.
     open(os.path.join(OUT, "CNAME"), "w", encoding="utf-8").write("www.dglmexpertises.fr\n")
-    # Fichier-clé IndexNow (déposé à la racine si le secret est fourni en CI),
-    # nécessaire pour la soumission en masse des URLs aux moteurs.
-    _cle = os.environ.get("INDEXNOW_KEY", "").strip()
-    if _cle:
-        open(os.path.join(OUT, _cle + ".txt"), "w", encoding="utf-8").write(_cle)
+    # Fichier-clé IndexNow, qui permet d'annoncer les pages à Bing, Yandex et
+    # aux moteurs qui les alimentent. Ce n'est PAS un secret : la clé est
+    # publiée telle quelle à la racine du site, c'est précisément ainsi qu'elle
+    # prouve que nous contrôlons le domaine. La loger dans un secret de dépôt
+    # n'apportait donc rien — et comme le secret n'a jamais été renseigné, la
+    # notification des moteurs était désactivée en silence depuis l'origine.
+    _cle = os.environ.get("INDEXNOW_KEY", "").strip() or INDEXNOW_KEY
+    open(os.path.join(OUT, _cle + ".txt"), "w", encoding="utf-8").write(_cle)
     print(f"{len(URLS)} URL indexables générées dans {OUT}")
 
 
