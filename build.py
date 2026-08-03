@@ -7,9 +7,10 @@ import json, os, shutil, sys, html, datetime, locale, hashlib
 IDX_V = "0"
 # Clé IndexNow — publique par construction (voir main()).
 INDEXNOW_KEY = "edf67dcafdd8f3778243f8d9c952894a"
-# Code de vérification de la Search Console : il suffira de le coller ici, la
-# balise apparaîtra alors sur les 248 pages. Vide = aucune balise émise.
+# Codes de vérification de propriété. ⚠️ Ne jamais les retirer : la validation
+# serait perdue et il faudrait tout recommencer. Vide = aucune balise émise.
 GOOGLE_VERIF = "kl7ROmpLgrYx6tsJfwytZgAs4TNMeZgMDoHiXYZ0_zw"
+BING_VERIF = "92999CEE195CD9F0D74ABC3B4B2516C4"
 # Même mécanique pour la feuille de style, fixée par main() à la copie.
 # Sans elle, un visiteur déjà venu garde l'ancienne feuille en cache et ne voit
 # aucune correction de mise en page — constaté en production le 01/08/2026.
@@ -404,6 +405,7 @@ def shell(*, path, title, desc, body, schema="", robots="index,follow", head_ext
 <link rel="icon" href="/assets/logo-dglm-vert.png">
 <meta name="geo.region" content="FR-33"><meta name="geo.placename" content="Bordeaux">
 {f'<meta name="google-site-verification" content="{GOOGLE_VERIF}">' if GOOGLE_VERIF else ''}
+{f'<meta name="msvalidate.01" content="{BING_VERIF}">' if BING_VERIF else ''}
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/style.css?v={CSS_V}">
 {head_extra}
