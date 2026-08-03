@@ -480,7 +480,7 @@ width="47" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <li><a href="/dpe-collectif-copropriete/">DPE collectif</a></li>
 <li><a href="/diagnostic-pemd/">Diagnostic PEMD</a></li></ul></div>
 <div><p class="foot-titre">Zones</p><ul>
-<li><a href="{SILO}/zones-d-intervention/">{len(COMMUNES)} communes, Gironde et Landes</a></li>
+<li><a href="{SILO}/zones-d-intervention/">Toute la Gironde et les Landes</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/bordeaux/">Bordeaux</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/merignac/">Mérignac</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/pessac/">Pessac</a></li></ul></div>
@@ -4240,7 +4240,7 @@ def page_plan(contenus):
               ("/contact/", "Contact"),
               ("/confidentialite/", "Confidentialité"),
               ("/questions/", "Toutes les questions fréquentes")]
-    zones = [("/zones-d-intervention/", f"Toutes les zones — {len(COMMUNES)} communes"),
+    zones = [("/zones-d-intervention/", "Toutes les zones — Gironde et Landes"),
              ("/bordeaux/", "Bordeaux et ses quartiers")]
     zones += [(f"/{v['slug']}/", f"{v['nom']} et ses quartiers") for v in QUARTIERS_PAR_VILLE]
 
