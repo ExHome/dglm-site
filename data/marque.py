@@ -135,9 +135,14 @@ EQUIPE = [
 # par le logiciel de messagerie du visiteur, avec le récapitulatif pré-rempli :
 # le site reste utilisable dès le premier jour.
 # ---------------------------------------------------------------------------
+# Relais d'envoi du formulaire. FormSubmit plutôt que Web3Forms : il ne
+# demande AUCUN compte ni clé — l'adresse de destination est l'identifiant, et
+# le service s'active en cliquant une fois le lien reçu par courriel. Web3Forms
+# exige désormais la création d'un compte, et sa formule gratuite refuse les
+# pièces jointes.
 FORMULAIRE = dict(
-    endpoint="https://api.web3forms.com/submit",
-    cle="",                                   # ⚠ à renseigner
+    endpoint="https://formsubmit.co/ajax/contact@dglmexpertises.fr",
+    cle="formsubmit",          # pas une clé secrète : un simple drapeau d'activation
     destinataire="contact@dglmexpertises.fr",
     objet="Demande de devis — site copropriété",
 )

@@ -480,14 +480,15 @@ width="47" height="44" fetchpriority="high"><span>{E['baseline']}</span></a>
 <li><a href="/dpe-collectif-copropriete/">DPE collectif</a></li>
 <li><a href="/diagnostic-pemd/">Diagnostic PEMD</a></li></ul></div>
 <div><p class="foot-titre">Zones</p><ul>
-<li><a href="{SILO}/zones-d-intervention/">56 communes, Gironde et Landes</a></li>
+<li><a href="{SILO}/zones-d-intervention/">{len(COMMUNES)} communes, Gironde et Landes</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/bordeaux/">Bordeaux</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/merignac/">Mérignac</a></li>
 <li><a href="{SILO}/{SERVICES[0]['slug']}/pessac/">Pessac</a></li></ul></div>
 <div><p class="foot-titre">Contact</p><ul>
 <li><a href="tel:{E['tel_raw']}">{E['tel']}</a></li>
 <li><a href="mailto:{E['email']}">{E['email']}</a></li>
-<li><a href="/equipe/">Notre équipe certifiée</a></li>
+<li><a href="/contact/">Nous joindre — horaires et adresse</a></li>
+<li><a href="/equipe/">Notre équipe</a></li>
 <li><a href="{E['google_avis']}" target="_blank" rel="noopener">Nos avis Google ★</a></li>
 <li><a href="{E['diagadvisor']}" target="_blank" rel="noopener">Avis DiagAdvisor ★</a></li>
 <li>{E['rue']}<br>{E['cp']} {E['ville']}</li></ul></div>
@@ -499,6 +500,7 @@ Page à jour en {MAJ} ·
 <a href="/notre-methode-editoriale/">Méthode éditoriale</a> ·
 <a href="/certifications-et-assurances/">Certifications et assurances</a> ·
 <a href="/mentions-legales/">Mentions légales</a> ·
+<a href="/confidentialite/">Confidentialité</a> ·
 <a href="/particuliers/">{E['site_a_ancre']}</a> ·
 Photos d'architecture : Bétium217, Symac — <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA</a>, via Wikimedia Commons</p>
 </div></footer>
@@ -515,6 +517,14 @@ Appeler</a>
 
 def write(path, content):
     rel = path.strip("/")
+    # La page d'erreur doit s'appeler 404.html À LA RACINE : c'est le seul
+    # fichier que l'hébergeur sert en cas d'adresse inconnue. Écrite en
+    # /404/index.html, elle existait sans jamais être utilisée, et le visiteur
+    # tombait sur la page d'erreur anglaise de GitHub.
+    if rel == "404":
+        with open(os.path.join(OUT, "404.html"), "w", encoding="utf-8") as f:
+            f.write(content)
+        return
     d = os.path.join(OUT, rel) if rel else OUT
     os.makedirs(d, exist_ok=True)
     with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
@@ -1565,10 +1575,12 @@ def page_mentions():
     p = "/mentions-legales/"
     body = f"""<section class="band"><div class="wrap prose">
 <h1>Mentions légales</h1>
-<h2>Éditeur</h2><p><strong>{E['nom']}</strong> est une marque exploitée par
-{E['societe']}, société immatriculée sous le SIRET {E['siret']} — {E['rcs']}.</p>
-<p>Établissement : {E['rue']}, {E['cp']} {E['ville']}.<br>
+<h2>Éditeur</h2><p><strong>{E['nom']}</strong>, société à responsabilité limitée
+au capital de 1 500 €, immatriculée sous le SIRET {E['siret']} — {E['rcs']},
+numéro de TVA intracommunautaire FR60891287070.</p>
+<p>Siège social : {E['rue']}, {E['cp']} {E['ville']}.<br>
 Téléphone : {E['tel']} — Courriel : {E['email']}.</p>
+<p>Directrice de la publication : Aude de Gentile, cogérante.</p>
 <h2>Activités distinctes</h2><p>{E['nom']} intervient exclusivement sur les missions de
 copropriété, de travaux et de démolition : repérage amiante avant travaux et avant
 démolition, diagnostic technique global, plan pluriannuel de travaux.</p>
@@ -1583,14 +1595,103 @@ domaines et dates de validité :
 <h2>Médiation de la consommation</h2><p>Conformément à l'ordonnance n° 2015-1033 du
 20 août 2015, nos clients consommateurs ont accès à un dispositif de médiation de la
 consommation, proposé par l'Alliance du Diagnostic Immobilier dont nous sommes membres.</p>
-<h2>Hébergement</h2><p>À compléter avant mise en ligne.</p>
-<h2>Données personnelles</h2><p>Les informations transmises via le formulaire de contact
-sont utilisées uniquement pour répondre à votre demande et établir un devis. Vous disposez
-d'un droit d'accès, de rectification et de suppression en écrivant à {E['email']}.</p>
+<h2>Hébergement</h2><p>Ce site est hébergé par <strong>GitHub, Inc.</strong>,
+88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis
+(<a href="https://github.com" rel="noopener">github.com</a>). Il est composé de fichiers
+statiques : aucune base de données, aucun traitement n'est exécuté sur le serveur.</p>
+<h2>Propriété intellectuelle</h2><p>Les textes, schémas, illustrations et photographies
+de ce site sont la propriété de {E['nom']}, à l'exception des photographies
+d'architecture créditées en pied de page. Toute reproduction sans autorisation
+est interdite.</p>
+<h2>Données personnelles</h2><p>Le détail des traitements, de leur base légale et de
+leurs durées de conservation figure sur la page
+<a href="/confidentialite/">confidentialité</a>. En résumé : les informations transmises
+par le formulaire ne servent qu'à répondre à votre demande et à établir un devis, elles
+ne sont ni vendues ni cédées, et vous pouvez à tout moment en demander l'accès, la
+rectification ou la suppression en écrivant à {E['email']}.</p>
 </div></section>"""
     shell(path=p, title=f"Mentions légales — {E['nom']}",
           desc="Mentions légales de DGLM Expertises.", body=body,
           schema=jsonld(org_schema()), robots="noindex,follow", chapitres=False)
+    URLS.append((p, "0.3", "yearly", MAJ_STRUCTURE))
+
+
+def page_confidentialite():
+    """Ce que deviennent les données du formulaire. Obligatoire dès lors qu'on
+    demande un règlement de copropriété ou un PV d'assemblée — et attendu par
+    le service conformité d'un syndic."""
+    p = "/confidentialite/"
+    trail = [("Accueil", "/"), ("Confidentialité", p)]
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Ce que deviennent vos données</p>
+<h1>Confidentialité</h1>
+<p class="lede">Ce site ne dépose aucun traceur et ne mesure pas votre navigation.
+Les seules données que nous détenons sont celles que vous nous transmettez
+volontairement, pour une demande de devis ou une prise de contact.</p></div></section>
+
+<section class="band"><div class="wrap prose">
+<p class="enclair"><span>L'antisèche</span>Aucun cookie, aucune publicité, aucun partage
+avec un tiers à des fins commerciales. Vos documents de copropriété servent à chiffrer
+votre mission, et à rien d'autre.</p>
+
+<h2>Qui est responsable</h2>
+<p>{E['nom']}, {E['rue']}, {E['cp']} {E['ville']}, SIRET {E['siret']}. Pour toute
+question ou demande relative à vos données : <a href="mailto:{E['email']}">{E['email']}</a>.</p>
+
+<h2>Ce que nous collectons, et pourquoi</h2>
+<dl class="fiche">
+<div><dt>Formulaire de devis</dt><dd>Nom, société, courriel, téléphone, adresse du bien,
+description de la mission, et les pièces que vous choisissez de joindre (règlement de
+copropriété, carnet d'entretien, procès-verbaux, plans, diagnostics antérieurs).
+<b>Finalité</b> : établir le devis et préparer l'intervention. <b>Base légale</b> :
+mesures précontractuelles prises à votre demande.</dd></div>
+<div><dt>Courriel et téléphone</dt><dd>Ce que vous nous écrivez ou nous dites.
+<b>Finalité</b> : vous répondre. <b>Base légale</b> : votre demande.</dd></div>
+<div><dt>Navigation</dt><dd><b>Rien.</b> Pas de cookie, pas de mesure d'audience, pas de
+bouton de réseau social, aucune requête vers un service extérieur. Notre hébergeur
+conserve des journaux techniques d'accès, comme tout serveur, à des fins de sécurité.</dd></div>
+</dl>
+
+<h2>Combien de temps nous les gardons</h2>
+<ul class="checklist">
+<li><b>Demande sans suite</b> — 12 mois, puis suppression, pièces jointes comprises.</li>
+<li><b>Mission réalisée</b> — les données du dossier sont conservées le temps de notre
+responsabilité professionnelle, soit 10 ans, conformément aux obligations qui pèsent sur
+les rapports de diagnostic.</li>
+<li><b>Comptabilité</b> — 10 ans, obligation légale.</li>
+</ul>
+
+<h2>Qui y a accès</h2>
+<p>Nos diagnostiqueurs et notre assistante de direction, pour les besoins de la mission.
+Nos prestataires techniques, et eux seuls : l'hébergeur du site (GitHub, Inc.), le
+service qui achemine le formulaire jusqu'à notre boîte (FormSubmit, Aleyda Solutions —
+il transmet le message et ne le conserve pas), et notre fournisseur de messagerie
+professionnelle (Microsoft). Le laboratoire d'analyses accrédité, uniquement pour les
+prélèvements, sans donnée personnelle. <b>Vos données ne sont ni vendues, ni louées, ni
+cédées à des fins commerciales.</b></p>
+
+<h2>Vos droits</h2>
+<p>Vous pouvez demander l'accès à vos données, leur rectification, leur effacement, la
+limitation de leur traitement, leur portabilité, ou vous opposer à un traitement. Écrivez
+à <a href="mailto:{E['email']}">{E['email']}</a> : nous répondons sous un mois.</p>
+<p>Si notre réponse ne vous satisfait pas, vous pouvez saisir la Commission nationale de
+l'informatique et des libertés : <a href="https://www.cnil.fr/fr/plaintes"
+rel="noopener">cnil.fr/fr/plaintes</a>, ou CNIL, 3 place de Fontenoy, TSA 80715,
+75334 Paris Cedex 07.</p>
+
+<h2>Sécurité</h2>
+<p>Le site est servi exclusivement en HTTPS. Les pièces que vous joignez transitent par
+notre messagerie professionnelle et ne sont jamais déposées sur ce site, qui ne dispose
+d'aucun espace de stockage.</p>
+<p class="maj">Politique en vigueur en {MAJ} — toute modification est datée ici.</p>
+</div></section>
+{cta()}"""
+    shell(path=p, title="Confidentialité et données personnelles — DGLM Expertises",
+          desc=desc_courte("Aucun traceur, aucun cookie. Ce que deviennent les données "
+                           "que vous nous transmettez, combien de temps, et vos droits."),
+          body=body, schema=jsonld(org_schema(), breadcrumb(trail)))
+    URLS.append((p, "0.3", "yearly", MAJ_STRUCTURE))
 
 
 
@@ -2331,7 +2432,7 @@ def page_equipe():
         personnes.append(pers)
     body = f"""{crumb_html(trail)}
 <section class="hero hero--page"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Sept personnes, quatre diagnostiqueurs certifiés sur le terrain</p>
+<p class="eyebrow eyebrow--pale">Sept personnes, cinq certifications individuelles</p>
 <h1>Des noms, des visages, et des signatures au bas des rapports.</h1>
 <p class="lede">Fondée en 2020 par Aude de Gentile et Thibault Le Moine, la maison réunit sept
 personnes, dont quatre diagnostiqueurs certifiés qui interviennent sur le terrain.
@@ -2355,7 +2456,7 @@ compétences qu'ils exercent. Plutôt que de les tenir « à disposition », nou
 les numéros de certification, les domaines couverts et leurs dates de validité :
 <a href="/certifications-et-assurances/">voir nos certifications et notre assurance</a>.</p>
 <h2>Fédération professionnelle</h2>
-<p>DGLM Expertises est membre de la {E['federation']}.</p>
+<p>DGLM Expertises est membre de l'{E['federation']}.</p>
 <h2>Analyses en laboratoire</h2>
 <p>Tous les prélèvements sont analysés en laboratoire accrédité COFRAC. Aucun matériau n'est classé « présumé amianté » par commodité : le doute se lève
 par l'analyse.</p>
@@ -4137,8 +4238,9 @@ def page_plan(contenus):
               ("/equipe/", "Notre équipe"),
               ("/notre-methode-editoriale/", "Notre méthode éditoriale"),
               ("/contact/", "Contact"),
+              ("/confidentialite/", "Confidentialité"),
               ("/questions/", "Toutes les questions fréquentes")]
-    zones = [("/zones-d-intervention/", "Toutes les zones — 56 communes"),
+    zones = [("/zones-d-intervention/", f"Toutes les zones — {len(COMMUNES)} communes"),
              ("/bordeaux/", "Bordeaux et ses quartiers")]
     zones += [(f"/{v['slug']}/", f"{v['nom']} et ses quartiers") for v in QUARTIERS_PAR_VILLE]
 
@@ -4332,6 +4434,7 @@ def main():
     page_equipe()
     page_contact()
     page_mentions()
+    page_confidentialite()
     page_404()
     sitemap()
     ecrire_llms(contenus)

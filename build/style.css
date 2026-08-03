@@ -588,6 +588,32 @@ main{counter-reset:planche}
   .film__l{grid-template-columns:3.6rem 1fr;gap:.35rem .7rem}
 }
 
+/* ---------- le doigt, pas la souris ---------- */
+/* Un audit a relevé 88 zones cliquables sous 44 px de haut. La cible de ce
+   site — conseils syndicaux, souvent au-delà de 55 ans — clique au doigt sur
+   un téléphone. On ne change ni la taille du texte ni la mise en page : on
+   agrandit la surface atteignable. */
+@media (pointer:coarse){
+  .ancres a{padding-block:.72rem}
+  .crumb a,.crumb span{display:inline-block;padding-block:.45rem}
+  .legalline a,.foot a,.sources a,.relu__r a{display:inline-block;padding-block:.35rem}
+  .sommaire-art a,.sommaire a,.mesh a,.mesh--plain{display:inline-block;padding-block:.4rem}
+  .film__x summary,.volet summary,details summary{padding-block:.5rem}
+  .navq button,.navq input{min-height:44px}
+}
+
+/* le panneau de repli du formulaire : ce qu'on voit quand l'envoi échoue */
+.repli__t{font-family:var(--display);font-size:1.12rem;margin:0 0 .5rem}
+.repli__d{margin:.5rem 0 0;font-size:.93rem}
+.repli__tel{margin:.3rem 0 .2rem}
+.repli__tel a{font-family:var(--display);font-size:1.7rem;font-weight:600;
+  color:var(--vert);text-decoration:none;border-bottom:2px solid var(--or)}
+.repli__b{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0 0}
+.repli__x{margin-top:.9rem}
+.repli__r{white-space:pre-wrap;font-size:.82rem;line-height:1.5;margin:.6rem 0 0;
+  max-height:16rem;overflow:auto;background:var(--blanc);padding:.8rem;
+  border:1px solid var(--rule-fine)}
+
 /* ---------- responsabilité éditoriale ---------- */
 /* Ce qui fait la preuve, ce n'est pas le ton du texte : c'est un nom que l'on
    peut relier à un visage et à un certificat vérifiable. Les deux liens sont

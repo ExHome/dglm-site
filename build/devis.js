@@ -577,21 +577,31 @@
     if (!CFG.cle) return replier();
 
     var data = new FormData(form);
-    data.append("access_key", CFG.cle);
-    data.append("subject", CFG.objet + " — " + MISSIONS[choix].nom);
-    data.append("from_name", "Site DGLM Expertises");
+    /* Champs attendus par le relais. _captcha:false evite la page
+       intermediaire de verification, _template:table met en forme le courriel,
+       _subject porte la mission choisie pour un tri immediat en boite. */
+    data.append("_subject", CFG.objet + " — " + MISSIONS[choix].nom);
+    data.append("_captcha", "false");
+    data.append("_template", "table");
+    data.append("_replyto", (form.elements.courriel && form.elements.courriel.value) || "");
     data.append("recapitulatif", texte());
-    /* Les pièces partent avec la demande si le relais accepte les fichiers
-       (offre Pro). Sinon le service ignore ces champs et le récapitulatif
-       en garde la liste — le client les envoie alors par retour d'e-mail. */
-    pieces.forEach(function (p, i) {
-      data.append("piece_" + (i + 1), p.fichier, p.fichier.name);
-    });
+    /* Le canal d'envoi n'accepte pas les fichiers : on transmet leur LISTE,
+       et le message de succes demande de les envoyer par retour de courriel.
+       La demande, elle, part dans tous les cas. */
+    if (pieces.length) {
+      data.append("pieces_annoncees", pieces.map(function (p) {
+        return p.fichier.name + " (" + Math.round(p.fichier.size / 1024) + " Ko)";
+      }).join(" · "));
+    }
 
-    fetch(CFG.endpoint, { method: "POST", body: data })
+    fetch(CFG.endpoint, { method: "POST", headers: { Accept: "application/json" }, body: data })
       .then(function (r) { return r.json(); })
       .then(function (r) {
-        if (!r.success) throw new Error(r.message || "échec");
+        /* Le relais repond success:"true" (chaine) quand la demande est partie.
+           Tant que la boite n'a pas valide le courriel d'activation, il repond
+           « needs Activation » : on bascule alors sur le panneau de repli,
+           qui donne le telephone — le visiteur n'est jamais laisse sans issue. */
+        if (String(r.success) !== "true") throw new Error(r.message || "échec");
         succes();
       })
       .catch(replier);
@@ -605,24 +615,42 @@
   }
 
   function replier() {
-    /* Relais indisponible ou non configuré : on passe par la messagerie du
-       visiteur, avec le récapitulatif complet déjà rédigé. Rien n'est perdu. */
+    /* Pas de relais d'envoi configuré. On n'ouvre SURTOUT PAS la messagerie
+       d'office : chez un visiteur qui utilise sa boîte dans son navigateur,
+       cela ne produit rien du tout et il croit sa demande partie. On affiche
+       donc une marche à suivre explicite, avec le téléphone d'abord. */
     var sujet = encodeURIComponent(CFG.objet + " — " + MISSIONS[choix].nom);
     var corps = encodeURIComponent(texte());
     var lien = "mailto:" + CFG.destinataire + "?subject=" + sujet + "&body=" + corps;
     etat.className = "devis__etat devis__etat--warn";
-    etat.innerHTML = 'Votre logiciel de messagerie va s\'ouvrir avec la demande ' +
-      'pré-remplie. <a href="' + lien + '">Ouvrir maintenant</a> — ou ' +
-      '<button type="button" id="copier" class="lien">copier le récapitulatif</button>.' +
-      (pieces.length ? '<br><strong>N\'oubliez pas de joindre votre dossier ' +
-        nomDossier() + '</strong> — préparez-le avec le bouton ci-dessus s\'il ' +
-        'n\'est pas encore enregistré.' : '');
+    etat.innerHTML =
+      '<p class="repli__t">Votre demande est prête. Il reste à nous la transmettre.</p>' +
+      '<p class="repli__d">Le plus rapide, et nous répondons tout de suite :</p>' +
+      '<p class="repli__tel"><a href="tel:' + CFG.tel_raw + '">' + CFG.tel + '</a></p>' +
+      '<p class="repli__d">Ou envoyez-la par courriel à ' +
+      '<a href="mailto:' + CFG.destinataire + '"><b>' + CFG.destinataire + '</b></a> :</p>' +
+      '<p class="repli__b">' +
+      '<button type="button" id="copier" class="btn">Copier ma demande</button> ' +
+      '<a class="btn btn--ghost" href="' + lien + '">Ouvrir ma messagerie</a></p>' +
+      (pieces.length
+        ? '<p class="repli__d"><strong>Vos ' + pieces.length + ' pièce(s) :</strong> ' +
+          'joignez le dossier ' + nomDossier() + ' à votre courriel — ' +
+          'préparez-le avec le bouton « Préparer mon dossier » ci-dessus s\'il ' +
+          'n\'est pas encore enregistré.</p>'
+        : '') +
+      '<details class="repli__x"><summary>Relire ma demande</summary>' +
+      '<pre class="repli__r"></pre></details>';
+    var pre = etat.querySelector(".repli__r");
+    if (pre) pre.textContent = texte();
     document.getElementById("devis-submit").disabled = false;
-    try { window.location.href = lien; } catch (x) {}
+    etat.scrollIntoView({ behavior: "smooth", block: "center" });
     var c = document.getElementById("copier");
     if (c) c.addEventListener("click", function () {
       navigator.clipboard.writeText(texte()).then(function () {
-        c.textContent = "récapitulatif copié";
+        c.textContent = "Demande copiée ✓";
+      }, function () {
+        if (pre) { pre.parentNode.open = true; pre.scrollIntoView({ block: "center" }); }
+        c.textContent = "Sélectionnez le texte ci-dessous";
       });
     });
   }
