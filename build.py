@@ -505,6 +505,7 @@ Page à jour en {MAJ} ·
 <a href="/notre-methode-editoriale/">Méthode éditoriale</a> ·
 <a href="/certifications-et-assurances/">Certifications et assurances</a> ·
 <a href="/mentions-legales/">Mentions légales</a> ·
+<a href="/avis/">Avis clients</a> ·
 <a href="/confidentialite/">Confidentialité</a> ·
 <a href="/particuliers/">{E['site_a_ancre']}</a> ·
 Photos d'architecture : Bétium217, Symac — <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" rel="noopener">CC BY-SA</a>, via Wikimedia Commons</p>
@@ -973,15 +974,16 @@ certifiés, et un métier appris avant d'être vendu.</p>
 <a class="btn btn--light" href="/equipe/">Qui intervient</a></div>
 </div></section>
 
-<section class="band band--dark"><div class="wrap">
-<p class="eyebrow eyebrow--pale">Ils nous font confiance</p>
-<h2>Notés 4,9 sur 5 par ceux qui nous confient leurs immeubles.</h2>
-<p class="narrow" style="color:rgba(248,245,238,.84)">Plus d'une centaine d'avis publics, déposés par des syndics, des conseils
-syndicaux et des propriétaires. Nous les lisons tous : c'est la meilleure
-relecture de nos rapports.</p>
+<section class="band band--pale"><div class="wrap">
+<p class="eyebrow">Ils nous font confiance</p>
+<h2>123 avis vérifiés, et nous n'en choisissons aucun.</h2>
+<p class="narrow">Sur DiagAdvisor, la plateforme d'avis vérifiés du métier, chaque avis
+est rattaché à une mission réellement facturée : nous ne pouvons ni les trier, ni les
+supprimer. En voici trois, pris dans l'ordre de publication.</p>
+{avis_html(3)}
 <div class="actions" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem">
-<a class="btn btn--light" href="{E['google_avis']}" rel="noopener">Lire les avis Google</a>
-<a class="btn btn--light" href="{E['diagadvisor']}" rel="noopener">Avis certifiés DiagAdvisor</a></div>
+<a class="btn btn--light" href="/avis/">Lire les avis sur le site</a>
+<a class="btn btn--light" href="{E['diagadvisor']}" rel="noopener">Les 123 avis vérifiés</a></div>
 </div></section>
 
 <section class="band band--dark"><div class="wrap">
@@ -1023,7 +1025,7 @@ Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à v
 </div></section>
 {cta()}"""
 
-    shell(path="/", title="RAAT, RAAD, DTG, PPPT à Bordeaux — DGLM Expertises",
+    shell(path="/", title="Diagnostic immobilier en copropriété à Bordeaux — DGLM",
           head_extra='<link rel="preload" as="image" href="/assets/photos/hero-immeuble.jpg">',
           desc="Repérage amiante avant travaux et avant démolition, diagnostic technique "
                "global, plan pluriannuel de travaux. Bordeaux Métropole, devis sous 2 h.",
@@ -1635,6 +1637,94 @@ rectification ou la suppression en écrivant à {E['email']}.</p>
           desc="Mentions légales de DGLM Expertises.", body=body,
           schema=jsonld(org_schema()), robots="noindex,follow", chapitres=False)
     URLS.append((p, "0.3", "yearly", MAJ_STRUCTURE))
+
+
+# Avis relevés le 03/08/2026 sur DiagAdvisor, plateforme d'avis vérifiés du
+# métier : chaque avis y est rattaché à une mission facturée, contrairement à
+# un avis libre. Reproduits mot pour mot, sans corriger l'orthographe, dans
+# l'ordre de publication. Aucun n'est écarté — voir page_avis().
+AVIS = [
+    ("Agréable et professionnel",
+     "Expert sympathique, professionnel et efficace, en plus d'être dévoué car DPE "
+     "réalisé la journée de la demande.", "Vincent D.", "07/07/2026"),
+    ("Très professionnel",
+     "Rapide efficace, professionnel. A recommander", "Corinne B.", "19/06/2026"),
+    ("Cordial et professionnel",
+     "Excellent contact avec l'expert, très professionnel et sympathique. Bon contact "
+     "aussi avec l'accueil du bureau.", "Helyette B.", "04/06/2026"),
+    ("Parfait !",
+     "L'expertise a été faite avec serieux. Le technicien est très sympatique et pro.",
+     "Frédéric V.", "03/06/2026"),
+    ("Excellent travail",
+     "Rapide, efficace sans aucun oubli. Très bon contact avec l'expert. A recommander",
+     "Daniel et Marie-France A.", "13/05/2026"),
+    ("Un excellent travail et des personnes charmantes",
+     "L'expertise m'a semblé réalisée de manière très professionnelle et les contacts "
+     "avec l'expert ainsi qu'au téléphone ont été très cordiaux.", "Sébastien K.", "28/04/2026"),
+    ("Intervention très satisfaisante",
+     "Intervenant professionnel et efficace.", "El Hassani", "15/04/2026"),
+    ("Très bon travail",
+     "Visite faite très proffessionnelement.", "Françoise B.", "12/04/2026"),
+    ("Très bon travail",
+     "Merci de votre réactivitée & de votre service.", "Eric D.", "09/04/2026"),
+    ("Très bon travail",
+     "Rendez-vous pris rapidement et visite réalisée avec professionnalisme.",
+     "Christine et Eric L.", "01/04/2026"),
+]
+
+
+def avis_html(n=3):
+    """Quelques avis, tels quels. Pas de note agrégée déclarée en données
+    structurées : une note qu'on s'attribue à soi-même ne prouve rien, et
+    Google la sanctionne."""
+    cartes = "".join(
+        f'<figure class="avis"><blockquote><p class="avis__t">{esc(t)}</p>'
+        f'<p>{esc(corps)}</p></blockquote>'
+        f'<figcaption>{esc(qui)} · {esc(quand)}</figcaption></figure>'
+        for t, corps, qui, quand in AVIS[:n])
+    return f'<div class="avis__l">{cartes}</div>'
+
+
+def page_avis():
+    """Tous les avis, sans tri. La transparence est ici un argument : le site
+    concurrent filtre les siens à quatre étoiles minimum."""
+    p = "/avis/"
+    trail = [("Accueil", "/"), ("Avis clients", p)]
+    tous = "".join(
+        f'<figure class="avis"><blockquote><p class="avis__t">{esc(t)}</p>'
+        f'<p>{esc(corps)}</p></blockquote>'
+        f'<figcaption>{esc(qui)} · {esc(quand)}</figcaption></figure>'
+        for t, corps, qui, quand in AVIS)
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">123 avis vérifiés · 4,9 sur 5 sur Google</p>
+<h1>Ce que disent nos clients</h1>
+<p class="lede">Nous n'en choisissons aucun. Les avis ci-dessous sont ceux de
+DiagAdvisor, la plateforme d'avis vérifiés du diagnostic immobilier : chaque
+avis y est rattaché à une mission réellement facturée, et nous ne pouvons ni
+les filtrer ni les supprimer.</p></div></section>
+
+<section class="band"><div class="wrap">
+<p class="enclair"><span>Ce que nous ne faisons pas</span>Nous n'affichons pas de note
+que nous nous serions attribuée nous-mêmes, et nous ne masquons pas les avis les moins
+élogieux. Les deux plateformes sont ouvertes : vous pouvez y lire l'intégralité,
+y compris ce qui n'est pas repris ici.</p>
+{tous}
+<div class="actions" style="margin-top:2rem">
+<a class="btn btn--light" href="{E['diagadvisor']}" rel="noopener">Les 123 avis vérifiés sur DiagAdvisor</a>
+<a class="btn btn--light" href="{E['google_avis']}" rel="noopener">Nos avis Google</a></div>
+<p class="maj">Avis relevés le {MAJ_JOUR}. Ils portent sur l'ensemble de notre activité
+depuis 2021 — vente, location, copropriété et travaux confondus. Notre activité en
+copropriété étant récente, la plupart concernent des missions de vente ou de location :
+nous préférons le dire plutôt que de laisser croire le contraire.</p>
+</div></section>
+{cta()}"""
+    shell(path=p, title="Avis clients vérifiés — DGLM Expertises Bordeaux",
+          desc=desc_courte("123 avis vérifiés sur DiagAdvisor et 4,9 sur 5 sur Google. "
+                           "Nous n'en sélectionnons aucun et n'affichons aucune note "
+                           "auto-déclarée."),
+          body=body, schema=jsonld(org_schema(), breadcrumb(trail)))
+    URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
 def page_confidentialite():
@@ -4072,6 +4162,24 @@ complètement, vous nous évitez un rappel préalable : nous chiffrons directeme
 <div class="actions"><a class="btn btn--light" href="/aide-au-devis/">Quels documents joindre ? La liste →</a></div>
 </div></section>
 
+<section class="band band--pale"><div class="wrap prose">
+<h2>Pourquoi vous ne trouverez pas de tarif sur ce site</h2>
+<p>Vous cherchez sans doute un ordre de prix, et vous ne le trouverez nulle part ici.
+Ce n'est pas une manœuvre pour vous faire appeler : en copropriété, un tarif affiché
+serait faux neuf fois sur dix.</p>
+<p>Le prix d'une mission collective dépend de choses qu'aucune grille ne capture :
+le nombre de lots et de bâtiments, l'année de construction, l'accès aux combles, aux
+sous-sols et aux gaines techniques, le nombre de prélèvements que le bâti impose, les
+documents que la copropriété possède déjà — un dossier technique amiante à jour change
+tout — et la nécessité ou non de repasser après travaux. Deux immeubles voisins de
+même taille peuvent aller du simple au double.</p>
+<p>Nous préférons donc chiffrer votre immeuble plutôt que de vous vendre une moyenne.
+<strong>Remplissez le questionnaire ci-dessous : vous avez votre prix, ferme et détaillé,
+sous deux heures ouvrées.</strong> Et si vous comparez plusieurs propositions, notre
+<a href="/aide-au-devis/">aide au devis</a> vous donne les points à vérifier pour que la
+comparaison porte sur le même périmètre — c'est là que les écarts se cachent.</p>
+</div></section>
+
 <section class="band"><div class="wrap">
 <h2>Votre demande</h2>
 <form id="devis" class="devis" novalidate>
@@ -4259,6 +4367,7 @@ def page_plan(contenus):
               ("/equipe/", "Notre équipe"),
               ("/notre-methode-editoriale/", "Notre méthode éditoriale"),
               ("/contact/", "Contact"),
+              ("/avis/", "Avis clients vérifiés"),
               ("/confidentialite/", "Confidentialité"),
               ("/questions/", "Toutes les questions fréquentes")]
     zones = [("/zones-d-intervention/", "Toutes les zones — Gironde et Landes"),
@@ -4456,6 +4565,7 @@ def main():
     page_contact()
     page_mentions()
     page_confidentialite()
+    page_avis()
     page_404()
     sitemap()
     ecrire_llms(contenus)
