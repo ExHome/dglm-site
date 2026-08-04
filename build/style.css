@@ -1411,3 +1411,51 @@ details summary{font-size:1.08rem}
    pages existent mais ne sont pas indexables, un lien n'y mènerait à rien. */
 .mesh--muet{color:var(--gris);font-size:.82rem;letter-spacing:.04em;
   list-style:none;padding:0}
+
+/* Le formulaire de fin de simulateur. Le visiteur vient de répondre à six
+   questions : on ne lui redemande que ce qu'il n'a pas encore dit. */
+.simu__form{display:grid;gap:.9rem;margin:1.4rem 0 0}
+.simu__champ{display:grid;gap:.32rem}
+.simu__lab{font-size:.88rem;color:var(--or-pale);letter-spacing:.02em}
+.simu__lab i{color:var(--or-clair);font-style:normal;margin-left:.2rem}
+.simu__form input{width:100%;padding:.82rem .95rem;border-radius:10px;
+  border:1px solid rgba(250,248,243,.28);background:rgba(250,248,243,.07);
+  color:var(--creme);font:inherit;font-size:1rem;
+  transition:border-color .18s,background .18s}
+.simu__form input::placeholder{color:rgba(250,248,243,.42)}
+.simu__form input:focus{outline:none;border-color:var(--or);
+  background:rgba(250,248,243,.12)}
+.simu__form input.simu--vide{border-color:#E2A08A}
+.simu__envoi{margin-top:.5rem;justify-self:start}
+.simu__rgpd{font-size:.82rem;color:rgba(250,248,243,.68);margin:.2rem 0 0;line-height:1.55}
+.simu__rgpd a{color:var(--or-clair)}
+.simu__etat{font-size:.92rem;margin-top:.7rem;line-height:1.6}
+.simu__etat--warn{color:#F2C9B4;background:rgba(255,255,255,.07);
+  padding:.8rem .95rem;border-radius:10px;border-left:3px solid #E2A08A}
+.simu__etat a{color:var(--or-clair)}
+.simu__copier{background:none;border:1px solid rgba(250,248,243,.4);color:var(--creme);
+  border-radius:8px;padding:.34rem .7rem;font:inherit;font-size:.86rem;cursor:pointer;
+  margin-left:.3rem}
+.simu__copier:hover{border-color:var(--or)}
+.simu__ok{font-size:1.02rem;line-height:1.65}
+.simu__ok a{color:var(--or-clair)}
+.simu__ou{margin-top:1rem;font-size:.94rem;color:rgba(250,248,243,.8)}
+.simu__ou a{color:var(--or-clair);font-weight:600}
+@media(min-width:34rem){
+  .simu__form{grid-template-columns:1fr 1fr}
+  .simu__form .simu__champ:nth-child(4),
+  .simu__form .simu__envoi,.simu__form .simu__rgpd,.simu__form .simu__etat{grid-column:1/-1}
+}
+
+/* La case « être rappelé » : le visiteur a déjà son résultat, il choisit
+   ensuite comment il veut être joint — ou s'il veut l'être. */
+.simu__coche{display:flex;align-items:flex-start;gap:.65rem;cursor:pointer;
+  grid-column:1/-1;padding:.7rem .9rem;border-radius:10px;
+  background:rgba(250,248,243,.06);border:1px solid rgba(250,248,243,.18);
+  transition:border-color .18s,background .18s}
+.simu__coche:hover{border-color:var(--or);background:rgba(250,248,243,.1)}
+.simu__coche input{width:1.15rem;height:1.15rem;flex:0 0 auto;margin-top:.12rem;
+  accent-color:var(--or)}
+.simu__coche span{font-size:.95rem;color:var(--creme);line-height:1.5}
+.simu__creneau{grid-column:1/-1}
+.simu__creneau[hidden]{display:none}

@@ -4668,7 +4668,8 @@ immeuble.</p>
                "dossier, et pourquoi chacun est dû.",
           body=body, schema="", robots="noindex,follow", chapitres=False,
           head_extra=('<script>window.DGLM_PART={"tel":"'+E["tel"]+'",'
-                      '"tel_raw":"'+E["tel_raw"]+'","email":"'+E["email"]+'"};</script>'
+                      '"tel_raw":"'+E["tel_raw"]+'","email":"'+E["email"]+'",'
+                      '"endpoint":"'+FORMULAIRE["endpoint"]+'"};</script>'
                       '<script src="/assets/particuliers.js?v='+CSS_V+'" defer></script>'))
 
 
