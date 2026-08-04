@@ -336,37 +336,7 @@
         + r.hors.map(function (x) { return ligne(x, "simu--hors"); }).join("") + "</ul>";
     }
 
-    /* La demande de devis. Le visiteur vient de répondre à six questions :
-       il serait absurde de lui redemander ce qu'il a déjà dit. Le récapitulatif
-       part avec le formulaire, et nous chiffrons sans rappeler. */
-    h += '<div class="simu__fin">'
-      + '<p class="simu__fin-t">Nous établissons ce dossier.</p>'
-      + "<p>Il nous manque trois choses pour vous répondre avec un prix ferme : "
-      + "où se trouve le bien, sa surface, et comment vous joindre. Le reste, "
-      + "vous venez de nous le dire.</p>"
-      + '<form class="simu__form" novalidate>'
-      + champ("nom", "Votre nom", "text", "Prénom et nom", true)
-      + champ("tel", "Votre téléphone", "tel", "06 12 34 56 78", true)
-      + champ("courriel", "Votre courriel", "email", "vous@exemple.fr", true)
-      + champ("adresse", "Adresse du bien", "text",
-              "Numéro, rue, code postal et commune", true)
-      + champ("surface", "Surface approximative", "text", "en m² — une estimation suffit", false)
-      + champ("delai", "Vos délais", "text", "Compromis prévu, date de bail…", false)
-      + '<label class="simu__coche"><input type="checkbox" name="rappel" value="oui">'
-      + "<span>Je préfère être rappelé plutôt que de recevoir un courriel</span></label>"
-      + '<div class="simu__creneau" hidden>'
-      + champ("creneau", "Quand vous joindre", "text",
-              "Matin, après-midi, un jour précis…", false)
-      + "</div>"
-      + '<button type="submit" class="btn simu__envoi">Recevoir mon devis</button>'
-      + '<p class="simu__rgpd">Ces informations ne servent qu\'à établir votre devis. '
-      + 'Elles ne sont ni vendues ni cédées — voir notre '
-      + '<a href="/confidentialite/">politique de confidentialité</a>.</p>'
-      + '<div class="simu__etat" role="status"></div>'
-      + "</form>"
-      + '<p class="simu__ou">Ou appelez-nous directement : '
-      + '<a href="tel:' + (CFG.tel_raw || "") + '">' + (CFG.tel || "") + "</a></p>"
-      + "</div>"
+    h += '<div class="simu__place"></div>'
       + '<button type="button" class="simu__retour">← Reprendre le questionnaire</button>';
 
     racine.innerHTML = h;
@@ -377,16 +347,24 @@
       idx = 0;
       rendreQuestion();
     });
-    brancherFormulaire(r);
-  }
 
-  function champ(nom, libelle, type, aide, requis) {
-    return '<label class="simu__champ"><span class="simu__lab">' + libelle
-      + (requis ? '<i aria-hidden="true">*</i>' : "") + "</span>"
-      + '<input type="' + type + '" name="' + nom + '" placeholder="' + aide + '"'
-      + (requis ? " required" : "") + " autocomplete=\""
-      + ({ nom: "name", tel: "tel", courriel: "email", adresse: "street-address" }[nom] || "off")
-      + '"></label>';
+    /* La demande de devis vient d'un module partagé avec les autres
+       simulateurs du site : deux implémentations du même formulaire finiraient
+       par diverger, et c'est toujours celle qu'on oublie qui casse.
+
+       Elle s'ajoute APRÈS le résultat : le visiteur a sa réponse complète
+       sans rien avoir donné, puis il choisit. */
+    if (window.DGLM_RAPPEL) {
+      window.DGLM_RAPPEL(racine.querySelector(".simu__place"), {
+        objet: "Demande de devis — "
+          + (etat.operation === "vente" ? "vente" : "location") + " — particulier",
+        titre: "Nous établissons ce dossier.",
+        phrase: "Il nous manque trois choses pour vous répondre avec un prix ferme : "
+          + "où se trouve le bien, sa surface, et comment vous joindre. Le reste, "
+          + "vous venez de nous le dire.",
+        recap: recap(r),
+      });
+    }
   }
 
   /* Le récapitulatif envoyé avec la demande : les six réponses, puis la liste
@@ -425,95 +403,6 @@
     return lignes.join("\n");
   }
 
-  function brancherFormulaire(r) {
-    var form = racine.querySelector(".simu__form");
-    if (!form) return;
-    var etatBox = form.querySelector(".simu__etat");
-    var bouton = form.querySelector(".simu__envoi");
-
-    /* Le champ de créneau n'apparaît que si le visiteur demande un rappel :
-       un formulaire ne doit jamais réclamer ce dont il n'a pas l'usage. */
-    var coche = form.querySelector('input[name="rappel"]');
-    var creneau = form.querySelector(".simu__creneau");
-    if (coche && creneau) {
-      coche.addEventListener("change", function () {
-        creneau.hidden = !coche.checked;
-        if (coche.checked) {
-          var i = creneau.querySelector("input");
-          if (i) i.focus();
-        }
-      });
-    }
-
-    form.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var manquants = [];
-      Array.prototype.forEach.call(form.querySelectorAll("input[required]"), function (i) {
-        i.classList.toggle("simu--vide", !i.value.trim());
-        if (!i.value.trim()) manquants.push(i.name);
-      });
-      if (manquants.length) {
-        etatBox.className = "simu__etat simu__etat--warn";
-        etatBox.textContent = "Il manque : " + manquants.join(", ") + ".";
-        return;
-      }
-
-      bouton.disabled = true;
-      bouton.textContent = "Envoi en cours…";
-      etatBox.className = "simu__etat";
-      etatBox.textContent = "";
-
-      var d = new FormData();
-      d.append("_subject", "Demande de devis — "
-        + (etat.operation === "vente" ? "vente" : "location") + " — particulier");
-      d.append("_captcha", "false");
-      d.append("_template", "table");
-      Array.prototype.forEach.call(form.querySelectorAll("input"), function (i) {
-        if (i.type === "checkbox") {
-          if (i.checked) d.append("rappel_souhaite", "OUI — le client préfère être rappelé");
-          return;
-        }
-        if (i.value.trim()) d.append(i.name, i.value.trim());
-      });
-      d.append("_replyto", (form.elements.courriel || {}).value || "");
-      d.append("recapitulatif", recap(r));
-
-      if (!CFG.endpoint) return replier(r, form, etatBox, bouton);
-
-      fetch(CFG.endpoint, { method: "POST", headers: { Accept: "application/json" }, body: d })
-        .then(function (x) { return x.json(); })
-        .then(function (x) {
-          if (String(x.success) !== "true") throw new Error(x.message || "échec");
-          form.innerHTML = '<p class="simu__ok"><b>Votre demande est partie.</b><br>'
-            + "Nous vous répondons avec un prix ferme, dans la journée ouvrée. "
-            + "Si c'est urgent, appelez le "
-            + '<a href="tel:' + (CFG.tel_raw || "") + '">' + (CFG.tel || "") + "</a>.</p>";
-        })
-        .catch(function () { replier(r, form, etatBox, bouton); });
-    });
-  }
-
-  /* Si l'envoi échoue, la demande ne doit pas se perdre en silence : on donne
-     le téléphone, l'adresse, et le récapitulatif prêt à copier. */
-  function replier(r, form, etatBox, bouton) {
-    bouton.disabled = false;
-    bouton.textContent = "Recevoir mon devis";
-    var texte = recap(r) + "\n\nCOORDONNÉES\n\n"
-      + Array.prototype.map.call(form.querySelectorAll("input"), function (i) {
-        return "· " + i.name + " : " + i.value.trim();
-      }).join("\n");
-    etatBox.className = "simu__etat simu__etat--warn";
-    etatBox.innerHTML = "<b>L'envoi n'a pas abouti.</b> Votre demande n'est pas perdue : "
-      + 'appelez le <a href="tel:' + (CFG.tel_raw || "") + '">' + (CFG.tel || "") + "</a>, "
-      + 'ou écrivez à <a href="mailto:' + (CFG.email || "") + '">' + (CFG.email || "") + "</a>. "
-      + '<button type="button" class="simu__copier">Copier ma demande</button>';
-    var c = etatBox.querySelector(".simu__copier");
-    if (c) c.addEventListener("click", function () {
-      navigator.clipboard.writeText(texte).then(function () {
-        c.textContent = "Demande copiée ✓";
-      }, function () { c.textContent = "Copie impossible"; });
-    });
-  }
 
   rendreQuestion();
 })();

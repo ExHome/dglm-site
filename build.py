@@ -178,6 +178,23 @@ def esc(s):
     return html.escape(typo_fr(s), quote=True)
 
 
+def cfg_rappel():
+    """Les coordonnées et l'adresse d'envoi du formulaire de fin de simulateur.
+
+    Les simulateurs du site donnaient leur réponse puis laissaient le visiteur
+    se débrouiller : celui des aides et celui des validités n'offraient aucune
+    sortie — pas un bouton, pas un lien. Quelqu'un qui venait de constater
+    qu'il a une obligation à remplir n'avait aucun moyen de nous le dire.
+
+    Le formulaire est partagé (build/rappel.js) et s'ajoute APRÈS le résultat :
+    le visiteur obtient toujours sa réponse complète d'abord, sans rien donner.
+    """
+    return ('<script>window.DGLM_PART={"tel":"' + E["tel"] + '",'
+            '"tel_raw":"' + E["tel_raw"] + '","email":"' + E["email"] + '",'
+            '"endpoint":"' + FORMULAIRE["endpoint"] + '"};</script>'
+            '<script src="/assets/rappel.js?v=' + CSS_V + '" defer></script>')
+
+
 def org_schema():
     return {
         "@type": "ProfessionalService",
@@ -1177,6 +1194,10 @@ Le résultat s'affiche immédiatement, ici même.</p></div>
           desc="Vérifiez en 6 questions les obligations de votre copropriété : PPPT, "
                "DTG, DPE collectif, repérage amiante. Gratuit, sans inscription.",
           body=body,
+          # Le formulaire de fin de simulateur : le visiteur qui vient de
+          # découvrir ses obligations doit pouvoir nous le dire sans quitter
+          # la page. Il s'ajoute après le résultat, jamais à sa place.
+          head_extra=cfg_rappel(),
           schema=jsonld(org_schema(), breadcrumb(trail), faq_schema(SIM_FAQ),
                         {"@type": "WebApplication", "name": "Simulateur d'obligations de copropriété",
                          "url": DOM + p, "applicationCategory": "BusinessApplication",
@@ -3899,7 +3920,10 @@ d'échéance lointaine.</p></div>
 </div></div></section>
 {cta()}"""
 
-    extra = '<script src="/assets/validite.js" defer></script>'
+    # Le formulaire de fin de simulateur est partagé : il faut lui donner les
+    # coordonnées et l'adresse d'envoi, et le charger avant celui qui l'appelle.
+    extra = (cfg_rappel()
+             + '<script src="/assets/validite.js" defer></script>')
     shell(path=p, title="Vos diagnostics sont-ils encore valables ? — DGLM",
           desc=desc_courte("Cochez vos diagnostics, indiquez leurs dates : l'outil dit "
                            "lesquels tiennent encore, lesquels expirent et lesquels sont "
@@ -4331,7 +4355,10 @@ Le détail se copie tel quel dans une étude ou un procès-verbal.</p>
 </div></section>
 {cta()}"""
 
-    extra = '<script src="/assets/aides.js" defer></script>'
+    # Le formulaire de fin de simulateur est partagé : il faut lui donner les
+    # coordonnées et l'adresse d'envoi, et le charger avant celui qui l'appelle.
+    extra = (cfg_rappel()
+             + '<script src="/assets/aides.js" defer></script>')
     shell(path=p, title="Aides financières en copropriété : le simulateur — DGLM",
           desc=desc_courte("Simulateur des aides en copropriété après un DTG, PPPT ou audit : "
                            "taux, plafonds, primes, reste à charge, et le guide des dispositifs."),
@@ -4667,10 +4694,11 @@ immeuble.</p>
           desc="Six questions pour savoir quels documents composent votre "
                "dossier, et pourquoi chacun est dû.",
           body=body, schema="", robots="noindex,follow", chapitres=False,
-          head_extra=('<script>window.DGLM_PART={"tel":"'+E["tel"]+'",'
-                      '"tel_raw":"'+E["tel_raw"]+'","email":"'+E["email"]+'",'
-                      '"endpoint":"'+FORMULAIRE["endpoint"]+'"};</script>'
-                      '<script src="/assets/particuliers.js?v='+CSS_V+'" defer></script>'))
+          # cfg_rappel() apporte les coordonnées et le formulaire partagé, que
+          # le simulateur appelle après avoir affiché son résultat.
+          head_extra=(cfg_rappel()
+                      + '<script src="/assets/particuliers.js?v=' + CSS_V
+                      + '" defer></script>'))
 
 
 # ------------------------------------------------------------------ build
@@ -4854,7 +4882,7 @@ def main():
     # invisible derrière leur cache.
     globals()["CSS_V"] = hashlib.md5(
         open(os.path.join(src, "style.css"), "rb").read()).hexdigest()[:8]
-    for js in ("simulateur.js", "particuliers.js", "devis.js", "aides.js", "recherche.js", "validite.js"):
+    for js in ("simulateur.js", "rappel.js", "particuliers.js", "devis.js", "aides.js", "recherche.js", "validite.js"):
         if os.path.exists(os.path.join(src, js)):
             shutil.copy(os.path.join(src, js), os.path.join(OUT, "assets", js))
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),

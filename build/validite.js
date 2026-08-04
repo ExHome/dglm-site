@@ -210,6 +210,18 @@
     sortie.querySelector(".simu-corps").innerHTML = h;
     sortie.hidden = false;
 
+    /* Ce simulateur n'offrait aucune sortie : celui qui venait de constater
+       qu'un diagnostic est périmé repartait sans pouvoir le faire refaire. */
+    if (window.DGLM_RAPPEL && !sortie.querySelector('.simu__form')) {
+      window.DGLM_RAPPEL(sortie.querySelector('.simu-corps') || sortie, {
+        objet: "Demande de devis — simulateur de validité",
+        titre: "Nous refaisons ce qui doit l'être.",
+        phrase: "Dites-nous où se trouve le bien et vos délais : nous vous répondons avec un prix ferme pour les documents à renouveler.",
+        recap: "ÉTAT DES DIAGNOSTICS\n\n" + titre
+      });
+    }
+
+
     if (synthese) synthese.textContent = titre + ". " +
       (nb.perime ? nb.perime + " à refaire. " : "") +
       (nb.bientot ? nb.bientot + " à renouveler bientôt. " : "") +

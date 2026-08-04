@@ -204,6 +204,21 @@
       'd’assemblée. Aucune donnée n’est transmise ni enregistrée.</p>';
 
     var btn = document.getElementById("copier");
+
+    /* Le visiteur vient de découvrir ses obligations : il faut qu'il puisse
+       nous le dire sans quitter la page. Le formulaire s'ajoute après le
+       résultat, jamais à sa place. */
+    if (window.DGLM_RAPPEL && !out.querySelector('.simu__form')) {
+      window.DGLM_RAPPEL(out, {
+        objet: "Demande de devis — simulateur d'obligations de copropriété",
+        titre: "Nous établissons ces documents.",
+        phrase: "Dites-nous où se trouve l'immeuble et vos délais — prochaine assemblée générale, échéance de travaux : nous répondons avec un prix ferme.",
+        recap: "SITUATION DE LA COPROPRIÉTÉ\n\n· " + lots + " lots\n· achevée en "
+               + annee + "\n\nCE QUI S'APPLIQUE\n\n"
+               + aFaire.map(function (x, i) { return (i + 1) + ". " + x; }).join("\n")
+      });
+    }
+
     if (btn) {
       btn.addEventListener("click", function () {
         var t = "Copropriété — " + lots + " lots, achevée en " + annee + "\n\n" +

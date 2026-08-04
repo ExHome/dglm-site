@@ -199,6 +199,20 @@
     zone.querySelector(".simu-corps").innerHTML = h;
     zone.hidden = false;
 
+    /* Ce simulateur n'offrait aucune sortie : celui qui venait d'apprendre
+       à combien il a droit repartait sans pouvoir nous le dire. */
+    if (window.DGLM_RAPPEL && !zone.querySelector('.simu__form')) {
+      window.DGLM_RAPPEL(zone.querySelector('.simu-corps') || zone, {
+        objet: "Demande de devis — simulateur d'aides",
+        titre: "Nous vous accompagnons sur ce dossier.",
+        phrase: "Les aides supposent des diagnostics et un dossier tenu. Dites-nous où se trouve le bien et vos délais : nous vous répondons avec un prix ferme.",
+        recap: "SIMULATION D'AIDES\n\n" + (zone.querySelector(".simu-corps")
+               ? zone.querySelector(".simu-corps").textContent
+                 .replace(/\s+/g, " ").slice(0, 900) : "")
+      });
+    }
+
+
     /* Un lecteur d'écran ne perçoit ni l'apparition du bloc ni le défilement :
        on lui annonce la synthèse en une phrase — pas le tableau entier. */
     var dit = document.getElementById("aides-synthese");
