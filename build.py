@@ -1458,6 +1458,24 @@ Bordeaux Métropole sous 72 heures.</p>
 
 
 # ------------------------------------------------------------------ zones
+def liens_missions(c):
+    """Les quatre missions d'une commune, liées seulement si elles comptent.
+
+    Cette page portait 350 liens, dont 115 vers des pages que le site
+    interdit lui-même d'indexer. Une page qui distribue son autorité sur 350
+    destinations n'en donne à aucune, et un lien vers une page fermée aux
+    moteurs ne rapporte rien du tout.
+
+    Les pages hors métropole ne disparaissent pas : elles restent liées
+    depuis les hubs de mission, elles ne deviennent donc pas orphelines.
+    """
+    if c["slug"] not in METRO_SLUGS:
+        return ("<li class=\"mesh--muet\">" +
+                esc(" · ".join(s["sigle"] for s in SERVICES)) + "</li>")
+    return "".join(
+        '<li><a href="' + SILO + '/' + s['slug'] + '/' + c['slug'] + '/">'
+        + s['sigle'] + '</a></li>' for s in SERVICES)
+
 def lien_commune(c):
     """Le nom de la commune, lié à sa page quand elle en a une.
 
@@ -1478,7 +1496,7 @@ def page_zones():
     lignes = "".join(f"""<div class="card"><span class="sigle">{c['cp']}</span>
 <h3>{lien_commune(c)}</h3><p>{esc(c['parc'][:180])}…</p>
 <ul class="mesh" style="margin-top:.6rem">
-{"".join(f'<li><a href="{SILO}/{s["slug"]}/{c["slug"]}/">{s["sigle"]}</a></li>' for s in SERVICES)}
+{liens_missions(c)}
 </ul></div>""" for c in COMMUNES)
 
     body = f"""{crumb_html(trail)}

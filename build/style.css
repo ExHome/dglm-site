@@ -1406,3 +1406,8 @@ details summary{font-size:1.08rem}
   color:var(--or-clair)}
 .simu__fin p{color:rgba(250,248,243,.9)}
 .simu__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.2rem 0 0}
+
+/* Les communes hors métropole citent leurs missions sans les lier : leurs
+   pages existent mais ne sont pas indexables, un lien n'y mènerait à rien. */
+.mesh--muet{color:var(--gris);font-size:.82rem;letter-spacing:.04em;
+  list-style:none;padding:0}
