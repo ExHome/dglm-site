@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Générateur statique — pôle copropriété & travaux de DGLM Expertises."""
-import json, os, shutil, sys, html, datetime, locale, hashlib
+import glob, json, os, shutil, sys, html, datetime, locale, hashlib
 
 # Empreinte de l'index de recherche, fixée par page_recherche() dès le début
 # du build : elle sert de numéro de version dans l'URL du fichier.
@@ -133,6 +133,11 @@ E.update(MARQUE)
 E["nom"] = MARQUE["nom_long"]
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site")
+# Mémoire des empreintes de pages : elle permet de dire quelle page a
+# RÉELLEMENT changé, plutôt que d'annoncer une modification quotidienne sur
+# l'ensemble du site. Versionnée dans le dépôt, comme .seo-history.json.
+HISTO_DATES = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           ".dates-pages.json")
 DOM = E["domaine"]
 # Date de la dernière évolution structurelle du site. Le sitemap ne doit PAS
 # annoncer une modification quotidienne : un lastmod qui bouge alors que rien
@@ -4650,6 +4655,76 @@ immeuble.</p>
 
 
 # ------------------------------------------------------------------ build
+def dates_reelles():
+    """Rend à chaque page sa vraie date de dernière modification.
+
+    Le site annonçait une modification du jour sur ses 366 pages, tous les
+    matins, parce que le cron reconstruit tout. Le plan du site figeait pendant
+    ce temps 216 entrées sur une date unique. Les deux signaux étaient faux, et
+    ils se contredisaient.
+
+    On calcule ici l'empreinte de chaque page produite, après neutralisation de
+    ce qui varie mécaniquement d'un build à l'autre : les dates elles-mêmes et
+    les numéros de version des fichiers statiques. Une empreinte inchangée
+    signifie une page inchangée : elle garde sa date mémorisée.
+
+    Retourne {url: date ISO}, et réécrit les dates dans les fichiers produits.
+    """
+    volatils = [
+        (r'"dateModified"\s*:\s*"[0-9-]+"', '"dateModified":"~"'),
+        (r'\?v=[0-9a-f]{6,}', '?v=~'),
+        (r'"datePublished"\s*:\s*"[0-9-]+"', '"datePublished":"~"'),
+        (r'<time[^>]*datetime="[0-9-]+"', '<time datetime="~"'),
+    ]
+
+    memoire = {}
+    if os.path.exists(HISTO_DATES):
+        try:
+            memoire = json.load(open(HISTO_DATES, encoding="utf-8"))
+        except (ValueError, OSError):
+            memoire = {}
+    premier = not memoire
+
+    dates, empreintes = {}, {}
+    for f in glob.glob(os.path.join(OUT, "**", "index.html"), recursive=True):
+        rel = os.path.relpath(f, OUT).replace(os.sep, "/")
+        url = "/" + rel[:-len("index.html")]
+        url = url if url.endswith("/") else url + "/"
+        h = open(f, encoding="utf-8").read()
+
+        neutre = h
+        for motif, remplace in volatils:
+            neutre = _re.sub(motif, remplace, neutre)
+        emp = hashlib.md5(neutre.encode("utf-8")).hexdigest()[:16]
+
+        ancien = memoire.get(url)
+        if ancien and ancien.get("empreinte") == emp:
+            d = ancien.get("date", ISO)          # rien n'a bougé
+        elif premier:
+            # Premier passage : on ne prétend pas que tout vient de changer.
+            # On reprend la date déjà déclarée dans la page, quand elle existe.
+            m = _re.search(r'"dateModified"\s*:\s*"([0-9-]{10})"', h)
+            d = m.group(1) if m else ISO
+        else:
+            d = ISO                              # la page a réellement changé
+
+        dates[url] = d
+        empreintes[url] = {"empreinte": emp, "date": d}
+
+        # On réécrit la date dans le fichier produit.
+        if d != ISO:
+            h2 = h.replace('"dateModified": "' + ISO + '"', '"dateModified": "' + d + '"')
+            h2 = h2.replace('"dateModified":"' + ISO + '"', '"dateModified":"' + d + '"')
+            if h2 != h:
+                open(f, "w", encoding="utf-8").write(h2)
+
+    json.dump(empreintes, open(HISTO_DATES, "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1, sort_keys=True)
+    changees = sum(1 for u in dates if dates[u] == ISO)
+    print(f"    dates réelles : {changees} page(s) modifiée(s) sur {len(dates)}")
+    return dates
+
+
 def flux_rss(contenus):
     """Le flux de syndication de la bibliothèque.
 
@@ -4823,6 +4898,7 @@ def main():
     page_confidentialite()
     page_avis()
     page_404()
+    dates_reelles()
     sitemap()
     flux_rss(contenus)
     ecrire_llms(contenus)
