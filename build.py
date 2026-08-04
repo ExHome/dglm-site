@@ -1673,9 +1673,14 @@ par le formulaire ne servent qu'à répondre à votre demande et à établir un 
 ne sont ni vendues ni cédées, et vous pouvez à tout moment en demander l'accès, la
 rectification ou la suppression en écrivant à {E['email']}.</p>
 </div></section>"""
+    # La page était soumise au plan du site ET interdite d'indexation : la
+    # console de recherche remonte cela comme une erreur permanente. Des
+    # mentions légales n'ont aucune raison d'être cachées — elles participent
+    # au contraire de la confiance qu'un moteur accorde à un site.
     shell(path=p, title=f"Mentions légales — {E['nom']}",
-          desc="Mentions légales de DGLM Expertises.", body=body,
-          schema=jsonld(org_schema()), robots="noindex,follow", chapitres=False)
+          desc="Mentions légales de DGLM Expertises : éditeur, hébergeur, "
+               "certifications, assurance et traitement des données.", body=body,
+          schema=jsonld(org_schema()), chapitres=False)
     URLS.append((p, "0.3", "yearly", MAJ_STRUCTURE))
 
 
@@ -4704,7 +4709,7 @@ def sitemap():
         # Google vérifie l'identité de l'éditeur — le premier signal de confiance
         # attendu d'un site engageant la responsabilité de ses lecteurs.
         f"User-agent: *\nAllow: /\n"
-        f"Disallow: /_veille/\nDisallow: /_source/\n"
+        f"Disallow: /_veille/\nDisallow: /_source/\nDisallow: /assets/recherche.json\n"
         f"\nSitemap: {DOM}/sitemap.xml\n")
 
 
