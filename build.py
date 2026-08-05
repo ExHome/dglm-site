@@ -1080,7 +1080,18 @@ Nous prétendons dire précisément ce que nous avons vu, et ce qu'il reste à v
           schema=jsonld(org_schema(),
                         {"@type": "WebSite", "@id": DOM + "/#site", "url": DOM + "/",
                          "name": E["nom"], "inLanguage": "fr-FR",
-                         "publisher": {"@id": DOM + "/#organisation"}}), chapitres=False)
+                         "publisher": {"@id": DOM + "/#organisation"},
+                         # Le site a une recherche interne, qui accepte ?q=.
+                         # La déclarer permet aux moteurs d'afficher une boîte
+                         # de recherche du site directement dans leurs
+                         # résultats : le visiteur cherche « DGLM DTG » et
+                         # atterrit sur la page, pas sur l'accueil.
+                         "potentialAction": {
+                             "@type": "SearchAction",
+                             "target": {"@type": "EntryPoint",
+                                        "urlTemplate": DOM + "/recherche/?q={search_term_string}"},
+                             "query-input": "required name=search_term_string"}},
+                        ), chapitres=False)
     URLS.append(("/", "1.0", "weekly", MAJ_STRUCTURE))
 
 
