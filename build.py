@@ -3519,6 +3519,82 @@ quand même : on fait avec ce que vous avez.</p>
     URLS.append((p, "0.7", "monthly", MAJ_STRUCTURE))
 
 
+def page_preetude():
+    """La pré-étude : le formulaire qu'on envoie par lien à un syndic.
+
+    Le devis d'une mission collective se joue sur des informations que nous
+    n'avons pas — âge de l'immeuble, nombre de lots, existence d'un dossier
+    technique amiante, nature exacte des travaux. Sans elles, il faut appeler,
+    relancer, attendre, et le devis part trois jours plus tard.
+
+    Cette page se transmet par un lien, et le lien peut arriver pré-rempli :
+        /pre-etude/?m=dtg&ref=Résidence%20Les%20Tilleuls&c=Mme%20Martin
+    Le destinataire trouve la mission et sa référence déjà posées, et ne
+    complète que ce que lui seul sait. Le composeur de lien est sur
+    /pre-etude/lien/.
+    """
+    p = "/pre-etude/"
+    trail = [("Accueil", "/"), ("Pré-étude", p)]
+    body = f"""{crumb_html(trail)}
+<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Sans inscription · 3 minutes</p>
+<h1>Pré-étude de votre mission</h1>
+<p class="lede">Quelques questions pour que nous puissions vous répondre avec un prix
+ferme, sans échange préalable. Ce que vous ne savez pas, laissez-le vide : nous
+le verrons ensemble.</p></div></section>
+
+<section class="band"><div class="wrap">
+<div id="preetude" class="pre"></div>
+</div></section>
+
+<section class="band band--pale"><div class="wrap prose narrow">
+<h2>Pourquoi ces questions</h2>
+<p>Un devis de diagnostic collectif ne se chiffre pas au mètre carré. L'âge du
+bâti commande l'étendue du repérage, le nombre de lots celle de la visite, et
+l'existence d'un dossier technique amiante peut diviser le temps passé sur
+place. Ces quelques réponses valent une visite préalable.</p>
+<p>Vous pouvez aussi <a href="/aide-au-devis/">consulter la liste des documents
+utiles</a> avant de commencer.</p>
+</div></section>
+{cta()}"""
+    shell(path=p,
+          title="Pré-étude de votre mission — DGLM Expertises",
+          desc=desc_courte("Quelques questions pour recevoir un devis ferme de diagnostic "
+                           "de copropriété, sans échange préalable : DTG, PPPT, repérage "
+                           "amiante avant travaux, DPE collectif."),
+          body=body,
+          head_extra=cfg_rappel()
+                     + f'<script src="/assets/preetude.js?v={CSS_V}" defer></script>',
+          schema=jsonld(org_schema(), breadcrumb(trail),
+                        {"@type": "ContactPage", "url": DOM + p,
+                         "name": "Pré-étude de mission"}))
+    URLS.append((p, "0.8", "monthly", MAJ_STRUCTURE))
+
+
+def page_composeur():
+    """L'outil interne : composer le lien de pré-étude à envoyer.
+
+    Page volontairement non indexée et absente du plan du site : elle ne
+    s'adresse pas aux visiteurs mais à nous. On y choisit la mission, on tape
+    la référence de l'affaire, et on obtient le lien à coller dans un courriel
+    — avec un modèle de message prêt à l'emploi.
+    """
+    p = "/pre-etude/lien/"
+    body = f"""<section class="hero hero--page"><div class="wrap">
+<p class="eyebrow eyebrow--pale">Outil interne</p>
+<h1>Composer un lien de pré-étude</h1>
+<p class="lede">Choisissez la mission, nommez l'affaire : vous obtenez le lien à
+envoyer, et le message qui va avec.</p></div></section>
+
+<section class="band"><div class="wrap">
+<div id="composeur" class="pre"></div>
+</div></section>"""
+    shell(path=p, title="Composer un lien de pré-étude — interne",
+          desc="Outil interne de composition de lien.",
+          body=body, robots="noindex,nofollow", chapitres=False,
+          head_extra=f'<script src="/assets/composeur.js?v={CSS_V}" defer></script>')
+
+
 # --------------------------------------------------- portes d'entrée dédiées
 # L'audit UX a montré deux visiteurs mal accueillis : le conseiller syndical
 # bénévole, envoyé sur la page écrite pour les syndics professionnels, et le
@@ -4893,7 +4969,7 @@ def main():
     # invisible derrière leur cache.
     globals()["CSS_V"] = hashlib.md5(
         open(os.path.join(src, "style.css"), "rb").read()).hexdigest()[:8]
-    for js in ("simulateur.js", "rappel.js", "particuliers.js", "devis.js", "aides.js", "recherche.js", "validite.js"):
+    for js in ("simulateur.js", "rappel.js", "preetude.js", "composeur.js", "particuliers.js", "devis.js", "aides.js", "recherche.js", "validite.js"):
         if os.path.exists(os.path.join(src, js)):
             shutil.copy(os.path.join(src, js), os.path.join(OUT, "assets", js))
     shutil.copytree(os.path.join(src, "assets"), os.path.join(OUT, "assets"),
@@ -4911,6 +4987,8 @@ def main():
     page_tableau()
     page_pack()
     page_aide_devis()
+    page_preetude()
+    page_composeur()
     page_aides()
     page_conseil_syndical()
     page_particulier_travaux()
