@@ -88,11 +88,31 @@ jobs:
           echo "$(wc -l < urls.txt) adresses au plan du site"
           # par lots de 100 : une soumission unique de 249 adresses est refusée
           split -l 100 urls.txt lot_
-          for f in lot_*; do
-            LIST=$(sed 's/.*/"&"/' "$f" | paste -sd,)
-            curl -s -X POST "https://api.indexnow.org/indexnow" \
-              -H "Content-Type: application/json; charset=utf-8" \
-              --data "{\"host\":\"$HOTE\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOTE/${KEY}.txt\",\"urlList\":[$LIST]}" \
-              -o /dev/null -w "  $f : HTTP %{http_code}\n" || true
-            sleep 20
+          # Deux points d'entrée, et ce n'est pas une redondance inutile :
+          # api.indexnow.org relaie vers Bing, qui refuse tant que le site
+          # n'est pas validé dans ses outils pour webmasters (403
+          # UserForbiddedToAccessSite). Yandex, lui, accepte — et le protocole
+          # IndexNow est partagé : ce qu'un moteur reçoit, il le redistribue
+          # aux autres participants. Tant que Bing refuse, Yandex est notre
+          # seule porte d'entrée, et elle fonctionne.
+          ACCEPTES=0
+          for POINT in "yandex.com" "api.indexnow.org"; do
+            echo "— $POINT"
+            for f in lot_*; do
+              LIST=$(sed 's/.*/"&"/' "$f" | paste -sd,)
+              CODE=$(curl -s -X POST "https://$POINT/indexnow" \
+                -H "Content-Type: application/json; charset=utf-8" \
+                --data "{\"host\":\"$HOTE\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOTE/${KEY}.txt\",\"urlList\":[$LIST]}" \
+                -o /dev/null -w "%{http_code}") || CODE=0
+              echo "  $f : HTTP $CODE"
+              case "$CODE" in 200|202) ACCEPTES=$((ACCEPTES+1));; esac
+              sleep 20
+            done
           done
+          # Un refus des DEUX points d'entrée est une panne silencieuse de
+          # l'indexation : le site publie et personne ne le sait. On le dit.
+          if [ "$ACCEPTES" -eq 0 ]; then
+            echo "::warning ::Aucun moteur n'a accepté la soumission. Les nouvelles pages ne seront découvertes qu'au prochain passage naturel du robot."
+          else
+            echo "$ACCEPTES lot(s) acceptés."
+          fi
